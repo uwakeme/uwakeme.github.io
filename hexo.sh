@@ -1,3 +1,12 @@
 hexo clean
+echo "------------"
+echo "hexo清除旧数据"
+echo "------------"
 hexo generate
+echo "------------"
+echo "hexo生成新数据"
+echo "------------"
 hexo deploy
+echo "------------"
+echo "hexo部署新数据"
+echo "------------"
