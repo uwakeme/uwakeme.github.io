@@ -3,7 +3,6 @@ title: MobaXtem
 date: 2024/8/28
 tags:
 - shell
-- ssh
 - Mobaxtem
 - linux
 categories: 工作经验
