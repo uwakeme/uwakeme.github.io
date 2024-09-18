@@ -21,35 +21,26 @@
   <meta name="author" content="Wake">
   <meta name="keywords" content="">
   
-    <meta name="description" content="搭建个人博客网站一、准备环境1、安装node2、安装npm3、安装hexo npm install -g hexo hexo -v 123456789101112131415![image-20240826165435565](..&#x2F;images&#x2F;image-20240826165435565.png)## 二、Git仓库准备### 1、新建git仓库### 2、本地同步git仓库+ 在一个空白文">
+    <meta name="description" content="【全局指令】去除输入框el-input的前后空格一、安装全局指令 可以在src&#x2F;directives中创建一个JS文件，我创建的文件名叫input_trim.js，用于写自定义指令的代码。  然后在文件中写入以下代码： 123456789101112131415161718192021222324252627282930export default &#123;  install (Vue) &amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建个人Hexo博客网站">
-<meta property="og:url" content="https://uwakeme.top/2024/08/28/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/index.html">
+<meta property="og:title" content="【全局指令】去除输入框el-input的前后空格">
+<meta property="og:url" content="https://uwakeme.top/2024/09/18/%E3%80%90%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E3%80%91%E5%8E%BB%E9%99%A4%E8%BE%93%E5%85%A5%E6%A1%86el-input%E7%9A%84%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/index.html">
 <meta property="og:site_name" content="Uwakeme">
-<meta property="og:description" content="搭建个人博客网站一、准备环境1、安装node2、安装npm3、安装hexo npm install -g hexo hexo -v 123456789101112131415![image-20240826165435565](..&#x2F;images&#x2F;image-20240826165435565.png)## 二、Git仓库准备### 1、新建git仓库### 2、本地同步git仓库+ 在一个空白文">
+<meta property="og:description" content="【全局指令】去除输入框el-input的前后空格一、安装全局指令 可以在src&#x2F;directives中创建一个JS文件，我创建的文件名叫input_trim.js，用于写自定义指令的代码。  然后在文件中写入以下代码： 123456789101112131415161718192021222324252627282930export default &#123;  install (Vue) &amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826165628344.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826165852596.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826170201662.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826170444846.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826170910180.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826172804368.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826173132910.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826173230487.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826173333044.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240826173651351.png">
-<meta property="article:published_time" content="2024-08-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-30T03:24:15.745Z">
+<meta property="article:published_time" content="2024-09-18T10:01:57.000Z">
+<meta property="article:modified_time" content="2024-09-18T10:01:57.809Z">
 <meta property="article:author" content="Wake">
-<meta property="article:tag" content="博客">
+<meta property="article:tag" content="VUE">
+<meta property="article:tag" content="全局指令">
+<meta property="article:tag" content="工作">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://uwakeme.top/images/image-20240826165628344.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>搭建个人Hexo博客网站 - Uwakeme</title>
+  <title>【全局指令】去除输入框el-input的前后空格 - Uwakeme</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -297,7 +288,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="搭建个人Hexo博客网站"></span>
+            <span id="subtitle" data-typed-text="【全局指令】去除输入框el-input的前后空格"></span>
           
         </div>
 
@@ -313,8 +304,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-28 00:00" pubdate>
-           2024 年 08 月 28 日 , 凌晨 12:00 , 星期三
+        <time datetime="2024-09-18 18:01" pubdate>
+           2024 年 09 月 18 日 , 晚上 06:01 , 星期三
         </time>
       </span>
     
@@ -326,7 +317,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          318 字
+          385 字
         
       </span>
     
@@ -338,7 +329,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -375,53 +366,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">搭建个人Hexo博客网站</h1>
+            <h1 id="seo-header">【全局指令】去除输入框el-input的前后空格</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="搭建个人博客网站"><a href="#搭建个人博客网站" class="headerlink" title="搭建个人博客网站"></a>搭建个人博客网站</h1><h2 id="一、准备环境"><a href="#一、准备环境" class="headerlink" title="一、准备环境"></a>一、准备环境</h2><h3 id="1、安装node"><a href="#1、安装node" class="headerlink" title="1、安装node"></a>1、安装node</h3><h3 id="2、安装npm"><a href="#2、安装npm" class="headerlink" title="2、安装npm"></a>2、安装npm</h3><h3 id="3、安装hexo"><a href="#3、安装hexo" class="headerlink" title="3、安装hexo"></a>3、安装hexo</h3><ul>
-<li><pre><code class="shell">npm install -g hexo
-hexo -v
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>![image<span class="hljs-number">-20240826165435565</span>](../images/image<span class="hljs-number">-20240826165435565.</span>png)<br><br><br><br>## 二、Git仓库准备<br><br>### <span class="hljs-number">1</span>、新建git仓库<br><br>### <span class="hljs-number">2</span>、本地同步git仓库<br><br>+ 在一个空白文件夹中，右键打开git bash，输入命令，将git仓库拉下来<br><br>  ```shell<br>  git clone ssh链接<br></code></pre></td></tr></table></figure>
-</code></pre>
+                <h1 id="【全局指令】去除输入框el-input的前后空格"><a href="#【全局指令】去除输入框el-input的前后空格" class="headerlink" title="【全局指令】去除输入框el-input的前后空格"></a>【全局指令】去除输入框el-input的前后空格</h1><h2 id="一、安装全局指令"><a href="#一、安装全局指令" class="headerlink" title="一、安装全局指令"></a>一、安装全局指令</h2><ul>
+<li><p>可以在<code>src/directives</code>中创建一个JS文件，我创建的文件名叫<code>input_trim.js</code>，用于写自定义指令的代码。</p>
+</li>
+<li><p>然后在文件中写入以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-title function_">install</span> (<span class="hljs-title class_">Vue</span>) &#123;<br>    <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&#x27;trim&#x27;</span>, &#123;<br>      <span class="hljs-title function_">inserted</span> (el, binding, vnode) &#123;<br>        <span class="hljs-comment">// 获取el-input的input元素</span><br>        <span class="hljs-keyword">const</span> input = el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input&#x27;</span>) || el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;textarea&#x27;</span>);<br>        <span class="hljs-comment">// 定义一个失焦事件处理函数</span><br>        <span class="hljs-keyword">const</span> handleBlur = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>          <span class="hljs-comment">// 更新v-model绑定的值</span><br>          vnode.<span class="hljs-property">componentInstance</span>.$emit(<span class="hljs-string">&#x27;input&#x27;</span>, vnode.<span class="hljs-property">componentInstance</span>.<span class="hljs-property">value</span>.<span class="hljs-title function_">trim</span>());<br>        &#125;;<br>        <span class="hljs-comment">// 给input元素添加失焦事件监听</span><br>        input.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;blur&#x27;</span>, handleBlur);<br>        <span class="hljs-comment">// 给el元素添加一个属性，保存事件处理函数的引用</span><br>        el.<span class="hljs-property">_handleBlur</span> = handleBlur;<br>      &#125;,<br>      <span class="hljs-comment">// 当指令所在组件被销毁时</span><br>      <span class="hljs-title function_">unbind</span> (el) &#123;<br>        <span class="hljs-comment">// 获取el-input的input元素</span><br>        <span class="hljs-keyword">const</span> input = el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input&#x27;</span>) || el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;textarea&#x27;</span>);<br>        <span class="hljs-comment">// 获取之前保存的事件处理函数的引用</span><br>        <span class="hljs-keyword">const</span> handleBlur = el.<span class="hljs-property">_handleBlur</span>;<br>        <span class="hljs-comment">// 移除input元素的失焦事件监听</span><br>        input.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&#x27;blur&#x27;</span>, handleBlur);<br>        <span class="hljs-comment">// 删除el元素的属性</span><br>        el.<span class="hljs-property">_handleBlur</span> = <span class="hljs-literal">null</span>;<br>      &#125;<br>    &#125;);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>然后在<code>main.js</code>中引入该文件，并进行注册（只要最后可以注册到vue即可）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 去除输入框空格</span><br><span class="hljs-keyword">import</span> input_trim <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/directives/input_trim&#x27;</span>;<br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(input_trim);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="二、引入指令，实现效果"><a href="#二、引入指令，实现效果" class="headerlink" title="二、引入指令，实现效果"></a>二、引入指令，实现效果</h2><ul>
+<li><p>注册全局指令后，在VUE代码中直接使用该指令即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;el-input placeholder=&quot;请输入&quot; clearable v-model=&quot;inputData&quot; v-trim&gt;&lt;/el-input&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>效果：在输入框中输入值后，鼠标点击其他地方会触发blur，输入框自动去除前后空格</p>
 </li>
 </ul>
-<p><img src="/../images/image-20240826165628344.png" srcset="/img/loading.gif" lazyload alt="image-20240826165628344"></p>
-<p><img src="/../images/image-20240826165852596.png" srcset="/img/loading.gif" lazyload alt="image-20240826165852596"></p>
-<h2 id="三、Hexo博客搭建"><a href="#三、Hexo博客搭建" class="headerlink" title="三、Hexo博客搭建"></a>三、Hexo博客搭建</h2><h3 id="1、基础环境搭建"><a href="#1、基础环境搭建" class="headerlink" title="1、基础环境搭建"></a>1、基础环境搭建</h3><ul>
-<li><p>进入到刚拉下来的文件夹中，打开cmd</p>
-<p><img src="/../images/image-20240826170201662.png" srcset="/img/loading.gif" lazyload alt="image-20240826170201662"></p>
-</li>
-<li><p>初始化指令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo init myHexoBlob<br></code></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20240826170444846.png" srcset="/img/loading.gif" lazyload alt="image-20240826170444846"></p>
-<p>这样hexo的配置文件就初始化好了</p>
-</li>
-<li><p>然后重新用管理员运行cmd，并切换到hexo新生成的文件夹中，安装依赖</p>
-<p><img src="/../images/image-20240826170910180.png" srcset="/img/loading.gif" lazyload alt="image-20240826170910180"></p>
-</li>
-</ul>
-<h3 id="2、启动hexo"><a href="#2、启动hexo" class="headerlink" title="2、启动hexo"></a>2、启动hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">每次更改数据后都要执行下面三个命令</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">清除缓存文件</span><br>hexo clean<br><span class="hljs-meta prompt_"># </span><span class="language-bash">生成静态文件 可简写为 hexo g</span><br>hexo generate   <br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动服务器 可简写为 hexo s</span><br>hexo server<br><br></code></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20240826172804368.png" srcset="/img/loading.gif" lazyload alt="image-20240826172804368"></p>
-<h3 id="3、更换主题"><a href="#3、更换主题" class="headerlink" title="3、更换主题"></a>3、更换主题</h3><ul>
-<li><p>以管理员身份运行命令提示符，切换当前目录到 hexo项目 目录，运行命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save hexo-theme-fluid<br></code></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20240826173132910.png" srcset="/img/loading.gif" lazyload alt="image-20240826173132910"></p>
-</li>
-<li><p>修改hexo的配置文件</p>
-<p><img src="/../images/image-20240826173230487.png" srcset="/img/loading.gif" lazyload alt="image-20240826173230487"></p>
-<p><img src="/../images/image-20240826173333044.png" srcset="/img/loading.gif" lazyload alt="image-20240826173333044"></p>
-<p>在 myblog 目录下新建一个文件，命名为 <code>_config.fluid.yml</code> , 只要存在于 <code>_config.fluid.yml</code> 的配置都是高优先级，修改原 <code>_config.yml</code> 是无效的。以后我们就对 <code>_config.fluid.yml</code> 进行修改即可。</p>
-</li>
-<li><p>重新编译并重启项目即可</p>
-<p><img src="/../images/image-20240826173651351.png" srcset="/img/loading.gif" lazyload alt="image-20240826173651351"></p>
-</li>
-</ul>
-<h3 id="4、自定义配置"><a href="#4、自定义配置" class="headerlink" title="4、自定义配置"></a>4、自定义配置</h3>
                 
               </div>
             
@@ -439,7 +405,7 @@ hexo -v
     
       <span class="category-chain">
         
-  <a href="/categories/study/" class="category-chain-item">study</a>
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
   
   
 
@@ -454,7 +420,11 @@ hexo -v
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8D%9A%E5%AE%A2/" class="print-no-link">#博客</a>
+        <a href="/tags/VUE/" class="print-no-link">#VUE</a>
+      
+        <a href="/tags/%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4/" class="print-no-link">#全局指令</a>
+      
+        <a href="/tags/%E5%B7%A5%E4%BD%9C/" class="print-no-link">#工作</a>
       
     </div>
   
@@ -466,8 +436,8 @@ hexo -v
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>搭建个人Hexo博客网站</div>
-      <div>https://uwakeme.top/2024/08/28/搭建博客网站/</div>
+      <div>【全局指令】去除输入框el-input的前后空格</div>
+      <div>https://uwakeme.top/2024/09/18/【全局指令】去除输入框el-input的前后空格/</div>
     </div>
     <div class="license-meta">
       
@@ -479,7 +449,7 @@ hexo -v
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月28日</div>
+          <div>2024年9月18日</div>
         </div>
       
       
@@ -511,15 +481,15 @@ hexo -v
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/28/MobaXtem/" title="MobaXtem">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MobaXtem</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/08/29/%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/" title="网页悬浮窗口">
+                        <span class="hidden-mobile">网页悬浮窗口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
