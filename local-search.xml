@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>【存储过程】新增或更新数据</title>
+    <link href="/2024/11/11/%E3%80%90%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%91%E6%96%B0%E5%A2%9E%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/"/>
+    <url>/2024/11/11/%E3%80%90%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%91%E6%96%B0%E5%A2%9E%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/</url>
+    
+    <content type="html"><![CDATA[<h1 id="【存储过程】新增或更新数据"><a href="#【存储过程】新增或更新数据" class="headerlink" title="【存储过程】新增或更新数据"></a>【存储过程】新增或更新数据</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE DEFINER=`root`@`%` PROCEDURE `database`.`UpdateOrInsertReviseHistory`(<br>    IN p_file_number VARCHAR(255),<br>    IN p_version_id VARCHAR(255),<br>    IN p_effect_date DATETIME,<br>    IN p_revise_content TEXT<br>)<br>BEGIN<br>    -- 检查记录是否存在<br>    IF EXISTS (SELECT 1 FROM revise_history WHERE file_number = p_file_number AND version_id = p_version_id) THEN<br>        -- 如果存在则更新<br>        IF p_revise_content IS NOT NULL AND p_revise_content != &#x27;&#x27; THEN<br>            -- 如果 revise_content 不为空，更新 revise_content 和 effect_date<br>            UPDATE revise_history <br>            SET effect_date = p_effect_date,<br>                revise_content = p_revise_content<br>            WHERE file_number = p_file_number AND version_id = p_version_id;<br>        ELSE<br>            -- 如果 revise_content 为空，仅更新 effect_date<br>            UPDATE revise_history <br>            SET effect_date = p_effect_date<br>            WHERE file_number = p_file_number AND version_id = p_version_id;<br>        END IF;<br>    ELSE<br>        -- 如果不存在则插入<br>        IF p_revise_content IS NOT NULL AND p_revise_content != &#x27;&#x27; THEN<br>            -- 如果 revise_content 不为空，插入 revise_content 和 effect_date<br>            INSERT INTO revise_history (file_number, revise_content, version_id, effect_date, is_write)<br>            VALUES (p_file_number, p_revise_content, p_version_id, p_effect_date, &#x27;1&#x27;);<br>        ELSE<br>            -- 如果 revise_content 为空，仅插入 effect_date<br>            INSERT INTO revise_history (file_number, version_id, effect_date, is_write)<br>            VALUES (p_file_number, p_version_id, p_effect_date, &#x27;1&#x27;);<br>        END IF;<br>    END IF;<br>END<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>MYSQL</tag>
+      
+      <tag>存储过程</tag>
+      
+      <tag>DBEAVER</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【全局指令】去除输入框el-input的前后空格</title>
     <link href="/2024/09/18/%E3%80%90%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E3%80%91%E5%8E%BB%E9%99%A4%E8%BE%93%E5%85%A5%E6%A1%86el-input%E7%9A%84%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/"/>
     <url>/2024/09/18/%E3%80%90%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E3%80%91%E5%8E%BB%E9%99%A4%E8%BE%93%E5%85%A5%E6%A1%86el-input%E7%9A%84%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/</url>
