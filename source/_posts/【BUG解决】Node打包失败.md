@@ -5,7 +5,7 @@ tags:
   - NODE
   - 前端
   - 打包
-categorites: BUG
+categories: BUG解决
 date: 2024-11-12 10:15:08
 ---
 
