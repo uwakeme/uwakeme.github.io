@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>【BUG解决】Node打包失败</title>
+    <link href="/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/"/>
+    <url>/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="【BUG解决】Node打包失败-Error-error-0308010C-digital-envelope-routines-unsupported"><a href="#【BUG解决】Node打包失败-Error-error-0308010C-digital-envelope-routines-unsupported" class="headerlink" title="【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]"></a>【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]</h1><h2 id="一、出现问题"><a href="#一、出现问题" class="headerlink" title="一、出现问题"></a>一、出现问题</h2><ul><li><p>更换新电脑后，安装了新版本node（20.15.0），发现使用打包命令<code>vue-cli-service build --mode production</code> 时会报错，报错信息如下</p><p><img src="/../images/QQ20241111-162833.png" alt="QQ20241111-162833"></p><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">[<span class="hljs-built_in">Error</span>: <span class="hljs-built_in">error</span>:<span class="hljs-number">0308010</span>C:digital envelope routines::unsupported]<br></code></pre></td></tr></table></figure></li><li><p>在搜索后，发现原因可能是node版本的问题，node17之前该命令可以正常运行，但是在17之后，由于<code>OpenSSL3.0</code>的发布，对允许算法和秘钥大小进行了严格限制，导致运行会报错。</p></li></ul><h2 id="二、解决措施"><a href="#二、解决措施" class="headerlink" title="二、解决措施"></a>二、解决措施</h2><ul><li><p>方法一：降低node版本，可以卸载新版的node，安装node16版本；</p></li><li><p>方法二：在运行项目命令前，先运行一下语句：</p><ul><li><p>Windows：</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">set</span> NODE_OPTIONS=--openssl-legacy-provider <br></code></pre></td></tr></table></figure></li><li><p>Linux &amp;&amp; Mac</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">export NODE_OPTIONS=--openssl-legacy-provider <br></code></pre></td></tr></table></figure></li></ul></li><li><p>方法三：修改配置文件，在<code>package.json</code> 文件中找到打包语句，然后再前面添加上面方法二中的语句 + &amp;&amp;</p><p><img src="/../images/image-20241111164325408.png" alt="image-20241111164325408"></p></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>BUG解决</tag>
+      
+      <tag>NODE</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>打包</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【存储过程】新增或更新数据</title>
     <link href="/2024/11/11/%E3%80%90%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%91%E6%96%B0%E5%A2%9E%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/"/>
     <url>/2024/11/11/%E3%80%90%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%91%E6%96%B0%E5%A2%9E%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/</url>
@@ -72,9 +97,9 @@
     
     <tags>
       
-      <tag>VUE</tag>
-      
       <tag>前端</tag>
+      
+      <tag>VUE</tag>
       
     </tags>
     
