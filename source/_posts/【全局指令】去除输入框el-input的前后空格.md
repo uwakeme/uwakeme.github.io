@@ -4,7 +4,7 @@ tags:
   - VUE
   - 全局指令
   - 工作
-categories: 前端
+categories: VUE
 date: 2024-09-18 18:01:57
 ---
 

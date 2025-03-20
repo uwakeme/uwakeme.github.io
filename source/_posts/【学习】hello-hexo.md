@@ -1,8 +1,9 @@
 ---
-title: Hello Hexo
+title: 【学习】Hello Hexo
 categories: 学习
-tag:
-- HEXO
+tags:
+  - HEXO
+  - 博客
 ---
 ## 快速开始
 

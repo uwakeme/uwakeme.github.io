@@ -2,9 +2,9 @@
 title: MobaXtem
 date: 2024/8/28
 tags:
-- shell
-- Mobaxtem
-- linux
+  - SHELL
+  - MOBAXTEM
+  - LINUX
 categories: 工作经验
 ---
 
