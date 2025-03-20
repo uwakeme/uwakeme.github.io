@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>【LINUX】MySQL服务器的安全配置</title>
+    <link href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"/>
+    <url>/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>如果MySQL正常启动，本地可以正常登录连接，但是其他电脑连接不上的话，大概率就是MySQL服务器的安全配置导致不允许来自指定IP地址的连接</p></blockquote><h1 id="报错信息"><a href="#报错信息" class="headerlink" title="报错信息"></a>报错信息</h1><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1130 </span>- Host <span class="hljs-comment">&#x27;连接电脑IP&#x27; is not allowed to connect to this MySQL server</span><br></code></pre></td></tr></table></figure><h1 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h1><ul><li>通过本地服务器登录MySQL<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -u root -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure></li><li>查看当前主机权限，如果是localhost，说明MySQL只允许本地连接<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">SELECT host, <span class="hljs-keyword">user</span> <span class="hljs-title">FROM</span> mysql.<span class="hljs-keyword">user</span> <span class="hljs-title">WHERE</span> <span class="hljs-keyword">user</span> <span class="hljs-title">= &#x27;your_username</span>&#x27;;<br></code></pre></td></tr></table></figure></li><li>更新主机权限<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">// 设置为所有ip都可以连接<br><span class="hljs-keyword">UPDATE</span> mysql.<span class="hljs-keyword">user</span> <span class="hljs-keyword">SET</span> host = <span class="hljs-string">&#x27;%&#x27;</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">user</span> = <span class="hljs-string">&#x27;your_username&#x27;</span>;<br></code></pre></td></tr></table></figure></li><li>刷新权限<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">FLUSH PRIVILEGES<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>LINUX</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>CentOS</tag>
+      
+      <tag>LINUX</tag>
+      
+      <tag>MYSQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【BUG解决】Node打包失败</title>
     <link href="/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/"/>
     <url>/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/</url>
@@ -73,7 +104,7 @@
     
     <categories>
       
-      <category>前端</category>
+      <category>VUE</category>
       
     </categories>
     
@@ -93,25 +124,25 @@
   
   
   <entry>
-    <title>网页悬浮窗口</title>
-    <link href="/2024/08/29/%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/"/>
-    <url>/2024/08/29/%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/</url>
+    <title>【VUE组件】网页悬浮窗口</title>
+    <link href="/2024/08/29/%E3%80%90VUE%E7%BB%84%E4%BB%B6%E3%80%91%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/"/>
+    <url>/2024/08/29/%E3%80%90VUE%E7%BB%84%E4%BB%B6%E3%80%91%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/</url>
     
     <content type="html"><![CDATA[<h1 id="网页悬浮窗口"><a href="#网页悬浮窗口" class="headerlink" title="网页悬浮窗口"></a>网页悬浮窗口</h1><h2 id="需求场景"><a href="#需求场景" class="headerlink" title="需求场景"></a>需求场景</h2><ul><li>项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。</li><li>之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。</li><li>在代码层面的需求应该是：<ul><li>可以展示设备取数数据</li><li>可以选择数据，并填写到输入框内</li><li>不影响其他地方的操作，即设备取数和其他功能应该是相互独立，互不影响的</li><li>符合操作习惯，易于操作</li></ul></li></ul><h2 id="解决构想"><a href="#解决构想" class="headerlink" title="解决构想"></a>解决构想</h2><ul><li><p>首先，弹出层<code>el-dialog</code> 应该是无法满足这个需求的，因为弹出层组件会在弹出层弹出后，其他地方都会无法操作，只能操作弹出层之内的内容。所以我就寻思自己写一个组件，来实现既展示了设备取数数据，又可以操作其他地方。</p></li><li><p>我在别的系统中曾看到过类似的功能，是通过一个悬浮按钮【设备取数】，点击后会弹出一个悬浮窗口，里面展示的是设备取数的列表数据，可以获取到该功能开启后取到的所有数据，可以自行选择，然后选中的数据会自动填写在输入框内。</p></li><li><p>所以我想着可不可以类似这样做两个组件，一个是悬浮按钮，另一个是悬浮窗口，这样应该可以满足以上需求。</p></li><li><p>构想：</p><ul><li>做成两个可复用的公共组件，一来需要在不同页面复用，二来以后有类似需求可以接着改进复用</li><li>做成悬浮窗，与页面相互独立，不会互相影响</li><li>需要可以拖拽移动位置，可以手动调节悬浮窗口的大小，防止遮挡页面内容</li></ul></li><li><p>最终成果图</p><p><img src="/../images/image-20240830103044026.png" alt="image-20240830103044026"></p></li></ul><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="悬浮窗口"><a href="#悬浮窗口" class="headerlink" title="悬浮窗口"></a>悬浮窗口</h3><h4 id="组件拖拽"><a href="#组件拖拽" class="headerlink" title="组件拖拽"></a>组件拖拽</h4><h4 id="调节窗口大小"><a href="#调节窗口大小" class="headerlink" title="调节窗口大小"></a>调节窗口大小</h4><h4 id="悬浮在其他组件之上"><a href="#悬浮在其他组件之上" class="headerlink" title="悬浮在其他组件之上"></a>悬浮在其他组件之上</h4><h3 id="悬浮按钮"><a href="#悬浮按钮" class="headerlink" title="悬浮按钮"></a>悬浮按钮</h3><p>+ </p>]]></content>
     
     
     <categories>
       
-      <category>工作经验</category>
+      <category>VUE</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>VUE</tag>
-      
       <tag>前端</tag>
+      
+      <tag>VUE</tag>
       
     </tags>
     
@@ -120,9 +151,9 @@
   
   
   <entry>
-    <title>Hello Hexo</title>
-    <link href="/2024/08/28/hello-hexo/"/>
-    <url>/2024/08/28/hello-hexo/</url>
+    <title>【学习】Hello Hexo</title>
+    <link href="/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/"/>
+    <url>/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/</url>
     
     <content type="html"><![CDATA[<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新笔记"><a href="#创建一个新笔记" class="headerlink" title="创建一个新笔记"></a>创建一个新笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="创建一个新草稿"><a href="#创建一个新草稿" class="headerlink" title="创建一个新草稿"></a>创建一个新草稿</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new draft <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="发布草稿至笔记"><a href="#发布草稿至笔记" class="headerlink" title="发布草稿至笔记"></a>发布草稿至笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo publish <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="部署至远端"><a href="#部署至远端" class="headerlink" title="部署至远端"></a>部署至远端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
@@ -137,6 +168,8 @@
     <tags>
       
       <tag>HEXO</tag>
+      
+      <tag>博客</tag>
       
     </tags>
     
@@ -173,8 +206,8 @@
   
   <entry>
     <title>MobaXtem</title>
-    <link href="/2024/08/28/MobaXtem/"/>
-    <url>/2024/08/28/MobaXtem/</url>
+    <link href="/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91MobaXtem/"/>
+    <url>/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91MobaXtem/</url>
     
     <content type="html"><![CDATA[<h2 id="ELN"><a href="#ELN" class="headerlink" title="ELN"></a>ELN</h2><ul><li>启动服务<ul><li>sh eln_deploy&#x2F;eln_startup.sh</li></ul></li><li>查看后台日志<ul><li>进入到eln文件夹中<ul><li>cd …….&#x2F;eln</li></ul></li><li>打印后端日志<ul><li>cat logs&#x2F;eln_backend.log</li></ul></li><li>追踪后续日志<ul><li>tail -f logs&#x2F;eln_backend.log</li></ul></li></ul></li><li>启动MongoDB</li><li>启动Redis</li></ul><h2 id="sudo命令"><a href="#sudo命令" class="headerlink" title="sudo命令"></a>sudo命令</h2><ul><li>切换超级管理员<ul><li>sudo su -</li></ul></li></ul><h2 id="chmod命令"><a href="#chmod命令" class="headerlink" title="chmod命令"></a>chmod命令</h2><ul><li>修改文件权限</li></ul>]]></content>
     
@@ -188,11 +221,11 @@
     
     <tags>
       
-      <tag>shell</tag>
+      <tag>LINUX</tag>
       
-      <tag>Mobaxtem</tag>
+      <tag>SHELL</tag>
       
-      <tag>linux</tag>
+      <tag>MOBAXTEM</tag>
       
     </tags>
     
@@ -201,9 +234,9 @@
   
   
   <entry>
-    <title>搭建个人Hexo博客网站</title>
-    <link href="/2024/08/28/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"/>
-    <url>/2024/08/28/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</url>
+    <title>【学习】搭建个人Hexo博客网站</title>
+    <link href="/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"/>
+    <url>/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</url>
     
     <content type="html"><![CDATA[<h1 id="搭建个人博客网站"><a href="#搭建个人博客网站" class="headerlink" title="搭建个人博客网站"></a>搭建个人博客网站</h1><h2 id="一、准备环境"><a href="#一、准备环境" class="headerlink" title="一、准备环境"></a>一、准备环境</h2><h3 id="1、安装node"><a href="#1、安装node" class="headerlink" title="1、安装node"></a>1、安装node</h3><h3 id="2、安装npm"><a href="#2、安装npm" class="headerlink" title="2、安装npm"></a>2、安装npm</h3><h3 id="3、安装hexo"><a href="#3、安装hexo" class="headerlink" title="3、安装hexo"></a>3、安装hexo</h3><ul><li><pre><code class="shell">npm install -g hexohexo -v<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs clean"><br>![image<span class="hljs-number">-20240826165435565</span>](../images/image<span class="hljs-number">-20240826165435565.</span>png)<br><br><br><br>## 二、Git仓库准备<br><br>### <span class="hljs-number">1</span>、新建git仓库<br><br>### <span class="hljs-number">2</span>、本地同步git仓库<br><br>+ 在一个空白文件夹中，右键打开git bash，输入命令，将git仓库拉下来<br><br>  ```shell<br>  git clone ssh链接<br></code></pre></td></tr></table></figure></code></pre></li></ul><p><img src="/../images/image-20240826165628344.png" alt="image-20240826165628344"></p><p><img src="/../images/image-20240826165852596.png" alt="image-20240826165852596"></p><h2 id="三、Hexo博客搭建"><a href="#三、Hexo博客搭建" class="headerlink" title="三、Hexo博客搭建"></a>三、Hexo博客搭建</h2><h3 id="1、基础环境搭建"><a href="#1、基础环境搭建" class="headerlink" title="1、基础环境搭建"></a>1、基础环境搭建</h3><ul><li><p>进入到刚拉下来的文件夹中，打开cmd</p><p><img src="/../images/image-20240826170201662.png" alt="image-20240826170201662"></p></li><li><p>初始化指令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo init myHexoBlob<br></code></pre></td></tr></table></figure><p><img src="/../images/image-20240826170444846.png" alt="image-20240826170444846"></p><p>这样hexo的配置文件就初始化好了</p></li><li><p>然后重新用管理员运行cmd，并切换到hexo新生成的文件夹中，安装依赖</p><p><img src="/../images/image-20240826170910180.png" alt="image-20240826170910180"></p></li></ul><h3 id="2、启动hexo"><a href="#2、启动hexo" class="headerlink" title="2、启动hexo"></a>2、启动hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">每次更改数据后都要执行下面三个命令</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">清除缓存文件</span><br>hexo clean<br><span class="hljs-meta prompt_"># </span><span class="language-bash">生成静态文件 可简写为 hexo g</span><br>hexo generate   <br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动服务器 可简写为 hexo s</span><br>hexo server<br><br></code></pre></td></tr></table></figure><p><img src="/../images/image-20240826172804368.png" alt="image-20240826172804368"></p><h3 id="3、更换主题"><a href="#3、更换主题" class="headerlink" title="3、更换主题"></a>3、更换主题</h3><ul><li><p>以管理员身份运行命令提示符，切换当前目录到 hexo项目 目录，运行命令</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save hexo-theme-fluid<br></code></pre></td></tr></table></figure><p><img src="/../images/image-20240826173132910.png" alt="image-20240826173132910"></p></li><li><p>修改hexo的配置文件</p><p><img src="/../images/image-20240826173230487.png" alt="image-20240826173230487"></p><p><img src="/../images/image-20240826173333044.png" alt="image-20240826173333044"></p><p>在 myblog 目录下新建一个文件，命名为 <code>_config.fluid.yml</code> , 只要存在于 <code>_config.fluid.yml</code> 的配置都是高优先级，修改原 <code>_config.yml</code> 是无效的。以后我们就对 <code>_config.fluid.yml</code> 进行修改即可。</p></li><li><p>重新编译并重启项目即可</p><p><img src="/../images/image-20240826173651351.png" alt="image-20240826173651351"></p></li></ul><h3 id="4、自定义配置"><a href="#4、自定义配置" class="headerlink" title="4、自定义配置"></a>4、自定义配置</h3>]]></content>
     
@@ -216,6 +249,8 @@
     
     
     <tags>
+      
+      <tag>HEXO</tag>
       
       <tag>博客</tag>
       
