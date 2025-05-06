@@ -21,27 +21,27 @@
   <meta name="author" content="Wake">
   <meta name="keywords" content="">
   
-    <meta name="description" content="网页悬浮窗口需求场景 项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。 之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。 在代码层面的需">
+    <meta name="description" content="插件版本不一致问题 报错信息123456789101112131415161718192021[INFO] hussar-cloud-module ................................ SUCCESS [  0.010 s][INFO] hussar-cloud-module-example-api .................... SUCCESS [  5.6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【VUE组件】网页悬浮窗口">
-<meta property="og:url" content="https://uwakeme.top/2024/08/29/%E3%80%90VUE%E7%BB%84%E4%BB%B6%E3%80%91%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/index.html">
+<meta property="og:title" content="【BUG解决】Maven打包失败">
+<meta property="og:url" content="https://uwakeme.top/2025/04/07/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/index.html">
 <meta property="og:site_name" content="Uwakeme">
-<meta property="og:description" content="网页悬浮窗口需求场景 项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。 之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。 在代码层面的需">
+<meta property="og:description" content="插件版本不一致问题 报错信息123456789101112131415161718192021[INFO] hussar-cloud-module ................................ SUCCESS [  0.010 s][INFO] hussar-cloud-module-example-api .................... SUCCESS [  5.6">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://uwakeme.top/images/image-20240830103044026.png">
-<meta property="article:published_time" content="2024-08-29T10:05:17.000Z">
-<meta property="article:modified_time" content="2024-12-27T03:29:42.000Z">
+<meta property="article:published_time" content="2025-04-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-07T05:39:52.000Z">
 <meta property="article:author" content="Wake">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="VUE">
+<meta property="article:tag" content="打包">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="MAVEN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://uwakeme.top/images/image-20240830103044026.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【VUE组件】网页悬浮窗口 - Uwakeme</title>
+  <title>【BUG解决】Maven打包失败 - Uwakeme</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -289,7 +289,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【VUE组件】网页悬浮窗口"></span>
+            <span id="subtitle" data-typed-text="【BUG解决】Maven打包失败"></span>
           
         </div>
 
@@ -305,8 +305,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-29 18:05" pubdate>
-           2024 年 08 月 29 日 , 晚上 06:05 , 星期四
+        <time datetime="2025-04-07 00:00" pubdate>
+           2025 年 04 月 07 日 , 凌晨 12:00 , 星期一
         </time>
       </span>
     
@@ -318,7 +318,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          617 字
+          216 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
           <!-- compatible with older versions-->
-          6 分钟
+          2 分钟
         
       </span>
     
@@ -367,41 +367,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【VUE组件】网页悬浮窗口</h1>
+            <h1 id="seo-header">【BUG解决】Maven打包失败</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="网页悬浮窗口"><a href="#网页悬浮窗口" class="headerlink" title="网页悬浮窗口"></a>网页悬浮窗口</h1><h2 id="需求场景"><a href="#需求场景" class="headerlink" title="需求场景"></a>需求场景</h2><ul>
-<li>项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。</li>
-<li>之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。</li>
-<li>在代码层面的需求应该是：<ul>
-<li>可以展示设备取数数据</li>
-<li>可以选择数据，并填写到输入框内</li>
-<li>不影响其他地方的操作，即设备取数和其他功能应该是相互独立，互不影响的</li>
-<li>符合操作习惯，易于操作</li>
+                <h1 id="插件版本不一致问题"><a href="#插件版本不一致问题" class="headerlink" title="插件版本不一致问题"></a>插件版本不一致问题</h1><ul>
+<li>报错信息<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module ................................ SUCCESS <span class="hljs-selector-attr">[  0.010 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-api .................... SUCCESS <span class="hljs-selector-attr">[  5.644 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-feign .................. SUCCESS <span class="hljs-selector-attr">[  1.507 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-server ................. SUCCESS <span class="hljs-selector-attr">[  1.842 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-application ............ FAILURE <span class="hljs-selector-attr">[  2.512 s]</span><br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[INFO]</span> BUILD FAILURE<br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[INFO]</span> Total <span class="hljs-selector-tag">time</span>:  <span class="hljs-number">12.210</span> s<br><span class="hljs-selector-attr">[INFO]</span> Finished at: <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">07</span>T11:<span class="hljs-number">36</span>:<span class="hljs-number">57</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span><br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[ERROR]</span> Failed to execute goal org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.maven</span><span class="hljs-selector-class">.plugins</span>:maven-resources-plugin:<span class="hljs-number">3.2</span>.<span class="hljs-number">0</span>:resources (default-resources) on project hussar-cloud-module-example-application: Input length = <span class="hljs-number">1</span> -&gt; <span class="hljs-selector-attr">[Help 1]</span><br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> To see the full stack trace of the errors, re-run Maven with the -e <span class="hljs-selector-tag">switch</span>.<br><span class="hljs-selector-attr">[ERROR]</span> Re-run Maven using the -X <span class="hljs-selector-tag">switch</span> to enable full debug logging.<br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> For more information about the errors and possible solutions, please read the following articles:<br><span class="hljs-selector-attr">[ERROR]</span> <span class="hljs-selector-attr">[Help 1]</span> http:<span class="hljs-comment">//cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</span><br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> After correcting the problems, you can resume the build with the command<br><span class="hljs-selector-attr">[ERROR]</span>   mvn &lt;args&gt; -rf :hussar-cloud-module-example-application<br></code></pre></td></tr></table></figure></li>
+<li>可能原因：插件版本兼容性问题 ：maven-resources-plugin 3.2.0版本可能与项目配置存在兼容性问题</li>
+<li>解决办法，降低maven-resources-plugin版本<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pom">&lt;plugin&gt;  <br>    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;  <br>    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;  <br>    &lt;version&gt;3.1.0&lt;/version&gt;<br>&lt;/plugin&gt;<br></code></pre></td></tr></table></figure></li>
 </ul>
-</li>
-</ul>
-<h2 id="解决构想"><a href="#解决构想" class="headerlink" title="解决构想"></a>解决构想</h2><ul>
-<li><p>首先，弹出层<code>el-dialog</code> 应该是无法满足这个需求的，因为弹出层组件会在弹出层弹出后，其他地方都会无法操作，只能操作弹出层之内的内容。所以我就寻思自己写一个组件，来实现既展示了设备取数数据，又可以操作其他地方。</p>
-</li>
-<li><p>我在别的系统中曾看到过类似的功能，是通过一个悬浮按钮【设备取数】，点击后会弹出一个悬浮窗口，里面展示的是设备取数的列表数据，可以获取到该功能开启后取到的所有数据，可以自行选择，然后选中的数据会自动填写在输入框内。</p>
-</li>
-<li><p>所以我想着可不可以类似这样做两个组件，一个是悬浮按钮，另一个是悬浮窗口，这样应该可以满足以上需求。</p>
-</li>
-<li><p>构想：</p>
-<ul>
-<li>做成两个可复用的公共组件，一来需要在不同页面复用，二来以后有类似需求可以接着改进复用</li>
-<li>做成悬浮窗，与页面相互独立，不会互相影响</li>
-<li>需要可以拖拽移动位置，可以手动调节悬浮窗口的大小，防止遮挡页面内容</li>
-</ul>
-</li>
-<li><p>最终成果图</p>
-<p><img src="/../images/image-20240830103044026.png" srcset="/img/loading.gif" lazyload alt="image-20240830103044026"></p>
-</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="悬浮窗口"><a href="#悬浮窗口" class="headerlink" title="悬浮窗口"></a>悬浮窗口</h3><h4 id="组件拖拽"><a href="#组件拖拽" class="headerlink" title="组件拖拽"></a>组件拖拽</h4><h4 id="调节窗口大小"><a href="#调节窗口大小" class="headerlink" title="调节窗口大小"></a>调节窗口大小</h4><h4 id="悬浮在其他组件之上"><a href="#悬浮在其他组件之上" class="headerlink" title="悬浮在其他组件之上"></a>悬浮在其他组件之上</h4><h3 id="悬浮按钮"><a href="#悬浮按钮" class="headerlink" title="悬浮按钮"></a>悬浮按钮</h3><p>+ </p>
 
                 
               </div>
@@ -420,7 +395,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/VUE/" class="category-chain-item">VUE</a>
+  <a href="/categories/BUG%E8%A7%A3%E5%86%B3/" class="category-chain-item">BUG解决</a>
   
   
 
@@ -435,9 +410,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+        <a href="/tags/%E6%89%93%E5%8C%85/" class="print-no-link">#打包</a>
       
-        <a href="/tags/VUE/" class="print-no-link">#VUE</a>
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+        <a href="/tags/JAVA/" class="print-no-link">#JAVA</a>
+      
+        <a href="/tags/MAVEN/" class="print-no-link">#MAVEN</a>
       
     </div>
   
@@ -449,8 +428,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【VUE组件】网页悬浮窗口</div>
-      <div>https://uwakeme.top/2024/08/29/【VUE组件】网页悬浮窗口/</div>
+      <div>【BUG解决】Maven打包失败</div>
+      <div>https://uwakeme.top/2025/04/07/【BUG解决】Maven打包失败/</div>
     </div>
     <div class="license-meta">
       
@@ -462,7 +441,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月29日</div>
+          <div>2025年4月7日</div>
         </div>
       
       
@@ -494,9 +473,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/18/%E3%80%90%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E3%80%91%E5%8E%BB%E9%99%A4%E8%BE%93%E5%85%A5%E6%A1%86el-input%E7%9A%84%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/" title="【全局指令】去除输入框el-input的前后空格">
+                      <a href="/2025/04/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E2%80%94%E2%80%94exceljs/" title="【学习】前端导出Excel">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【全局指令】去除输入框el-input的前后空格</span>
+                        <span class="hidden-mobile">【学习】前端导出Excel</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -504,8 +483,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/28/JAVA%E5%AD%A6%E4%B9%A0/" title="JAVA学习">
-                        <span class="hidden-mobile">JAVA学习</span>
+                      <a href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" title="【LINUX】MySQL服务器的安全配置">
+                        <span class="hidden-mobile">【LINUX】MySQL服务器的安全配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

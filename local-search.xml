@@ -4,6 +4,93 @@
   
   
   <entry>
+    <title>【学习】Hello Hexo</title>
+    <link href="/2025/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/"/>
+    <url>/2025/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/</url>
+    
+    <content type="html"><![CDATA[<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新笔记"><a href="#创建一个新笔记" class="headerlink" title="创建一个新笔记"></a>创建一个新笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="创建一个新草稿"><a href="#创建一个新草稿" class="headerlink" title="创建一个新草稿"></a>创建一个新草稿</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new draft <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="发布草稿至笔记"><a href="#发布草稿至笔记" class="headerlink" title="发布草稿至笔记"></a>发布草稿至笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo publish <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="部署至远端"><a href="#部署至远端" class="headerlink" title="部署至远端"></a>部署至远端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>HEXO</tag>
+      
+      <tag>博客</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【学习】前端导出Excel</title>
+    <link href="/2025/04/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E2%80%94%E2%80%94exceljs/"/>
+    <url>/2025/04/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E2%80%94%E2%80%94exceljs/</url>
+    
+    <content type="html"><![CDATA[<h1 id="设置导出的文件不可更改"><a href="#设置导出的文件不可更改" class="headerlink" title="设置导出的文件不可更改"></a>设置导出的文件不可更改</h1><ul><li>前端可以通过配置来设置导出的excel无法修改数据，或者设置密码来保护文档内容。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ExcelJS</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;exceljs&#x27;</span>;<br><br><span class="hljs-comment">// 创建 Workbook 和 Worksheet</span><br><span class="hljs-keyword">const</span> workbook = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExcelJS</span>.<span class="hljs-title class_">Workbook</span>();<br><span class="hljs-keyword">const</span> worksheet = workbook.<span class="hljs-title function_">addWorksheet</span>(<span class="hljs-string">&#x27;Sheet1&#x27;</span>);<br><br><span class="hljs-comment">// 设置工作表保护（密码可选）</span><br>worksheet.<span class="hljs-title function_">protect</span>(<span class="hljs-string">&#x27;yourPassword&#x27;</span>, &#123;<br>  <span class="hljs-attr">selectLockedCells</span>: <span class="hljs-literal">false</span>,   <span class="hljs-comment">// 禁止选中锁定单元格</span><br>  <span class="hljs-attr">selectUnlockedCells</span>: <span class="hljs-literal">false</span>, <span class="hljs-comment">// 禁止选中未锁定单元格</span><br>  <span class="hljs-attr">formatCells</span>: <span class="hljs-literal">false</span>,         <span class="hljs-comment">// 禁止格式化</span><br>  <span class="hljs-attr">insertRows</span>: <span class="hljs-literal">false</span>,          <span class="hljs-comment">// 禁止插入行</span><br>  <span class="hljs-attr">deleteRows</span>: <span class="hljs-literal">false</span>           <span class="hljs-comment">// 禁止删除行</span><br>  <span class="hljs-comment">// 更多选项见 ExcelJS 文档</span><br>&#125;);<br><br><span class="hljs-comment">// 将单元格设置为锁定状态（默认所有单元格已锁定）</span><br>worksheet.<span class="hljs-title function_">getCell</span>(<span class="hljs-string">&#x27;A1&#x27;</span>).<span class="hljs-property">value</span> = <span class="hljs-string">&#x27;不可修改内容&#x27;</span>;<br><span class="hljs-comment">// 如果需要某些单元格可编辑，需显式解锁：</span><br><span class="hljs-comment">// worksheet.getCell(&#x27;B1&#x27;).protection = &#123; locked: false &#125;;</span><br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端功能</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端</tag>
+      
+      <tag>VUE</tag>
+      
+      <tag>JS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【BUG解决】Maven打包失败</title>
+    <link href="/2025/04/07/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/"/>
+    <url>/2025/04/07/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="插件版本不一致问题"><a href="#插件版本不一致问题" class="headerlink" title="插件版本不一致问题"></a>插件版本不一致问题</h1><ul><li>报错信息<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module ................................ SUCCESS <span class="hljs-selector-attr">[  0.010 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-api .................... SUCCESS <span class="hljs-selector-attr">[  5.644 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-feign .................. SUCCESS <span class="hljs-selector-attr">[  1.507 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-server ................. SUCCESS <span class="hljs-selector-attr">[  1.842 s]</span><br><span class="hljs-selector-attr">[INFO]</span> hussar-cloud-module-example-application ............ FAILURE <span class="hljs-selector-attr">[  2.512 s]</span><br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[INFO]</span> BUILD FAILURE<br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[INFO]</span> Total <span class="hljs-selector-tag">time</span>:  <span class="hljs-number">12.210</span> s<br><span class="hljs-selector-attr">[INFO]</span> Finished at: <span class="hljs-number">2025</span>-<span class="hljs-number">04</span>-<span class="hljs-number">07</span>T11:<span class="hljs-number">36</span>:<span class="hljs-number">57</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span><br><span class="hljs-selector-attr">[INFO]</span> ------------------------------------------------------------------------<br><span class="hljs-selector-attr">[ERROR]</span> Failed to execute goal org<span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.maven</span><span class="hljs-selector-class">.plugins</span>:maven-resources-plugin:<span class="hljs-number">3.2</span>.<span class="hljs-number">0</span>:resources (default-resources) on project hussar-cloud-module-example-application: Input length = <span class="hljs-number">1</span> -&gt; <span class="hljs-selector-attr">[Help 1]</span><br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> To see the full stack trace of the errors, re-run Maven with the -e <span class="hljs-selector-tag">switch</span>.<br><span class="hljs-selector-attr">[ERROR]</span> Re-run Maven using the -X <span class="hljs-selector-tag">switch</span> to enable full debug logging.<br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> For more information about the errors and possible solutions, please read the following articles:<br><span class="hljs-selector-attr">[ERROR]</span> <span class="hljs-selector-attr">[Help 1]</span> http:<span class="hljs-comment">//cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</span><br><span class="hljs-selector-attr">[ERROR]</span><br><span class="hljs-selector-attr">[ERROR]</span> After correcting the problems, you can resume the build with the command<br><span class="hljs-selector-attr">[ERROR]</span>   mvn &lt;args&gt; -rf :hussar-cloud-module-example-application<br></code></pre></td></tr></table></figure></li><li>可能原因：插件版本兼容性问题 ：maven-resources-plugin 3.2.0版本可能与项目配置存在兼容性问题</li><li>解决办法，降低maven-resources-plugin版本<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pom">&lt;plugin&gt;  <br>    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;  <br>    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;  <br>    &lt;version&gt;3.1.0&lt;/version&gt;<br>&lt;/plugin&gt;<br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>BUG解决</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>打包</tag>
+      
+      <tag>后端</tag>
+      
+      <tag>JAVA</tag>
+      
+      <tag>MAVEN</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【LINUX】MySQL服务器的安全配置</title>
     <link href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"/>
     <url>/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
@@ -51,13 +138,13 @@
     
     <tags>
       
+      <tag>打包</tag>
+      
       <tag>BUG解决</tag>
       
       <tag>NODE</tag>
       
       <tag>前端</tag>
-      
-      <tag>打包</tag>
       
     </tags>
     
@@ -151,33 +238,6 @@
   
   
   <entry>
-    <title>【学习】Hello Hexo</title>
-    <link href="/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/"/>
-    <url>/2024/08/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/</url>
-    
-    <content type="html"><![CDATA[<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新笔记"><a href="#创建一个新笔记" class="headerlink" title="创建一个新笔记"></a>创建一个新笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="创建一个新草稿"><a href="#创建一个新草稿" class="headerlink" title="创建一个新草稿"></a>创建一个新草稿</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new draft <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="发布草稿至笔记"><a href="#发布草稿至笔记" class="headerlink" title="发布草稿至笔记"></a>发布草稿至笔记</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo publish <span class="hljs-string">&quot;My New Draft&quot;</span><br></code></pre></td></tr></table></figure><h3 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="部署至远端"><a href="#部署至远端" class="headerlink" title="部署至远端"></a>部署至远端</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>学习</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>HEXO</tag>
-      
-      <tag>博客</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>JAVA学习</title>
     <link href="/2024/08/28/JAVA%E5%AD%A6%E4%B9%A0/"/>
     <url>/2024/08/28/JAVA%E5%AD%A6%E4%B9%A0/</url>
@@ -196,7 +256,7 @@
       
       <tag>java</tag>
       
-      <tag>mybatis</tag>
+      <tag>MYBATISPLUS</tag>
       
     </tags>
     
