@@ -1,9 +1,9 @@
 ---
 title: JAVA学习
 date: 2024/8/28
-tag:
-- java
-- mybatis
+tags:
+  - java
+  - MYBATISPLUS
 categories: 工作经验
 ---
 
