@@ -21,30 +21,27 @@
   <meta name="author" content="Wake">
   <meta name="keywords" content="">
   
-    <meta name="description" content="【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]一、出现问题 更换新电脑后，安装了新版本node（20.15.0），发现使用打包命令vue-cli-service build --mode production 时会报错，报错信息如下  1[Error: error:0308010C:digi">
+    <meta name="description" content="后端常用命令启动jar包命令 直接启动  1nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  1nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;file:.&#x2F;conf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【BUG解决】Node打包失败">
-<meta property="og:url" content="https://uwakeme.top/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/index.html">
+<meta property="og:title" content="【LINUX】服务器常用命令">
+<meta property="og:url" content="https://uwakeme.top/2025/05/10/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Uwakeme">
-<meta property="og:description" content="【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]一、出现问题 更换新电脑后，安装了新版本node（20.15.0），发现使用打包命令vue-cli-service build --mode production 时会报错，报错信息如下  1[Error: error:0308010C:digi">
+<meta property="og:description" content="后端常用命令启动jar包命令 直接启动  1nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  1nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;file:.&#x2F;conf">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://uwakeme.top/images/QQ20241111-162833.png">
-<meta property="og:image" content="https://uwakeme.top/images/image-20241111164325408.png">
-<meta property="article:published_time" content="2024-11-12T02:15:08.000Z">
-<meta property="article:modified_time" content="2024-11-12T02:21:46.000Z">
+<meta property="article:published_time" content="2025-05-10T04:54:35.593Z">
+<meta property="article:modified_time" content="2025-05-09T01:20:41.000Z">
 <meta property="article:author" content="Wake">
-<meta property="article:tag" content="BUG解决">
-<meta property="article:tag" content="NODE">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="打包">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="工作">
+<meta property="article:tag" content="LINUX">
+<meta property="article:tag" content="SHELL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://uwakeme.top/images/QQ20241111-162833.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>【BUG解决】Node打包失败 - Uwakeme</title>
+  <title>【LINUX】服务器常用命令 - Uwakeme</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -292,7 +289,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【BUG解决】Node打包失败"></span>
+            <span id="subtitle" data-typed-text="【LINUX】服务器常用命令"></span>
           
         </div>
 
@@ -308,8 +305,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-12 10:15" pubdate>
-           2024 年 11 月 12 日 , 上午 10:15 , 星期二
+        <time datetime="2025-05-10 12:54" pubdate>
+           2025 年 05 月 10 日 , 下午 12:54 , 星期六
         </time>
       </span>
     
@@ -321,7 +318,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          222 字
+          228 字
         
       </span>
     
@@ -370,36 +367,34 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">【BUG解决】Node打包失败</h1>
+            <h1 id="seo-header">【LINUX】服务器常用命令</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="【BUG解决】Node打包失败-Error-error-0308010C-digital-envelope-routines-unsupported"><a href="#【BUG解决】Node打包失败-Error-error-0308010C-digital-envelope-routines-unsupported" class="headerlink" title="【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]"></a>【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]</h1><h2 id="一、出现问题"><a href="#一、出现问题" class="headerlink" title="一、出现问题"></a>一、出现问题</h2><ul>
-<li><p>更换新电脑后，安装了新版本node（20.15.0），发现使用打包命令<code>vue-cli-service build --mode production</code> 时会报错，报错信息如下</p>
-<p><img src="/../images/QQ20241111-162833.png" srcset="/img/loading.gif" lazyload alt="QQ20241111-162833"></p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">[<span class="hljs-built_in">Error</span>: <span class="hljs-built_in">error</span>:<span class="hljs-number">0308010</span>C:digital envelope routines::unsupported]<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>在搜索后，发现原因可能是node版本的问题，node17之前该命令可以正常运行，但是在17之后，由于<code>OpenSSL3.0</code>的发布，对允许算法和秘钥大小进行了严格限制，导致运行会报错。</p>
-</li>
+                <h1 id="后端常用命令"><a href="#后端常用命令" class="headerlink" title="后端常用命令"></a>后端常用命令</h1><h2 id="启动jar包命令"><a href="#启动jar包命令" class="headerlink" title="启动jar包命令"></a>启动jar包命令</h2><ul>
+<li>直接启动</li>
 </ul>
-<h2 id="二、解决措施"><a href="#二、解决措施" class="headerlink" title="二、解决措施"></a>二、解决措施</h2><ul>
-<li><p>方法一：降低node版本，可以卸载新版的node，安装node16版本；</p>
-</li>
-<li><p>方法二：在运行项目命令前，先运行一下语句：</p>
-<ul>
-<li><p>Windows：</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">set</span> NODE_OPTIONS=--openssl-legacy-provider <br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Linux &amp;&amp; Mac</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">export NODE_OPTIONS=--openssl-legacy-provider <br></code></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>方法三：修改配置文件，在<code>package.json</code> 文件中找到打包语句，然后再前面添加上面方法二中的语句 + &amp;&amp;</p>
-<p><img src="/../images/image-20241111164325408.png" srcset="/img/loading.gif" lazyload alt="image-20241111164325408"></p>
-</li>
-</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">nohup <span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>web.<span class="hljs-keyword">jar </span>&gt; web.out <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
 
+<ul>
+<li>在jar包同级创建文件夹config，然后用config中的配置文件启动</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">nohup java -Dfile.<span class="hljs-attribute">encoding</span>=UTF-8 -jar web.jar --spring.config.<span class="hljs-attribute">location</span>=file:./config/ &gt; web.out 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>
+
+<h1 id="数据库常用命令"><a href="#数据库常用命令" class="headerlink" title="数据库常用命令"></a>数据库常用命令</h1><h2 id="导出-备份MYSQL数据库"><a href="#导出-备份MYSQL数据库" class="headerlink" title="导出&#x2F;备份MYSQL数据库"></a>导出&#x2F;备份MYSQL数据库</h2><ul>
+<li>先cd到要存储备份文件的文件夹</li>
+<li>然后执行备份命令</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"># 导出整个数据库<br>mysqldump -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &gt; <span class="hljs-selector-attr">[导出文件名]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：导出名为 mydb 的数据库到 backup<span class="hljs-selector-class">.sql</span><br>mysqldump -u root -<span class="hljs-selector-tag">p</span> mydb &gt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>输入密码后即可导出数据</li>
+</ul>
+<h2 id="恢复-导入MYSQL数据库"><a href="#恢复-导入MYSQL数据库" class="headerlink" title="恢复&#x2F;导入MYSQL数据库"></a>恢复&#x2F;导入MYSQL数据库</h2><ul>
+<li>先cd到备份文件的目录</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"># 创建数据库（如果不存在）<br>mysql -u root -<span class="hljs-selector-tag">p</span> -e &quot;CREATE DATABASE mydb;&quot;<br><br># 恢复整个数据库<br>mysql -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &lt; <span class="hljs-selector-attr">[备份文件]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：恢复 mydb_backup<span class="hljs-selector-class">.sql</span> 到 mydb 数据库<br>mysql -u root -<span class="hljs-selector-tag">p</span> mydb &lt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -417,7 +412,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/BUG%E8%A7%A3%E5%86%B3/" class="category-chain-item">BUG解决</a>
+  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
   
   
 
@@ -432,13 +427,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/BUG%E8%A7%A3%E5%86%B3/" class="print-no-link">#BUG解决</a>
+        <a href="/tags/%E9%83%A8%E7%BD%B2/" class="print-no-link">#部署</a>
       
-        <a href="/tags/NODE/" class="print-no-link">#NODE</a>
+        <a href="/tags/%E5%B7%A5%E4%BD%9C/" class="print-no-link">#工作</a>
       
-        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+        <a href="/tags/LINUX/" class="print-no-link">#LINUX</a>
       
-        <a href="/tags/%E6%89%93%E5%8C%85/" class="print-no-link">#打包</a>
+        <a href="/tags/SHELL/" class="print-no-link">#SHELL</a>
       
     </div>
   
@@ -450,8 +445,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【BUG解决】Node打包失败</div>
-      <div>https://uwakeme.top/2024/11/12/【BUG解决】Node打包失败/</div>
+      <div>【LINUX】服务器常用命令</div>
+      <div>https://uwakeme.top/2025/05/10/【LINUX】服务器常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -463,7 +458,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月12日</div>
+          <div>2025年5月10日</div>
         </div>
       
       
@@ -495,18 +490,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" title="【LINUX】MySQL服务器的安全配置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【LINUX】MySQL服务器的安全配置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/11/%E3%80%90%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E3%80%91%E6%96%B0%E5%A2%9E%E6%88%96%E8%80%85%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/" title="【存储过程】新增或更新数据">
-                        <span class="hidden-mobile">【存储过程】新增或更新数据</span>
+                      <a href="/2025/05/07/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" title="【数据库】关联查询问题">
+                        <span class="hidden-mobile">【数据库】关联查询问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

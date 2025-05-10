@@ -4,6 +4,62 @@
   
   
   <entry>
+    <title>【LINUX】服务器常用命令</title>
+    <link href="/2025/05/10/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2025/05/10/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h1 id="后端常用命令"><a href="#后端常用命令" class="headerlink" title="后端常用命令"></a>后端常用命令</h1><h2 id="启动jar包命令"><a href="#启动jar包命令" class="headerlink" title="启动jar包命令"></a>启动jar包命令</h2><ul><li>直接启动</li></ul><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">nohup <span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>web.<span class="hljs-keyword">jar </span>&gt; web.out <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure><ul><li>在jar包同级创建文件夹config，然后用config中的配置文件启动</li></ul><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">nohup java -Dfile.<span class="hljs-attribute">encoding</span>=UTF-8 -jar web.jar --spring.config.<span class="hljs-attribute">location</span>=file:./config/ &gt; web.out 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure><h1 id="数据库常用命令"><a href="#数据库常用命令" class="headerlink" title="数据库常用命令"></a>数据库常用命令</h1><h2 id="导出-备份MYSQL数据库"><a href="#导出-备份MYSQL数据库" class="headerlink" title="导出&#x2F;备份MYSQL数据库"></a>导出&#x2F;备份MYSQL数据库</h2><ul><li>先cd到要存储备份文件的文件夹</li><li>然后执行备份命令</li></ul><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"># 导出整个数据库<br>mysqldump -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &gt; <span class="hljs-selector-attr">[导出文件名]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：导出名为 mydb 的数据库到 backup<span class="hljs-selector-class">.sql</span><br>mysqldump -u root -<span class="hljs-selector-tag">p</span> mydb &gt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure><ul><li>输入密码后即可导出数据</li></ul><h2 id="恢复-导入MYSQL数据库"><a href="#恢复-导入MYSQL数据库" class="headerlink" title="恢复&#x2F;导入MYSQL数据库"></a>恢复&#x2F;导入MYSQL数据库</h2><ul><li>先cd到备份文件的目录</li></ul><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"># 创建数据库（如果不存在）<br>mysql -u root -<span class="hljs-selector-tag">p</span> -e &quot;CREATE DATABASE mydb;&quot;<br><br># 恢复整个数据库<br>mysql -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &lt; <span class="hljs-selector-attr">[备份文件]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：恢复 mydb_backup<span class="hljs-selector-class">.sql</span> 到 mydb 数据库<br>mysql -u root -<span class="hljs-selector-tag">p</span> mydb &lt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LINUX</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>部署</tag>
+      
+      <tag>工作</tag>
+      
+      <tag>LINUX</tag>
+      
+      <tag>SHELL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【数据库】关联查询问题</title>
+    <link href="/2025/05/07/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/"/>
+    <url>/2025/05/07/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="记录一次数据库关联查询问题"><a href="#记录一次数据库关联查询问题" class="headerlink" title="记录一次数据库关联查询问题"></a>记录一次数据库关联查询问题</h1><ul><li>以下是我用来关联查询的SQL语句，但是查出来的结果却是错误的<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select lct.id as task_id,mrtwm.id as report_id,rtwm.task_id as related_task_id from lb_core_task lct left join report_to_work_main rtwm on rtwm.task_id = lct.id<br></code></pre></td></tr></table></figure></li><li>结果如下图所示：<br>![[Pasted image 20250507162302.png]]</li><li>很明显，task_id和id并不是对应的关联关系</li><li>原因主要在于字段类型不一致，id的类型为bigint(20)，而关联字段task_id类型为varchar，当子墩类型不一致时直接比较会失败</li><li>只需要将task_id字段类型改为一致即可</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>BUG解决</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MYSQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【学习】Hello Hexo</title>
     <link href="/2025/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/"/>
     <url>/2025/04/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/</url>
@@ -109,9 +165,9 @@
       
       <tag>部署</tag>
       
-      <tag>CentOS</tag>
-      
       <tag>LINUX</tag>
+      
+      <tag>CentOS</tag>
       
       <tag>MYSQL</tag>
       
@@ -138,13 +194,13 @@
     
     <tags>
       
-      <tag>打包</tag>
-      
       <tag>BUG解决</tag>
       
       <tag>NODE</tag>
       
       <tag>前端</tag>
+      
+      <tag>打包</tag>
       
     </tags>
     
@@ -198,11 +254,11 @@
     
     <tags>
       
+      <tag>工作</tag>
+      
       <tag>VUE</tag>
       
       <tag>全局指令</tag>
-      
-      <tag>工作</tag>
       
     </tags>
     
