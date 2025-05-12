@@ -475,30 +475,79 @@ ping  # 应返回PONG
 1. 安装Erlang（RabbitMQ依赖）
 
 ```shell
-# 安装Erlang源
-cat > /etc/yum.repos.d/erlang.repo << EOF
+# 安装Erlang源（使用官方推荐的Cloudsmith仓库）
+# 注意：确保删除任何旧的或重复的rabbitmq-erlang仓库配置文件
+rm -f /etc/yum.repos.d/rabbitmq-erlang*.repo
+
+# 创建新的Erlang仓库配置
+cat > /etc/yum.repos.d/rabbitmq-erlang.repo << EOF
 [rabbitmq-erlang]
 name=rabbitmq-erlang
-baseurl=https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/22/el/7
+baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/\$basearch
 gpgcheck=1
-gpgkey=https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
-repo_gpgcheck=0
+gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
 enabled=1
+skip_if_unavailable=true
 EOF
+
+# 清除YUM缓存
+yum clean all
 
 # 安装Erlang
 yum install -y erlang
+
+# 如果在无网络环境下安装，可以在有网络的机器上下载所需的RPM包
+# 1. 在有网络的机器上执行：
+# yumdownloader --resolve erlang
+# 2. 将下载的RPM包传输到服务器
+# 3. 在服务器上执行：
+# rpm -ivh *.rpm
+
+# 验证安装
+erl -version
 ```
 
 2. 安装RabbitMQ
 
 ```shell
-# 下载RabbitMQ rpm包
-wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.9/rabbitmq-server-3.8.9-1.el7.noarch.rpm
+# 删除任何旧的或重复的RabbitMQ仓库配置文件
+rm -f /etc/yum.repos.d/rabbitmq-server*.repo
+
+# 添加RabbitMQ仓库
+cat > /etc/yum.repos.d/rabbitmq-server.repo << EOF
+[rabbitmq-server]
+name=rabbitmq-server
+baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/\$basearch
+gpgcheck=1
+gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+enabled=1
+skip_if_unavailable=true
+EOF
+
+# 清除YUM缓存
+yum clean all
 
 # 安装RabbitMQ
-rpm -ivh rabbitmq-server-3.8.9-1.el7.noarch.rpm
+yum install -y rabbitmq-server
 
+# 如果上述方法失败，可以尝试使用官方脚本自动配置仓库
+# curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+# yum install -y rabbitmq-server
+
+# 离线安装方法（适用于无网络环境或在线安装失败时）
+# 1. 在有网络的机器上下载RPM包：
+# wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.12.12/rabbitmq-server-3.12.12-1.el7.noarch.rpm
+# 2. 将RPM包传输到服务器
+# 3. 安装依赖包socat
+# yum install -y socat
+# 4. 安装RabbitMQ
+# rpm -ivh rabbitmq-server-3.12.12-1.el7.noarch.rpm
+
+# 验证安装
+rabbitmqctl version
+```
+
+```shell
 # 启动RabbitMQ服务
 systemctl start rabbitmq-server
 
@@ -535,8 +584,75 @@ firewall-cmd --reload
 通过浏览器访问：http://服务器IP:15672
 使用刚创建的admin用户登录
 
+6. 登录问题排查
 
+如果无法登录RabbitMQ管理界面，可以按照以下步骤进行排查：
 
+```shell
+# 检查RabbitMQ服务状态
+systemctl status rabbitmq-server
+
+# 查看RabbitMQ日志
+cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+
+# 如果日志目录不存在，可以查看系统日志
+journalctl -u rabbitmq-server
+
+# 检查管理插件是否正确启用
+rabbitmq-plugins list | grep management
+
+# 检查用户列表和权限
+rabbitmqctl list_users
+rabbitmqctl list_permissions
+
+# 重置admin用户（如果存在问题）
+rabbitmqctl delete_user admin
+rabbitmqctl add_user admin 新密码
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+# 检查端口是否正确开放
+ss -tunlp | grep 15672
+
+# 检查防火墙规则
+firewall-cmd --list-all
+```
+
+常见问题及解决方案：
+
+- **服务未启动**：确保使用`systemctl start rabbitmq-server`启动服务
+- **插件未启用**：确保使用`rabbitmq-plugins enable rabbitmq_management`启用管理插件
+- **端口未开放**：检查防火墙设置，确保15672端口已开放
+- **权限问题**：检查用户是否有administrator标签和正确的权限
+- **Erlang Cookie问题**：如果是集群环境，检查Erlang Cookie是否一致
+- **内存不足**：检查系统资源，RabbitMQ可能因内存不足而无法正常启动
+- **浏览器问题**：尝试清除浏览器缓存或使用不同的浏览器访问
+- **网络问题**：检查服务器网络配置，确保可以从外部访问该端口
+
+如果以上步骤仍无法解决问题，可以尝试重新安装RabbitMQ：
+
+```shell
+# 停止服务
+systemctl stop rabbitmq-server
+
+# 卸载RabbitMQ
+yum remove -y rabbitmq-server
+
+# 清理配置文件
+rm -rf /var/lib/rabbitmq/
+rm -rf /etc/rabbitmq/
+
+# 重新安装
+yum install -y rabbitmq-server
+
+# 启动服务并配置
+systemctl start rabbitmq-server
+systemctl enable rabbitmq-server
+rabbitmq-plugins enable rabbitmq_management
+rabbitmqctl add_user admin password
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+```
 
 ## 三、准备部署所必需的资源
 ### （一）数据库
@@ -833,6 +949,18 @@ curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://loc
 - 后端无法启动：检查Java版本、内存设置和配置文件
 - 数据库连接失败：检查数据库配置、用户权限和防火墙设置
 - 跨域问题：检查Nginx代理配置和后端CORS设置
+- RabbitMQ管理界面无法访问：
+  ```shell
+  # 检查服务状态
+  systemctl status rabbitmq-server
+  
+  # 检查日志
+  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+  journalctl -u rabbitmq-server
+  
+  # 检查端口是否开放
+  ss -tunlp | grep 15672
+  ```
 
 ## 五、总结
 
@@ -1253,30 +1381,79 @@ ping  # 应返回PONG
 1. 安装Erlang（RabbitMQ依赖）
 
 ```shell
-# 安装Erlang源
-cat > /etc/yum.repos.d/erlang.repo << EOF
+# 安装Erlang源（使用官方推荐的Cloudsmith仓库）
+# 注意：确保删除任何旧的或重复的rabbitmq-erlang仓库配置文件
+rm -f /etc/yum.repos.d/rabbitmq-erlang*.repo
+
+# 创建新的Erlang仓库配置
+cat > /etc/yum.repos.d/rabbitmq-erlang.repo << EOF
 [rabbitmq-erlang]
 name=rabbitmq-erlang
-baseurl=https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/22/el/7
+baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/\$basearch
 gpgcheck=1
-gpgkey=https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc
-repo_gpgcheck=0
+gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
 enabled=1
+skip_if_unavailable=true
 EOF
+
+# 清除YUM缓存
+yum clean all
 
 # 安装Erlang
 yum install -y erlang
+
+# 如果在无网络环境下安装，可以在有网络的机器上下载所需的RPM包
+# 1. 在有网络的机器上执行：
+# yumdownloader --resolve erlang
+# 2. 将下载的RPM包传输到服务器
+# 3. 在服务器上执行：
+# rpm -ivh *.rpm
+
+# 验证安装
+erl -version
 ```
 
 2. 安装RabbitMQ
 
 ```shell
-# 下载RabbitMQ rpm包
-wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.9/rabbitmq-server-3.8.9-1.el7.noarch.rpm
+# 删除任何旧的或重复的RabbitMQ仓库配置文件
+rm -f /etc/yum.repos.d/rabbitmq-server*.repo
+
+# 添加RabbitMQ仓库
+cat > /etc/yum.repos.d/rabbitmq-server.repo << EOF
+[rabbitmq-server]
+name=rabbitmq-server
+baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/\$basearch
+gpgcheck=1
+gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
+enabled=1
+skip_if_unavailable=true
+EOF
+
+# 清除YUM缓存
+yum clean all
 
 # 安装RabbitMQ
-rpm -ivh rabbitmq-server-3.8.9-1.el7.noarch.rpm
+yum install -y rabbitmq-server
 
+# 如果上述方法失败，可以尝试使用官方脚本自动配置仓库
+# curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+# yum install -y rabbitmq-server
+
+# 离线安装方法（适用于无网络环境或在线安装失败时）
+# 1. 在有网络的机器上下载RPM包：
+# wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.12.12/rabbitmq-server-3.12.12-1.el7.noarch.rpm
+# 2. 将RPM包传输到服务器
+# 3. 安装依赖包socat
+# yum install -y socat
+# 4. 安装RabbitMQ
+# rpm -ivh rabbitmq-server-3.12.12-1.el7.noarch.rpm
+
+# 验证安装
+rabbitmqctl version
+```
+
+```shell
 # 启动RabbitMQ服务
 systemctl start rabbitmq-server
 
@@ -1313,8 +1490,75 @@ firewall-cmd --reload
 通过浏览器访问：http://服务器IP:15672
 使用刚创建的admin用户登录
 
+6. 登录问题排查
 
+如果无法登录RabbitMQ管理界面，可以按照以下步骤进行排查：
 
+```shell
+# 检查RabbitMQ服务状态
+systemctl status rabbitmq-server
+
+# 查看RabbitMQ日志
+cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+
+# 如果日志目录不存在，可以查看系统日志
+journalctl -u rabbitmq-server
+
+# 检查管理插件是否正确启用
+rabbitmq-plugins list | grep management
+
+# 检查用户列表和权限
+rabbitmqctl list_users
+rabbitmqctl list_permissions
+
+# 重置admin用户（如果存在问题）
+rabbitmqctl delete_user admin
+rabbitmqctl add_user admin 新密码
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+# 检查端口是否正确开放
+ss -tunlp | grep 15672
+
+# 检查防火墙规则
+firewall-cmd --list-all
+```
+
+常见问题及解决方案：
+
+- **服务未启动**：确保使用`systemctl start rabbitmq-server`启动服务
+- **插件未启用**：确保使用`rabbitmq-plugins enable rabbitmq_management`启用管理插件
+- **端口未开放**：检查防火墙设置，确保15672端口已开放
+- **权限问题**：检查用户是否有administrator标签和正确的权限
+- **Erlang Cookie问题**：如果是集群环境，检查Erlang Cookie是否一致
+- **内存不足**：检查系统资源，RabbitMQ可能因内存不足而无法正常启动
+- **浏览器问题**：尝试清除浏览器缓存或使用不同的浏览器访问
+- **网络问题**：检查服务器网络配置，确保可以从外部访问该端口
+
+如果以上步骤仍无法解决问题，可以尝试重新安装RabbitMQ：
+
+```shell
+# 停止服务
+systemctl stop rabbitmq-server
+
+# 卸载RabbitMQ
+yum remove -y rabbitmq-server
+
+# 清理配置文件
+rm -rf /var/lib/rabbitmq/
+rm -rf /etc/rabbitmq/
+
+# 重新安装
+yum install -y rabbitmq-server
+
+# 启动服务并配置
+systemctl start rabbitmq-server
+systemctl enable rabbitmq-server
+rabbitmq-plugins enable rabbitmq_management
+rabbitmqctl add_user admin password
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+```
 
 ## 三、准备部署所必需的资源
 ### （一）数据库
@@ -1611,6 +1855,18 @@ curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://loc
 - 后端无法启动：检查Java版本、内存设置和配置文件
 - 数据库连接失败：检查数据库配置、用户权限和防火墙设置
 - 跨域问题：检查Nginx代理配置和后端CORS设置
+- RabbitMQ管理界面无法访问：
+  ```shell
+  # 检查服务状态
+  systemctl status rabbitmq-server
+  
+  # 检查日志
+  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+  journalctl -u rabbitmq-server
+  
+  # 检查端口是否开放
+  ss -tunlp | grep 15672
+  ```
 
 ## 五、总结
 
@@ -1924,6 +2180,18 @@ curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://loc
 - 后端无法启动：检查Java版本、内存设置和配置文件
 - 数据库连接失败：检查数据库配置、用户权限和防火墙设置
 - 跨域问题：检查Nginx代理配置和后端CORS设置
+- RabbitMQ管理界面无法访问：
+  ```shell
+  # 检查服务状态
+  systemctl status rabbitmq-server
+  
+  # 检查日志
+  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+  journalctl -u rabbitmq-server
+  
+  # 检查端口是否开放
+  ss -tunlp | grep 15672
+  ```
 
 ## 五、总结
 
@@ -2237,6 +2505,18 @@ curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://loc
 - 后端无法启动：检查Java版本、内存设置和配置文件
 - 数据库连接失败：检查数据库配置、用户权限和防火墙设置
 - 跨域问题：检查Nginx代理配置和后端CORS设置
+- RabbitMQ管理界面无法访问：
+  ```shell
+  # 检查服务状态
+  systemctl status rabbitmq-server
+  
+  # 检查日志
+  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+  journalctl -u rabbitmq-server
+  
+  # 检查端口是否开放
+  ss -tunlp | grep 15672
+  ```
 
 ## 五、总结
 
@@ -2550,6 +2830,18 @@ curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://loc
 - 后端无法启动：检查Java版本、内存设置和配置文件
 - 数据库连接失败：检查数据库配置、用户权限和防火墙设置
 - 跨域问题：检查Nginx代理配置和后端CORS设置
+- RabbitMQ管理界面无法访问：
+  ```shell
+  # 检查服务状态
+  systemctl status rabbitmq-server
+  
+  # 检查日志
+  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+  journalctl -u rabbitmq-server
+  
+  # 检查端口是否开放
+  ss -tunlp | grep 15672
+  ```
 
 ## 五、总结
 
