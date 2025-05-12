@@ -24,12 +24,12 @@
     <meta name="description" content="后端常用命令启动jar包命令 直接启动  1nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  1nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;file:.&#x2F;conf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LINUX】服务器常用命令">
-<meta property="og:url" content="https://uwakeme.top/2025/05/10/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:url" content="https://uwakeme.top/2025/05/12/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="后端常用命令启动jar包命令 直接启动  1nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  1nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;file:.&#x2F;conf">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-10T04:54:35.593Z">
-<meta property="article:modified_time" content="2025-05-09T01:20:41.000Z">
+<meta property="article:published_time" content="2025-05-12T13:41:29.838Z">
+<meta property="article:modified_time" content="2025-05-12T12:28:13.000Z">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="部署">
 <meta property="article:tag" content="LINUX">
@@ -305,8 +305,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-10 12:54" pubdate>
-           2025 年 05 月 10 日 , 下午 12:54 , 星期六
+        <time datetime="2025-05-12 21:41" pubdate>
+           2025 年 05 月 12 日 , 晚上 09:41 , 星期一
         </time>
       </span>
     
@@ -318,7 +318,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          228 字
+          1k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          9 分钟
         
       </span>
     
@@ -386,15 +386,37 @@
 <li>先cd到要存储备份文件的文件夹</li>
 <li>然后执行备份命令</li>
 </ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"># 导出整个数据库<br>mysqldump -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &gt; <span class="hljs-selector-attr">[导出文件名]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：导出名为 mydb 的数据库到 backup<span class="hljs-selector-class">.sql</span><br>mysqldump -u root -<span class="hljs-selector-tag">p</span> mydb &gt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure>
+<h3 id="（一）基本备份命令"><a href="#（一）基本备份命令" class="headerlink" title="（一）基本备份命令"></a>（一）基本备份命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">导出整个数据库</span><br>mysqldump -u [用户名] -p [数据库名] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：导出名为 mydb 的数据库到 backup.sql</span><br>mysqldump -u root -p mydb &gt; mydb_backup.sql<br></code></pre></td></tr></table></figure>
 
 <ul>
 <li>输入密码后即可导出数据</li>
 </ul>
+<h3 id="（二）导出特定表"><a href="#（二）导出特定表" class="headerlink" title="（二）导出特定表"></a>（二）导出特定表</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">导出数据库中的特定表</span><br>mysqldump -u [用户名] -p [数据库名] [表名1] [表名2] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：导出 mydb 数据库中的 <span class="hljs-built_in">users</span> 和 orders 表</span><br>mysqldump -u root -p mydb users orders &gt; mydb_tables_backup.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（三）仅导出数据库结构（不含数据）"><a href="#（三）仅导出数据库结构（不含数据）" class="headerlink" title="（三）仅导出数据库结构（不含数据）"></a>（三）仅导出数据库结构（不含数据）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">仅导出数据库结构，不包含数据</span><br>mysqldump -u [用户名] -p --no-data [数据库名] &gt; [导出文件名]_structure.sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：仅导出 mydb 数据库结构</span><br>mysqldump -u root -p --no-data mydb &gt; mydb_structure.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（四）仅导出数据（不含结构）"><a href="#（四）仅导出数据（不含结构）" class="headerlink" title="（四）仅导出数据（不含结构）"></a>（四）仅导出数据（不含结构）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">仅导出数据，不包含表结构</span><br>mysqldump -u [用户名] -p --no-create-info [数据库名] &gt; [导出文件名]_data.sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：仅导出 mydb 数据库数据</span><br>mysqldump -u root -p --no-create-info mydb &gt; mydb_data.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（五）导出带条件的数据"><a href="#（五）导出带条件的数据" class="headerlink" title="（五）导出带条件的数据"></a>（五）导出带条件的数据</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">使用 WHERE 条件导出特定数据</span><br>mysqldump -u [用户名] -p [数据库名] [表名] --where=&quot;[条件]&quot; &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：导出 <span class="hljs-built_in">users</span> 表中 <span class="hljs-built_in">id</span> 大于 1000 的记录</span><br>mysqldump -u root -p mydb users --where=&quot;id &gt; 1000&quot; &gt; users_filtered.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（六）导出时添加额外选项"><a href="#（六）导出时添加额外选项" class="headerlink" title="（六）导出时添加额外选项"></a>（六）导出时添加额外选项</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">添加 DROP TABLE 语句（如果表存在则先删除）</span><br>mysqldump -u [用户名] -p --add-drop-table [数据库名] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">导出存储过程和函数</span><br>mysqldump -u [用户名] -p --routines [数据库名] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">导出触发器</span><br>mysqldump -u [用户名] -p --triggers [数据库名] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">导出事件</span><br>mysqldump -u [用户名] -p --events [数据库名] &gt; [导出文件名].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">完整备份（包含存储过程、函数、触发器和事件）</span><br>mysqldump -u [用户名] -p --routines --triggers --events [数据库名] &gt; [导出文件名]_full.sql<br></code></pre></td></tr></table></figure>
+
 <h2 id="恢复-导入MYSQL数据库"><a href="#恢复-导入MYSQL数据库" class="headerlink" title="恢复&#x2F;导入MYSQL数据库"></a>恢复&#x2F;导入MYSQL数据库</h2><ul>
 <li>先cd到备份文件的目录</li>
 </ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"># 创建数据库（如果不存在）<br>mysql -u root -<span class="hljs-selector-tag">p</span> -e &quot;CREATE DATABASE mydb;&quot;<br><br># 恢复整个数据库<br>mysql -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-selector-attr">[数据库名]</span> &lt; <span class="hljs-selector-attr">[备份文件]</span><span class="hljs-selector-class">.sql</span><br><br># 示例：恢复 mydb_backup<span class="hljs-selector-class">.sql</span> 到 mydb 数据库<br>mysql -u root -<span class="hljs-selector-tag">p</span> mydb &lt; mydb_backup<span class="hljs-selector-class">.sql</span><br></code></pre></td></tr></table></figure>
+<h3 id="（一）基本恢复命令"><a href="#（一）基本恢复命令" class="headerlink" title="（一）基本恢复命令"></a>（一）基本恢复命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建数据库（如果不存在）</span><br>mysql -u root -p -e &quot;CREATE DATABASE mydb;&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">恢复整个数据库</span><br>mysql -u [用户名] -p [数据库名] &lt; [备份文件].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：恢复 mydb_backup.sql 到 mydb 数据库</span><br>mysql -u root -p mydb &lt; mydb_backup.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（二）导入时指定字符集"><a href="#（二）导入时指定字符集" class="headerlink" title="（二）导入时指定字符集"></a>（二）导入时指定字符集</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">指定字符集导入数据</span><br>mysql -u [用户名] -p --default-character-set=utf8mb4 [数据库名] &lt; [备份文件].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：使用 utf8mb4 字符集导入数据</span><br>mysql -u root -p --default-character-set=utf8mb4 mydb &lt; mydb_backup.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（三）导入大型数据库的优化方法"><a href="#（三）导入大型数据库的优化方法" class="headerlink" title="（三）导入大型数据库的优化方法"></a>（三）导入大型数据库的优化方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">对于大型数据库，可以使用以下方式提高导入速度</span><br>mysql -u [用户名] -p [数据库名] --init-command=&quot;SET autocommit=0;&quot; &lt; [备份文件].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">或者在导入前禁用外键检查</span><br>mysql -u [用户名] -p -e &quot;SET GLOBAL foreign_key_checks=0;&quot; &amp;&amp; \<br>mysql -u [用户名] -p [数据库名] &lt; [备份文件].sql &amp;&amp; \<br>mysql -u [用户名] -p -e &quot;SET GLOBAL foreign_key_checks=1;&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="（四）使用source命令导入"><a href="#（四）使用source命令导入" class="headerlink" title="（四）使用source命令导入"></a>（四）使用source命令导入</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">先登录到MySQL</span><br>mysql -u [用户名] -p<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">然后在MySQL命令行中执行</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">USE [数据库名];</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">SOURCE [备份文件].sql;</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">USE mydb;</span><br><span class="hljs-meta prompt_">mysql&gt; </span><span class="language-bash">SOURCE /path/to/mydb_backup.sql;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="（五）导入特定表数据"><a href="#（五）导入特定表数据" class="headerlink" title="（五）导入特定表数据"></a>（五）导入特定表数据</h3><p>如果备份文件只包含特定表的数据，可以直接导入到目标数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">导入包含特定表的备份文件</span><br>mysql -u [用户名] -p [数据库名] &lt; [特定表备份文件].sql<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例：导入只包含<span class="hljs-built_in">users</span>表的备份</span><br>mysql -u root -p mydb &lt; users_backup.sql<br></code></pre></td></tr></table></figure>
+
+<h3 id="（六）导入时显示进度"><a href="#（六）导入时显示进度" class="headerlink" title="（六）导入时显示进度"></a>（六）导入时显示进度</h3><p>对于大型数据库，可以使用pv工具显示导入进度：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">先安装pv工具</span><br>apt-get install pv  # Debian/Ubuntu<br><span class="hljs-meta prompt_"># </span><span class="language-bash">或</span><br>yum install pv      # CentOS/RHEL<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用pv显示导入进度</span><br>pv [备份文件].sql | mysql -u [用户名] -p [数据库名]<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">示例</span><br>pv mydb_backup.sql | mysql -u root -p mydb<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -446,7 +468,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【LINUX】服务器常用命令</div>
-      <div>https://uwakeme.top/2025/05/10/【LINUX】服务器常用命令/</div>
+      <div>https://uwakeme.top/2025/05/12/【LINUX】服务器常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -458,7 +480,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月10日</div>
+          <div>2025年5月12日</div>
         </div>
       
       
@@ -490,18 +512,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/11/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E5%88%A9%E7%94%A8stream%E6%B5%81%E5%AF%B9List%E5%88%97%E8%A1%A8%E5%AF%B9%E8%B1%A1%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/" title="【JAVA技巧】利用stream流对List列表对象进行操作">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【JAVA技巧】利用stream流对List列表对象进行操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/07/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" title="【数据库】关联查询问题">
-                        <span class="hidden-mobile">【数据库】关联查询问题</span>
+                      <a href="/2025/05/12/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0/" title="【LINUX】服务器数据库自动备份脚本实现">
+                        <span class="hidden-mobile">【LINUX】服务器数据库自动备份脚本实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
