@@ -801,6 +801,42 @@ ss -tunlp | grep 5672
 ss -tunlp | grep 15672
 ```
 
+11. 解决常见登录问题
+
+```shell
+# 问题：User can only log in via localhost
+
+# 这个问题通常发生在使用默认的guest用户远程登录时
+# RabbitMQ 3.3.0及以后版本出于安全考虑，默认的guest用户只允许从localhost登录
+
+# 解决方案1：创建新的管理员用户
+rabbitmqctl add_user admin strong_password
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+# 解决方案2：修改RabbitMQ配置允许guest用户远程登录（不推荐，安全风险）
+# 编辑配置文件
+vi /etc/rabbitmq/rabbitmq.conf
+# 如果不存在此文件，则创建它
+touch /etc/rabbitmq/rabbitmq.conf
+
+# 添加以下配置行
+# loopback_users = none
+
+# 或者使用以下命令一次性创建/修改配置
+cat > /etc/rabbitmq/rabbitmq.conf << EOF
+loopback_users = none
+EOF
+
+# 重启RabbitMQ服务
+systemctl restart rabbitmq-server
+
+# 解决方案3：临时允许guest用户远程登录（不创建rabbitmq.conf文件）
+rabbitmqctl eval 'application:set_env(rabbit, loopback_users, []).'
+# 重启服务使更改生效
+systemctl restart rabbitmq-server
+```
+
 ## 三、准备部署所必需的资源
 ### （一）数据库
 
