@@ -185,909 +185,62 @@ systemctl enable nginx
 systemctl status nginx
 ```
 
-2. 配置防火墙（如果开启了防火墙）
+#### 2. 离线安装Nginx（使用tar.gz包）
 
 ```shell
-# 开放80端口
-firewall-cmd --permanent --add-port=80/tcp
+# 准备工作：在有网络的机器上下载Nginx
+# 下载地址：http://nginx.org/download/nginx-1.20.2.tar.gz
 
-# 开放443端口（如果需要HTTPS）
-firewall-cmd --permanent --add-port=443/tcp
+# 1. 安装编译所需的依赖包
+yum install -y gcc gcc-c++ make pcre pcre-devel zlib zlib-devel openssl openssl-devel
 
-# 重新加载防火墙配置
-firewall-cmd --reload
-```
+# 2. 将下载好的nginx-1.20.2.tar.gz上传到服务器
 
-3. 配置Nginx
+# 3. 解压安装包
+tar -zxvf nginx-1.20.2.tar.gz
+cd nginx-1.20.2
 
-```shell
-# 编辑Nginx主配置文件
-vi /etc/nginx/nginx.conf
-```
+# 4. 配置安装选项
+./configure --prefix=/usr/local/nginx \
+            --with-http_ssl_module \
+            --with-http_stub_status_module \
+            --with-http_gzip_static_module
 
-基本配置示例：
+# 5. 编译安装
+make && make install
 
-```
-user  nginx;
-worker_processes  auto;
+# 6. 创建软链接
+ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 
-error_log  /var/log/nginx/error.log warn;
-pid        /var/run/nginx.pid;
-
-events {
-    worker_connections  1024;
-}
-
-http {
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
-    tcp_nopush      on;
-    tcp_nodelay     on;
-    keepalive_timeout  65;
-    types_hash_max_size 2048;
-    gzip  on;
-
-    include /etc/nginx/conf.d/*.conf;
-}
-```
-
-4. 创建网站配置文件
-
-```shell
-# 创建网站配置文件
-vi /etc/nginx/conf.d/mywebsite.conf
-```
-
-配置示例：
-
-```
-server {
-    listen       80;
-    server_name  example.com www.example.com;
-
-    # 前端静态文件目录
-    location / {
-        root   /usr/share/nginx/html/mywebsite;
-        index  index.html index.htm;
-        try_files $uri $uri/ /index.html;
-    }
-
-    # 后端API代理
-    location /api/ {
-        proxy_pass http://localhost:8080/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-
-    # 错误页面
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-}
-```
-
-5. 测试配置并重启Nginx
-
-```shell
-# 测试配置文件语法
-nginx -t
-
-# 重新加载配置
-systemctl reload nginx
-```
-
-### （三）JDK
-
-+ JDK（Java Development Kit）是Java开发工具包，用于运行Java应用程序。
-
-1. 安装OpenJDK（推荐）
-
-```shell
-# 查看可用的JDK版本
-yum list available java*
-
-# 安装JDK 11（推荐版本）
-yum install -y java-11-openjdk-devel
-
-# 验证安装
-java -version
-javac -version
-```
-
-2. 配置Java环境变量
-
-```shell
-# 编辑环境变量配置文件
-vi /etc/profile.d/java.sh
-```
-
-添加以下内容：
-
-```shell
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
-export PATH=$PATH:$JAVA_HOME/bin
-export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
-```
-
-使环境变量生效：
-
-```shell
-source /etc/profile.d/java.sh
-```
-
-3. 验证环境变量
-
-```shell
-echo $JAVA_HOME
-java -version
-```
-
-### （四）MongoDB（如有必要）
-
-+ MongoDB是一个基于分布式文件存储的NoSQL数据库。
-
-1. 安装MongoDB
-
-```shell
-# 创建MongoDB的yum源
-cat > /etc/yum.repos.d/mongodb-org.repo << EOF
-[mongodb-org-4.4]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.4/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
-EOF
-
-# 安装MongoDB
-yum install -y mongodb-org
-
-# 启动MongoDB服务
-systemctl start mongod
-
-# 设置开机自启动
-systemctl enable mongod
-
-# 查看MongoDB状态
-systemctl status mongod
-```
-
-2. 配置MongoDB
-
-```shell
-# 编辑MongoDB配置文件
-vi /etc/mongod.conf
-```
-
-修改以下配置：
-
-```yaml
-# 网络设置
-net:
-  port: 27017
-  bindIp: 127.0.0.1  # 改为0.0.0.0允许远程连接
-
-# 安全设置
-security:
-  authorization: enabled  # 启用访问控制
-```
-
-3. 创建管理员用户
-
-```shell
-# 连接到MongoDB
-mongo
-
-# 在MongoDB shell中执行
-use admin
-db.createUser(
-  {
-    user: "adminUser",
-    pwd: "password",
-    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
-  }
-)
-```
-
-4. 重启MongoDB使配置生效
-
-```shell
-systemctl restart mongod
-```
-
-### （五）Redis（如有必要）
-
-+ Redis是一个开源的内存数据库，常用于缓存、会话存储等场景。
-
-1. 安装Redis
-
-```shell
-# 安装EPEL源
-yum install -y epel-release
-
-# 安装Redis
-yum install -y redis
-
-# 启动Redis服务
-systemctl start redis
-
-# 设置开机自启动
-systemctl enable redis
-
-# 查看Redis状态
-systemctl status redis
-```
-
-2. 配置Redis
-
-```shell
-# 编辑Redis配置文件
-vi /etc/redis.conf
-```
-
-修改以下配置：
-
-```
-# 绑定地址（默认只允许本地访问）
-bind 127.0.0.1
-
-# 设置密码
-requirepass yourpassword
-
-# 持久化设置
-save 900 1
-save 300 10
-save 60 10000
-
-# 最大内存使用
-maxmemory 256mb
-maxmemory-policy allkeys-lru
-```
-
-3. 重启Redis使配置生效
-
-```shell
-systemctl restart redis
-```
-
-4. 测试Redis连接
-
-```shell
-redis-cli
-auth yourpassword
-ping  # 应返回PONG
-```
-
-### （六）RabbitMQ（如有必要）
-
-+ RabbitMQ是一个开源的消息队列服务器，用于应用程序之间的通信。
-
-1. 安装Erlang（RabbitMQ依赖）
-
-```shell
-# 安装Erlang源（使用官方推荐的Cloudsmith仓库）
-# 注意：确保删除任何旧的或重复的rabbitmq-erlang仓库配置文件
-rm -f /etc/yum.repos.d/rabbitmq-erlang*.repo
-
-# 创建新的Erlang仓库配置
-cat > /etc/yum.repos.d/rabbitmq-erlang.repo << EOF
-[rabbitmq-erlang]
-name=rabbitmq-erlang
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/\$basearch
-gpgcheck=1
-gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
-enabled=1
-skip_if_unavailable=true
-EOF
-
-# 清除YUM缓存
-yum clean all
-
-# 安装Erlang
-yum install -y erlang
-
-# 如果在无网络环境下安装，可以在有网络的机器上下载所需的RPM包
-# 1. 在有网络的机器上执行：
-# yumdownloader --resolve erlang
-# 2. 将下载的RPM包传输到服务器
-# 3. 在服务器上执行：
-# rpm -ivh *.rpm
-
-# 验证安装
-erl -version
-```
-
-2. 安装RabbitMQ
-
-```shell
-# 删除任何旧的或重复的RabbitMQ仓库配置文件
-rm -f /etc/yum.repos.d/rabbitmq-server*.repo
-
-# 添加RabbitMQ仓库
-cat > /etc/yum.repos.d/rabbitmq-server.repo << EOF
-[rabbitmq-server]
-name=rabbitmq-server
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/\$basearch
-gpgcheck=1
-gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
-enabled=1
-skip_if_unavailable=true
-EOF
-
-# 清除YUM缓存
-yum clean all
-
-# 安装RabbitMQ
-yum install -y rabbitmq-server
-
-# 如果上述方法失败，可以尝试使用官方脚本自动配置仓库
-# curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
-# yum install -y rabbitmq-server
-
-# 离线安装方法（适用于无网络环境或在线安装失败时）
-# 1. 在有网络的机器上下载RPM包：
-# wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.12.12/rabbitmq-server-3.12.12-1.el7.noarch.rpm
-# 2. 将RPM包传输到服务器
-# 3. 安装依赖包socat
-# yum install -y socat
-# 4. 安装RabbitMQ
-# rpm -ivh rabbitmq-server-3.12.12-1.el7.noarch.rpm
-
-# 验证安装
-rabbitmqctl version
-```
-
-```shell
-# 启动RabbitMQ服务
-systemctl start rabbitmq-server
-
-# 设置开机自启动
-systemctl enable rabbitmq-server
-
-# 查看RabbitMQ状态
-systemctl status rabbitmq-server
-```
-
-3. 启用RabbitMQ管理插件
-
-```shell
-# 启用管理插件
-rabbitmq-plugins enable rabbitmq_management
-
-# 创建管理员用户
-rabbitmqctl add_user admin password
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-```
-
-4. 配置防火墙（如果开启了防火墙）
-
-```shell
-# 开放RabbitMQ端口
-firewall-cmd --permanent --add-port=5672/tcp
-firewall-cmd --permanent --add-port=15672/tcp
-firewall-cmd --reload
-```
-
-5. 访问RabbitMQ管理界面
-
-通过浏览器访问：http://服务器IP:15672
-使用刚创建的admin用户登录
-
-6. 登录问题排查
-
-如果无法登录RabbitMQ管理界面，可以按照以下步骤进行排查：
-
-```shell
-# 检查RabbitMQ服务状态
-systemctl status rabbitmq-server
-
-# 查看RabbitMQ日志
-cat /var/log/rabbitmq/rabbit@$(hostname -s).log
-
-# 如果日志目录不存在，可以查看系统日志
-journalctl -u rabbitmq-server
-
-# 检查管理插件是否正确启用
-rabbitmq-plugins list | grep management
-
-# 检查用户列表和权限
-rabbitmqctl list_users
-rabbitmqctl list_permissions
-
-# 重置admin用户（如果存在问题）
-rabbitmqctl delete_user admin
-rabbitmqctl add_user admin 新密码
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-
-# 检查端口是否正确开放
-ss -tunlp | grep 15672
-
-# 检查防火墙规则
-firewall-cmd --list-all
-```
-
-常见问题及解决方案：
-
-- **服务未启动**：确保使用`systemctl start rabbitmq-server`启动服务
-- **插件未启用**：确保使用`rabbitmq-plugins enable rabbitmq_management`启用管理插件
-- **端口未开放**：检查防火墙设置，确保15672端口已开放
-- **权限问题**：检查用户是否有administrator标签和正确的权限
-- **Erlang Cookie问题**：如果是集群环境，检查Erlang Cookie是否一致
-- **内存不足**：检查系统资源，RabbitMQ可能因内存不足而无法正常启动
-- **浏览器问题**：尝试清除浏览器缓存或使用不同的浏览器访问
-- **网络问题**：检查服务器网络配置，确保可以从外部访问该端口
-
-如果以上步骤仍无法解决问题，可以尝试重新安装RabbitMQ：
-
-```shell
-# 停止服务
-systemctl stop rabbitmq-server
-
-# 卸载RabbitMQ
-yum remove -y rabbitmq-server
-
-# 清理配置文件
-rm -rf /var/lib/rabbitmq/
-rm -rf /etc/rabbitmq/
-
-# 重新安装
-yum install -y rabbitmq-server
-
-# 启动服务并配置
-systemctl start rabbitmq-server
-systemctl enable rabbitmq-server
-rabbitmq-plugins enable rabbitmq_management
-rabbitmqctl add_user admin password
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-```
-
-## 三、准备部署所必需的资源
-### （一）数据库
-
-+ 在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。
-
-1. 准备SQL脚本文件
-
-```shell
-# 创建存放SQL脚本的目录
-mkdir -p /opt/deploy/sql
-```
-
-2. 上传SQL脚本文件
-
-可以使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的`/opt/deploy/sql`目录。
-
-3. 导入数据库脚本
-
-```shell
-# 登录MySQL
-mysql -u用户名 -p密码
-
-# 在MySQL命令行中执行
-source /opt/deploy/sql/create_database.sql
-source /opt/deploy/sql/create_tables.sql
-source /opt/deploy/sql/init_data.sql
-```
-
-### （二）前端打包
-
-+ 前端项目通常需要打包后部署到Nginx服务器上。
-
-1. 准备前端打包文件
-
-在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：
-
-```shell
-# 在前端项目目录中执行
-npm run build
-```
-
-2. 上传打包文件
-
-使用SFTP工具将打包生成的文件（通常在dist或build目录）上传到服务器：
-
-```shell
-# 在服务器上创建存放前端文件的目录
-mkdir -p /usr/share/nginx/html/mywebsite
-```
-
-3. 解压前端文件（如果是压缩包）
-
-```shell
-# 解压前端文件到Nginx目录
-unzip frontend.zip -d /usr/share/nginx/html/mywebsite
-```
-
-### （三）后端打包
-
-+ 后端Java项目通常打包为JAR或WAR文件部署。
-
-1. 准备后端打包文件
-
-在本地开发环境中，使用Maven或Gradle打包后端项目：
-
-```shell
-# Maven打包
-mvn clean package -Dmaven.test.skip=true
-
-# 或Gradle打包
-gradle build -x test
-```
-
-2. 上传后端JAR文件
-
-```shell
-# 在服务器上创建存放后端文件的目录
-mkdir -p /opt/deploy/backend
-```
-
-使用SFTP工具将JAR文件上传到服务器的`/opt/deploy/backend`目录。
-
-3. 准备配置文件
-
-```shell
-# 创建配置文件目录
-mkdir -p /opt/deploy/backend/config
-
-# 创建应用配置文件
-vi /opt/deploy/backend/config/application.yml
-```
-
-配置文件示例：
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: dbuser
-    password: dbpassword
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  
-  # Redis配置（如果使用）
-  redis:
-    host: localhost
-    port: 6379
-    password: redispassword
-    database: 0
-    
-  # MongoDB配置（如果使用）
-  data:
-    mongodb:
-      uri: mongodb://user:password@localhost:27017/mydb
-      
-  # RabbitMQ配置（如果使用）
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: password
-    virtual-host: /
-```
-
-## 四、部署资源并调试
-### （一）数据库
-
-1. 验证数据库连接
-
-```shell
-# 连接MySQL数据库
-mysql -u用户名 -p密码 -h数据库地址 数据库名
-
-# 查看数据库表
-SHOW TABLES;
-
-# 查看表数据
-SELECT * FROM 表名 LIMIT 10;
-```
-
-2. 检查数据库字符集
-
-```shell
-# 在MySQL命令行中执行
-SHOW VARIABLES LIKE 'character_set%';
-SHOW VARIABLES LIKE 'collation%';
-```
-
-### （二）前端
-
-1. 配置Nginx虚拟主机
-
-确保Nginx配置文件已正确设置（参考前面的Nginx配置部分）。
-
-2. 检查文件权限
-
-```shell
-# 确保Nginx用户有权限访问前端文件
-chown -R nginx:nginx /usr/share/nginx/html/mywebsite
-chmod -R 755 /usr/share/nginx/html/mywebsite
-```
-
-3. 重启Nginx服务
-
-```shell
-systemctl restart nginx
-```
-
-4. 测试前端访问
-
-在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。
-
-### （三）后端
-
-1. 创建启动脚本
-
-```shell
-# 创建启动脚本
-vi /opt/deploy/backend/start.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-JAVA_OPTS="-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"
-APP_NAME="myapp.jar"
-APP_PATH="/opt/deploy/backend"
-
-cd $APP_PATH
-nohup java $JAVA_OPTS -jar $APP_NAME --spring.config.location=file:./config/application.yml > app.log 2>&1 &
-echo $! > app.pid
-echo "应用已启动，进程ID：$(cat app.pid)"
-```
-
-2. 创建停止脚本
-
-```shell
-# 创建停止脚本
-vi /opt/deploy/backend/stop.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-APP_PATH="/opt/deploy/backend"
-PID_FILE="$APP_PATH/app.pid"
-
-if [ -f "$PID_FILE" ]; then
-    PID=$(cat $PID_FILE)
-    if ps -p $PID > /dev/null; then
-        echo "正在停止应用，进程ID：$PID"
-        kill $PID
-        sleep 5
-        if ps -p $PID > /dev/null; then
-            echo "应用未能正常停止，强制终止"
-            kill -9 $PID
-        fi
-    else
-        echo "应用未运行"
-    fi
-    rm -f $PID_FILE
-else
-    echo "PID文件不存在，应用可能未运行"
-fi
-echo "应用已停止"
-```
-
-3. 设置脚本权限
-
-```shell
-chmod +x /opt/deploy/backend/start.sh
-chmod +x /opt/deploy/backend/stop.sh
-```
-
-4. 启动后端应用
-
-```shell
-# 启动应用
-/opt/deploy/backend/start.sh
-
-# 查看启动日志
-tail -f /opt/deploy/backend/app.log
-```
-
-### （四）调试
-
-1. 检查应用状态
-
-```shell
-# 检查后端应用进程
-ps -ef | grep java
-
-# 检查端口监听情况
-netstat -tunlp | grep 8080
-
-# 检查Nginx进程
-ps -ef | grep nginx
-
-# 检查Nginx端口
-netstat -tunlp | grep 80
-```
-
-2. 检查日志
-
-```shell
-# 查看后端应用日志
-tail -f /opt/deploy/backend/app.log
-
-# 查看Nginx访问日志
-tail -f /var/log/nginx/access.log
-
-# 查看Nginx错误日志
-tail -f /var/log/nginx/error.log
-```
-
-3. 测试API接口
-
-```shell
-# 使用curl测试后端API
-curl -X GET http://localhost:8080/api/test
-
-# 带参数的POST请求
-curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://localhost:8080/api/data
-```
-
-4. 常见问题排查
-
-- 前端访问404：检查Nginx配置和前端文件路径
-- 后端无法启动：检查Java版本、内存设置和配置文件
-- 数据库连接失败：检查数据库配置、用户权限和防火墙设置
-- 跨域问题：检查Nginx代理配置和后端CORS设置
-- RabbitMQ管理界面无法访问：
-  ```shell
-  # 检查服务状态
-  systemctl status rabbitmq-server
-  
-  # 检查日志
-  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
-  journalctl -u rabbitmq-server
-  
-  # 检查端口是否开放
-  ss -tunlp | grep 15672
-  ```
-
-## 五、总结
-
-本文详细介绍了在CentOS 7空服务器上部署网页系统的完整流程，包括环境准备、软件安装、资源准备和部署调试等步骤。通过按照本文的步骤操作，可以快速搭建一个包含前端、后端和数据库的完整网页系统。
-
-在实际部署过程中，可能会遇到各种问题，建议根据具体情况灵活调整配置参数，并结合日志信息进行排查。同时，为了保证系统的安全性和稳定性，还应该考虑添加防火墙规则、设置定时备份、配置监控告警等措施。
-
-## 六、参考链接
-
-- [CentOS 官方文档](https://docs.centos.org/)
-- [MySQL 官方文档](https://dev.mysql.com/doc/)
-- [Nginx 官方文档](https://nginx.org/en/docs/)
-- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
-- [Vue.js 官方文档](https://vuejs.org/guide/introduction.html)
-
-### （二）NGINX
-
-+ Nginx是一个高性能的HTTP和反向代理服务器，常用于部署前端应用和反向代理后端服务。
-
-#### 2. 源码编译安装（适用于定制需求）
-
-1. 准备编译环境
-
-```shell
-# 安装编译依赖
-sudo yum install -y gcc make openssl-devel pcre-devel zlib-devel
-
-# 创建安装目录
-sudo mkdir -p /usr/local/nginx
-```
-
-2. 上传并解压源码包
-
-```shell
-# 上传nginx源码包（示例版本1.20.1）
-scp nginx-1.20.1.tar.gz user@server:/tmp
-
-# 解压源码包
-tar zxvf /tmp/nginx-1.20.1.tar.gz -C /usr/local/src/
-cd /usr/local/src/nginx-1.20.1
-```
-
-3. 配置编译选项
-
-```shell
-./configure \
---prefix=/usr/local/nginx \
---with-http_ssl_module \
---with-http_realip_module \
---with-http_sub_module \
---with-http_gzip_static_module
-```
-
-4. 编译安装
-
-```shell
-make && sudo make install
-```
-
-5. 验证安装
-
-```shell
-# 检查版本
-/usr/local/nginx/sbin/nginx -v
-
-# 创建服务管理文件
-sudo tee /etc/systemd/system/nginx.service <<EOF
+# 7. 创建systemd服务文件
+cat > /etc/systemd/system/nginx.service << EOF
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
-After=network.target
+After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
+PIDFile=/usr/local/nginx/logs/nginx.pid
 ExecStartPre=/usr/local/nginx/sbin/nginx -t
 ExecStart=/usr/local/nginx/sbin/nginx
 ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s quit
+ExecStop=/bin/kill -s QUIT \$MAINPID
 PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-# 启动服务
-sudo systemctl daemon-reload
-sudo systemctl start nginx
-```
+# 8. 重新加载systemd配置
+systemctl daemon-reload
 
-1. 安装Nginx
-
-```shell
-# 安装Nginx的yum源
-cat > /etc/yum.repos.d/nginx.repo << EOF
-[nginx]
-name=nginx repo
-baseurl=https://nginx.org/packages/centos/7/\$basearch/
-gpgcheck=0
-enabled=1
-EOF
-
-# 安装Nginx
-yum install -y nginx
-
-# 离线安装方法（适用于无网络环境）：
-# 1. 在有网络的设备下载完整rpm包：
-# reposync --repoid=nginx -p /path/to/download
-# 2. 创建本地仓库：
-# createrepo /path/to/download/nginx
-# 3. 配置本地源：
-# cat > /etc/yum.repos.d/nginx-local.repo << EOF
-# [nginx-local]
-# name=nginx local repository
-# baseurl=file:///path/to/download/nginx
-# enabled=1
-# gpgcheck=0
-# EOF
-# 4. 清除缓存并安装：
-# yum clean all
-# yum install -y nginx
-
-# 启动Nginx
+# 9. 启动Nginx
 systemctl start nginx
 
-# 设置开机自启动
+# 10. 设置开机自启动
 systemctl enable nginx
 
-# 查看Nginx状态
+# 11. 查看Nginx状态
 systemctl status nginx
 ```
 
@@ -1196,7 +349,7 @@ systemctl reload nginx
 
 + JDK（Java Development Kit）是Java开发工具包，用于运行Java应用程序。
 
-1. 安装OpenJDK（推荐）
+#### 1. 在线安装OpenJDK（推荐）
 
 ```shell
 # 查看可用的JDK版本
@@ -1208,6 +361,41 @@ yum install -y java-11-openjdk-devel
 # 验证安装
 java -version
 javac -version
+```
+
+#### 2. 离线安装JDK（使用tar.gz包）
+
+```shell
+# 准备工作：在Oracle官网下载JDK安装包
+# 下载地址：https://www.oracle.com/java/technologies/javase-downloads.html
+# 选择JDK 11或JDK 8的Linux x64 tar.gz版本
+
+# 1. 将下载好的jdk-11.0.14_linux-x64_bin.tar.gz上传到服务器
+
+# 2. 创建安装目录
+mkdir -p /usr/local/java
+
+# 3. 解压JDK到安装目录
+tar -zxvf jdk-11.0.14_linux-x64_bin.tar.gz -C /usr/local/java/
+
+# 4. 设置环境变量
+cat > /etc/profile.d/java.sh << EOF
+export JAVA_HOME=/usr/local/java/jdk-11.0.14
+export PATH=\$PATH:\$JAVA_HOME/bin
+export CLASSPATH=.:\$JAVA_HOME/lib/dt.jar:\$JAVA_HOME/lib/tools.jar
+EOF
+
+# 5. 使环境变量生效
+source /etc/profile.d/java.sh
+
+# 6. 验证安装
+java -version
+javac -version
+
+# 7. 设置系统默认Java
+alternatives --install /usr/bin/java java \$JAVA_HOME/bin/java 1
+alternatives --install /usr/bin/javac javac \$JAVA_HOME/bin/javac 1
+alternatives --install /usr/bin/jar jar \$JAVA_HOME/bin/jar 1
 ```
 
 2. 配置Java环境变量
@@ -1381,77 +569,108 @@ ping  # 应返回PONG
 1. 安装Erlang（RabbitMQ依赖）
 
 ```shell
-# 安装Erlang源（使用官方推荐的Cloudsmith仓库）
-# 注意：确保删除任何旧的或重复的rabbitmq-erlang仓库配置文件
-rm -f /etc/yum.repos.d/rabbitmq-erlang*.repo
+# 查看EPEL仓库中可用的Erlang版本
+yum info erlang
 
-# 创建新的Erlang仓库配置
+# 输出示例：
+# Name        : erlang
+# Arch        : x86_64
+# Version     : R16B
+# Release     : 03.18.el7
+# ...
+```
+
+EPEL仓库提供的Erlang版本为R16B-03.18.el7，这个版本非常旧（发布于2013年左右），而现代版本的RabbitMQ（如3.10.0+）需要至少Erlang 23.2或更高版本。这就是为什么使用EPEL仓库安装的Erlang后，再安装RabbitMQ时会报错：`Requires: erlang >= 23.2`。
+
+解决方案是完全卸载旧版本并安装新版本：
+
+```shell
+# 完全卸载旧版本Erlang
+yum remove -y erlang erlang-*
+
+# 方法二：使用RabbitMQ官方提供的Erlang仓库（推荐）
+# 配置Erlang解决方案仓库
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash
+
+# 或者手动添加仓库
 cat > /etc/yum.repos.d/rabbitmq-erlang.repo << EOF
 [rabbitmq-erlang]
 name=rabbitmq-erlang
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/rpm/el/7/\$basearch
+baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/\$basearch
 gpgcheck=1
-gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
+gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
+repo_gpgcheck=0
 enabled=1
-skip_if_unavailable=true
 EOF
 
-# 清除YUM缓存
-yum clean all
+# 导入所有相关GPG密钥（包括PackageCloud的主要密钥和特定仓库密钥）
+rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
+rpm --import https://packagecloud.io/gpg.key
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 
-# 安装Erlang
+# 刷新yum缓存，使新添加的仓库生效
+yum clean all
+yum makecache
+
+# 确认可安装的Erlang版本（应该会显示23.x或更高版本）
+yum info erlang
+
+# 安装新版Erlang
 yum install -y erlang
 
-# 如果在无网络环境下安装，可以在有网络的机器上下载所需的RPM包
-# 1. 在有网络的机器上执行：
-# yumdownloader --resolve erlang
-# 2. 将下载的RPM包传输到服务器
-# 3. 在服务器上执行：
-# rpm -ivh *.rpm
+# **推荐方案**：如果GPG密钥验证仍然出错，可以使用以下命令忽略GPG检查安装
+yum install -y --nogpgcheck erlang
 
-# 验证安装
+# 验证安装的Erlang版本（应该是23.x或更高版本）
 erl -version
+
+# 备选方案：如果仍然遇到问题，可以直接下载Erlang RPM包安装
+# 下载特定版本的Erlang RPM包
+wget https://github.com/rabbitmq/erlang-rpm/releases/download/v23.3.4.11/erlang-23.3.4.11-1.el7.x86_64.rpm
+
+# 使用rpm命令直接安装，忽略依赖和GPG验证
+rpm -ivh --nodeps erlang-23.3.4.11-1.el7.x86_64.rpm
 ```
 
 2. 安装RabbitMQ
 
-```shell
-# 删除任何旧的或重复的RabbitMQ仓库配置文件
-rm -f /etc/yum.repos.d/rabbitmq-server*.repo
+安装完新版Erlang后，可以继续安装RabbitMQ：
 
+```shell
 # 添加RabbitMQ仓库
-cat > /etc/yum.repos.d/rabbitmq-server.repo << EOF
-[rabbitmq-server]
-name=rabbitmq-server
-baseurl=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/rpm/el/7/\$basearch
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+
+# 或手动配置RabbitMQ仓库
+cat > /etc/yum.repos.d/rabbitmq.repo << EOF
+[rabbitmq_rabbitmq-server]
+name=rabbitmq_rabbitmq-server
+baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/\$basearch
 gpgcheck=1
-gpgkey=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
 enabled=1
-skip_if_unavailable=true
+gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 EOF
+
+# 导入所有相关GPG密钥（包括PackageCloud的主要密钥和特定仓库密钥）
+rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+rpm --import https://packagecloud.io/gpg.key
+rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 
 # 清除YUM缓存
 yum clean all
+# 重建缓存
+yum makecache
 
-# 安装RabbitMQ
-yum install -y rabbitmq-server
+# 安装RabbitMQ 3.8.x（与Erlang 23.x兼容性最好）
+yum install -y rabbitmq-server-3.8.9
 
-# 如果上述方法失败，可以尝试使用官方脚本自动配置仓库
-# curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
-# yum install -y rabbitmq-server
+# **推荐方案**：如果GPG密钥验证仍然出错，可以使用以下命令忽略GPG检查安装
+yum install -y --nogpgcheck rabbitmq-server-3.8.9
 
-# 离线安装方法（适用于无网络环境或在线安装失败时）
-# 1. 在有网络的机器上下载RPM包：
-# wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.12.12/rabbitmq-server-3.12.12-1.el7.noarch.rpm
-# 2. 将RPM包传输到服务器
-# 3. 安装依赖包socat
-# yum install -y socat
-# 4. 安装RabbitMQ
-# rpm -ivh rabbitmq-server-3.12.12-1.el7.noarch.rpm
-
-# 验证安装
-rabbitmqctl version
+# 如果上述命令无法找到特定版本，可以使用以下命令列出可用版本
+# yum list --showduplicates rabbitmq-server
 ```
+
+3. 启动RabbitMQ服务并配置
 
 ```shell
 # 启动RabbitMQ服务
@@ -1464,1076 +683,123 @@ systemctl enable rabbitmq-server
 systemctl status rabbitmq-server
 ```
 
-3. 启用RabbitMQ管理插件
+4. 启用RabbitMQ管理插件
 
 ```shell
-# 启用管理插件
+# 启用RabbitMQ管理界面插件
 rabbitmq-plugins enable rabbitmq_management
 
-# 创建管理员用户
-rabbitmqctl add_user admin password
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+# 重启RabbitMQ服务以应用更改
+systemctl restart rabbitmq-server
 ```
 
-4. 配置防火墙（如果开启了防火墙）
+完成后，可以通过浏览器访问RabbitMQ管理界面：http://服务器IP:15672
+
+5. 创建RabbitMQ管理用户
 
 ```shell
-# 开放RabbitMQ端口
-firewall-cmd --permanent --add-port=5672/tcp
+# 创建管理员用户（将 'admin' 和 'password' 替换为您想要的用户名和密码）
+rabbitmqctl add_user admin password
+
+# 设置用户角色为管理员
+rabbitmqctl set_user_tags admin administrator
+
+# 设置用户权限（允许访问所有虚拟主机）
+rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+
+# 列出所有用户
+rabbitmqctl list_users
+```
+
+6. 创建应用程序专用用户
+
+```shell
+# 创建应用程序使用的用户
+rabbitmqctl add_user app_user app_password
+
+# 设置为普通用户（不需要管理权限）
+rabbitmqctl set_user_tags app_user
+
+# 设置用户权限
+rabbitmqctl set_permissions -p / app_user ".*" ".*" ".*"
+```
+
+7. 管理虚拟主机
+
+```shell
+# 创建新的虚拟主机
+rabbitmqctl add_vhost my_vhost
+
+# 为用户设置特定虚拟主机的权限
+rabbitmqctl set_permissions -p my_vhost app_user ".*" ".*" ".*"
+
+# 列出所有虚拟主机
+rabbitmqctl list_vhosts
+```
+
+8. 常见命令和操作
+
+```shell
+# 查看RabbitMQ状态
+rabbitmqctl status
+
+# 查看集群状态
+rabbitmqctl cluster_status
+
+# 列出所有队列
+rabbitmqctl list_queues
+
+# 列出所有交换机
+rabbitmqctl list_exchanges
+
+# 列出所有绑定
+rabbitmqctl list_bindings
+
+# 查看特定虚拟主机中的所有队列
+rabbitmqctl list_queues -p my_vhost
+
+# 删除用户
+rabbitmqctl delete_user username
+
+# 修改用户密码
+rabbitmqctl change_password username newpassword
+
+# 删除虚拟主机
+rabbitmqctl delete_vhost vhost_name
+
+# 清除特定队列的消息
+rabbitmqctl purge_queue queue_name
+```
+
+9. 设置防火墙规则（如果启用了防火墙）
+
+```shell
+# 开放RabbitMQ管理界面端口
 firewall-cmd --permanent --add-port=15672/tcp
+
+# 开放RabbitMQ消息传递端口
+firewall-cmd --permanent --add-port=5672/tcp
+
+# 重新加载防火墙配置
 firewall-cmd --reload
 ```
 
-5. 访问RabbitMQ管理界面
-
-通过浏览器访问：http://服务器IP:15672
-使用刚创建的admin用户登录
-
-6. 登录问题排查
-
-如果无法登录RabbitMQ管理界面，可以按照以下步骤进行排查：
+10. 故障排查
 
 ```shell
-# 检查RabbitMQ服务状态
-systemctl status rabbitmq-server
-
 # 查看RabbitMQ日志
-cat /var/log/rabbitmq/rabbit@$(hostname -s).log
+tail -f /var/log/rabbitmq/rabbit@$(hostname -s).log
 
-# 如果日志目录不存在，可以查看系统日志
+# 查看系统日志中的RabbitMQ相关条目
 journalctl -u rabbitmq-server
 
-# 检查管理插件是否正确启用
-rabbitmq-plugins list | grep management
+# 检查RabbitMQ进程
+ps aux | grep rabbit
 
-# 检查用户列表和权限
-rabbitmqctl list_users
-rabbitmqctl list_permissions
-
-# 重置admin用户（如果存在问题）
-rabbitmqctl delete_user admin
-rabbitmqctl add_user admin 新密码
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-
-# 检查端口是否正确开放
+# 检查RabbitMQ的端口是否正在监听
+ss -tunlp | grep 5672
 ss -tunlp | grep 15672
-
-# 检查防火墙规则
-firewall-cmd --list-all
 ```
-
-常见问题及解决方案：
-
-- **服务未启动**：确保使用`systemctl start rabbitmq-server`启动服务
-- **插件未启用**：确保使用`rabbitmq-plugins enable rabbitmq_management`启用管理插件
-- **端口未开放**：检查防火墙设置，确保15672端口已开放
-- **权限问题**：检查用户是否有administrator标签和正确的权限
-- **Erlang Cookie问题**：如果是集群环境，检查Erlang Cookie是否一致
-- **内存不足**：检查系统资源，RabbitMQ可能因内存不足而无法正常启动
-- **浏览器问题**：尝试清除浏览器缓存或使用不同的浏览器访问
-- **网络问题**：检查服务器网络配置，确保可以从外部访问该端口
-
-如果以上步骤仍无法解决问题，可以尝试重新安装RabbitMQ：
-
-```shell
-# 停止服务
-systemctl stop rabbitmq-server
-
-# 卸载RabbitMQ
-yum remove -y rabbitmq-server
-
-# 清理配置文件
-rm -rf /var/lib/rabbitmq/
-rm -rf /etc/rabbitmq/
-
-# 重新安装
-yum install -y rabbitmq-server
-
-# 启动服务并配置
-systemctl start rabbitmq-server
-systemctl enable rabbitmq-server
-rabbitmq-plugins enable rabbitmq_management
-rabbitmqctl add_user admin password
-rabbitmqctl set_user_tags admin administrator
-rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
-```
-
-## 三、准备部署所必需的资源
-### （一）数据库
-
-+ 在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。
-
-1. 准备SQL脚本文件
-
-```shell
-# 创建存放SQL脚本的目录
-mkdir -p /opt/deploy/sql
-```
-
-2. 上传SQL脚本文件
-
-可以使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的`/opt/deploy/sql`目录。
-
-3. 导入数据库脚本
-
-```shell
-# 登录MySQL
-mysql -u用户名 -p密码
-
-# 在MySQL命令行中执行
-source /opt/deploy/sql/create_database.sql
-source /opt/deploy/sql/create_tables.sql
-source /opt/deploy/sql/init_data.sql
-```
-
-### （二）前端打包
-
-+ 前端项目通常需要打包后部署到Nginx服务器上。
-
-1. 准备前端打包文件
-
-在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：
-
-```shell
-# 在前端项目目录中执行
-npm run build
-```
-
-2. 上传打包文件
-
-使用SFTP工具将打包生成的文件（通常在dist或build目录）上传到服务器：
-
-```shell
-# 在服务器上创建存放前端文件的目录
-mkdir -p /usr/share/nginx/html/mywebsite
-```
-
-3. 解压前端文件（如果是压缩包）
-
-```shell
-# 解压前端文件到Nginx目录
-unzip frontend.zip -d /usr/share/nginx/html/mywebsite
-```
-
-### （三）后端打包
-
-+ 后端Java项目通常打包为JAR或WAR文件部署。
-
-1. 准备后端打包文件
-
-在本地开发环境中，使用Maven或Gradle打包后端项目：
-
-```shell
-# Maven打包
-mvn clean package -Dmaven.test.skip=true
-
-# 或Gradle打包
-gradle build -x test
-```
-
-2. 上传后端JAR文件
-
-```shell
-# 在服务器上创建存放后端文件的目录
-mkdir -p /opt/deploy/backend
-```
-
-使用SFTP工具将JAR文件上传到服务器的`/opt/deploy/backend`目录。
-
-3. 准备配置文件
-
-```shell
-# 创建配置文件目录
-mkdir -p /opt/deploy/backend/config
-
-# 创建应用配置文件
-vi /opt/deploy/backend/config/application.yml
-```
-
-配置文件示例：
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: dbuser
-    password: dbpassword
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  
-  # Redis配置（如果使用）
-  redis:
-    host: localhost
-    port: 6379
-    password: redispassword
-    database: 0
-    
-  # MongoDB配置（如果使用）
-  data:
-    mongodb:
-      uri: mongodb://user:password@localhost:27017/mydb
-      
-  # RabbitMQ配置（如果使用）
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: password
-    virtual-host: /
-```
-
-## 四、部署资源并调试
-### （一）数据库
-
-1. 验证数据库连接
-
-```shell
-# 连接MySQL数据库
-mysql -u用户名 -p密码 -h数据库地址 数据库名
-
-# 查看数据库表
-SHOW TABLES;
-
-# 查看表数据
-SELECT * FROM 表名 LIMIT 10;
-```
-
-2. 检查数据库字符集
-
-```shell
-# 在MySQL命令行中执行
-SHOW VARIABLES LIKE 'character_set%';
-SHOW VARIABLES LIKE 'collation%';
-```
-
-### （二）前端
-
-1. 配置Nginx虚拟主机
-
-确保Nginx配置文件已正确设置（参考前面的Nginx配置部分）。
-
-2. 检查文件权限
-
-```shell
-# 确保Nginx用户有权限访问前端文件
-chown -R nginx:nginx /usr/share/nginx/html/mywebsite
-chmod -R 755 /usr/share/nginx/html/mywebsite
-```
-
-3. 重启Nginx服务
-
-```shell
-systemctl restart nginx
-```
-
-4. 测试前端访问
-
-在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。
-
-### （三）后端
-
-1. 创建启动脚本
-
-```shell
-# 创建启动脚本
-vi /opt/deploy/backend/start.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-JAVA_OPTS="-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"
-APP_NAME="myapp.jar"
-APP_PATH="/opt/deploy/backend"
-
-cd $APP_PATH
-nohup java $JAVA_OPTS -jar $APP_NAME --spring.config.location=file:./config/application.yml > app.log 2>&1 &
-echo $! > app.pid
-echo "应用已启动，进程ID：$(cat app.pid)"
-```
-
-2. 创建停止脚本
-
-```shell
-# 创建停止脚本
-vi /opt/deploy/backend/stop.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-APP_PATH="/opt/deploy/backend"
-PID_FILE="$APP_PATH/app.pid"
-
-if [ -f "$PID_FILE" ]; then
-    PID=$(cat $PID_FILE)
-    if ps -p $PID > /dev/null; then
-        echo "正在停止应用，进程ID：$PID"
-        kill $PID
-        sleep 5
-        if ps -p $PID > /dev/null; then
-            echo "应用未能正常停止，强制终止"
-            kill -9 $PID
-        fi
-    else
-        echo "应用未运行"
-    fi
-    rm -f $PID_FILE
-else
-    echo "PID文件不存在，应用可能未运行"
-fi
-echo "应用已停止"
-```
-
-3. 设置脚本权限
-
-```shell
-chmod +x /opt/deploy/backend/start.sh
-chmod +x /opt/deploy/backend/stop.sh
-```
-
-4. 启动后端应用
-
-```shell
-# 启动应用
-/opt/deploy/backend/start.sh
-
-# 查看启动日志
-tail -f /opt/deploy/backend/app.log
-```
-
-### （四）调试
-
-1. 检查应用状态
-
-```shell
-# 检查后端应用进程
-ps -ef | grep java
-
-# 检查端口监听情况
-netstat -tunlp | grep 8080
-
-# 检查Nginx进程
-ps -ef | grep nginx
-
-# 检查Nginx端口
-netstat -tunlp | grep 80
-```
-
-2. 检查日志
-
-```shell
-# 查看后端应用日志
-tail -f /opt/deploy/backend/app.log
-
-# 查看Nginx访问日志
-tail -f /var/log/nginx/access.log
-
-# 查看Nginx错误日志
-tail -f /var/log/nginx/error.log
-```
-
-3. 测试API接口
-
-```shell
-# 使用curl测试后端API
-curl -X GET http://localhost:8080/api/test
-
-# 带参数的POST请求
-curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://localhost:8080/api/data
-```
-
-4. 常见问题排查
-
-- 前端访问404：检查Nginx配置和前端文件路径
-- 后端无法启动：检查Java版本、内存设置和配置文件
-- 数据库连接失败：检查数据库配置、用户权限和防火墙设置
-- 跨域问题：检查Nginx代理配置和后端CORS设置
-- RabbitMQ管理界面无法访问：
-  ```shell
-  # 检查服务状态
-  systemctl status rabbitmq-server
-  
-  # 检查日志
-  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
-  journalctl -u rabbitmq-server
-  
-  # 检查端口是否开放
-  ss -tunlp | grep 15672
-  ```
-
-## 五、总结
-
-本文详细介绍了在CentOS 7空服务器上部署网页系统的完整流程，包括环境准备、软件安装、资源准备和部署调试等步骤。通过按照本文的步骤操作，可以快速搭建一个包含前端、后端和数据库的完整网页系统。
-
-在实际部署过程中，可能会遇到各种问题，建议根据具体情况灵活调整配置参数，并结合日志信息进行排查。同时，为了保证系统的安全性和稳定性，还应该考虑添加防火墙规则、设置定时备份、配置监控告警等措施。
-
-## 六、参考链接
-
-- [CentOS 官方文档](https://docs.centos.org/)
-- [MySQL 官方文档](https://dev.mysql.com/doc/)
-- [Nginx 官方文档](https://nginx.org/en/docs/)
-- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
-- [Vue.js 官方文档](https://vuejs.org/guide/introduction.html)
-
-
-
-
-## 三、准备部署所必需的资源
-### （一）数据库
-
-+ 在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。
-
-1. 准备SQL脚本文件
-
-```shell
-# 创建存放SQL脚本的目录
-mkdir -p /opt/deploy/sql
-```
-
-2. 上传SQL脚本文件
-
-可以使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的`/opt/deploy/sql`目录。
-
-3. 导入数据库脚本
-
-```shell
-# 登录MySQL
-mysql -u用户名 -p密码
-
-# 在MySQL命令行中执行
-source /opt/deploy/sql/create_database.sql
-source /opt/deploy/sql/create_tables.sql
-source /opt/deploy/sql/init_data.sql
-```
-
-### （二）前端打包
-
-+ 前端项目通常需要打包后部署到Nginx服务器上。
-
-1. 准备前端打包文件
-
-在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：
-
-```shell
-# 在前端项目目录中执行
-npm run build
-```
-
-2. 上传打包文件
-
-使用SFTP工具将打包生成的文件（通常在dist或build目录）上传到服务器：
-
-```shell
-# 在服务器上创建存放前端文件的目录
-mkdir -p /usr/share/nginx/html/mywebsite
-```
-
-3. 解压前端文件（如果是压缩包）
-
-```shell
-# 解压前端文件到Nginx目录
-unzip frontend.zip -d /usr/share/nginx/html/mywebsite
-```
-
-### （三）后端打包
-
-+ 后端Java项目通常打包为JAR或WAR文件部署。
-
-1. 准备后端打包文件
-
-在本地开发环境中，使用Maven或Gradle打包后端项目：
-
-```shell
-# Maven打包
-mvn clean package -Dmaven.test.skip=true
-
-# 或Gradle打包
-gradle build -x test
-```
-
-2. 上传后端JAR文件
-
-```shell
-# 在服务器上创建存放后端文件的目录
-mkdir -p /opt/deploy/backend
-```
-
-使用SFTP工具将JAR文件上传到服务器的`/opt/deploy/backend`目录。
-
-3. 准备配置文件
-
-```shell
-# 创建配置文件目录
-mkdir -p /opt/deploy/backend/config
-
-# 创建应用配置文件
-vi /opt/deploy/backend/config/application.yml
-```
-
-配置文件示例：
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: dbuser
-    password: dbpassword
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  
-  # Redis配置（如果使用）
-  redis:
-    host: localhost
-    port: 6379
-    password: redispassword
-    database: 0
-    
-  # MongoDB配置（如果使用）
-  data:
-    mongodb:
-      uri: mongodb://user:password@localhost:27017/mydb
-      
-  # RabbitMQ配置（如果使用）
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: password
-    virtual-host: /
-```
-
-## 四、部署资源并调试
-### （一）数据库
-
-1. 验证数据库连接
-
-```shell
-# 连接MySQL数据库
-mysql -u用户名 -p密码 -h数据库地址 数据库名
-
-# 查看数据库表
-SHOW TABLES;
-
-# 查看表数据
-SELECT * FROM 表名 LIMIT 10;
-```
-
-2. 检查数据库字符集
-
-```shell
-# 在MySQL命令行中执行
-SHOW VARIABLES LIKE 'character_set%';
-SHOW VARIABLES LIKE 'collation%';
-```
-
-### （二）前端
-
-1. 配置Nginx虚拟主机
-
-确保Nginx配置文件已正确设置（参考前面的Nginx配置部分）。
-
-2. 检查文件权限
-
-```shell
-# 确保Nginx用户有权限访问前端文件
-chown -R nginx:nginx /usr/share/nginx/html/mywebsite
-chmod -R 755 /usr/share/nginx/html/mywebsite
-```
-
-3. 重启Nginx服务
-
-```shell
-systemctl restart nginx
-```
-
-4. 测试前端访问
-
-在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。
-
-### （三）后端
-
-1. 创建启动脚本
-
-```shell
-# 创建启动脚本
-vi /opt/deploy/backend/start.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-JAVA_OPTS="-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"
-APP_NAME="myapp.jar"
-APP_PATH="/opt/deploy/backend"
-
-cd $APP_PATH
-nohup java $JAVA_OPTS -jar $APP_NAME --spring.config.location=file:./config/application.yml > app.log 2>&1 &
-echo $! > app.pid
-echo "应用已启动，进程ID：$(cat app.pid)"
-```
-
-2. 创建停止脚本
-
-```shell
-# 创建停止脚本
-vi /opt/deploy/backend/stop.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-APP_PATH="/opt/deploy/backend"
-PID_FILE="$APP_PATH/app.pid"
-
-if [ -f "$PID_FILE" ]; then
-    PID=$(cat $PID_FILE)
-    if ps -p $PID > /dev/null; then
-        echo "正在停止应用，进程ID：$PID"
-        kill $PID
-        sleep 5
-        if ps -p $PID > /dev/null; then
-            echo "应用未能正常停止，强制终止"
-            kill -9 $PID
-        fi
-    else
-        echo "应用未运行"
-    fi
-    rm -f $PID_FILE
-else
-    echo "PID文件不存在，应用可能未运行"
-fi
-echo "应用已停止"
-```
-
-3. 设置脚本权限
-
-```shell
-chmod +x /opt/deploy/backend/start.sh
-chmod +x /opt/deploy/backend/stop.sh
-```
-
-4. 启动后端应用
-
-```shell
-# 启动应用
-/opt/deploy/backend/start.sh
-
-# 查看启动日志
-tail -f /opt/deploy/backend/app.log
-```
-
-### （四）调试
-
-1. 检查应用状态
-
-```shell
-# 检查后端应用进程
-ps -ef | grep java
-
-# 检查端口监听情况
-netstat -tunlp | grep 8080
-
-# 检查Nginx进程
-ps -ef | grep nginx
-
-# 检查Nginx端口
-netstat -tunlp | grep 80
-```
-
-2. 检查日志
-
-```shell
-# 查看后端应用日志
-tail -f /opt/deploy/backend/app.log
-
-# 查看Nginx访问日志
-tail -f /var/log/nginx/access.log
-
-# 查看Nginx错误日志
-tail -f /var/log/nginx/error.log
-```
-
-3. 测试API接口
-
-```shell
-# 使用curl测试后端API
-curl -X GET http://localhost:8080/api/test
-
-# 带参数的POST请求
-curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://localhost:8080/api/data
-```
-
-4. 常见问题排查
-
-- 前端访问404：检查Nginx配置和前端文件路径
-- 后端无法启动：检查Java版本、内存设置和配置文件
-- 数据库连接失败：检查数据库配置、用户权限和防火墙设置
-- 跨域问题：检查Nginx代理配置和后端CORS设置
-- RabbitMQ管理界面无法访问：
-  ```shell
-  # 检查服务状态
-  systemctl status rabbitmq-server
-  
-  # 检查日志
-  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
-  journalctl -u rabbitmq-server
-  
-  # 检查端口是否开放
-  ss -tunlp | grep 15672
-  ```
-
-## 五、总结
-
-本文详细介绍了在CentOS 7空服务器上部署网页系统的完整流程，包括环境准备、软件安装、资源准备和部署调试等步骤。通过按照本文的步骤操作，可以快速搭建一个包含前端、后端和数据库的完整网页系统。
-
-在实际部署过程中，可能会遇到各种问题，建议根据具体情况灵活调整配置参数，并结合日志信息进行排查。同时，为了保证系统的安全性和稳定性，还应该考虑添加防火墙规则、设置定时备份、配置监控告警等措施。
-
-## 六、参考链接
-
-- [CentOS 官方文档](https://docs.centos.org/)
-- [MySQL 官方文档](https://dev.mysql.com/doc/)
-- [Nginx 官方文档](https://nginx.org/en/docs/)
-- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
-- [Vue.js 官方文档](https://vuejs.org/guide/introduction.html)
-
-
-
-
-## 三、准备部署所必需的资源
-### （一）数据库
-
-+ 在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。
-
-1. 准备SQL脚本文件
-
-```shell
-# 创建存放SQL脚本的目录
-mkdir -p /opt/deploy/sql
-```
-
-2. 上传SQL脚本文件
-
-可以使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的`/opt/deploy/sql`目录。
-
-3. 导入数据库脚本
-
-```shell
-# 登录MySQL
-mysql -u用户名 -p密码
-
-# 在MySQL命令行中执行
-source /opt/deploy/sql/create_database.sql
-source /opt/deploy/sql/create_tables.sql
-source /opt/deploy/sql/init_data.sql
-```
-
-### （二）前端打包
-
-+ 前端项目通常需要打包后部署到Nginx服务器上。
-
-1. 准备前端打包文件
-
-在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：
-
-```shell
-# 在前端项目目录中执行
-npm run build
-```
-
-2. 上传打包文件
-
-使用SFTP工具将打包生成的文件（通常在dist或build目录）上传到服务器：
-
-```shell
-# 在服务器上创建存放前端文件的目录
-mkdir -p /usr/share/nginx/html/mywebsite
-```
-
-3. 解压前端文件（如果是压缩包）
-
-```shell
-# 解压前端文件到Nginx目录
-unzip frontend.zip -d /usr/share/nginx/html/mywebsite
-```
-
-### （三）后端打包
-
-+ 后端Java项目通常打包为JAR或WAR文件部署。
-
-1. 准备后端打包文件
-
-在本地开发环境中，使用Maven或Gradle打包后端项目：
-
-```shell
-# Maven打包
-mvn clean package -Dmaven.test.skip=true
-
-# 或Gradle打包
-gradle build -x test
-```
-
-2. 上传后端JAR文件
-
-```shell
-# 在服务器上创建存放后端文件的目录
-mkdir -p /opt/deploy/backend
-```
-
-使用SFTP工具将JAR文件上传到服务器的`/opt/deploy/backend`目录。
-
-3. 准备配置文件
-
-```shell
-# 创建配置文件目录
-mkdir -p /opt/deploy/backend/config
-
-# 创建应用配置文件
-vi /opt/deploy/backend/config/application.yml
-```
-
-配置文件示例：
-
-```yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: dbuser
-    password: dbpassword
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  
-  # Redis配置（如果使用）
-  redis:
-    host: localhost
-    port: 6379
-    password: redispassword
-    database: 0
-    
-  # MongoDB配置（如果使用）
-  data:
-    mongodb:
-      uri: mongodb://user:password@localhost:27017/mydb
-      
-  # RabbitMQ配置（如果使用）
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: password
-    virtual-host: /
-```
-
-## 四、部署资源并调试
-### （一）数据库
-
-1. 验证数据库连接
-
-```shell
-# 连接MySQL数据库
-mysql -u用户名 -p密码 -h数据库地址 数据库名
-
-# 查看数据库表
-SHOW TABLES;
-
-# 查看表数据
-SELECT * FROM 表名 LIMIT 10;
-```
-
-2. 检查数据库字符集
-
-```shell
-# 在MySQL命令行中执行
-SHOW VARIABLES LIKE 'character_set%';
-SHOW VARIABLES LIKE 'collation%';
-```
-
-### （二）前端
-
-1. 配置Nginx虚拟主机
-
-确保Nginx配置文件已正确设置（参考前面的Nginx配置部分）。
-
-2. 检查文件权限
-
-```shell
-# 确保Nginx用户有权限访问前端文件
-chown -R nginx:nginx /usr/share/nginx/html/mywebsite
-chmod -R 755 /usr/share/nginx/html/mywebsite
-```
-
-3. 重启Nginx服务
-
-```shell
-systemctl restart nginx
-```
-
-4. 测试前端访问
-
-在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。
-
-### （三）后端
-
-1. 创建启动脚本
-
-```shell
-# 创建启动脚本
-vi /opt/deploy/backend/start.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-JAVA_OPTS="-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"
-APP_NAME="myapp.jar"
-APP_PATH="/opt/deploy/backend"
-
-cd $APP_PATH
-nohup java $JAVA_OPTS -jar $APP_NAME --spring.config.location=file:./config/application.yml > app.log 2>&1 &
-echo $! > app.pid
-echo "应用已启动，进程ID：$(cat app.pid)"
-```
-
-2. 创建停止脚本
-
-```shell
-# 创建停止脚本
-vi /opt/deploy/backend/stop.sh
-```
-
-添加以下内容：
-
-```shell
-#!/bin/bash
-APP_PATH="/opt/deploy/backend"
-PID_FILE="$APP_PATH/app.pid"
-
-if [ -f "$PID_FILE" ]; then
-    PID=$(cat $PID_FILE)
-    if ps -p $PID > /dev/null; then
-        echo "正在停止应用，进程ID：$PID"
-        kill $PID
-        sleep 5
-        if ps -p $PID > /dev/null; then
-            echo "应用未能正常停止，强制终止"
-            kill -9 $PID
-        fi
-    else
-        echo "应用未运行"
-    fi
-    rm -f $PID_FILE
-else
-    echo "PID文件不存在，应用可能未运行"
-fi
-echo "应用已停止"
-```
-
-3. 设置脚本权限
-
-```shell
-chmod +x /opt/deploy/backend/start.sh
-chmod +x /opt/deploy/backend/stop.sh
-```
-
-4. 启动后端应用
-
-```shell
-# 启动应用
-/opt/deploy/backend/start.sh
-
-# 查看启动日志
-tail -f /opt/deploy/backend/app.log
-```
-
-### （四）调试
-
-1. 检查应用状态
-
-```shell
-# 检查后端应用进程
-ps -ef | grep java
-
-# 检查端口监听情况
-netstat -tunlp | grep 8080
-
-# 检查Nginx进程
-ps -ef | grep nginx
-
-# 检查Nginx端口
-netstat -tunlp | grep 80
-```
-
-2. 检查日志
-
-```shell
-# 查看后端应用日志
-tail -f /opt/deploy/backend/app.log
-
-# 查看Nginx访问日志
-tail -f /var/log/nginx/access.log
-
-# 查看Nginx错误日志
-tail -f /var/log/nginx/error.log
-```
-
-3. 测试API接口
-
-```shell
-# 使用curl测试后端API
-curl -X GET http://localhost:8080/api/test
-
-# 带参数的POST请求
-curl -X POST -H "Content-Type: application/json" -d '{"key":"value"}' http://localhost:8080/api/data
-```
-
-4. 常见问题排查
-
-- 前端访问404：检查Nginx配置和前端文件路径
-- 后端无法启动：检查Java版本、内存设置和配置文件
-- 数据库连接失败：检查数据库配置、用户权限和防火墙设置
-- 跨域问题：检查Nginx代理配置和后端CORS设置
-- RabbitMQ管理界面无法访问：
-  ```shell
-  # 检查服务状态
-  systemctl status rabbitmq-server
-  
-  # 检查日志
-  cat /var/log/rabbitmq/rabbit@$(hostname -s).log
-  journalctl -u rabbitmq-server
-  
-  # 检查端口是否开放
-  ss -tunlp | grep 15672
-  ```
-
-## 五、总结
-
-本文详细介绍了在CentOS 7空服务器上部署网页系统的完整流程，包括环境准备、软件安装、资源准备和部署调试等步骤。通过按照本文的步骤操作，可以快速搭建一个包含前端、后端和数据库的完整网页系统。
-
-在实际部署过程中，可能会遇到各种问题，建议根据具体情况灵活调整配置参数，并结合日志信息进行排查。同时，为了保证系统的安全性和稳定性，还应该考虑添加防火墙规则、设置定时备份、配置监控告警等措施。
-
-## 六、参考链接
-
-- [CentOS 官方文档](https://docs.centos.org/)
-- [MySQL 官方文档](https://dev.mysql.com/doc/)
-- [Nginx 官方文档](https://nginx.org/en/docs/)
-- [Spring Boot 官方文档](https://spring.io/projects/spring-boot)
-- [Vue.js 官方文档](https://vuejs.org/guide/introduction.html)
-
-
-
 
 ## 三、准备部署所必需的资源
 ### （一）数据库
