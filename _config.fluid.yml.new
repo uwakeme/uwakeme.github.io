@@ -17,6 +17,9 @@ custom_js:
   - //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js
   ### 动态彩带
   - //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js
+  ### 背景动态粒子效果
+  - //cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js
+  - //cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js
   ### 自定义JavaScript
   - /js/custom.js
 
@@ -190,35 +193,7 @@ index:
     loop: true
     # 如果不想使用打字机效果，可以使用静态文字
     text: "分享技术，记录生活"
-  # 添加特色卡片区域
-  features:
-    enable: true
-    # 卡片数据
-    data:
-      - name: 最新文章
-        icon: iconfont icon-books
-        text: 查看最新发布的技术博客
-        link: /archives/
-        color: "#49b1f5"
-      - name: 我的分类
-        icon: iconfont icon-th-large
-        text: 浏览文章分类
-        link: /categories/
-        color: "#ff7242"
-      - name: 热门标签
-        icon: iconfont icon-tags-fill
-        text: 探索热门技术标签
-        link: /tags/
-        color: "#42c02e"
-  # 显示文章分类
-  categories:
-    enable: true
-    title: 热门分类
-    icon: iconfont icon-th-large
-    limit: 6  # 最多显示分类数量
-    mobile_limit: 3  # 移动端显示数量
-    color: true  # 使用彩色显示
-  
+    
 # ==================================== 文章页设置 ====================================
 post:
   ## 文章页banner
@@ -226,13 +201,6 @@ post:
   ## 缩略图封面
   # 文章默认封面图
   default_index_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/default.jpg
-  # 是否根据文章内容自动生成封面
-  auto_cover: true
-  # 自动生成封面的设置
-  auto_cover_types:
-    - 'unsplash'    # https://source.unsplash.com
-    - 'picsum'      # https://picsum.photos
-    - 'placeholder' # https://placehold.co
   ## 日期/字数/阅读时长/阅读数 设置
   meta:
     author:  # 作者，优先根据 front-matter 里 author 字段，其次是 hexo 配置中 author 值
@@ -252,7 +220,7 @@ post:
       format: "{} 次"
   ## 文章页脚
   copyright:
-    enable: false
+    enable: true
     # 展示作者
     author:
       enable: true
@@ -264,9 +232,7 @@ post:
     license:
       enable: true
       # 许可协议地址，支持自定义
-      license: "CC BY-NC-SA 4.0"
-      link: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
-      text: "本文采用 CC BY-NC-SA 4.0 协议，转载请注明出处"
+      license: '本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank">CC BY-NC-SA 4.0</a> 协议，转载请注明出处'
   ## 文章底部上一篇下一篇
   prev_next:
     enable: true
@@ -277,19 +243,7 @@ post:
     level: 3
     # 置于边栏
     placement: right
-  ## 文章分享功能
-  share:
-    enable: true
-    # 分享服务
-    services:
-      - 'qq'       # QQ好友
-      - 'wechat'   # 微信
-      - 'weibo'    # 微博
-      - 'email'    # 电子邮件
-      - 'facebook' # Facebook
-      - 'twitter'  # Twitter
-      - 'linkedin' # LinkedIn
-
+    
 ## 评论系统设置
 comments:
   enable: true
@@ -390,10 +344,6 @@ web_analytics:
     enable: true
     # 不蒜子 API 地址
     script_url: //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
-    # 自定义统计格式，{} 是数字的占位符（必须包含）
-    site_uv: true  # 开启站点访客统计
-    site_pv: true  # 开启站点访问量统计
-    page_pv: true  # 开启页面访问量统计
 
 ## 底部信息
 footer:
@@ -458,8 +408,6 @@ footer:
     source: "busuanzi"
     pv_format: "总访问量 {} 次"
     uv_format: "总访客数 {} 人"
-    # 添加自定义选项，使用当前数据重置统计起点
-    start_time: "2023-05-01"  # 统计开始时间
 
 ## 网页代码注入，可用于添加统计代码等
 inject:
@@ -503,80 +451,43 @@ inject:
           border-radius: 0 3px 3px 0;
         }
       </style>
-    - |
-      <!-- 添加结构化数据 -->
-      <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Wake的博客",
-          "url": "https://uwakeme.top",
-          "description": "Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟",
-          "author": {
-            "@type": "Person",
-            "name": "Wake"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Wake的博客",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/avatar.jpg"
-            }
-          }
-        }
-      </script>
   body_end:
     - |
-      <!-- 为文章页添加结构化数据 -->
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const isPostPage = document.querySelector('.post-content');
-          if (isPostPage) {
-            const title = document.querySelector('.post-title').innerText;
-            const dateElement = document.querySelector('.post-meta .datetime');
-            const date = dateElement ? dateElement.getAttribute('content') : '';
-            const author = document.querySelector('meta[name="author"]').getAttribute('content') || 'Wake';
-            const url = window.location.href;
-            const description = document.querySelector('meta[name="description"]').getAttribute('content');
-            const image = document.querySelector('.post-content img');
-            const imageUrl = image ? image.src : 'https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/default.jpg';
-            
-            // 创建博客文章结构化数据
-            const articleSchema = {
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              "headline": title,
-              "image": imageUrl,
-              "editor": author,
-              "author": {
-                "@type": "Person",
-                "name": author
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Wake的博客",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/avatar.jpg"
+        // 添加粒子效果
+        document.addEventListener("DOMContentLoaded", function() {
+          if (typeof particlesJS !== 'undefined') {
+            particlesJS('page-header', {
+              "particles": {
+                "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                  "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1
+                },
+                "move": {
+                  "enable": true, "speed": 2, "direction": "none",
+                  "random": false, "straight": false, "out_mode": "out", "bounce": false
                 }
               },
-              "url": url,
-              "datePublished": date,
-              "dateCreated": date,
-              "dateModified": date,
-              "description": description,
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": url
-              }
-            };
-            
-            // 将结构化数据添加到页面
-            const scriptElement = document.createElement('script');
-            scriptElement.type = 'application/ld+json';
-            scriptElement.innerHTML = JSON.stringify(articleSchema);
-            document.head.appendChild(scriptElement);
+              "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                  "onhover": { "enable": true, "mode": "grab" },
+                  "onclick": { "enable": true, "mode": "push" },
+                  "resize": true
+                },
+                "modes": {
+                  "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+                  "push": { "particles_nb": 4 }
+                }
+              },
+              "retina_detect": true
+            });
           }
         });
       </script>
+      
+</rewritten_file> 

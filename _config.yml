@@ -4,9 +4,9 @@
 
 # Site
 title: Uwakeme
-subtitle: ''
-description: ''
-keywords:
+subtitle: '一起学习，一起进步'
+description: 'Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。'
+keywords: 技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享
 author: Wake
 language: zh-CN
 timezone: ''
@@ -14,6 +14,7 @@ timezone: ''
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://uwakeme.top
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -104,3 +105,47 @@ deploy:
   type: 'git'
   repo: 'https://github.com/uwakeme/uwakeme.github.io.git'
   branch: 'master'
+
+# 本地搜索配置
+search:
+  path: local-search.xml
+  field: post
+  content: true
+  format: html
+
+# Mermaid图表配置
+mermaid:
+  enable: true  # 启用 mermaid
+  # 使用 CDN 引入
+  cdn: https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js
+  # 全局配置
+  options:
+    theme: 'default'
+    startOnLoad: true
+
+# ==================================== SEO 优化 ====================================
+# 更多SEO优化设置
+seo:
+  enable: true
+  description: Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟
+  keywords: 技术博客,编程,学习笔记,开发技巧
+  author: Wake
+  # 开启图片延迟加载
+  lazyload:
+    enable: true
+    placeholder: /images/loading.gif
+
+# 启用sitemap
+sitemap:
+  path: sitemap.xml
+
+# 启用robots.txt
+robotstxt:
+  enable: true
+  sitemap: /sitemap.xml
+
+# 添加RSS订阅
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
