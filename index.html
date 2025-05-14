@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -331,7 +331,7 @@
       
       <a class="index-excerpt " href="/2025/05/14/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0/" target="_blank">
         <div>
-          【LINUX】服务器数据库自动备份脚本实现一、前言在服务器运维过程中，数据库备份是一项至关重要的工作。数据是企业的核心资产，一旦数据丢失或损坏，可能会造成不可估量的损失。因此，建立一个可靠的自动备份机制是保障数据安全的基础措施。本文将详细介绍如何在Linux服务器上创建一个自动备份数据库的脚本，并通过crontab设置定时任务，实现数据库的自动备份。 二、准备工作（一）环境要求在开始之前，请确保您
+          【LINUX】服务器数据库自动备份脚本实现一、前言在服务器运维过程中，数据库备份是一项至关重要的工作。数据是企业的核心资产，一旦数据丢失或损坏，可能会造成不可估量的损失。因此，建立一个可靠的自动备份机制是保障数据安全的基础措施。本文将详细介绍如何在Linux服务器上创建一个自动备份数据库的脚本，并通过crontab设置定时任务，实现数据库的自动备份。 二、准备工作（一）环境要求在开始之前，请确保
         </div>
       </a>
 
@@ -404,7 +404,7 @@
       
       <a class="index-excerpt " href="/2025/05/13/%E3%80%90AI%E3%80%91%E4%B8%BACursor%E9%85%8D%E7%BD%AEMCP%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_blank">
         <div>
-          一、Cursor与MCP服务简介Cursor是一款AI驱动的代码编辑器，通过集成大型语言模型（LLM）帮助开发者更高效地编写代码。而MCP（Model Control Protocol）服务器允许Cursor连接到自托管的AI模型，让您可以使用本地或私有部署的AI模型，而不是依赖默认的云端模型。 配置自己的MCP服务器主要有以下优势：  数据隐私：代码和提示不会发送到第三方服务器 降低延迟：本地模
+          一、Cursor与MCP服务简介Cursor是一款AI驱动的代码编辑器，通过集成大型语言模型（LLM）帮助开发者更高效地编写代码。而MCP（Model Context Protocol）是由Anthropic推出的开放标准协议，它允许AI模型与外部工具、数据和系统无缝交互，极大扩展了AI在编程环境中的能力。 配置MCP服务器主要有以下优势：  功能扩展：让AI能够访问外部数据、API和工具 自动
         </div>
       </a>
 
@@ -450,6 +450,8 @@
               <a href="/tags/AI%E7%BC%96%E7%A8%8B/">#AI编程</a>
             
               <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">#开发工具</a>
+            
+              <a href="/tags/AI/">#AI</a>
             
           </div>
         
@@ -1145,8 +1147,6 @@
 <script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
 <script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js"></script>
 <script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
-<script src="//cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
 <script src="/js/custom.js"></script>
 
 
