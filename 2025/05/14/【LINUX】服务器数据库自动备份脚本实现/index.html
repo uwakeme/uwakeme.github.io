@@ -24,12 +24,12 @@
     <meta name="description" content="【LINUX】服务器数据库自动备份脚本实现一、前言在服务器运维过程中，数据库备份是一项至关重要的工作。数据是企业的核心资产，一旦数据丢失或损坏，可能会造成不可估量的损失。因此，建立一个可靠的自动备份机制是保障数据安全的基础措施。本文将详细介绍如何在Linux服务器上创建一个自动备份数据库的脚本，并通过crontab设置定时任务，实现数据库的自动备份。 二、准备工作（一）环境要求在开始之前，请确保您">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LINUX】服务器数据库自动备份脚本实现">
-<meta property="og:url" content="https://uwakeme.top/2025/05/13/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:url" content="https://uwakeme.top/2025/05/14/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="【LINUX】服务器数据库自动备份脚本实现一、前言在服务器运维过程中，数据库备份是一项至关重要的工作。数据是企业的核心资产，一旦数据丢失或损坏，可能会造成不可估量的损失。因此，建立一个可靠的自动备份机制是保障数据安全的基础措施。本文将详细介绍如何在Linux服务器上创建一个自动备份数据库的脚本，并通过crontab设置定时任务，实现数据库的自动备份。 二、准备工作（一）环境要求在开始之前，请确保您">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-13T12:34:40.952Z">
-<meta property="article:modified_time" content="2025-05-13T12:32:05.000Z">
+<meta property="article:published_time" content="2025-05-14T06:06:51.157Z">
+<meta property="article:modified_time" content="2025-05-14T01:27:56.000Z">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="数据库">
@@ -305,8 +305,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-13 20:34" pubdate>
-           2025 年 05 月 13 日 , 晚上 08:34 , 星期二
+        <time datetime="2025-05-14 14:06" pubdate>
+           2025 年 05 月 14 日 , 下午 02:06 , 星期三
         </time>
       </span>
     
@@ -318,7 +318,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.7k 字
+          3.9k 字
         
       </span>
     
@@ -330,7 +330,7 @@
         
         
           <!-- compatible with older versions-->
-          32 分钟
+          33 分钟
         
       </span>
     
@@ -389,9 +389,9 @@
 <li><strong>备份方式</strong>：全量备份或增量备份</li>
 </ol>
 <h2 id="三、创建备份脚本"><a href="#三、创建备份脚本" class="headerlink" title="三、创建备份脚本"></a>三、创建备份脚本</h2><h3 id="（一）MySQL-MariaDB备份脚本"><a href="#（一）MySQL-MariaDB备份脚本" class="headerlink" title="（一）MySQL&#x2F;MariaDB备份脚本"></a>（一）MySQL&#x2F;MariaDB备份脚本</h3><p>以下是一个完整的MySQL&#x2F;MariaDB数据库备份脚本示例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># 数据库配置信息</span><br>DB_USER=<span class="hljs-string">&quot;数据库用户名&quot;</span><br>DB_PASS=<span class="hljs-string">&quot;数据库密码&quot;</span><br><span class="hljs-comment"># 如果需要备份多个数据库，用空格分隔</span><br>DATABASES=<span class="hljs-string">&quot;数据库1 数据库2 数据库3&quot;</span><br><span class="hljs-comment"># 也可以备份所有数据库</span><br><span class="hljs-comment"># DATABASES=&quot;--all-databases&quot;</span><br><br><span class="hljs-comment"># 备份设置</span><br>BACKUP_DIR=<span class="hljs-string">&quot;/data/backups/mysql&quot;</span>  <span class="hljs-comment"># 备份文件存储路径</span><br>DATE=$(<span class="hljs-built_in">date</span> +<span class="hljs-string">&quot;%Y%m%d&quot;</span>)            <span class="hljs-comment"># 当前日期，用于文件命名</span><br>BACKUP_RETAIN_DAYS=7              <span class="hljs-comment"># 备份保留天数</span><br><br><span class="hljs-comment"># 创建备份目录（如果不存在）</span><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-variable">$BACKUP_DIR</span><br><br><span class="hljs-comment"># 记录开始时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份开始时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br><br><span class="hljs-comment"># 备份每个数据库</span><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;开始备份数据库: <span class="hljs-variable">$db</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <br>    <span class="hljs-comment"># 创建备份文件</span><br>    mysqldump --user=<span class="hljs-variable">$DB_USER</span> --password=<span class="hljs-variable">$DB_PASS</span> --host=localhost \<br>    --single-transaction --quick --lock-tables=<span class="hljs-literal">false</span> \<br>    --databases <span class="hljs-variable">$db</span> | gzip &gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/<span class="hljs-variable">$db</span>-<span class="hljs-variable">$DATE</span>.sql.gz&quot;</span><br>    <br>    <span class="hljs-comment"># 检查备份是否成功</span><br>    <span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份成功&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份失败&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># 删除过期备份</span><br>find <span class="hljs-variable">$BACKUP_DIR</span> -name <span class="hljs-string">&quot;*.sql.gz&quot;</span> -<span class="hljs-built_in">type</span> f -mtime +<span class="hljs-variable">$BACKUP_RETAIN_DAYS</span> -delete<br><br><span class="hljs-comment"># 记录结束时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份结束时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-------------------------------------&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br><br><span class="hljs-comment"># 可选：将备份文件同步到远程服务器</span><br><span class="hljs-comment"># rsync -avz $BACKUP_DIR user@remote_server:/path/to/backup/</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># 数据库配置信息</span><br>DB_USER=<span class="hljs-string">&quot;数据库用户名&quot;</span><br>DB_PASS=<span class="hljs-string">&quot;数据库密码&quot;</span><br><span class="hljs-comment"># 如果需要备份多个数据库，用空格分隔</span><br>DATABASES=<span class="hljs-string">&quot;数据库1 数据库2 数据库3&quot;</span><br><span class="hljs-comment"># 也可以备份所有数据库</span><br><span class="hljs-comment"># DATABASES=&quot;--all-databases&quot;</span><br><br><span class="hljs-comment"># 备份设置</span><br>BACKUP_DIR=<span class="hljs-string">&quot;/data/backups/mysql&quot;</span>  <span class="hljs-comment"># 备份文件存储路径</span><br>DATE=$(<span class="hljs-built_in">date</span> +<span class="hljs-string">&quot;%Y%m%d&quot;</span>)            <span class="hljs-comment"># 当前日期，用于文件命名</span><br>DAILY_BACKUP_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/<span class="hljs-variable">$DATE</span>&quot;</span> <span class="hljs-comment"># 每天一个独立的备份目录</span><br>BACKUP_RETAIN_DAYS=7              <span class="hljs-comment"># 备份保留天数</span><br><br><span class="hljs-comment"># 创建当天的备份目录（包括上级目录）</span><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-variable">$DAILY_BACKUP_DIR</span><br><br><span class="hljs-comment"># 记录开始时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份开始时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br><br><span class="hljs-comment"># 备份每个数据库</span><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;开始备份数据库: <span class="hljs-variable">$db</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <br>    <span class="hljs-comment"># 创建备份文件</span><br>    mysqldump --user=<span class="hljs-variable">$DB_USER</span> --password=<span class="hljs-variable">$DB_PASS</span> --host=localhost \<br>    --single-transaction --quick --lock-tables=<span class="hljs-literal">false</span> \<br>    --databases <span class="hljs-variable">$db</span> | gzip &gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/<span class="hljs-variable">$db</span>.sql.gz&quot;</span><br>    <br>    <span class="hljs-comment"># 检查备份是否成功</span><br>    <span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份成功&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份失败&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># 删除过期备份目录</span><br>find <span class="hljs-variable">$BACKUP_DIR</span> -<span class="hljs-built_in">type</span> d -name <span class="hljs-string">&quot;[0-9]*&quot;</span> -mtime +<span class="hljs-variable">$BACKUP_RETAIN_DAYS</span> -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">rm</span> -rf &#123;&#125; \;<br><br><span class="hljs-comment"># 记录结束时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份结束时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-------------------------------------&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br><br><span class="hljs-comment"># 可选：将备份文件同步到远程服务器</span><br><span class="hljs-comment"># rsync -avz $BACKUP_DIR user@remote_server:/path/to/backup/</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="（一-1）mysqldump参数详解"><a href="#（一-1）mysqldump参数详解" class="headerlink" title="（一-1）mysqldump参数详解"></a>（一-1）mysqldump参数详解</h3><p>脚本中使用的mysqldump命令参数说明：</p>
+<h4 id="mysqldump参数详解"><a href="#mysqldump参数详解" class="headerlink" title="mysqldump参数详解"></a>mysqldump参数详解</h4><p>脚本中使用的mysqldump命令参数说明：</p>
 <ol>
 <li><p><strong>基本连接参数</strong>:</p>
 <ul>
@@ -417,6 +417,16 @@
 <li><code>--ignore-table=db_name.tbl_name</code>: 排除指定的表</li>
 <li><code>--tables</code>: 仅备份指定的表</li>
 </ul>
+<p><strong>如何创建可在任意数据库恢复的备份：</strong><br>如果想创建可在任意数据库名称下恢复的备份（不限于原数据库名），可以使用以下参数组合：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建可在任意数据库恢复的备份</span><br>mysqldump --user=<span class="hljs-variable">$DB_USER</span> --password=<span class="hljs-variable">$DB_PASS</span> --host=localhost \<br>--single-transaction --quick --lock-tables=<span class="hljs-literal">false</span> \<br>--no-create-db \<br>数据库名 | gzip &gt; <span class="hljs-string">&quot;备份文件.sql.gz&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>关键参数说明：</p>
+<ul>
+<li>不使用<code>--databases</code>参数：直接使用数据库名作为参数</li>
+<li>添加<code>--no-create-db</code>：不生成CREATE DATABASE语句</li>
+</ul>
+<p>恢复到任意数据库的方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 先创建目标数据库（如果尚不存在）</span><br>mysql -u 用户名 -p -e <span class="hljs-string">&quot;CREATE DATABASE IF NOT EXISTS 目标数据库名&quot;</span><br><br><span class="hljs-comment"># 然后将备份恢复到该数据库</span><br>gunzip &lt; 备份文件.sql.gz | mysql -u 用户名 -p 目标数据库名<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong>其他常用参数</strong>（脚本中未使用但可考虑添加）:</p>
 <ul>
@@ -438,59 +448,12 @@
 </li>
 </ol>
 <p>选择适当的mysqldump参数对于获得高质量的备份至关重要。根据数据库大小、业务需求和系统负载，可以调整这些参数以优化备份过程。</p>
-<h4 id="mysqldump参数详解"><a href="#mysqldump参数详解" class="headerlink" title="mysqldump参数详解"></a>mysqldump参数详解</h4><h3 id="补充：mysqldump参数详解"><a href="#补充：mysqldump参数详解" class="headerlink" title="补充：mysqldump参数详解"></a>补充：mysqldump参数详解</h3><h3 id="（二）PostgreSQL备份脚本"><a href="#（二）PostgreSQL备份脚本" class="headerlink" title="（二）PostgreSQL备份脚本"></a>（二）PostgreSQL备份脚本</h3><p>如果您使用的是PostgreSQL数据库，可以使用以下脚本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># 数据库配置信息</span><br>DB_USER=<span class="hljs-string">&quot;数据库用户名&quot;</span><br><span class="hljs-comment"># 如果需要备份多个数据库，用空格分隔</span><br>DATABASES=<span class="hljs-string">&quot;数据库1 数据库2 数据库3&quot;</span><br><br><span class="hljs-comment"># 备份设置</span><br>BACKUP_DIR=<span class="hljs-string">&quot;/data/backups/postgresql&quot;</span>  <span class="hljs-comment"># 备份文件存储路径</span><br>DATE=$(<span class="hljs-built_in">date</span> +<span class="hljs-string">&quot;%Y%m%d&quot;</span>)                <span class="hljs-comment"># 当前日期，用于文件命名</span><br>BACKUP_RETAIN_DAYS=7                  <span class="hljs-comment"># 备份保留天数</span><br><br><span class="hljs-comment"># 创建备份目录（如果不存在）</span><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-variable">$BACKUP_DIR</span><br><br><span class="hljs-comment"># 记录开始时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份开始时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br><br><span class="hljs-comment"># 备份每个数据库</span><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;开始备份数据库: <span class="hljs-variable">$db</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <br>    <span class="hljs-comment"># 创建备份文件</span><br>    PGPASSWORD=<span class="hljs-string">&quot;<span class="hljs-variable">$DB_PASS</span>&quot;</span> pg_dump -U <span class="hljs-variable">$DB_USER</span> -d <span class="hljs-variable">$db</span> -F c -b -v -f <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/<span class="hljs-variable">$db</span>-<span class="hljs-variable">$DATE</span>.backup&quot;</span><br>    <br>    <span class="hljs-comment"># 检查备份是否成功</span><br>    <span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份成功&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份失败&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># 删除过期备份</span><br>find <span class="hljs-variable">$BACKUP_DIR</span> -name <span class="hljs-string">&quot;*.backup&quot;</span> -<span class="hljs-built_in">type</span> f -mtime +<span class="hljs-variable">$BACKUP_RETAIN_DAYS</span> -delete<br><br><span class="hljs-comment"># 记录结束时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份结束时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-------------------------------------&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/backup_log_<span class="hljs-variable">$DATE</span>.log&quot;</span><br></code></pre></td></tr></table></figure>
+<h3 id="（二）PostgreSQL备份脚本"><a href="#（二）PostgreSQL备份脚本" class="headerlink" title="（二）PostgreSQL备份脚本"></a>（二）PostgreSQL备份脚本</h3><p>如果您使用的是PostgreSQL数据库，可以使用以下脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># 数据库配置信息</span><br>DB_USER=<span class="hljs-string">&quot;数据库用户名&quot;</span><br>DB_PASS=<span class="hljs-string">&quot;数据库密码&quot;</span><br><span class="hljs-comment"># 如果需要备份多个数据库，用空格分隔</span><br>DATABASES=<span class="hljs-string">&quot;数据库1 数据库2 数据库3&quot;</span><br><br><span class="hljs-comment"># 备份设置</span><br>BACKUP_DIR=<span class="hljs-string">&quot;/data/backups/postgresql&quot;</span>  <span class="hljs-comment"># 备份文件存储路径</span><br>DATE=$(<span class="hljs-built_in">date</span> +<span class="hljs-string">&quot;%Y%m%d&quot;</span>)                <span class="hljs-comment"># 当前日期，用于文件命名</span><br>DAILY_BACKUP_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/<span class="hljs-variable">$DATE</span>&quot;</span>   <span class="hljs-comment"># 每天一个独立的备份目录</span><br>BACKUP_RETAIN_DAYS=7                  <span class="hljs-comment"># 备份保留天数</span><br><br><span class="hljs-comment"># 创建当天的备份目录（包括上级目录）</span><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-variable">$DAILY_BACKUP_DIR</span><br><br><span class="hljs-comment"># 记录开始时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份开始时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br><br><span class="hljs-comment"># 备份每个数据库</span><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;开始备份数据库: <span class="hljs-variable">$db</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <br>    <span class="hljs-comment"># 创建备份文件</span><br>    PGPASSWORD=<span class="hljs-string">&quot;<span class="hljs-variable">$DB_PASS</span>&quot;</span> pg_dump -U <span class="hljs-variable">$DB_USER</span> -d <span class="hljs-variable">$db</span> -F c -b -v -f <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/<span class="hljs-variable">$db</span>.backup&quot;</span><br>    <br>    <span class="hljs-comment"># 检查备份是否成功</span><br>    <span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份成功&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;数据库 <span class="hljs-variable">$db</span> 备份失败&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># 删除过期备份目录</span><br>find <span class="hljs-variable">$BACKUP_DIR</span> -<span class="hljs-built_in">type</span> d -name <span class="hljs-string">&quot;[0-9]*&quot;</span> -mtime +<span class="hljs-variable">$BACKUP_RETAIN_DAYS</span> -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">rm</span> -rf &#123;&#125; \;<br><br><span class="hljs-comment"># 记录结束时间</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;备份结束时间：<span class="hljs-subst">$(date)</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;-------------------------------------&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/backup_log.log&quot;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="（三）脚本权限设置"><a href="#（三）脚本权限设置" class="headerlink" title="（三）脚本权限设置"></a>（三）脚本权限设置</h3><p>创建脚本后，需要为其添加执行权限：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x /path/to/backup_script.sh<br></code></pre></td></tr></table></figure>
 
-<h3 id="（四）mysqldump参数详解"><a href="#（四）mysqldump参数详解" class="headerlink" title="（四）mysqldump参数详解"></a>（四）mysqldump参数详解</h3><p>脚本中使用的mysqldump命令参数说明：</p>
-<ol>
-<li><p><strong>基本连接参数</strong>:</p>
-<ul>
-<li><code>--user=$DB_USER</code>: 指定连接数据库的用户名</li>
-<li><code>--password=$DB_PASS</code>: 指定连接数据库的密码</li>
-<li><code>--host=localhost</code>: 指定数据库主机地址，localhost表示本地</li>
-</ul>
-</li>
-<li><p><strong>性能与一致性相关参数</strong>:</p>
-<ul>
-<li><code>--single-transaction</code>: 在一个事务中执行所有表的转储，确保备份时数据的一致性。特别适用于InnoDB表，能在不锁表的情况下获得一致的备份。</li>
-<li><code>--quick</code>: 从服务器逐行检索表中的数据，而不是将整个结果集缓存在内存中。减少内存使用，适合大型数据库备份。</li>
-<li><code>--lock-tables=false</code>: 禁用LOCK TABLES，与–single-transaction一起使用时可以避免锁定表，减少对数据库操作的影响。</li>
-</ul>
-</li>
-<li><p><strong>备份范围参数</strong>:</p>
-<ul>
-<li><code>--databases $db</code>: 指定要备份的数据库名称。这个参数会在备份文件中包含CREATE DATABASE和USE语句，<strong>还原时不需要指定数据库名</strong>。</li>
-</ul>
-<p>其他可选的备份范围参数:</p>
-<ul>
-<li><code>--all-databases</code>: 备份所有数据库</li>
-<li><code>--ignore-table=db_name.tbl_name</code>: 排除指定的表</li>
-<li><code>--tables</code>: 仅备份指定的表</li>
-</ul>
-</li>
-<li><p><strong>其他常用参数</strong>（脚本中未使用但可考虑添加）:</p>
-<ul>
-<li><code>--no-data</code>: 只备份表结构，不备份数据</li>
-<li><code>--no-create-info</code>: 只备份数据，不备份表结构</li>
-<li><code>--routines</code>: 包含存储过程和函数</li>
-<li><code>--triggers</code>: 包含触发器</li>
-<li><code>--events</code>: 包含事件调度器</li>
-<li><code>--set-gtid-purged=OFF</code>: 不在备份中包含GTID信息，适用于主从复制环境</li>
-<li><code>--skip-extended-insert</code>: 使每个INSERT语句包含一条记录，便于编辑（但会增加备份文件大小）</li>
-<li><code>--hex-blob</code>: 使用十六进制表示法导出二进制列</li>
-<li><code>--complete-insert</code>: 使用包含列名的完整INSERT语句</li>
-<li><code>--master-data=2</code>: 添加CHANGE MASTER命令作为注释，用于主从复制</li>
-<li><code>--where=&quot;条件&quot;</code>: 只备份符合WHERE条件的记录</li>
-<li><code>--opt</code>: 启用多个优化选项，是默认开启的</li>
-<li><code>--skip-opt</code>: 禁用–opt启用的优化选项</li>
-<li><code>--compress</code>: 压缩客户端和服务器之间的通信</li>
-</ul>
-</li>
-</ol>
-<p>选择适当的mysqldump参数对于获得高质量的备份至关重要。根据数据库大小、业务需求和系统负载，可以调整这些参数以优化备份过程。</p>
 <h2 id="四、设置定时任务"><a href="#四、设置定时任务" class="headerlink" title="四、设置定时任务"></a>四、设置定时任务</h2><h3 id="（一）使用crontab设置定时任务"><a href="#（一）使用crontab设置定时任务" class="headerlink" title="（一）使用crontab设置定时任务"></a>（一）使用crontab设置定时任务</h3><p>通过crontab可以设置脚本的自动执行时间：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 编辑当前用户的crontab</span><br>crontab -e<br></code></pre></td></tr></table></figure>
 
@@ -509,7 +472,31 @@
 <h2 id="五、备份文件管理"><a href="#五、备份文件管理" class="headerlink" title="五、备份文件管理"></a>五、备份文件管理</h2><h3 id="（一）备份压缩与加密"><a href="#（一）备份压缩与加密" class="headerlink" title="（一）备份压缩与加密"></a>（一）备份压缩与加密</h3><p>对于重要数据，建议对备份文件进行加密处理：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用gpg加密备份文件</span><br>gpg --encrypt --recipient your_email@example.com <span class="hljs-string">&quot;<span class="hljs-variable">$BACKUP_DIR</span>/<span class="hljs-variable">$db</span>-<span class="hljs-variable">$DATE</span>.sql.gz&quot;</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="（二）备份文件传输"><a href="#（二）备份文件传输" class="headerlink" title="（二）备份文件传输"></a>（二）备份文件传输</h3><p>将备份文件传输到远程服务器或云存储，可以使用以下方法：</p>
+<h3 id="（二）创建可在任意数据库中恢复的备份"><a href="#（二）创建可在任意数据库中恢复的备份" class="headerlink" title="（二）创建可在任意数据库中恢复的备份"></a>（二）创建可在任意数据库中恢复的备份</h3><p>默认情况下，使用<code>--databases</code>参数创建的备份会包含CREATE DATABASE和USE语句，这使得备份只能恢复到原始数据库名称。如果您希望备份文件能够在任意数据库中恢复，可以对MySQL&#x2F;MariaDB备份脚本做以下调整：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改备份命令，不使用--databases参数，而是单独导出表结构和数据</span><br>mysqldump --user=<span class="hljs-variable">$DB_USER</span> --password=<span class="hljs-variable">$DB_PASS</span> --host=localhost \<br>--single-transaction --quick --lock-tables=<span class="hljs-literal">false</span> \<br>--no-create-db --skip-add-drop-database \<br><span class="hljs-variable">$db</span> | gzip &gt; <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/<span class="hljs-variable">$db</span>.sql.gz&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>关键参数说明：</p>
+<ul>
+<li><code>--no-create-db</code>：不在SQL文件中包含CREATE DATABASE语句</li>
+<li><code>--skip-add-drop-database</code>：不在SQL文件中包含DROP DATABASE语句</li>
+<li>移除<code>--databases</code>参数：使备份不包含USE语句，可以导入到任意名称的数据库</li>
+</ul>
+<p>恢复到任意数据库的方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建目标数据库（如果不存在）</span><br>mysql -u 用户名 -p -e <span class="hljs-string">&quot;CREATE DATABASE IF NOT EXISTS 目标数据库名&quot;</span><br><br><span class="hljs-comment"># 将备份文件恢复到目标数据库</span><br>gunzip &lt; 数据库备份文件.sql.gz | mysql -u 用户名 -p 目标数据库名<br></code></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ol>
+<li>这种方式创建的备份文件不会包含数据库创建语句，只包含表结构和数据</li>
+<li>如果目标数据库已存在同名表，可能会发生冲突，请谨慎操作</li>
+<li>对于依赖特定数据库名的应用，修改数据库名后可能需要调整应用配置</li>
+</ol>
+<p>PostgreSQL数据库的类似调整：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改备份命令，使用-t参数只导出表内容而不包含CREATE DATABASE语句</span><br>PGPASSWORD=<span class="hljs-string">&quot;<span class="hljs-variable">$DB_PASS</span>&quot;</span> pg_dump -U <span class="hljs-variable">$DB_USER</span> -d <span class="hljs-variable">$db</span> -F c -b -v -t <span class="hljs-string">&#x27;*&#x27;</span> -f <span class="hljs-string">&quot;<span class="hljs-variable">$DAILY_BACKUP_DIR</span>/<span class="hljs-variable">$db</span>.backup&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>恢复到任意PostgreSQL数据库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建目标数据库</span><br>createdb -U 用户名 目标数据库名<br><br><span class="hljs-comment"># 恢复备份到目标数据库</span><br>pg_restore -U 用户名 -d 目标数据库名 -v 备份文件.backup<br></code></pre></td></tr></table></figure>
+
+<h3 id="（三）备份文件传输"><a href="#（三）备份文件传输" class="headerlink" title="（三）备份文件传输"></a>（三）备份文件传输</h3><p>将备份文件传输到远程服务器或云存储，可以使用以下方法：</p>
 <ol>
 <li><strong>使用rsync同步到远程服务器</strong>：</li>
 </ol>
@@ -520,10 +507,10 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装rclone</span><br>curl https://rclone.org/install.sh | <span class="hljs-built_in">sudo</span> bash<br><br><span class="hljs-comment"># 配置rclone（首次使用需要配置）</span><br>rclone config<br><br><span class="hljs-comment"># 同步到云存储</span><br>rclone <span class="hljs-built_in">sync</span> <span class="hljs-variable">$BACKUP_DIR</span> remote:backup-folder<br></code></pre></td></tr></table></figure>
 
-<h3 id="（三）备份恢复测试"><a href="#（三）备份恢复测试" class="headerlink" title="（三）备份恢复测试"></a>（三）备份恢复测试</h3><p>定期测试备份文件的恢复是确保备份有效性的重要步骤：</p>
+<h3 id="（四）备份恢复测试"><a href="#（四）备份恢复测试" class="headerlink" title="（四）备份恢复测试"></a>（四）备份恢复测试</h3><p>定期测试备份文件的恢复是确保备份有效性的重要步骤：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># MySQL/MariaDB恢复示例</span><br>gunzip &lt; backup_file.sql.gz | mysql -u username -p database_name<br><br><span class="hljs-comment"># PostgreSQL恢复示例</span><br>pg_restore -U username -d database_name -v backup_file.backup<br></code></pre></td></tr></table></figure>
 
-<h3 id="（四）-sql-gz备份文件使用指南"><a href="#（四）-sql-gz备份文件使用指南" class="headerlink" title="（四）.sql.gz备份文件使用指南"></a>（四）.sql.gz备份文件使用指南</h3><p>备份脚本生成的.sql.gz文件是通过gzip压缩的SQL备份文件，这种格式可以显著减小备份文件的大小，节省存储空间。以下是常用的.sql.gz文件操作方法：</p>
+<h3 id="（五）-sql-gz备份文件使用指南"><a href="#（五）-sql-gz备份文件使用指南" class="headerlink" title="（五）.sql.gz备份文件使用指南"></a>（五）.sql.gz备份文件使用指南</h3><p>备份脚本生成的.sql.gz文件是通过gzip压缩的SQL备份文件，这种格式可以显著减小备份文件的大小，节省存储空间。以下是常用的.sql.gz文件操作方法：</p>
 <ol>
 <li><p><strong>查看备份内容（不解压）</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">zcat 数据库名-20240101.sql.gz | less<br></code></pre></td></tr></table></figure>
@@ -636,7 +623,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【LINUX】服务器数据库自动备份脚本实现</div>
-      <div>https://uwakeme.top/2025/05/13/【LINUX】服务器数据库自动备份脚本实现/</div>
+      <div>https://uwakeme.top/2025/05/14/【LINUX】服务器数据库自动备份脚本实现/</div>
     </div>
     <div class="license-meta">
       
@@ -648,7 +635,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月13日</div>
+          <div>2025年5月14日</div>
         </div>
       
       
@@ -680,18 +667,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/13/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91conda%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" title="【学习】conda环境管理工具">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【学习】conda环境管理工具</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/12/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="【LINUX】服务器常用命令">
-                        <span class="hidden-mobile">【LINUX】服务器常用命令</span>
+                      <a href="/2025/05/13/%E3%80%90AI%E3%80%91%E4%B8%BACursor%E9%85%8D%E7%BD%AEMCP%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="【AI】为Cursor配置MCP服务器">
+                        <span class="hidden-mobile">【AI】为Cursor配置MCP服务器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
