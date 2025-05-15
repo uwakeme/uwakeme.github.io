@@ -72,6 +72,10 @@
         // 检查本地存储中的历史记录
         loadChatHistory();
         
+        // 初始化输入框样式
+        userInput.style.height = 'auto';
+        userInput.style.overflowX = 'hidden';
+        
         console.log('基础版AI助手初始化完成');
     }
     
@@ -83,7 +87,8 @@
         chatContainer.innerHTML = `
             <div class="ai-assistant-header">
                 <div class="ai-assistant-title">
-                    <i class="fas fa-robot"></i> ${config.botName}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="8" r="2"></circle><rect x="9" y="15" width="6" height="3" rx="1"></rect><path d="M6 11.5h12"></path></svg>
+                    ${config.botName}
                 </div>
                 <div class="ai-assistant-actions">
                     <button class="ai-assistant-minimize">_</button>
@@ -92,9 +97,9 @@
             </div>
             <div class="ai-assistant-messages"></div>
             <div class="ai-assistant-input-container">
-                <textarea class="ai-assistant-input" placeholder="${config.placeholder}" rows="1"></textarea>
+                <textarea class="ai-assistant-input" placeholder="${config.placeholder}" rows="1" autocomplete="off"></textarea>
                 <button class="ai-assistant-send">
-                    <i class="fas fa-paper-plane"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </button>
             </div>
         `;
@@ -102,7 +107,7 @@
         // 创建悬浮按钮
         toggleButton = document.createElement('button');
         toggleButton.className = 'ai-assistant-toggle';
-        toggleButton.innerHTML = '<i class="fas fa-robot"></i>';
+        toggleButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
         toggleButton.title = '打开AI助手';
         
         // 添加到页面
@@ -152,6 +157,8 @@
             setTimeout(() => {
                 this.style.height = 'auto';
                 this.style.height = (this.scrollHeight) + 'px';
+                // 阻止水平滚动
+                this.style.overflowX = 'hidden';
             }, 0);
         });
         
@@ -159,7 +166,15 @@
         userInput.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
+            // 阻止水平滚动
+            this.style.overflowX = 'hidden';
         });
+        
+        // 禁用自动完成
+        userInput.setAttribute('autocomplete', 'off');
+        userInput.setAttribute('autocorrect', 'off');
+        userInput.setAttribute('autocapitalize', 'off');
+        userInput.setAttribute('spellcheck', 'false');
     }
     
     // 发送消息
@@ -243,7 +258,7 @@
         messageElement.className = 'ai-assistant-message user-message';
         messageElement.innerHTML = `
             <div class="message-avatar">
-                <i class="fas fa-user"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             </div>
             <div class="message-content">${formatMessage(text)}</div>
         `;
@@ -260,7 +275,7 @@
         messageElement.id = messageId;
         messageElement.innerHTML = `
             <div class="message-avatar">
-                <i class="fas fa-robot"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a9 9 0 0 0-9 9c0 4.17 2.84 7.67 6.69 8.69L12 22l2.31-2.31C18.16 18.67 21 15.17 21 11a9 9 0 0 0-9-9zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.3c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
             </div>
             <div class="message-content">${text}</div>
         `;
@@ -344,9 +359,13 @@
                     } else {
                         const messageElement = document.createElement('div');
                         messageElement.className = 'ai-assistant-message ' + (item.isUser ? 'user-message' : 'bot-message');
+                        const avatarIcon = item.isUser ? 
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>' : 
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2a9 9 0 0 0-9 9c0 4.17 2.84 7.67 6.69 8.69L12 22l2.31-2.31C18.16 18.67 21 15.17 21 11a9 9 0 0 0-9-9zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.3c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>';
+                        
                         messageElement.innerHTML = `
                             <div class="message-avatar">
-                                <i class="fas fa-${item.isUser ? 'user' : 'robot'}"></i>
+                                ${avatarIcon}
                             </div>
                             <div class="message-content">${item.content}</div>
                         `;
