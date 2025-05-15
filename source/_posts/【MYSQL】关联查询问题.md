@@ -1,6 +1,6 @@
 ---
-title: 【数据库】关联查询问题
-categories: 数据库
+title: 【MYSQL】关联查询问题
+categories: MYSQL
 tags:
   - MYSQL
   - SQL优化

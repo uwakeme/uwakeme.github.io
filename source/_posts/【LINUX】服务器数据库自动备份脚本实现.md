@@ -55,38 +55,50 @@ DATABASES="数据库1 数据库2 数据库3"
 # 备份设置
 BACKUP_DIR="/data/backups/mysql"  # 备份文件存储路径
 DATE=$(date +"%Y%m%d")            # 当前日期，用于文件命名
-DAILY_BACKUP_DIR="$BACKUP_DIR/$DATE" # 每天一个独立的备份目录
+TIME=$(date +"%H%M%S")            # 当前时间，用于更精确的文件命名
 BACKUP_RETAIN_DAYS=7              # 备份保留天数
 
-# 创建当天的备份目录（包括上级目录）
-mkdir -p $DAILY_BACKUP_DIR
+# 是否启用自动清理（0表示禁用自动清理，1表示启用）
+# 对于手动备份，可以设置为0；对于定时任务，可以设置为1
+AUTO_CLEANUP=0
+
+# 创建备份目录（如果不存在）
+mkdir -p $BACKUP_DIR
 
 # 记录开始时间
-echo "备份开始时间：$(date)" >> "$DAILY_BACKUP_DIR/backup_log.log"
+echo "备份开始时间：$(date)" >> "$BACKUP_DIR/backup_log.log"
 
 # 备份每个数据库
 for db in $DATABASES; do
-    echo "开始备份数据库: $db" >> "$DAILY_BACKUP_DIR/backup_log.log"
+    echo "开始备份数据库: $db" >> "$BACKUP_DIR/backup_log.log"
+    
+    # 创建带有日期和时间的备份文件名，避免覆盖同一天的备份
+    BACKUP_FILENAME="${db}_${DATE}_${TIME}.sql.gz"
     
     # 创建备份文件
     mysqldump --user=$DB_USER --password=$DB_PASS --host=localhost \
     --single-transaction --quick --lock-tables=false \
-    --databases $db | gzip > "$DAILY_BACKUP_DIR/$db.sql.gz"
+    --databases $db | gzip > "$BACKUP_DIR/$BACKUP_FILENAME"
     
     # 检查备份是否成功
     if [ $? -eq 0 ]; then
-        echo "数据库 $db 备份成功" >> "$DAILY_BACKUP_DIR/backup_log.log"
+        echo "数据库 $db 备份成功: $BACKUP_FILENAME" >> "$BACKUP_DIR/backup_log.log"
     else
-        echo "数据库 $db 备份失败" >> "$DAILY_BACKUP_DIR/backup_log.log"
+        echo "数据库 $db 备份失败" >> "$BACKUP_DIR/backup_log.log"
     fi
 done
 
-# 删除过期备份目录
-find $BACKUP_DIR -type d -name "[0-9]*" -mtime +$BACKUP_RETAIN_DAYS -exec rm -rf {} \;
+# 只有在启用自动清理的情况下才删除过期备份
+if [ "$AUTO_CLEANUP" -eq 1 ]; then
+    echo "执行清理操作，删除${BACKUP_RETAIN_DAYS}天前的备份文件..." >> "$BACKUP_DIR/backup_log.log"
+    find $BACKUP_DIR -name "*.sql.gz" -type f -mtime +$BACKUP_RETAIN_DAYS -exec rm -f {} \;
+else
+    echo "自动清理已禁用，保留所有备份文件" >> "$BACKUP_DIR/backup_log.log"
+fi
 
 # 记录结束时间
-echo "备份结束时间：$(date)" >> "$DAILY_BACKUP_DIR/backup_log.log"
-echo "-------------------------------------" >> "$DAILY_BACKUP_DIR/backup_log.log"
+echo "备份结束时间：$(date)" >> "$BACKUP_DIR/backup_log.log"
+echo "-------------------------------------" >> "$BACKUP_DIR/backup_log.log"
 
 # 可选：将备份文件同步到远程服务器
 # rsync -avz $BACKUP_DIR user@remote_server:/path/to/backup/
@@ -115,7 +127,7 @@ echo "-------------------------------------" >> "$DAILY_BACKUP_DIR/backup_log.lo
    - `--tables`: 仅备份指定的表
 
    **如何创建可在任意数据库恢复的备份：**
-   如果想创建可在任意数据库名称下恢复的备份（不限于原数据库名），可以使用以下参数组合：
+   如果想创建可在任意数据库恢复的备份（不限于原数据库名），可以使用以下参数组合：
    ```bash
    # 创建可在任意数据库恢复的备份
    mysqldump --user=$DB_USER --password=$DB_PASS --host=localhost \
@@ -171,36 +183,48 @@ DATABASES="数据库1 数据库2 数据库3"
 # 备份设置
 BACKUP_DIR="/data/backups/postgresql"  # 备份文件存储路径
 DATE=$(date +"%Y%m%d")                # 当前日期，用于文件命名
-DAILY_BACKUP_DIR="$BACKUP_DIR/$DATE"   # 每天一个独立的备份目录
+TIME=$(date +"%H%M%S")                # 当前时间，用于更精确的文件命名
 BACKUP_RETAIN_DAYS=7                  # 备份保留天数
 
-# 创建当天的备份目录（包括上级目录）
-mkdir -p $DAILY_BACKUP_DIR
+# 是否启用自动清理（0表示禁用自动清理，1表示启用）
+# 对于手动备份，可以设置为0；对于定时任务，可以设置为1
+AUTO_CLEANUP=0
+
+# 创建备份目录（如果不存在）
+mkdir -p $BACKUP_DIR
 
 # 记录开始时间
-echo "备份开始时间：$(date)" >> "$DAILY_BACKUP_DIR/backup_log.log"
+echo "备份开始时间：$(date)" >> "$BACKUP_DIR/backup_log.log"
 
 # 备份每个数据库
 for db in $DATABASES; do
-    echo "开始备份数据库: $db" >> "$DAILY_BACKUP_DIR/backup_log.log"
+    echo "开始备份数据库: $db" >> "$BACKUP_DIR/backup_log.log"
+    
+    # 创建带有日期和时间的备份文件名，避免覆盖同一天的备份
+    BACKUP_FILENAME="${db}_${DATE}_${TIME}.backup"
     
     # 创建备份文件
-    PGPASSWORD="$DB_PASS" pg_dump -U $DB_USER -d $db -F c -b -v -f "$DAILY_BACKUP_DIR/$db.backup"
+    PGPASSWORD="$DB_PASS" pg_dump -U $DB_USER -d $db -F c -b -v -f "$BACKUP_DIR/$BACKUP_FILENAME"
     
     # 检查备份是否成功
     if [ $? -eq 0 ]; then
-        echo "数据库 $db 备份成功" >> "$DAILY_BACKUP_DIR/backup_log.log"
+        echo "数据库 $db 备份成功: $BACKUP_FILENAME" >> "$BACKUP_DIR/backup_log.log"
     else
-        echo "数据库 $db 备份失败" >> "$DAILY_BACKUP_DIR/backup_log.log"
+        echo "数据库 $db 备份失败" >> "$BACKUP_DIR/backup_log.log"
     fi
 done
 
-# 删除过期备份目录
-find $BACKUP_DIR -type d -name "[0-9]*" -mtime +$BACKUP_RETAIN_DAYS -exec rm -rf {} \;
+# 只有在启用自动清理的情况下才删除过期备份
+if [ "$AUTO_CLEANUP" -eq 1 ]; then
+    echo "执行清理操作，删除${BACKUP_RETAIN_DAYS}天前的备份文件..." >> "$BACKUP_DIR/backup_log.log"
+    find $BACKUP_DIR -name "*.backup" -type f -mtime +$BACKUP_RETAIN_DAYS -exec rm -f {} \;
+else
+    echo "自动清理已禁用，保留所有备份文件" >> "$BACKUP_DIR/backup_log.log"
+fi
 
 # 记录结束时间
-echo "备份结束时间：$(date)" >> "$DAILY_BACKUP_DIR/backup_log.log"
-echo "-------------------------------------" >> "$DAILY_BACKUP_DIR/backup_log.log"
+echo "备份结束时间：$(date)" >> "$BACKUP_DIR/backup_log.log"
+echo "-------------------------------------" >> "$BACKUP_DIR/backup_log.log"
 ```
 
 ### （三）脚本权限设置
@@ -225,9 +249,11 @@ crontab -e
 添加以下内容（以每天凌晨2点执行为例）：
 
 ```bash
-# 每天凌晨2点执行备份脚本
-0 2 * * * /path/to/backup_script.sh
+# 每天凌晨2点执行备份脚本，并启用自动清理功能
+0 2 * * * /path/to/backup_script.sh 1
 ```
+
+如果您使用了本文修改后的脚本，参数`1`表示启用自动清理功能。如果不添加参数或使用`0`，则不会清理历史备份文件。
 
 crontab时间格式说明：
 
@@ -238,18 +264,24 @@ crontab时间格式说明：
 常用的crontab时间设置示例：
 
 ```bash
-# 每天凌晨2点执行
-0 2 * * * /path/to/backup_script.sh
+# 每天凌晨2点执行并启用自动清理
+0 2 * * * /path/to/backup_script.sh 1
 
-# 每周日凌晨2点执行
-0 2 * * 0 /path/to/backup_script.sh
+# 每周日凌晨2点执行并启用自动清理
+0 2 * * 0 /path/to/backup_script.sh 1
 
-# 每月1日凌晨2点执行
-0 2 1 * * /path/to/backup_script.sh
+# 每月1日凌晨2点执行并启用自动清理
+0 2 1 * * /path/to/backup_script.sh 1
 
-# 每小时执行一次
-0 * * * * /path/to/backup_script.sh
+# 每小时执行一次，但不清理历史备份
+0 * * * * /path/to/backup_script.sh 0
 ```
+
+在使用crontab时有几点需要注意：
+
+1. 确保脚本有执行权限：`chmod +x /path/to/backup_script.sh`
+2. 使用绝对路径指定脚本位置，避免路径问题
+3. 如果脚本中使用了相对路径，最好在脚本开头添加`cd /path/to/script/directory`命令
 
 ### （二）验证定时任务
 
@@ -449,7 +481,55 @@ fi
 2. **磁盘空间不足**：定期检查备份服务器的磁盘空间，确保有足够空间存储备份文件。
 3. **数据库连接问题**：检查数据库连接参数是否正确，网络是否通畅。
 
-### （二）性能优化
+### （二）手动备份与定时备份的脚本调整
+
+在实际使用中，我们可能会同时面临两种备份需求：
+1. **手动触发备份**：需要随时手动执行脚本进行备份，希望保留所有历史备份文件。
+2. **定时自动备份**：通过crontab定时执行，并自动清理过期备份文件。
+
+为了同时满足这两种需求，我们可以对脚本做以下调整：
+
+1. **使用参数控制是否自动清理**：
+
+```bash
+#!/bin/bash
+
+# 设置默认值：0表示不自动清理，1表示自动清理
+AUTO_CLEANUP=${1:-0}
+
+# 其他脚本内容...
+
+# 只有在启用自动清理的情况下才删除过期备份
+if [ "$AUTO_CLEANUP" -eq 1 ]; then
+    echo "执行清理操作，删除${BACKUP_RETAIN_DAYS}天前的备份文件..."
+    find $BACKUP_DIR -name "*.sql.gz" -type f -mtime +$BACKUP_RETAIN_DAYS -exec rm -f {} \;
+else
+    echo "自动清理已禁用，保留所有备份文件"
+fi
+```
+
+2. **使用方法**：
+   - 手动备份（不清理历史文件）：`./backup_script.sh`
+   - 带自动清理的备份（适用于crontab定时任务）：`./backup_script.sh 1`
+
+3. **在crontab中配置**：
+```bash
+# 每天凌晨2点执行备份并自动清理过期文件
+0 2 * * * /path/to/backup_script.sh 1
+```
+
+这种方式的优点是：
+- 使用同一个脚本文件，根据需要传递不同参数
+- 手动执行时默认不清理历史文件，便于保留重要备份
+- 定时任务执行时自动清理，避免磁盘空间占用过大
+- 每次备份都生成带时间戳的唯一文件名，防止覆盖已有备份
+
+4. **替代方案**：创建两个不同的脚本
+如果需要更明确的区分，也可以创建两个脚本：
+- `backup_manual.sh`：用于手动备份，不包含清理功能
+- `backup_auto.sh`：用于自动备份，包含清理功能
+
+### （三）性能优化
 
 1. **选择合适的备份时间**：在服务器负载较低的时间段进行备份。
 2. **使用增量备份**：对于大型数据库，考虑使用增量备份减少备份时间和存储空间。

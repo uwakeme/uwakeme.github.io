@@ -202,9 +202,9 @@ cd nginx-1.20.2
 
 # 4. 配置安装选项
 ./configure --prefix=/usr/local/nginx \
-            --with-http_ssl_module \
+--with-http_ssl_module \
             --with-http_stub_status_module \
-            --with-http_gzip_static_module
+--with-http_gzip_static_module
 
 # 5. 编译安装
 make && make install
@@ -791,15 +791,15 @@ firewall-cmd --reload
 tail -f /var/log/rabbitmq/rabbit@$(hostname -s).log
 
 # 查看系统日志中的RabbitMQ相关条目
-journalctl -u rabbitmq-server
-
+  journalctl -u rabbitmq-server
+  
 # 检查RabbitMQ进程
 ps aux | grep rabbit
 
 # 检查RabbitMQ的端口是否正在监听
 ss -tunlp | grep 5672
-ss -tunlp | grep 15672
-```
+  ss -tunlp | grep 15672
+  ```
 
 11. 解决常见登录问题
 
@@ -830,7 +830,7 @@ EOF
 
 # 重启RabbitMQ服务
 systemctl restart rabbitmq-server
-
+  
 # 解决方案3：临时允许guest用户远程登录（不创建rabbitmq.conf文件）
 rabbitmqctl eval 'application:set_env(rabbit, loopback_users, []).'
 # 重启服务使更改生效

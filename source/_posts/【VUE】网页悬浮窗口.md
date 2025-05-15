@@ -1,5 +1,5 @@
 ---
-title: 【VUE组件】网页悬浮窗口
+title: 【VUE】网页悬浮窗口
 date: 2024-08-29 18:05:17
 tags:
   - VUE
