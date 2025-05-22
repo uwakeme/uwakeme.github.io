@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、MCP协议简介MCP（Model Context Protocol）是一种开放标准协议，由Anthropic推出，旨在建立AI模型与外部工具、数据和系统之间的桥梁。通过MCP，AI模型可以请求使用外部工具完成特定任务，并将结果返回给模型，从而提供更准确的回应。 1. MCP的核心价值 功能扩展：让AI能够访问外部数据、API和工具 自动化工作流：通过工具可以自动化许多开发任务 定制化能力：根据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【AI】MCP协议详解与应用实践">
+<meta property="og:url" content="https://uwakeme.top/2025/05/22/%E3%80%90AI%E3%80%91MCP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、MCP协议简介MCP（Model Context Protocol）是一种开放标准协议，由Anthropic推出，旨在建立AI模型与外部工具、数据和系统之间的桥梁。通过MCP，AI模型可以请求使用外部工具完成特定任务，并将结果返回给模型，从而提供更准确的回应。 1. MCP的核心价值 功能扩展：让AI能够访问外部数据、API和工具 自动化工作流：通过工具可以自动化许多开发任务 定制化能力：根据">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-22T11:23:53.693Z">
+<meta property="article:modified_time" content="2025-05-20T08:18:16.000Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="MCP">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="开发工具">
+<meta property="article:tag" content="模型控制">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【AI】MCP协议详解与应用实践 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【AI】MCP协议详解与应用实践"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-22 19:23" pubdate>
+           2025 年 05 月 22 日 , 晚上 07:23 , 星期四
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【AI】MCP协议详解与应用实践</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、MCP协议简介"><a href="#一、MCP协议简介" class="headerlink" title="一、MCP协议简介"></a>一、MCP协议简介</h1><p>MCP（Model Context Protocol）是一种开放标准协议，由Anthropic推出，旨在建立AI模型与外部工具、数据和系统之间的桥梁。通过MCP，AI模型可以请求使用外部工具完成特定任务，并将结果返回给模型，从而提供更准确的回应。</p>
+<h2 id="1-MCP的核心价值"><a href="#1-MCP的核心价值" class="headerlink" title="1. MCP的核心价值"></a>1. MCP的核心价值</h2><ul>
+<li><strong>功能扩展</strong>：让AI能够访问外部数据、API和工具</li>
+<li><strong>自动化工作流</strong>：通过工具可以自动化许多开发任务</li>
+<li><strong>定制化能力</strong>：根据特定需求定制AI助手的能力</li>
+<li><strong>数据隐私</strong>：某些MCP服务器可本地运行，数据不离开本地环境</li>
+</ul>
+<h2 id="2-MCP的工作原理"><a href="#2-MCP的工作原理" class="headerlink" title="2. MCP的工作原理"></a>2. MCP的工作原理</h2><p>MCP建立了一种通信机制：</p>
+<ul>
+<li>AI模型可以请求使用工具完成特定任务</li>
+<li>工具执行任务并将结果返回给AI模型</li>
+<li>AI模型基于返回结果提供更准确的回应</li>
+</ul>
+<h1 id="二、MCP服务器类型"><a href="#二、MCP服务器类型" class="headerlink" title="二、MCP服务器类型"></a>二、MCP服务器类型</h1><p>MCP服务器主要分为以下几类：</p>
+<ol>
+<li><strong>浏览器自动化</strong>：如web搜索、网页交互</li>
+<li><strong>代码与开发工具</strong>：如GitHub集成、运行代码</li>
+<li><strong>数据库访问</strong>：如查询SQL数据库</li>
+<li><strong>文件系统操作</strong>：如读写本地文件</li>
+<li><strong>通讯工具</strong>：如Slack、Email集成</li>
+<li><strong>搜索引擎</strong>：如Brave搜索、Google搜索</li>
+</ol>
+<h1 id="三、MCP服务配置"><a href="#三、MCP服务配置" class="headerlink" title="三、MCP服务配置"></a>三、MCP服务配置</h1><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>在配置MCP服务前，确保已安装以下依赖：</p>
+<ul>
+<li>Python 3.8+</li>
+<li>UV包管理工具（可选，用于快速安装依赖）</li>
+<li>MCP SDK</li>
+</ul>
+<h2 id="2-安装MCP依赖"><a href="#2-安装MCP依赖" class="headerlink" title="2. 安装MCP依赖"></a>2. 安装MCP依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建并激活虚拟环境</span><br>python -m venv mcp_env<br><span class="hljs-comment"># Windows激活</span><br>mcp_env\Scripts\activate<br><span class="hljs-comment"># Linux/macOS激活</span><br><span class="hljs-built_in">source</span> mcp_env/bin/activate<br><br><span class="hljs-comment"># 安装MCP SDK和依赖</span><br>pip install mcp-sdk<br>pip install mcp-server<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-MCP服务基本配置"><a href="#3-MCP服务基本配置" class="headerlink" title="3. MCP服务基本配置"></a>3. MCP服务基本配置</h2><h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><p>创建<code>mcp_config.yaml</code>文件，内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">service:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mcp-service</span><br>  <span class="hljs-attr">version:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span><br>  <br><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8000</span><br>  <span class="hljs-attr">workers:</span> <span class="hljs-number">4</span><br><br><span class="hljs-attr">model:</span><br>  <span class="hljs-attr">paths:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/model1</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">/path/to/model2</span><br>  <span class="hljs-attr">cache_size:</span> <span class="hljs-string">2GB</span><br>  <br><span class="hljs-attr">logging:</span><br>  <span class="hljs-attr">level:</span> <span class="hljs-string">INFO</span><br>  <span class="hljs-attr">file:</span> <span class="hljs-string">logs/mcp.log</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="初始化MCP服务"><a href="#初始化MCP服务" class="headerlink" title="初始化MCP服务"></a>初始化MCP服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 初始化MCP服务</span><br>mcp init --config mcp_config.yaml<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-启动MCP服务"><a href="#4-启动MCP服务" class="headerlink" title="4. 启动MCP服务"></a>4. 启动MCP服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动服务</span><br>mcp start<br><br><span class="hljs-comment"># 指定配置文件启动</span><br>mcp start --config mcp_config.yaml<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-MCP服务管理"><a href="#5-MCP服务管理" class="headerlink" title="5. MCP服务管理"></a>5. MCP服务管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看服务状态</span><br>mcp status<br><br><span class="hljs-comment"># 停止服务</span><br>mcp stop<br><br><span class="hljs-comment"># 重启服务</span><br>mcp restart<br></code></pre></td></tr></table></figure>
+
+<h1 id="四、在Cursor中配置MCP服务器"><a href="#四、在Cursor中配置MCP服务器" class="headerlink" title="四、在Cursor中配置MCP服务器"></a>四、在Cursor中配置MCP服务器</h1><h2 id="1-打开MCP设置"><a href="#1-打开MCP设置" class="headerlink" title="1. 打开MCP设置"></a>1. 打开MCP设置</h2><ol>
+<li>打开Cursor编辑器</li>
+<li>点击左下角的设置图标(⚙️)</li>
+<li>在Settings界面中，导航至”Features”部分</li>
+<li>找到并点击”MCP Servers”选项</li>
+</ol>
+<h2 id="2-添加新的MCP服务器"><a href="#2-添加新的MCP服务器" class="headerlink" title="2. 添加新的MCP服务器"></a>2. 添加新的MCP服务器</h2><ol>
+<li>点击”+ Add New MCP Server”按钮</li>
+<li>在配置窗口中选择传输类型：<ul>
+<li><code>stdio</code>：用于基于命令行的服务器（最常用）</li>
+<li><code>sse</code>：用于基于服务器发送事件的服务器</li>
+</ul>
+</li>
+<li>输入服务器名称（便于识别）</li>
+<li>根据传输类型，输入相应的命令或URL</li>
+<li>点击”Add”保存配置</li>
+</ol>
+<h2 id="3-常用MCP服务器示例"><a href="#3-常用MCP服务器示例" class="headerlink" title="3. 常用MCP服务器示例"></a>3. 常用MCP服务器示例</h2><p>以下是一些常用的MCP服务器配置命令：</p>
+<h3 id="Web搜索（Brave-Search）"><a href="#Web搜索（Brave-Search）" class="headerlink" title="Web搜索（Brave Search）"></a>Web搜索（Brave Search）</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">npx -y <span class="hljs-symbol">@smithery</span>/cli<span class="hljs-symbol">@latest</span> <span class="hljs-built_in">run</span> <span class="hljs-symbol">@smithery</span>-ai/brave-search --config <span class="hljs-string">&quot;&#123;\&quot;</span>braveApiKey\<span class="hljs-string">&quot;:\&quot;</span>YOUR_BRAVE_API_KEY\<span class="hljs-string">&quot;&#125;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="文件系统访问"><a href="#文件系统访问" class="headerlink" title="文件系统访问"></a>文件系统访问</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npx -<span class="hljs-attribute">y</span> <span class="hljs-keyword">@modelcontextprotocol</span>/server-filesystem<br></code></pre></td></tr></table></figure>
+
+<h3 id="GitHub工具"><a href="#GitHub工具" class="headerlink" title="GitHub工具"></a>GitHub工具</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npx -<span class="hljs-attribute">y</span> <span class="hljs-keyword">@modelcontextprotocol</span>/server-github<br></code></pre></td></tr></table></figure>
+
+<h3 id="浏览器自动化"><a href="#浏览器自动化" class="headerlink" title="浏览器自动化"></a>浏览器自动化</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">npx -<span class="hljs-attribute">y</span> <span class="hljs-keyword">@modelcontextprotocol</span>/server-puppeteer<br></code></pre></td></tr></table></figure>
+
+<h3 id="代码执行（Python）"><a href="#代码执行（Python）" class="headerlink" title="代码执行（Python）"></a>代码执行（Python）</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">npx -y <span class="hljs-symbol">@pydantic</span>/mcp-<span class="hljs-built_in">run</span>-python<br></code></pre></td></tr></table></figure>
+
+<h1 id="五、MCP服务高级配置"><a href="#五、MCP服务高级配置" class="headerlink" title="五、MCP服务高级配置"></a>五、MCP服务高级配置</h1><h2 id="1-负载均衡配置"><a href="#1-负载均衡配置" class="headerlink" title="1. 负载均衡配置"></a>1. 负载均衡配置</h2><p>在<code>mcp_config.yaml</code>中添加负载均衡配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">load_balancing:</span><br>  <span class="hljs-attr">strategy:</span> <span class="hljs-string">round_robin</span>  <span class="hljs-comment"># 可选：round_robin, least_connection, ip_hash</span><br>  <span class="hljs-attr">health_check:</span><br>    <span class="hljs-attr">interval:</span> <span class="hljs-string">30s</span><br>    <span class="hljs-attr">timeout:</span> <span class="hljs-string">5s</span><br>    <span class="hljs-attr">healthy_threshold:</span> <span class="hljs-number">2</span><br>    <span class="hljs-attr">unhealthy_threshold:</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2-安全配置"><a href="#2-安全配置" class="headerlink" title="2. 安全配置"></a>2. 安全配置</h2><p>添加安全相关配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">security:</span><br>  <span class="hljs-attr">authentication:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">jwt</span>  <span class="hljs-comment"># 可选：jwt, api_key, oauth2</span><br>    <span class="hljs-attr">jwt_secret:</span> <span class="hljs-string">your_secret_key_here</span><br>  <br>  <span class="hljs-attr">ssl:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">cert_file:</span> <span class="hljs-string">/path/to/cert.pem</span><br>    <span class="hljs-attr">key_file:</span> <span class="hljs-string">/path/to/key.pem</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-监控和指标收集"><a href="#3-监控和指标收集" class="headerlink" title="3. 监控和指标收集"></a>3. 监控和指标收集</h2><p>添加监控配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">monitoring:</span><br>  <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">prometheus:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">9090</span><br>  <br>  <span class="hljs-attr">logging:</span><br>    <span class="hljs-attr">level:</span> <span class="hljs-string">INFO</span><br>    <span class="hljs-attr">format:</span> <span class="hljs-string">json</span><br>    <span class="hljs-attr">retention:</span> <span class="hljs-string">30d</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="六、使用MCP工具"><a href="#六、使用MCP工具" class="headerlink" title="六、使用MCP工具"></a>六、使用MCP工具</h1><h2 id="1-在Cursor中使用MCP工具"><a href="#1-在Cursor中使用MCP工具" class="headerlink" title="1. 在Cursor中使用MCP工具"></a>1. 在Cursor中使用MCP工具</h2><p>一旦配置完成MCP服务器后，你可以在Cursor的聊天界面中：</p>
+<ol>
+<li>直接询问相关任务，AI会自动选择并使用适当的工具</li>
+<li>明确指示AI使用特定工具，例如：<ul>
+<li>“使用Web搜索查找最新的React文档”</li>
+<li>“通过GitHub工具查看我这个仓库的issues”</li>
+<li>“使用文件系统工具读取项目中的配置文件”</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-检查MCP工具状态"><a href="#2-检查MCP工具状态" class="headerlink" title="2. 检查MCP工具状态"></a>2. 检查MCP工具状态</h2><ol>
+<li>在Cursor的MCP设置页面，你可以看到已配置服务器的状态：<ul>
+<li>绿色：服务器正常运行</li>
+<li>黄色：服务器可能存在问题</li>
+<li>红色：服务器无法连接</li>
+</ul>
+</li>
+<li>如果状态不正常，可以尝试刷新或重启服务器</li>
+</ol>
+<h1 id="七、从MCP市场获取更多服务器"><a href="#七、从MCP市场获取更多服务器" class="headerlink" title="七、从MCP市场获取更多服务器"></a>七、从MCP市场获取更多服务器</h1><h2 id="1-MCP服务器资源"><a href="#1-MCP服务器资源" class="headerlink" title="1. MCP服务器资源"></a>1. MCP服务器资源</h2><p>你可以从以下资源获取更多MCP服务器：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://smithery.ai/">Smithery</a>：提供大量现成的MCP服务器</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yzfly/Awesome-MCP-ZH">Awesome-MCP-ZH</a>：中文MCP资源精选</li>
+<li><a target="_blank" rel="noopener" href="https://mcp.so/">MCP.so</a>：MCP服务器目录网站</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers">Cursor官方仓库</a>：提供参考实现</li>
+</ul>
+<h2 id="2-安装第三方MCP服务器"><a href="#2-安装第三方MCP服务器" class="headerlink" title="2. 安装第三方MCP服务器"></a>2. 安装第三方MCP服务器</h2><p>大多数第三方MCP服务器可以通过NPM或Python包管理器安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 通过NPM安装</span><br>npx -y @organization/server-name<br><br><span class="hljs-comment"># 通过Python安装</span><br>pip install mcp-server-name<br></code></pre></td></tr></table></figure>
+
+<h1 id="八、故障排查"><a href="#八、故障排查" class="headerlink" title="八、故障排查"></a>八、故障排查</h1><h2 id="1-常见问题及解决方案"><a href="#1-常见问题及解决方案" class="headerlink" title="1. 常见问题及解决方案"></a>1. 常见问题及解决方案</h2><h3 id="MCP服务器状态显示为黄色或红色"><a href="#MCP服务器状态显示为黄色或红色" class="headerlink" title="MCP服务器状态显示为黄色或红色"></a>MCP服务器状态显示为黄色或红色</h3><ul>
+<li>尝试刷新服务器状态</li>
+<li>检查命令是否正确</li>
+<li>重启Cursor IDE</li>
+</ul>
+<h3 id="无法找到或使用MCP工具"><a href="#无法找到或使用MCP工具" class="headerlink" title="无法找到或使用MCP工具"></a>无法找到或使用MCP工具</h3><ul>
+<li>确保在Composer或Agent模式下使用</li>
+<li>明确指示AI使用MCP工具</li>
+<li>检查服务器状态是否为绿色</li>
+</ul>
+<h3 id="服务启动失败"><a href="#服务启动失败" class="headerlink" title="服务启动失败"></a>服务启动失败</h3><ul>
+<li>检查配置文件语法</li>
+<li>验证端口是否被占用：使用<code>netstat -ano | findstr 8000</code>（Windows）或<code>lsof -i:8000</code>（Linux&#x2F;macOS）</li>
+<li>检查日志文件获取详细错误信息</li>
+</ul>
+<h3 id="模型加载失败"><a href="#模型加载失败" class="headerlink" title="模型加载失败"></a>模型加载失败</h3><ul>
+<li>检查模型路径是否正确</li>
+<li>确认模型格式兼容性</li>
+<li>检查硬件资源是否足够（内存、GPU等）</li>
+</ul>
+<h2 id="2-检查MCP服务器日志"><a href="#2-检查MCP服务器日志" class="headerlink" title="2. 检查MCP服务器日志"></a>2. 检查MCP服务器日志</h2><p>许多MCP服务器会输出日志信息，可以帮助你诊断问题：</p>
+<ul>
+<li>在终端中运行MCP服务器命令查看实时日志</li>
+<li>检查Cursor的日志文件（通常在设置中可找到路径）</li>
+</ul>
+<h1 id="九、高级使用技巧"><a href="#九、高级使用技巧" class="headerlink" title="九、高级使用技巧"></a>九、高级使用技巧</h1><h2 id="1-创建自定义MCP服务器"><a href="#1-创建自定义MCP服务器" class="headerlink" title="1. 创建自定义MCP服务器"></a>1. 创建自定义MCP服务器</h2><p>如果你有特定需求，可以创建自己的MCP服务器：</p>
+<ol>
+<li>使用官方模板创建基本框架</li>
+<li>定义工具和资源</li>
+<li>实现工具功能</li>
+<li>发布并在Cursor中使用</li>
+</ol>
+<h2 id="2-管理多个MCP服务器"><a href="#2-管理多个MCP服务器" class="headerlink" title="2. 管理多个MCP服务器"></a>2. 管理多个MCP服务器</h2><p>根据不同项目需求，你可以管理多个MCP服务器配置：</p>
+<ul>
+<li>保持核心服务器（如文件系统、搜索）始终开启</li>
+<li>根据当前任务启用特定服务器</li>
+<li>为不同项目创建不同的服务器配置组合</li>
+</ul>
+<h1 id="十、MCP使用最佳实践"><a href="#十、MCP使用最佳实践" class="headerlink" title="十、MCP使用最佳实践"></a>十、MCP使用最佳实践</h1><ol>
+<li><strong>按需添加服务器</strong>：只添加当前任务需要的MCP服务器</li>
+<li><strong>定期更新</strong>：MCP生态系统发展迅速，定期检查更新</li>
+<li><strong>注意API密钥安全</strong>：对于需要API密钥的服务器，妥善保管密钥</li>
+<li><strong>学习各工具功能</strong>：了解每个MCP工具的能力和限制</li>
+<li><strong>组合使用</strong>：多个MCP工具组合使用可以实现复杂工作流</li>
+<li><strong>使用虚拟环境</strong>：为每个MCP服务创建独立的虚拟环境，避免依赖冲突</li>
+<li><strong>版本锁定</strong>：使用<code>pip freeze &gt; requirements.txt</code>锁定依赖版本</li>
+<li><strong>日志管理</strong>：配置合适的日志级别和轮转策略</li>
+<li><strong>监控</strong>：使用Prometheus等工具监控MCP服务的健康状态和性能指标</li>
+<li><strong>备份配置</strong>：定期备份MCP服务配置文件和模型</li>
+</ol>
+<p>MCP为AI编程带来了强大的扩展能力，通过合理配置和使用MCP服务器，可以大幅提升AI辅助编程的效率和能力范围。随着更多MCP服务器的出现，AI编程的能力也将不断扩展。</p>
+<h1 id="十一、相关笔记与资源"><a href="#十一、相关笔记与资源" class="headerlink" title="十一、相关笔记与资源"></a>十一、相关笔记与资源</h1><h2 id="1-相关技术笔记"><a href="#1-相关技术笔记" class="headerlink" title="1. 相关技术笔记"></a>1. 相关技术笔记</h2><ul>
+<li><a href="../%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91UV%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E4%B8%8EMCP%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/">【工具】UV包管理工具与MCP服务配置</a>：详细介绍UV包管理工具及其在MCP服务配置中的应用</li>
+<li><a href="../%E3%80%90AI%E3%80%91%E4%B8%BACursor%E9%85%8D%E7%BD%AEMCP%E6%9C%8D%E5%8A%A1%E5%99%A8/">【AI】为Cursor配置MCP服务器</a>：专注于在Cursor编辑器中配置和使用MCP服务器的详细指南</li>
+</ul>
+<h2 id="2-技术栈关联"><a href="#2-技术栈关联" class="headerlink" title="2. 技术栈关联"></a>2. 技术栈关联</h2><p>MCP协议可以与以下技术栈结合使用：</p>
+<ul>
+<li><strong>AI开发环境</strong>：Cursor、VS Code等支持AI编程的编辑器</li>
+<li><strong>包管理工具</strong>：UV、pip等Python包管理工具</li>
+<li><strong>远程访问工具</strong>：JumpServer等远程访问解决方案</li>
+<li><strong>数据库技术</strong>：SQL、NoSQL等数据库系统</li>
+<li><strong>Web开发</strong>：前端框架、后端服务等Web应用开发技术</li>
+</ul>
+<h2 id="3-学习路径建议"><a href="#3-学习路径建议" class="headerlink" title="3. 学习路径建议"></a>3. 学习路径建议</h2><ol>
+<li>首先了解MCP协议的基本概念和原理</li>
+<li>学习UV包管理工具的使用方法</li>
+<li>掌握在Cursor中配置MCP服务器的步骤</li>
+<li>学习如何通过JumpServer等工具访问远程服务</li>
+<li>探索MCP与数据库、Web开发等技术的结合应用</li>
+<li>实践创建自定义MCP服务器</li>
+</ol>
+<p>通过系统学习这些相关技术，可以更全面地掌握MCP协议及其应用，提升AI辅助编程的效率和质量。 </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MCP/" class="print-no-link">#MCP</a>
+      
+        <a href="/tags/AI%E7%BC%96%E7%A8%8B/" class="print-no-link">#AI编程</a>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="print-no-link">#开发工具</a>
+      
+        <a href="/tags/%E6%A8%A1%E5%9E%8B%E6%8E%A7%E5%88%B6/" class="print-no-link">#模型控制</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/22/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】gRPC接口详解">
+                        <span class="hidden-mobile">【接口】gRPC接口详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、前言在Linux系统管理和网络故障排查过程中，掌握一系列常用网络工具的使用方法至关重要。这些工具可以帮助我们诊断网络连接问题、分析网络性能、排查DNS解析故障等。本文将介绍几种最常用的Linux网络工具，包括它们的安装方法和基本用法。 二、基础网络工具（一）pingping是最基本的网络连通性测试工具，用于检测本机与目标主机之间的网络是否畅通。 1. 安装方法在大多数Linux发行版中，pin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LINUX】常用网络工具安装与使用指南">
+<meta property="og:url" content="https://uwakeme.top/2025/05/22/%E3%80%90LINUX%E3%80%91%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、前言在Linux系统管理和网络故障排查过程中，掌握一系列常用网络工具的使用方法至关重要。这些工具可以帮助我们诊断网络连接问题、分析网络性能、排查DNS解析故障等。本文将介绍几种最常用的Linux网络工具，包括它们的安装方法和基本用法。 二、基础网络工具（一）pingping是最基本的网络连通性测试工具，用于检测本机与目标主机之间的网络是否畅通。 1. 安装方法在大多数Linux发行版中，pin">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-22T11:23:53.690Z">
+<meta property="article:modified_time" content="2025-05-22T03:36:11.000Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="网络工具">
+<meta property="article:tag" content="故障排查">
+<meta property="article:tag" content="系统管理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【LINUX】常用网络工具安装与使用指南 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【LINUX】常用网络工具安装与使用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-22 19:23" pubdate>
+           2025 年 05 月 22 日 , 晚上 07:23 , 星期四
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【LINUX】常用网络工具安装与使用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>在Linux系统管理和网络故障排查过程中，掌握一系列常用网络工具的使用方法至关重要。这些工具可以帮助我们诊断网络连接问题、分析网络性能、排查DNS解析故障等。本文将介绍几种最常用的Linux网络工具，包括它们的安装方法和基本用法。</p>
+<h1 id="二、基础网络工具"><a href="#二、基础网络工具" class="headerlink" title="二、基础网络工具"></a>二、基础网络工具</h1><h2 id="（一）ping"><a href="#（一）ping" class="headerlink" title="（一）ping"></a>（一）ping</h2><p>ping是最基本的网络连通性测试工具，用于检测本机与目标主机之间的网络是否畅通。</p>
+<h3 id="1-安装方法"><a href="#1-安装方法" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><p>在大多数Linux发行版中，ping工具已预装在系统中，属于iputils包的一部分。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统确认安装</span><br>apt-get install iputils-ping<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统确认安装</span><br>yum install iputils<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法"><a href="#2-常用用法" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">基本用法</span><br>ping example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定ping的次数</span><br>ping -c 4 example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定发送间隔时间(秒)</span><br>ping -i 2 example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定包大小(字节)</span><br>ping -s 1500 example.com<br></code></pre></td></tr></table></figure>
+
+<h2 id="（二）traceroute-tracepath"><a href="#（二）traceroute-tracepath" class="headerlink" title="（二）traceroute&#x2F;tracepath"></a>（二）traceroute&#x2F;tracepath</h2><p>traceroute和tracepath用于显示数据包从本机到目标主机经过的路由路径。</p>
+<h3 id="1-安装方法-1"><a href="#1-安装方法-1" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install traceroute<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install traceroute<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-1"><a href="#2-常用用法-1" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">基本用法</span><br>traceroute example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用ICMP协议</span><br>traceroute -I example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定网关</span><br>traceroute -g 192.168.1.1 example.com<br></code></pre></td></tr></table></figure>
+
+<h2 id="（三）netstat"><a href="#（三）netstat" class="headerlink" title="（三）netstat"></a>（三）netstat</h2><p>netstat命令用于显示网络连接、路由表、接口统计等网络相关信息。</p>
+<h3 id="1-安装方法-2"><a href="#1-安装方法-2" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install net-tools<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install net-tools<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-2"><a href="#2-常用用法-2" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">显示所有活动的连接</span><br>netstat -a<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示所有TCP连接</span><br>netstat -at<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示监听端口</span><br>netstat -l<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示进程信息</span><br>netstat -p<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">常用组合命令(显示所有TCP监听端口及对应进程)</span><br>netstat -tlnp<br></code></pre></td></tr></table></figure>
+
+<h2 id="（四）ss"><a href="#（四）ss" class="headerlink" title="（四）ss"></a>（四）ss</h2><p>ss是netstat的替代品，提供更详细的socket统计信息。</p>
+<h3 id="1-安装方法-3"><a href="#1-安装方法-3" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install iproute2<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install iproute<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-3"><a href="#2-常用用法-3" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">显示所有连接</span><br>ss -a<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示TCP连接</span><br>ss -t<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示监听端口</span><br>ss -l<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示进程信息</span><br>ss -p<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">常用组合(显示所有TCP监听端口及进程)</span><br>ss -tlnp<br></code></pre></td></tr></table></figure>
+
+<h1 id="三、DNS诊断工具"><a href="#三、DNS诊断工具" class="headerlink" title="三、DNS诊断工具"></a>三、DNS诊断工具</h1><h2 id="（一）nslookup"><a href="#（一）nslookup" class="headerlink" title="（一）nslookup"></a>（一）nslookup</h2><p><a name="nslookup-section"></a></p>
+<p>nslookup是一个用于查询DNS记录的交互式命令行工具。</p>
+<h3 id="1-安装方法-4"><a href="#1-安装方法-4" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install dnsutils<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install bind-utils<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-4"><a href="#2-常用用法-4" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">基本查询</span><br>nslookup example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定DNS服务器查询</span><br>nslookup example.com 8.8.8.8<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查询特定记录类型</span><br>nslookup -type=MX example.com<br>nslookup -type=NS example.com<br>nslookup -type=TXT example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">反向DNS查询</span><br>nslookup 93.184.216.34<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-交互式使用"><a href="#3-交互式使用" class="headerlink" title="3. 交互式使用"></a>3. 交互式使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">nslookup</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">server 8.8.8.8</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> <span class="hljs-built_in">type</span>=A</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">example.com</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash"><span class="hljs-built_in">set</span> <span class="hljs-built_in">type</span>=MX</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash">example.com</span><br><span class="hljs-meta prompt_">&gt; </span><span class="language-bash"><span class="hljs-built_in">exit</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="（二）dig"><a href="#（二）dig" class="headerlink" title="（二）dig"></a>（二）dig</h2><p><a name="dig-section"></a></p>
+<p>dig是一个功能强大的DNS查询工具，提供比nslookup更详细的输出信息。</p>
+<h3 id="1-安装方法-5"><a href="#1-安装方法-5" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install dnsutils<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install bind-utils<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-5"><a href="#2-常用用法-5" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">基本查询</span><br>dig example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定DNS服务器查询</span><br>dig @8.8.8.8 example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查询特定记录类型</span><br>dig example.com MX<br>dig example.com NS<br>dig example.com TXT<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">简化输出</span><br>dig example.com +short<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">跟踪DNS解析过程</span><br>dig example.com +trace<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示完整解析过程</span><br>dig example.com +all<br></code></pre></td></tr></table></figure>
+
+<h2 id="（三）host"><a href="#（三）host" class="headerlink" title="（三）host"></a>（三）host</h2><p>host是一个简单的DNS查询工具，输出比dig更简洁。</p>
+<h3 id="1-安装方法-6"><a href="#1-安装方法-6" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install dnsutils<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install bind-utils<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-6"><a href="#2-常用用法-6" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">基本查询</span><br>host example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">指定DNS服务器查询</span><br>host example.com 8.8.8.8<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查询特定记录类型</span><br>host -t MX example.com<br>host -t NS example.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">详细输出</span><br>host -v example.com<br></code></pre></td></tr></table></figure>
+
+<h1 id="四、网络抓包分析工具"><a href="#四、网络抓包分析工具" class="headerlink" title="四、网络抓包分析工具"></a>四、网络抓包分析工具</h1><h2 id="（一）tcpdump"><a href="#（一）tcpdump" class="headerlink" title="（一）tcpdump"></a>（一）tcpdump</h2><p>tcpdump是一个强大的命令行网络数据包分析工具。</p>
+<h3 id="1-安装方法-7"><a href="#1-安装方法-7" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install tcpdump<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install tcpdump<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-7"><a href="#2-常用用法-7" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定接口的数据包</span><br>tcpdump -i eth0<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定主机的数据包</span><br>tcpdump host 192.168.1.1<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定端口的数据包</span><br>tcpdump port 80<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定协议的数据包</span><br>tcpdump tcp<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">将捕获的数据包保存到文件</span><br>tcpdump -w capture.pcap<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">读取保存的数据包文件</span><br>tcpdump -r capture.pcap<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">常用组合(捕获特定主机和端口的HTTP流量)</span><br>tcpdump -i eth0 host 192.168.1.1 and port 80<br></code></pre></td></tr></table></figure>
+
+<h2 id="（二）Wireshark"><a href="#（二）Wireshark" class="headerlink" title="（二）Wireshark"></a>（二）Wireshark</h2><p>虽然Wireshark主要是图形界面工具，但在某些情况下可以通过命令行使用其核心功能tshark。</p>
+<h3 id="1-安装方法-8"><a href="#1-安装方法-8" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install wireshark-qt tshark<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install wireshark wireshark-cli<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-tshark常用用法"><a href="#2-tshark常用用法" class="headerlink" title="2. tshark常用用法"></a>2. tshark常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定接口的数据包</span><br>tshark -i eth0<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">捕获特定数量的数据包</span><br>tshark -c 100<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用过滤器</span><br>tshark -f &quot;port 80&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">将捕获的数据包保存到文件</span><br>tshark -w capture.pcap<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">读取保存的数据包文件</span><br>tshark -r capture.pcap<br></code></pre></td></tr></table></figure>
+
+<h1 id="五、网络配置与监控工具"><a href="#五、网络配置与监控工具" class="headerlink" title="五、网络配置与监控工具"></a>五、网络配置与监控工具</h1><h2 id="（一）ip"><a href="#（一）ip" class="headerlink" title="（一）ip"></a>（一）ip</h2><p>ip命令是iproute2包的一部分，用于显示和管理路由、设备、策略路由和隧道。</p>
+<h3 id="1-安装方法-9"><a href="#1-安装方法-9" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install iproute2<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install iproute<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-8"><a href="#2-常用用法-8" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">显示网络接口信息</span><br>ip addr show<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示路由表</span><br>ip route show<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加静态路由</span><br>ip route add 192.168.2.0/24 via 192.168.1.1<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">添加/删除IP地址</span><br>ip addr add 192.168.1.10/24 dev eth0<br>ip addr del 192.168.1.10/24 dev eth0<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启用/禁用网络接口</span><br>ip link set eth0 up<br>ip link set eth0 down<br></code></pre></td></tr></table></figure>
+
+<h2 id="（二）ifconfig"><a href="#（二）ifconfig" class="headerlink" title="（二）ifconfig"></a>（二）ifconfig</h2><p>ifconfig是传统的网络接口配置工具，现在逐渐被ip命令取代。</p>
+<h3 id="1-安装方法-10"><a href="#1-安装方法-10" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Debian/Ubuntu系统</span><br>apt-get install net-tools<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">CentOS/RHEL系统</span><br>yum install net-tools<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-常用用法-9"><a href="#2-常用用法-9" class="headerlink" title="2. 常用用法"></a>2. 常用用法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">显示所有网络接口</span><br>ifconfig<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">显示特定接口</span><br>ifconfig eth0<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">配置IP地址</span><br>ifconfig eth0 192.168.1.10 netmask 255.255.255.0<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启用/禁用网络接口</span><br>ifconfig eth0 up<br>ifconfig eth0 down<br></code></pre></td></tr></table></figure>
+
+<h1 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h1><p>本文介绍了Linux系统中常用的网络工具，包括基础连通性测试工具、DNS诊断工具、网络抓包分析工具以及网络配置与监控工具。掌握这些工具的使用方法，对于网络故障排查、服务器维护和系统管理都非常有帮助。</p>
+<p>在实际工作中，我们通常需要结合多种工具来全面分析和解决网络问题。例如，先用ping检测基本连通性，再用traceroute分析路由路径，然后用dig或nslookup检查DNS解析，最后可能需要用tcpdump深入分析网络数据包。</p>
+<p>建议读者在日常工作中多加练习这些工具的使用，熟悉各种参数和选项，以便在遇到网络问题时能够快速定位和解决。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>Linux Man Pages: <a target="_blank" rel="noopener" href="https://linux.die.net/man/">https://linux.die.net/man/</a></li>
+<li>The Linux Documentation Project: <a target="_blank" rel="noopener" href="https://tldp.org/">https://tldp.org/</a></li>
+<li>Red Hat Enterprise Linux Documentation: <a target="_blank" rel="noopener" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/</a></li>
+<li>Debian Administrator’s Handbook: <a target="_blank" rel="noopener" href="https://debian-handbook.info/">https://debian-handbook.info/</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/" class="print-no-link">#网络工具</a>
+      
+        <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" class="print-no-link">#故障排查</a>
+      
+        <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="print-no-link">#系统管理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/22/%E3%80%90LINUX%E3%80%91%E5%9F%9F%E5%90%8D%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%BD%86IP%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E6%8E%92%E6%9F%A5%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="【LINUX】域名无法解析但IP可访问的排查与解决方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【LINUX】域名无法解析但IP可访问的排查与解决方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/22/%E3%80%90JAVA%E3%80%91%E5%88%A9%E7%94%A8stream%E6%B5%81%E5%AF%B9List%E5%88%97%E8%A1%A8%E5%AF%B9%E8%B1%A1%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/" title="【JAVA】利用stream流对List列表对象进行操作">
+                        <span class="hidden-mobile">【JAVA】利用stream流对List列表对象进行操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

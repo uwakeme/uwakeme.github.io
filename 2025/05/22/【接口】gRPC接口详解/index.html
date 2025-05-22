@@ -1,0 +1,909 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="【接口】gRPC接口详解前言在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP&#x2F;2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】gRPC接口详解">
+<meta property="og:url" content="https://uwakeme.top/2025/05/22/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】gRPC接口详解前言在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP&#x2F;2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-22T11:23:53.693Z">
+<meta property="article:modified_time" content="2025-05-21T08:37:02.000Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="接口">
+<meta property="article:tag" content="gRPC">
+<meta property="article:tag" content="RPC">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【接口】gRPC接口详解 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【接口】gRPC接口详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-22 19:23" pubdate>
+           2025 年 05 月 22 日 , 晚上 07:23 , 星期四
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【接口】gRPC接口详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="【接口】gRPC接口详解"><a href="#【接口】gRPC接口详解" class="headerlink" title="【接口】gRPC接口详解"></a>【接口】gRPC接口详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP&#x2F;2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRPC的核心概念、工作原理、优势、适用场景以及与RESTful API的对比。</p>
+<h2 id="一、gRPC概述"><a href="#一、gRPC概述" class="headerlink" title="一、gRPC概述"></a>一、gRPC概述</h2><p>gRPC是一个现代化的RPC框架，旨在连接各种环境中的服务。它允许开发者像调用本地方法一样调用远程服务，简化了分布式应用的开发。</p>
+<h3 id="（一）核心特性"><a href="#（一）核心特性" class="headerlink" title="（一）核心特性"></a>（一）核心特性</h3><ol>
+<li><strong>高性能</strong>：基于HTTP&#x2F;2，支持多路复用、头部压缩、服务器推送等特性，显著降低延迟，提高吞吐量。</li>
+<li>**Protocol Buffers (ProtoBuf)**：使用ProtoBuf作为接口定义语言和消息序列化格式。ProtoBuf是一种语言无关、平台无关、可扩展的序列化结构化数据的方法，比JSON或XML更小、更快、更简单。</li>
+<li><strong>强类型</strong>：通过ProtoBuf定义服务接口和消息结构，编译时即可进行类型检查，减少运行时错误。</li>
+<li><strong>跨语言支持</strong>：gRPC支持多种主流编程语言，如Java, C++, Python, Go, Ruby, C#, Node.js, Android Java, Objective-C, PHP等，方便构建多语言异构系统。</li>
+<li><strong>双向流式通信</strong>：除了传统的请求-响应模式，gRPC还支持服务器流、客户端流和双向流，适用于实时数据传输、长连接等场景。</li>
+<li><strong>代码生成</strong>：gRPC工具链可以根据<code>.proto</code>文件自动生成客户端存根 (stub) 和服务器端骨架 (skeleton) 代码，简化开发工作。</li>
+<li><strong>可插拔的认证、负载均衡、追踪等机制</strong>：gRPC提供了丰富的扩展点，可以方便地集成各种基础设施服务。</li>
+</ol>
+<h3 id="（二）与RESTful-API的对比"><a href="#（二）与RESTful-API的对比" class="headerlink" title="（二）与RESTful API的对比"></a>（二）与RESTful API的对比</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>gRPC</th>
+<th>RESTful API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>HTTP&#x2F;2</td>
+<td>HTTP&#x2F;1.1 (或 HTTP&#x2F;2)</td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>Protocol Buffers (二进制)</td>
+<td>JSON, XML (文本)</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>更高性能，低延迟</td>
+<td>相对较低，较高延迟</td>
+</tr>
+<tr>
+<td>传输效率</td>
+<td>高 (二进制序列化，头部压缩)</td>
+<td>低 (文本序列化，无头部压缩)</td>
+</tr>
+<tr>
+<td>接口定义</td>
+<td><code>.proto</code> 文件 (IDL)</td>
+<td>OpenAPI&#x2F;Swagger (可选)</td>
+</tr>
+<tr>
+<td>类型安全</td>
+<td>强类型，编译时检查</td>
+<td>弱类型，运行时检查</td>
+</tr>
+<tr>
+<td>代码生成</td>
+<td>内置，自动生成客户端和服务端代码</td>
+<td>通常依赖第三方工具</td>
+</tr>
+<tr>
+<td>流式处理</td>
+<td>支持单向流和双向流</td>
+<td>有限支持 (如SSE, WebSocket需额外实现)</td>
+</tr>
+<tr>
+<td>浏览器支持</td>
+<td>需要gRPC-Web代理</td>
+<td>原生支持</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>微服务内部通信、移动客户端、性能敏感场景</td>
+<td>公开API、Web应用、简单服务集成</td>
+</tr>
+</tbody></table>
+<h2 id="二、核心概念"><a href="#二、核心概念" class="headerlink" title="二、核心概念"></a>二、核心概念</h2><h3 id="（一）Protocol-Buffers-ProtoBuf"><a href="#（一）Protocol-Buffers-ProtoBuf" class="headerlink" title="（一）Protocol Buffers (ProtoBuf)"></a>（一）Protocol Buffers (ProtoBuf)</h3><p>Protocol Buffers是gRPC的基石。它是一种用于序列化结构化数据的语言无关、平台无关、可扩展的机制。开发者首先在<code>.proto</code>文件中定义数据结构 (message) 和服务接口 (service)。</p>
+<p><strong>示例：定义一个简单的问候服务</strong></p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-comment">// 定义protobuf版本</span><br>syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-comment">// 定义包名，避免命名冲突</span><br><span class="hljs-keyword">package</span> greet;<br><br><span class="hljs-comment">// 定义服务</span><br><span class="hljs-keyword">service </span><span class="hljs-title class_">Greeter</span> &#123;<br>  <span class="hljs-comment">// 定义一个简单RPC方法</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> SayHello (HelloRequest) <span class="hljs-keyword">returns</span> (HelloReply) </span>&#123;&#125;<br>  <span class="hljs-comment">// 定义一个服务器流RPC方法</span><br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> SayHelloStream (HelloRequest) <span class="hljs-keyword">returns</span> (stream HelloReply) </span>&#123;&#125;<br>&#125;<br><br><span class="hljs-comment">// 定义请求消息体</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">HelloRequest</span> &#123;<br>  <span class="hljs-type">string</span> name = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-comment">// 定义响应消息体</span><br><span class="hljs-keyword">message </span><span class="hljs-title class_">HelloReply</span> &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>主要元素：</strong></p>
+<ul>
+<li><code>syntax = &quot;proto3&quot;;</code>: 指定使用proto3语法。</li>
+<li><code>package greet;</code>: 定义包名，有助于组织和避免命名冲突。</li>
+<li><code>service Greeter &#123; ... &#125;</code>: 定义一个名为<code>Greeter</code>的服务。</li>
+<li><code>rpc SayHello (HelloRequest) returns (HelloReply) &#123;&#125;</code>: 定义一个名为<code>SayHello</code>的RPC方法，它接受<code>HelloRequest</code>类型的参数，并返回<code>HelloReply</code>类型的结果。</li>
+<li><code>message HelloRequest &#123; ... &#125;</code>: 定义请求消息的结构。每个字段都有一个类型、名称和唯一的编号。</li>
+<li><code>string name = 1;</code>: 定义一个名为<code>name</code>的字符串类型字段，编号为1。</li>
+</ul>
+<h3 id="（二）服务定义-Service-Definition"><a href="#（二）服务定义-Service-Definition" class="headerlink" title="（二）服务定义 (Service Definition)"></a>（二）服务定义 (Service Definition)</h3><p>服务定义在<code>.proto</code>文件中通过<code>service</code>关键字完成。它描述了服务提供的RPC方法，包括方法名、请求类型和响应类型。</p>
+<h3 id="（三）RPC类型"><a href="#（三）RPC类型" class="headerlink" title="（三）RPC类型"></a>（三）RPC类型</h3><p>gRPC支持四种类型的RPC：</p>
+<ol>
+<li>**Unary RPC (一元RPC)**：客户端发送单个请求，服务器返回单个响应。这是最简单和最常见的RPC类型，类似于传统的函数调用。<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-function"><span class="hljs-keyword">rpc</span> SayHello (HelloRequest) <span class="hljs-keyword">returns</span> (HelloReply)</span>;<br></code></pre></td></tr></table></figure></li>
+<li>**Server streaming RPC (服务器流RPC)**：客户端发送单个请求，服务器返回一个消息序列 (流)。客户端从返回的流中读取，直到没有更多消息。<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-function"><span class="hljs-keyword">rpc</span> LotsOfReplies(HelloRequest) <span class="hljs-keyword">returns</span> (stream HelloReply)</span>;<br></code></pre></td></tr></table></figure></li>
+<li>**Client streaming RPC (客户端流RPC)**：客户端发送一个消息序列 (流) 给服务器。一旦客户端完成写入消息，它会等待服务器读取它们并返回其响应。<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-function"><span class="hljs-keyword">rpc</span> LotsOfGreetings(stream HelloRequest) <span class="hljs-keyword">returns</span> (HelloReply)</span>;<br></code></pre></td></tr></table></figure></li>
+<li>**Bidirectional streaming RPC (双向流RPC)**：客户端和服务器都可以独立地发送一个消息序列 (流)。两个流是相互独立的，客户端和服务器可以按任意顺序读写。<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs protobuf"><span class="hljs-function"><span class="hljs-keyword">rpc</span> BidiHello(stream HelloRequest) <span class="hljs-keyword">returns</span> (stream HelloReply)</span>;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="（四）HTTP-2"><a href="#（四）HTTP-2" class="headerlink" title="（四）HTTP&#x2F;2"></a>（四）HTTP&#x2F;2</h3><p>gRPC构建在HTTP&#x2F;2之上，充分利用了HTTP&#x2F;2的诸多优势：</p>
+<ul>
+<li>**二进制分帧层 (Binary Framing)**：HTTP&#x2F;2将所有传输的信息分割为更小的消息和帧，并对它们采用二进制格式编码，提高了传输效率。</li>
+<li>**多路复用 (Multiplexing)**：允许在单个TCP连接上并行处理多个请求和响应，消除了HTTP&#x2F;1.x中的队头阻塞问题。</li>
+<li>**头部压缩 (Header Compression)**：使用HPACK算法压缩请求和响应头部，减少了传输开销。</li>
+<li>**服务器推送 (Server Push)**：允许服务器主动向客户端发送资源，而无需客户端显式请求。</li>
+</ul>
+<h2 id="三、gRPC工作原理"><a href="#三、gRPC工作原理" class="headerlink" title="三、gRPC工作原理"></a>三、gRPC工作原理</h2><ol>
+<li><strong>定义服务</strong>：使用Protocol Buffers在<code>.proto</code>文件中定义服务接口和消息格式。</li>
+<li><strong>生成代码</strong>：使用gRPC的代码生成工具 (如<code>protoc</code>编译器和特定语言的gRPC插件) 根据<code>.proto</code>文件生成客户端存根 (stub) 和服务器端骨架 (skeleton) 代码。</li>
+<li><strong>实现服务端</strong>：开发者在服务器端实现服务接口中定义的方法。</li>
+<li><strong>实现客户端</strong>：客户端通过生成的存根调用远程服务方法，就像调用本地方法一样。</li>
+<li><strong>通信过程</strong>：<ul>
+<li>客户端调用存根方法。</li>
+<li>存根将请求参数使用Protocol Buffers序列化为二进制数据。</li>
+<li>通过HTTP&#x2F;2将序列化后的数据发送到服务器。</li>
+<li>服务器端接收到请求，使用Protocol Buffers反序列化数据。</li>
+<li>服务器端骨架调用开发者实现的服务逻辑。</li>
+<li>服务逻辑处理请求并生成响应。</li>
+<li>响应数据使用Protocol Buffers序列化为二进制数据。</li>
+<li>通过HTTP&#x2F;2将序列化后的响应数据发送回客户端。</li>
+<li>客户端存根接收到响应，使用Protocol Buffers反序列化数据。</li>
+<li>客户端得到最终结果。</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、gRPC的优势"><a href="#四、gRPC的优势" class="headerlink" title="四、gRPC的优势"></a>四、gRPC的优势</h2><ol>
+<li><strong>高性能和高效率</strong>：得益于HTTP&#x2F;2和Protocol Buffers，gRPC在延迟和带宽消耗方面表现优异。</li>
+<li><strong>严格的接口定义和类型安全</strong>：ProtoBuf提供了强大的IDL，确保了接口的一致性和类型安全，减少了集成错误。</li>
+<li><strong>多语言支持和互操作性</strong>：广泛的语言支持使得不同技术栈的服务能够轻松集成。</li>
+<li><strong>强大的流处理能力</strong>：支持各种流式RPC，适用于实时通信和大规模数据传输。</li>
+<li><strong>自动代码生成</strong>：简化了客户端和服务端代码的编写，提高了开发效率。</li>
+<li><strong>生态系统完善</strong>：拥有丰富的工具和库，支持认证、授权、负载均衡、监控、追踪等。</li>
+</ol>
+<h2 id="五、gRPC的适用场景"><a href="#五、gRPC的适用场景" class="headerlink" title="五、gRPC的适用场景"></a>五、gRPC的适用场景</h2><ol>
+<li><strong>微服务架构</strong>：是微服务之间进行高效、可靠通信的理想选择。</li>
+<li><strong>内部系统通信</strong>：对于企业内部系统，特别是对性能和类型安全有较高要求的场景。</li>
+<li><strong>移动客户端与后端通信</strong>：gRPC的低延迟和低带宽消耗特性使其非常适合移动应用，尤其是在网络条件不佳的情况下。</li>
+<li>**物联网 (IoT)**：对于资源受限的IoT设备，gRPC的效率和二进制协议非常有利。</li>
+<li><strong>实时应用</strong>：如在线游戏、实时数据分析、聊天应用等，可以利用gRPC的流式处理能力。</li>
+<li><strong>需要跨语言通信的系统</strong>：当系统由多种不同编程语言编写的服务组成时，gRPC提供了良好的互操作性。</li>
+</ol>
+<h2 id="六、在Java中使用gRPC示例"><a href="#六、在Java中使用gRPC示例" class="headerlink" title="六、在Java中使用gRPC示例"></a>六、在Java中使用gRPC示例</h2><p>以下是一个简单的Java gRPC示例步骤概述。</p>
+<h3 id="（一）准备环境"><a href="#（一）准备环境" class="headerlink" title="（一）准备环境"></a>（一）准备环境</h3><ol>
+<li>安装Java开发环境 (JDK)。</li>
+<li>配置构建工具，如Maven或Gradle，并添加gRPC和Protocol Buffers相关依赖。</li>
+</ol>
+<p><strong>Maven依赖示例 (<code>pom.xml</code>)：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-netty-shaded<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span> <span class="hljs-comment">&lt;!-- 使用最新稳定版 --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-protobuf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-stub<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.protobuf<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>protobuf-java-util<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.21.7<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span> <span class="hljs-comment">&lt;!-- 使用与protoc兼容的版本 --&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- Protobuf 编译器插件 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>protoc-gen-grpc-java<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">type</span>&gt;</span>pom<span class="hljs-tag">&lt;/<span class="hljs-name">type</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">extensions</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">extension</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>kr.motd.maven<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>os-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">extension</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">extensions</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.xolstice.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>protobuf-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.6.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">protocArtifact</span>&gt;</span>com.google.protobuf:protoc:3.21.7:exe:$&#123;os.detected.classifier&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">protocArtifact</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">pluginId</span>&gt;</span>grpc-java<span class="hljs-tag">&lt;/<span class="hljs-name">pluginId</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">pluginArtifact</span>&gt;</span>io.grpc:protoc-gen-grpc-java:1.50.2:exe:$&#123;os.detected.classifier&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">pluginArtifact</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">executions</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">execution</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">goals</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">goal</span>&gt;</span>compile-custom<span class="hljs-tag">&lt;/<span class="hljs-name">goal</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">goals</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">execution</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">executions</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.8.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">source</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">source</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">target</span>&gt;</span>1.8<span class="hljs-tag">&lt;/<span class="hljs-name">target</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="（二）定义-proto文件"><a href="#（二）定义-proto文件" class="headerlink" title="（二）定义.proto文件"></a>（二）定义<code>.proto</code>文件</h3><p>在<code>src/main/proto</code>目录下创建例如<code>greet.proto</code>文件，内容如上文示例。</p>
+<h3 id="（三）生成代码"><a href="#（三）生成代码" class="headerlink" title="（三）生成代码"></a>（三）生成代码</h3><p>运行Maven构建命令 (如 <code>mvn compile</code>)，protobuf-maven-plugin会自动根据<code>.proto</code>文件生成Java代码。</p>
+<h3 id="（四）实现服务端"><a href="#（四）实现服务端" class="headerlink" title="（四）实现服务端"></a>（四）实现服务端</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc;<br><br><span class="hljs-keyword">import</span> io.grpc.Server;<br><span class="hljs-keyword">import</span> io.grpc.ServerBuilder;<br><span class="hljs-keyword">import</span> io.grpc.stub.StreamObserver;<br><span class="hljs-keyword">import</span> greet.Greet.*; <span class="hljs-comment">// 假设生成的代码在greet包下</span><br><span class="hljs-keyword">import</span> greet.GreeterGrpc;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterServer</span> &#123;<br>    <span class="hljs-keyword">private</span> Server server;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">50051</span>;<br>        server = ServerBuilder.forPort(port)<br>                .addService(<span class="hljs-keyword">new</span> <span class="hljs-title class_">GreeterImpl</span>())<br>                .build()<br>                .start();<br>        System.out.println(<span class="hljs-string">&quot;Server started, listening on &quot;</span> + port);<br>        Runtime.getRuntime().addShutdownHook(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(() -&gt; &#123;<br>            System.err.println(<span class="hljs-string">&quot;*** shutting down gRPC server since JVM is shutting down&quot;</span>);<br>            GreeterServer.<span class="hljs-built_in">this</span>.stop();<br>            System.err.println(<span class="hljs-string">&quot;*** server shut down&quot;</span>);<br>        &#125;));<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">stop</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (server != <span class="hljs-literal">null</span>) &#123;<br>            server.shutdown();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">blockUntilShutdown</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException &#123;<br>        <span class="hljs-keyword">if</span> (server != <span class="hljs-literal">null</span>) &#123;<br>            server.awaitTermination();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-type">GreeterServer</span> <span class="hljs-variable">server</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GreeterServer</span>();<br>        server.start();<br>        server.blockUntilShutdown();<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">GreeterGrpc</span>.GreeterImplBase &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sayHello</span><span class="hljs-params">(HelloRequest req, StreamObserver&lt;HelloReply&gt; responseObserver)</span> &#123;<br>            <span class="hljs-type">HelloReply</span> <span class="hljs-variable">reply</span> <span class="hljs-operator">=</span> HelloReply.newBuilder().setMessage(<span class="hljs-string">&quot;Hello &quot;</span> + req.getName()).build();<br>            responseObserver.onNext(reply);<br>            responseObserver.onCompleted();<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sayHelloStream</span><span class="hljs-params">(HelloRequest req, StreamObserver&lt;HelloReply&gt; responseObserver)</span> &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>                <span class="hljs-type">HelloReply</span> <span class="hljs-variable">reply</span> <span class="hljs-operator">=</span> HelloReply.newBuilder().setMessage(<span class="hljs-string">&quot;Hello &quot;</span> + req.getName() + <span class="hljs-string">&quot;, response #&quot;</span> + i).build();<br>                responseObserver.onNext(reply);<br>                <span class="hljs-keyword">try</span> &#123;<br>                    Thread.sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 模拟耗时操作</span><br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    responseObserver.onError(e);<br>                &#125;<br>            &#125;<br>            responseObserver.onCompleted();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="（五）实现客户端"><a href="#（五）实现客户端" class="headerlink" title="（五）实现客户端"></a>（五）实现客户端</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc;<br><br><span class="hljs-keyword">import</span> io.grpc.ManagedChannel;<br><span class="hljs-keyword">import</span> io.grpc.ManagedChannelBuilder;<br><span class="hljs-keyword">import</span> io.grpc.StatusRuntimeException;<br><span class="hljs-keyword">import</span> greet.Greet.*;<br><span class="hljs-keyword">import</span> greet.GreeterGrpc;<br><br><span class="hljs-keyword">import</span> java.util.Iterator;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeUnit;<br><span class="hljs-keyword">import</span> java.util.logging.Level;<br><span class="hljs-keyword">import</span> java.util.logging.Logger;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterClient</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> Logger.getLogger(GreeterClient.class.getName());<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> GreeterGrpc.GreeterBlockingStub blockingStub;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> GreeterGrpc.GreeterStub asyncStub; <span class="hljs-comment">// 用于流式调用</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">GreeterClient</span><span class="hljs-params">(ManagedChannel channel)</span> &#123;<br>        blockingStub = GreeterGrpc.newBlockingStub(channel);<br>        asyncStub = GreeterGrpc.newStub(channel);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(String name)</span> &#123;<br>        logger.info(<span class="hljs-string">&quot;Will try to greet &quot;</span> + name + <span class="hljs-string">&quot; ...&quot;</span>);<br>        <span class="hljs-type">HelloRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> HelloRequest.newBuilder().setName(name).build();<br>        HelloReply response;<br>        <span class="hljs-keyword">try</span> &#123;<br>            response = blockingStub.sayHello(request);<br>        &#125; <span class="hljs-keyword">catch</span> (StatusRuntimeException e) &#123;<br>            logger.log(Level.WARNING, <span class="hljs-string">&quot;RPC failed: &#123;0&#125;&quot;</span>, e.getStatus());<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        logger.info(<span class="hljs-string">&quot;Greeting: &quot;</span> + response.getMessage());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greetStream</span><span class="hljs-params">(String name)</span> &#123;<br>        logger.info(<span class="hljs-string">&quot;Will try to greet &quot;</span> + name + <span class="hljs-string">&quot; with stream ...&quot;</span>);<br>        <span class="hljs-type">HelloRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> HelloRequest.newBuilder().setName(name).build();<br>        Iterator&lt;HelloReply&gt; responses;<br>        <span class="hljs-keyword">try</span> &#123;<br>            responses = blockingStub.sayHelloStream(request);<br>            <span class="hljs-keyword">while</span> (responses.hasNext()) &#123;<br>                <span class="hljs-type">HelloReply</span> <span class="hljs-variable">reply</span> <span class="hljs-operator">=</span> responses.next();<br>                logger.info(<span class="hljs-string">&quot;Greeting from stream: &quot;</span> + reply.getMessage());<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (StatusRuntimeException e) &#123;<br>            logger.log(Level.WARNING, <span class="hljs-string">&quot;RPC failed: &#123;0&#125;&quot;</span>, e.getStatus());<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;world&quot;</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">target</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;localhost:50051&quot;</span>; <span class="hljs-comment">// 服务器地址和端口</span><br><br>        <span class="hljs-type">ManagedChannel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> ManagedChannelBuilder.forTarget(target)<br>                .usePlaintext() <span class="hljs-comment">// 测试时不使用TLS</span><br>                .build();<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">GreeterClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GreeterClient</span>(channel);<br>            client.greet(user); <span class="hljs-comment">// 调用一元RPC</span><br>            client.greetStream(user); <span class="hljs-comment">// 调用服务器流RPC</span><br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            channel.shutdownNow().awaitTermination(<span class="hljs-number">5</span>, TimeUnit.SECONDS);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="七、常见问题与注意事项"><a href="#七、常见问题与注意事项" class="headerlink" title="七、常见问题与注意事项"></a>七、常见问题与注意事项</h2><ol>
+<li><strong>版本兼容性</strong>：Protocol Buffers具有良好的前后向兼容性，但仍需注意字段编号和类型的变更管理。</li>
+<li><strong>错误处理</strong>：gRPC使用状态码来表示RPC的完成状态，客户端需要妥善处理这些状态码。</li>
+<li><strong>安全性</strong>：gRPC支持SSL&#x2F;TLS加密，并可以集成认证机制 (如OAuth2, JWT)。</li>
+<li><strong>gRPC-Web</strong>：为了让浏览器能够直接调用gRPC服务，需要使用gRPC-Web，它通常需要一个代理 (如Envoy) 将HTTP&#x2F;1.1请求转换为HTTP&#x2F;2。</li>
+<li><strong>调试</strong>：调试gRPC可能比调试REST API更复杂，可以使用如<code>grpcurl</code>、Wireshark (配合HTTP&#x2F;2解密) 等工具。</li>
+<li>**超时和截止日期 (Deadlines)**：客户端可以为RPC调用设置截止日期，如果服务器在该时间内未响应，则调用失败。这对于避免长时间等待和资源浪费非常重要。</li>
+</ol>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>gRPC凭借其高性能、强类型、跨语言以及对流式通信的良好支持，已成为现代分布式系统和微服务架构中非常受欢迎的RPC框架。它通过Protocol Buffers和HTTP&#x2F;2等技术，有效地解决了传统RPC框架在性能、效率和易用性方面的一些痛点。虽然其学习曲线相对RESTful API可能稍陡峭，且浏览器直接支持有限，但在内部服务通信、性能敏感型应用等场景下，gRPC展现出巨大的优势。理解其核心概念和工作原理，有助于开发者在合适的场景下选择和使用gRPC，构建高效、健壮的分布式应用。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+        <a href="/tags/%E6%8E%A5%E5%8F%A3/" class="print-no-link">#接口</a>
+      
+        <a href="/tags/gRPC/" class="print-no-link">#gRPC</a>
+      
+        <a href="/tags/RPC/" class="print-no-link">#RPC</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/22/%E3%80%90AI%E3%80%91MCP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" title="【AI】MCP协议详解与应用实践">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【AI】MCP协议详解与应用实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/22/%E3%80%90AI%E3%80%91%E5%B8%B8%E7%94%A8MCP%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97/" title="【AI】常用MCP服务器详解与应用指南">
+                        <span class="hidden-mobile">【AI】常用MCP服务器详解与应用指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js"></script>
+<script src="//cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
