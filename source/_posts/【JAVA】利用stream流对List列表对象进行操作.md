@@ -1,6 +1,6 @@
 ---
-title: 【JAVA技巧】利用stream流对List列表对象进行操作
-categories: JAVA技巧
+title: 【JAVA】利用stream流对List列表对象进行操作
+categories: JAVA
 tags:
   - JAVA
   - 后端
