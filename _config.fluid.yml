@@ -9,27 +9,45 @@ favicon: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png
 ## 是否强制全局HTTPS
 force_https: true
 
+## 页面预加载动画设置
+preloader: 
+  enable: true
+  # 加载动画类型
+  type: "gear"  # 可选: default | gear | circle | square | custom
+  # 自定义加载动画
+  custom_pic: 
+  # 加载动画颜色
+  color: "#49b1f5"
+
+## PJAX 无刷新加载
+pjax:
+  enable: true
+  # 是否使用加载动画
+  animation_type: "nprogress"  # 可选: nprogress | circle | none
+
 ## 自定义JS
 custom_js:
   ### 鼠标点击出小爱心❤
-  - //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js
+  #- //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/love.js
   ### 鼠标跟随小星星
-  - //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js
+  #- //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/xiaoxingxing.js
   ### 动态彩带
-  - //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js
+  #- //cdn.jsdelivr.net/gh/bynotes/texiao/source/js/caidai.js
   ### 自定义JavaScript
   - /js/custom.js
   ### AI助手JavaScript
   - /js/ai-assistant.js
+  ### Mermaid支持
+  - https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js
 
 ## 自定义CSS
 custom_css: 
   ### 引入 iconfont 的图标（这是我的iconfont项目链接，最好可以换成你自己的）
   - //at.alicdn.com/t/c/font_3846514_kabxni94auf.css
   ### 鼠标指针美化
-  - //cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css
+  #- //cdn.jsdelivr.net/gh/bynotes/texiao/source/css/shubiao.css
   ### 滚动条美化
-  - //cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css
+  #- //cdn.jsdelivr.net/gh/bynotes/texiao/source/css/gundongtiao.css
   ### 自定义样式
   - /css/custom.css
   ### AI助手样式
@@ -108,19 +126,43 @@ about:
 links:
   ### 友情链接页的顶部预览图
   banner_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/links.jpg
+  ### 友链页自定义标题
+  title: 友情链接
+  ### 友链页副标题
+  subtitle: 与我同行的技术伙伴们
   items:
-    - {
-      title: 'Wake',
-      intro: 'Wake 的 CSDN',
-      link: 'https://www.csdn.net/',
-      avatar: 'https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/csdn.png'
-    }
     - {
       title: 'Fluid Docs',
       intro: 'Fluid 主题使用指南',
       link: 'https://hexo.fluid-dev.com/docs/',
       avatar: '/img/favicon.png'
     }
+    - {
+      title: 'Hexo',
+      intro: '快速、简洁且高效的博客框架',
+      link: 'https://hexo.io/zh-cn/',
+      avatar: 'https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg'
+    }
+  ### 友链添加说明
+  custom:
+    enable: true
+    content: |
+      <div class="px-5 py-4 bg-light rounded shadow">
+        <h5 class="text-center mb-4">申请友链须知</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-light">请确保您的网站内容健康、合法</li>
+          <li class="list-group-item bg-light">请确保您的网站能够正常访问</li>
+          <li class="list-group-item bg-light">请在您的网站添加本站友链后再申请</li>
+          <li class="list-group-item bg-light">申请格式：名称 + 简介 + 链接 + 头像</li>
+        </ul>
+        <p class="mt-3 text-center">
+          <strong>我的友链信息：</strong><br>
+          名称：Wake的博客<br>
+          简介：一起学习，一起进步<br>
+          链接：https://uwakeme.top<br>
+          头像：https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/avatar.jpg
+        </p>
+      </div>
   ### 默认头像
   default_avatar: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/default_avatar.png
 
@@ -139,45 +181,80 @@ archive:
   ### 归档页的顶部预览图
   banner_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/archives.jpg
 
-## 懒加载设置
+## 图片懒加载
 lazyload:
-  ### 是否启用懒加载
   enable: true
-  ### 指定加载时的占位图片
+  # 懒加载占位图
   loading_img: /img/loading.gif
-  ### 为 true 时，懒加载仅在文章页生效，如果自定义页面需要使用，可以在 Front-matter (opens new window)里指定
+  # 是否在文章页才启用懒加载
   onlypost: false
-  ### 触发加载的偏移倍数，基数是视窗高度（即提前 N 屏高度触发加载），可根据部署环境的请求速度调节
+  # 触发加载的偏移倍数
   offset_factor: 2
- 
+  # 是否对 img 标签也启用懒加载
+  element_loading_img: true
+
+## 图片灯箱效果
+fancybox:
+  enable: true
+  # 灯箱触发方式
+  trigger: "hover"  # 可选: click | hover
+  # 是否显示缩放按钮
+  zoom: true
+  # 是否显示分享按钮
+  share: true
+  # 是否显示幻灯片模式
+  slideshow: true
+  # 是否显示全屏按钮
+  fullScreen: true
+  # 是否显示缩略图
+  thumbs: true
+
+## 页面平滑滚动
+smooth_scroll:
+  enable: true
+  # 滚动速度，数值越大越慢
+  speed: 800
+
 ## 全局字体设置
 font:  
   ### 全局字号
   font_size: 16px
   ### 全局字体族
-  font_family: "Microsoft YaHei"
+  font_family: "Microsoft YaHei, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
   ### 代码字号
   code_font_size: 85%
+  ### 代码字体族
+  code_font_family: "Source Code Pro, Consolas, Menlo, Monaco, monospace"
   
 # ==================================== 首页设置 ====================================
 index:
   ## 首页顶部大图
   banner_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/index.jpg
+  ## 首页顶部大图高度
+  banner_img_height: 80
+  ## 首页顶部大图蒙版透明度
+  banner_mask_alpha: 0.3
   ## 打字机设置
   slogan:
     ### 是否启用打字机
     enable: true
     ### 打字机文字内容
-    text: 一起学习，一起进步
+    text: ["一起学习，一起进步", "分享技术，记录生活", "Stay Hungry, Stay Foolish"]
     ### 打字机水平位置 left right center
     text_align: center
+    ### 打字机字体大小
+    font_size: 1.5rem
+    ### 打字机字体颜色
+    color: "#ffffff"
+    ### 打字机光标字符
+    cursor: "|"
   ## 自动摘要
   auto_excerpt:
     enable: true
     # 摘要长度
-    length: 150
+    length: 200
   ## 文章跳转方式 _blank：新标签页打开  _self：当前标签页打开
-  post_url_target: _blank
+  post_url_target: _self
   ## 文章信息设置：可配置隐藏包括发布时间、分类、标签
   post_meta:
     date: true
@@ -189,7 +266,7 @@ index:
     # 打字机效果 若开启打字机，则开启
     typing: true
     # 打字机时延
-    typing_speed: 100
+    typing_speed: 70
     # 循环播放
     loop: true
     # 如果不想使用打字机效果，可以使用静态文字
@@ -214,6 +291,11 @@ index:
         text: 探索热门技术标签
         link: /tags/
         color: "#42c02e"
+      - name: 关于我
+        icon: iconfont icon-user-fill
+        text: 了解博主的更多信息
+        link: /about/
+        color: "#9932CC"
   # 显示文章分类
   categories:
     enable: true
@@ -222,11 +304,43 @@ index:
     limit: 6  # 最多显示分类数量
     mobile_limit: 3  # 移动端显示数量
     color: true  # 使用彩色显示
-  
+    order_by: length  # 排序方式，可选值：name | length
+  # 显示标签云
+  tags:
+    enable: true
+    title: 热门标签
+    icon: iconfont icon-tags-fill
+    limit: 20  # 最多显示标签数量
+    color: true  # 使用彩色显示
+    start_color: "#9932CC"  # 标签起始颜色
+    end_color: "#FF6347"  # 标签结束颜色
+    min_font_size: 14  # 最小字体大小
+    max_font_size: 24  # 最大字体大小
+    orderby: length  # 标签排序方式，可选值：name | length
+  # 显示最新文章
+  recent_posts:
+    enable: true
+    title: 最新文章
+    icon: iconfont icon-post
+    limit: 6  # 最多显示文章数量
+    mobile_limit: 3  # 移动端显示数量
+    sort_order: -date  # 排序方式，可选值：-date(最新的在前) | date(最旧的在前)
+    date_format: YYYY-MM-DD  # 日期格式
+    # 文章卡片样式
+    card_style:
+      theme: default  # 卡片主题，可选值：default | simple | material
+      # 卡片悬停效果
+      hover:
+        shadow: true  # 是否显示阴影
+        scale: true   # 是否放大
+ 
 # ==================================== 文章页设置 ====================================
 post:
   ## 文章页banner
   banner_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg
+  ## 文章页banner蒙版透明度
+  banner_img_height: 70
+  banner_mask_alpha: 0.3
   ## 缩略图封面
   # 文章默认封面图
   default_index_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/default.jpg
@@ -243,7 +357,7 @@ post:
       enable: true
     date:  # 文章日期，优先根据 front-matter 里 date 字段，其次是 md 文件日期
       enable: true
-      format: " YYYY 年 MM 月 DD 日 , a hh:mm , dddd"  # 格式参照 ISO-8601 日期格式化
+      format: "YYYY-MM-DD HH:mm"  # 格式更加简洁易读
     wordcount:  # 字数统计
       enable: true
       format: "{} 字"  # 显示的文本，{}是数字的占位符（必须包含)，下同
@@ -256,7 +370,7 @@ post:
       format: "{} 次"
   ## 文章页脚
   copyright:
-    enable: false
+    enable: true
     # 展示作者
     author:
       enable: true
@@ -271,9 +385,6 @@ post:
       license: "CC BY-NC-SA 4.0"
       link: "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
       text: "本文采用 CC BY-NC-SA 4.0 协议，转载请注明出处"
-  ## 文章底部上一篇下一篇
-  prev_next:
-    enable: true
   ## 文章内容目录
   toc:
     enable: true
@@ -281,6 +392,16 @@ post:
     level: 3
     # 置于边栏
     placement: right
+    # 是否折叠目录
+    collapse: false
+    # 目录是否跟随滚动
+    follow: true
+    # 目录是否显示序号
+    number: true
+    # 目录是否显示章节标题
+    heading_list: true
+    # 目录是否显示子标题
+    expand_all: true
   ## 文章分享功能
   share:
     enable: true
@@ -293,6 +414,26 @@ post:
       - 'facebook' # Facebook
       - 'twitter'  # Twitter
       - 'linkedin' # LinkedIn
+  # 文章底部上一篇/下一篇文章按钮
+  prev_next:
+    enable: true
+  # 文章图片点击放大
+  image_zoom:
+    enable: true
+    # 放大后图片的最大宽度，设置为 -1 表示不限制
+    img_max_width: 80%
+    # 放大后图片的最大高度，设置为 -1 表示不限制
+    img_max_height: 80%
+  # 相关文章推荐
+  related_posts:
+    enable: true
+    # 最多显示的相关文章数量
+    limit: 6
+    # 相关文章的匹配算法
+    # 可选值：date | title | tag | category
+    # 分别对应：发布日期 | 标题 | 标签 | 分类
+    # 多个值之间用逗号分隔，按先后顺序进行匹配
+    match_type: "tag,category"
 
 ## 评论系统设置
 comments:
@@ -300,6 +441,17 @@ comments:
   # 指定的插件，需要同时设置对应插件的必要参数
   # 目前支持 valine | waline | gitalk
   type: gitalk
+  # 是否显示评论数
+  count: true
+  # 评论区域标题
+  title: "评论"
+  # 是否允许评论者上传图片
+  image_uploader: true
+  # 是否显示页面浏览量
+  pageview:
+    enable: true
+    # 统计数据来源
+    source: "busuanzi"  # leancloud | busuanzi
 
 ## 评论插件设置 - Gitalk
 gitalk:
@@ -311,6 +463,10 @@ gitalk:
   language: zh-CN # en | zh-CN
   labels: gitalk # GitHub issue labels
   perPage: 15 # Pagination size, with maximum 100
+  # 是否默认展开评论
+  autoExpand: true
+  # 是否启用快捷键提交评论 (cmd|ctrl + enter)
+  enableHotKey: true
 
 ## 页面布局
 page:
@@ -333,6 +489,12 @@ search:
   preview: 50
   # 模糊匹配
   fuzzy: true
+  # 是否显示搜索结果的日期
+  date_format: yyyy-MM-dd
+  # 是否显示搜索结果的内容预览
+  content_preview: true
+  # 搜索结果的最大显示数量
+  max_results: 10
 
 ## 页面点击效果
 fun_features:
@@ -342,9 +504,13 @@ fun_features:
     # 打印速度，数字越大越慢
     typeSpeed: 70
     # 游标字符
-    cursorChar: "_"
+    cursorChar: "|"
     # 是否循环播放效果
     loop: false
+    # 回退速度，数字越大越慢
+    backSpeed: 40
+    # 游标闪烁动画
+    showCursor: true
   # 为文章内容中的标题添加锚图标
   anchorjs:
     enable: true
@@ -358,12 +524,37 @@ fun_features:
   # 在首页的文章卡片上显示鼠标悬停效果
   post_card:
     enable: true
+  # 页面顶部进度条
+  progressbar:
+    enable: true
+    height_px: 3
+    color: "#29d"
+    # 浏览位置指示器
+    position_indicator:
+      enable: true
+      color: "#33a3dc"
+  # 鼠标点击效果
+  mouse_click:  
+    enable: true
+    style: "explosion"  # 可选: explosion | fireworks | love | text
+    text: "❤"  # 鼠标点击显示的文字
+  # 页面加载动画
+  loading:
+    enable: true
+    # 动画类型
+    animation_type: "spinner"  # 可选: spinner | circle | square
+    # 动画颜色
+    animation_color: "#49b1f5"
 
 ## 回到顶部按钮
 scroll_top_arrow:
   enable: true
   # 是否在移动端显示
   mobile_enable: true
+  # 选择器
+  scroll_top_selector: "#scroll-top-button"
+  # 显示阈值
+  threshold_px: 400
 
 ## 代码块设置
 code:
@@ -376,13 +567,21 @@ code:
     ### 是否开启行号
     line_number: true
     ### 选择生成高亮的库，可选项: highlightjs、prismjs，对应下面两组配置
-    lib: "highlightjs"
+    lib: "prismjs"
     highlightjs:
-      style: 'atom-one-dark'
+      style: 'github-gist'
       bg_color: false
     prismjs:
-      style: "default"
+      style: "tomorrow"
       preprocess: true
+      # 是否显示代码语言
+      show_language: true
+      # 是否启用代码行数显示
+      line_number: true
+      # 代码块是否显示行数
+      line_threshold: 0
+      # 代码块是否显示复制按钮
+      copy_button: true
 
 ## 统计功能
 web_analytics:  
@@ -455,6 +654,11 @@ footer:
           setInterval("createtime()", 250);
         </script>
       </div>
+      <div style="margin-top: 10px;">
+        <a href="https://hexo.io/" target="_blank" rel="nofollow noopener"><span>Powered by Hexo</span></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/" target="_blank" rel="nofollow noopener"><span>Hosted by GitHub Pages</span></a>
+      </div>
     '
   ## 统计访问人数设置
   statistics:
@@ -464,6 +668,19 @@ footer:
     uv_format: "总访客数 {} 人"
     # 添加自定义选项，使用当前数据重置统计起点
     start_time: "2023-05-01"  # 统计开始时间
+  # 社交链接
+  social_links:
+    enable: true
+    links:
+      github: "https://github.com/你的用户名"
+      twitter: 
+      facebook: 
+      instagram: 
+      youtube: 
+      telegram: 
+      weibo: 
+      zhihu: 
+      rss: "/atom.xml"
 
 ## 网页代码注入，可用于添加统计代码等
 inject:
@@ -505,6 +722,86 @@ inject:
           padding-left: 10px;
           background-color: rgba(73, 177, 245, 0.1);
           border-radius: 0 3px 3px 0;
+          padding: 5px 10px;
+          margin: 1.5rem 0 1rem 0;
+          transition: all 0.3s ease;
+        }
+        h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
+          border-left-width: 8px;
+        }
+        /* 美化引用块 */
+        blockquote {
+          border-left: 4px solid #49b1f5;
+          background-color: rgba(73, 177, 245, 0.1);
+          padding: 10px 15px;
+          color: #555;
+          position: relative;
+          margin: 1rem 0;
+        }
+        blockquote::before {
+          content: '"';
+          font-size: 2rem;
+          color: #49b1f5;
+          position: absolute;
+          left: 5px;
+          top: -5px;
+          opacity: 0.5;
+        }
+        /* 美化表格 */
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 1rem 0;
+          border-radius: 5px;
+          overflow: hidden;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th {
+          background-color: #49b1f5;
+          color: white;
+          padding: 10px;
+          text-align: left;
+        }
+        tr:nth-child(even) {
+          background-color: rgba(73, 177, 245, 0.1);
+        }
+        td {
+          padding: 8px 10px;
+          border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+          background-color: rgba(73, 177, 245, 0.2);
+        }
+        /* 美化代码块 */
+        pre {
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* 美化行内代码 */
+        code:not([class*="language-"]) {
+          color: #d63384;
+          background-color: #f8f9fa;
+          padding: 2px 4px;
+          border-radius: 3px;
+        }
+        /* 美化文章卡片 */
+        .index-card {
+          transition: all 0.3s ease;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        .index-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        /* 美化按钮 */
+        .btn {
+          border-radius: 20px;
+          transition: all 0.3s ease;
+        }
+        .btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
       </style>
     - |
@@ -530,6 +827,17 @@ inject:
           }
         }
       </script>
+    - |
+      <!-- SEO优化元标签 -->
+      <meta name="keywords" content="技术博客,编程,学习笔记,Java,前端,Linux,数据库">
+      <meta name="description" content="Wake的个人技术博客，分享编程技术、学习笔记和解决方案">
+      <meta name="author" content="Wake">
+      <meta name="robots" content="index, follow">
+      <meta name="referrer" content="no-referrer-when-downgrade">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no">
   body_end:
     - |
       <!-- 为文章页添加结构化数据 -->
@@ -584,3 +892,39 @@ inject:
           }
         });
       </script>
+
+# ==================================== 数学公式与图表 ====================================
+
+## LaTeX 数学公式
+latex:
+  enable: true
+  engine: mathjax  # 可选引擎：mathjax、katex
+  mathjax:
+    cdn: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    tags: ams  # 可选 ams, all
+    show_error: true  # 如有语法错误是否显示错误信息
+  katex:
+    cdn_css: https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css
+    cdn_js: https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js
+    auto_render: https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js
+    delimiters: true  # 是否自动添加分隔符
+
+## Mermaid 流程图
+mermaid:
+  enable: true
+  # cdn: 自动根据 js_cdn 配置加载
+  specific: false  # 是否仅对声明 `mermaid: true` 的文章启用
+  options: {  # 接受 mermaid 官方的配置参数
+    theme: 'default', 
+    startOnLoad: true
+  }
+
+## 404页面设置
+page404:
+  enable: true
+  banner_img: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/404.jpg
+  banner_img_height: 70
+  banner_mask_alpha: 0.3
+  subtitle: "页面君找不到回家的路了"
+  btn_text: "返回首页"
+  btn_url: "/index.html"

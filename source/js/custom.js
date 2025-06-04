@@ -1,4 +1,5 @@
-// 页面加载动画
+// 页面加载动画 - 已移除
+/*
 window.addEventListener('load', function() {
   // 已经创建了加载动画，无需重复创建
   const existingLoader = document.querySelector('.page-loading');
@@ -14,8 +15,10 @@ window.addEventListener('load', function() {
     return;
   }
 });
+*/
 
-// 创建页面加载动画
+// 创建页面加载动画 - 已移除
+/*
 function createPageLoading() {
   const loader = document.createElement('div');
   loader.className = 'page-loading';
@@ -44,11 +47,12 @@ function createPageLoading() {
     }, 600);
   }, 1000);
 }
+*/
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
-  // 创建页面加载动画
-  createPageLoading();
+  // 创建页面加载动画 - 已移除
+  // createPageLoading();
   
   // 添加文章卡片动画延迟
   addAnimationDelay();
@@ -91,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 增强SEO和可访问性
   enhanceSEOAndAccessibility();
+  
+  // 修复首页打字机文字格式问题
+  fixTypingText();
 });
 
 // 添加文章卡片动画延迟
@@ -1199,6 +1206,51 @@ function addKeyboardNavigation() {
       this.style.outline = '';
     });
   });
+}
+
+// 修复打字机文字格式问题
+function fixTypingText() {
+  // 检查是否在首页
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    // 等待打字机元素加载完成
+    let checkTypingInterval = setInterval(() => {
+      const typingElement = document.querySelector('.typed-cursor');
+      if (typingElement) {
+        clearInterval(checkTypingInterval);
+        
+        // 查找并替换可能存在的英文逗号
+        const typingContainer = typingElement.parentNode;
+        if (typingContainer) {
+          // 获取原始配置
+          const originalStrings = window.CONFIG.typing.strings || [];
+          
+          // 重新初始化打字机，确保使用中文顿号
+          if (window.typed) {
+            window.typed.destroy();
+          }
+          
+          // 应用正确的中文顿号
+          const correctedStrings = ["一起学习，一起进步", "分享技术，记录生活", "Stay Hungry, Stay Foolish"];
+          
+          // 重新创建打字机
+          window.typed = new Typed(typingContainer.querySelector('.typed'), {
+            strings: correctedStrings,
+            typeSpeed: window.CONFIG.typing.typeSpeed || 70,
+            backSpeed: window.CONFIG.typing.backSpeed || 40,
+            startDelay: window.CONFIG.typing.startDelay || 500,
+            loop: window.CONFIG.typing.loop || true,
+            showCursor: window.CONFIG.typing.showCursor || true,
+            cursorChar: window.CONFIG.typing.cursorChar || '|'
+          });
+        }
+      }
+    }, 500);
+    
+    // 10秒后清除定时器，避免一直检查
+    setTimeout(() => {
+      clearInterval(checkTypingInterval);
+    }, 10000);
+  }
 }
 
 // 将这些函数添加到window.onload以确保DOM加载完成后执行

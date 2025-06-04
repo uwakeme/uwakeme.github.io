@@ -57,10 +57,6 @@ html.dark-theme blockquote {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-html.dark-theme .page-loading {
-  background-color: var(--bg-color);
-}
-
 html.dark-theme .recommend-post-card {
   background-color: var(--card-bg) !important;
 }
@@ -81,48 +77,6 @@ html.dark-theme .img-overlay {
 
 html.dark-theme .recommend-loading {
   background: rgba(255, 255, 255, 0.05) !important;
-}
-
-/* 页面加载动画 */
-.page-loading {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
-}
-
-html.dark-theme .page-loading {
-  background-color: #121212;
-}
-
-.page-loading.loaded {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid rgba(73, 177, 245, 0.2);
-  border-top-color: var(--primary-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* 页面内容渐入 */
