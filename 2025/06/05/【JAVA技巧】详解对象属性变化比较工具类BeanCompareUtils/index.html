@@ -1,0 +1,1094 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言在许多Java应用中，跟踪对象状态的变化至关重要。例如，在数据持久化之前记录哪些字段被修改用于审计日志，或者在用户界面上高亮显示已更改的数据，亦或是在数据同步过程中仅传输变更部分。为了实现这些功能，我们需要一个能够比较两个对象并找出其属性值差异的工具。虽然有一些成熟的库（如JaVers、Apache Commons Lang的DiffBuilder）提供了强大的对象审计和比较功能，但有时我们可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E8%AF%A6%E8%A7%A3%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8C%96%E6%AF%94%E8%BE%83%E5%B7%A5%E5%85%B7%E7%B1%BBBeanCompareUtils/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言在许多Java应用中，跟踪对象状态的变化至关重要。例如，在数据持久化之前记录哪些字段被修改用于审计日志，或者在用户界面上高亮显示已更改的数据，亦或是在数据同步过程中仅传输变更部分。为了实现这些功能，我们需要一个能够比较两个对象并找出其属性值差异的工具。虽然有一些成熟的库（如JaVers、Apache Commons Lang的DiffBuilder）提供了强大的对象审计和比较功能，但有时我们可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.298Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.298Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="反射">
+<meta property="article:tag" content="工具类">
+<meta property="article:tag" content="自定义工具类">
+<meta property="article:tag" content="对象比较">
+<meta property="article:tag" content="属性差异">
+<meta property="article:tag" content="审计">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在许多Java应用中，跟踪对象状态的变化至关重要。例如，在数据持久化之前记录哪些字段被修改用于审计日志，或者在用户界面上高亮显示已更改的数据，亦或是在数据同步过程中仅传输变更部分。为了实现这些功能，我们需要一个能够比较两个对象并找出其属性值差异的工具。虽然有一些成熟的库（如JaVers、Apache Commons Lang的<code>DiffBuilder</code>）提供了强大的对象审计和比较功能，但有时我们可能需要一个更轻量级、更易于定制的解决方案。本文将探讨如何设计和实现一个自定义的<code>BeanCompareUtils</code>工具类来比较对象属性的变化。</p>
+<p>本工具类的设计也将遵循<a href="/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%8C%87%E5%8D%97.md">《【JAVA技巧】编写自定义通用工具类指南》</a>中提出的各项原则。</p>
+<h1 id="一、为何需要自定义对象属性比较工具？"><a href="#一、为何需要自定义对象属性比较工具？" class="headerlink" title="一、为何需要自定义对象属性比较工具？"></a>一、为何需要自定义对象属性比较工具？</h1><ol>
+<li><strong>特定场景定制</strong>：可以根据具体业务需求定制比较逻辑，例如如何格式化差异报告、如何处理特定类型的属性（如加密字段、大型文本字段）。</li>
+<li><strong>轻量级集成</strong>：对于简单的比较需求，引入功能全面的大型审计库可能过于重型。</li>
+<li><strong>细粒度控制</strong>：完全掌控哪些属性参与比较、如何比较（例如，字符串比较是否忽略大小写、日期比较的精度等）。</li>
+<li><strong>学习与理解</strong>：通过自行实现，可以深入理解对象比较的复杂性以及Java反射的应用。</li>
+</ol>
+<h1 id="二、现有解决方案概览"><a href="#二、现有解决方案概览" class="headerlink" title="二、现有解决方案概览"></a>二、现有解决方案概览</h1><p>在着手自定义之前，了解一些现有工具是明智的：</p>
+<ul>
+<li>**Apache Commons Lang <code>DiffBuilder</code>**：<code>org.apache.commons.lang3.builder.DiffBuilder</code> 允许你为对象的每个字段追加比较，并生成一个包含所有差异的 <code>DiffResult</code>。它非常灵活，但需要为每个字段显式调用 <code>append</code> 方法。</li>
+<li><strong>JaVers</strong>：一个功能完备的Java对象审计和差异比较库。它能够自动发现对象图的更改，支持集合、Map、嵌套对象等复杂结构的比较，并能生成详细的变更历史。适用于需要完整审计追踪的场景。</li>
+<li>**<code>java-obj-diff</code> (openquartz)**：一个GitHub上的开源项目，基于Commons Lang的<code>DiffBuilder</code>进行了增强，支持注解忽略字段、自定义比较器、别名、格式化等，并优化了反射性能。</li>
+<li>**<code>object-equator</code> (JING-START)**：另一个GitHub项目，通过注解标记需要比较的字段，支持嵌套对象和集合的比较。</li>
+<li>**<code>ez-compare</code> (vincemann)**：提供流式API进行对象比较，可配置性强，但主要进行浅比较。</li>
+</ul>
+<p>这些库各有侧重，从简单的工具类到复杂的审计框架都有覆盖。</p>
+<h1 id="三、自定义-BeanCompareUtils-设计考量"><a href="#三、自定义-BeanCompareUtils-设计考量" class="headerlink" title="三、自定义 BeanCompareUtils 设计考量"></a>三、自定义 <code>BeanCompareUtils</code> 设计考量</h1><p>设计一个自定义的对象属性比较工具类时，需要考虑以下关键点：</p>
+<ol>
+<li><strong>输入参数</strong>：通常是两个待比较的对象，一般称之为”旧对象”（old&#x2F;original）和”新对象”（new&#x2F;current）。它们应该是同一类型，或者是可以相互比较的类型。</li>
+<li><strong>输出结果</strong>：比较的结果应该清晰地表明哪些属性发生了变化。一个常见的做法是返回一个差异列表，其中每个差异项包含：<ul>
+<li>属性名 (Field Name)</li>
+<li>属性的易读名称&#x2F;别名 (Optional, for friendly reports)</li>
+<li>旧值 (Old Value)</li>
+<li>新值 (New Value)</li>
+</ul>
+</li>
+<li><strong>比较逻辑</strong>：<ul>
+<li><strong>基本类型与包装类</strong>：直接使用 <code>equals()</code> 方法或 <code>==</code> (对于基本类型，需注意自动装箱拆箱)。</li>
+<li><strong>对象类型</strong>：默认使用对象的 <code>equals()</code> 方法。如果需要深入比较对象内部属性（即深比较或递归比较），则逻辑会更复杂。</li>
+<li><strong>数组&#x2F;集合&#x2F;Map</strong>：比较这类属性时，不仅要考虑引用是否变化，还可能需要比较其内容（元素&#x2F;键值对）是否有增删改。这通常需要更复杂的逻辑。</li>
+<li><strong><code>null</code> 值处理</strong>：如何定义一个属性从 <code>null</code> 变为非 <code>null</code>，或从非 <code>null</code> 变为 <code>null</code>，或者两个都是 <code>null</code> 的情况。</li>
+</ul>
+</li>
+<li><strong>递归比较（深比较）</strong>：如果对象的属性本身也是复杂对象，是否需要递归地比较这些嵌套对象的属性。这需要处理潜在的循环引用问题。</li>
+<li><strong>可配置性</strong>：<ul>
+<li><strong>忽略属性</strong>：允许通过名称列表或注解（如 <code>@CompareIgnore</code>）指定不参与比较的属性（例如ID、创建时间、最后更新时间等元数据字段）。</li>
+<li><strong>属性别名</strong>：支持为属性指定一个更易读的名称（如通过 <code>@CompareAlias(&quot;用户年龄&quot;)</code>），用于生成的差异报告中。</li>
+<li><strong>自定义比较器</strong>：对于特定属性或特定类型，允许提供自定义的比较逻辑。</li>
+</ul>
+</li>
+<li><strong>错误处理</strong>：在反射获取属性或值时可能发生异常，需要妥善处理。</li>
+</ol>
+<h1 id="四、自定义-BeanCompareUtils-实现详解"><a href="#四、自定义-BeanCompareUtils-实现详解" class="headerlink" title="四、自定义 BeanCompareUtils 实现详解"></a>四、自定义 <code>BeanCompareUtils</code> 实现详解</h1><p>我们将首先实现一个基础版本，能够比较两个对象的直接属性（浅比较），并记录差异。后续可以逐步扩展。</p>
+<h2 id="（一）定义属性差异类-PropertyDifference"><a href="#（一）定义属性差异类-PropertyDifference" class="headerlink" title="（一）定义属性差异类 PropertyDifference"></a>（一）定义属性差异类 <code>PropertyDifference</code></h2><p>这个类用于封装单个属性的变更信息。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>project<span class="token punctuation">.</span>util</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Objects</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PropertyDifference</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> propertyName<span class="token punctuation">;</span> <span class="token comment">// 属性名</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> propertyAlias<span class="token punctuation">;</span> <span class="token comment">// 属性别名 (可选)</span>
+    <span class="token keyword">private</span> <span class="token class-name">Object</span> oldValue<span class="token punctuation">;</span>      <span class="token comment">// 旧值</span>
+    <span class="token keyword">private</span> <span class="token class-name">Object</span> newValue<span class="token punctuation">;</span>      <span class="token comment">// 新值</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">PropertyDifference</span><span class="token punctuation">(</span><span class="token class-name">String</span> propertyName<span class="token punctuation">,</span> <span class="token class-name">Object</span> oldValue<span class="token punctuation">,</span> <span class="token class-name">Object</span> newValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>propertyName<span class="token punctuation">,</span> propertyName<span class="token punctuation">,</span> oldValue<span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">PropertyDifference</span><span class="token punctuation">(</span><span class="token class-name">String</span> propertyName<span class="token punctuation">,</span> <span class="token class-name">String</span> propertyAlias<span class="token punctuation">,</span> <span class="token class-name">Object</span> oldValue<span class="token punctuation">,</span> <span class="token class-name">Object</span> newValue<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>propertyName <span class="token operator">=</span> <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>propertyName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>propertyAlias <span class="token operator">=</span> <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>propertyAlias<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>oldValue <span class="token operator">=</span> oldValue<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>newValue <span class="token operator">=</span> newValue<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getPropertyName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> propertyName<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getPropertyAlias</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> propertyAlias<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">getOldValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> oldValue<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Object</span> <span class="token function">getNewValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> newValue<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"PropertyDifference&#123;"</span> <span class="token operator">+</span>
+                <span class="token string">"propertyAlias='"</span> <span class="token operator">+</span> propertyAlias <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", oldValue="</span> <span class="token operator">+</span> oldValue <span class="token operator">+</span>
+                <span class="token string">", newValue="</span> <span class="token operator">+</span> newValue <span class="token operator">+</span>
+                <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// hashCode and equals can be implemented if these objects are stored in Sets, etc.</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> o<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> o<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token class-name">PropertyDifference</span> that <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">PropertyDifference</span><span class="token punctuation">)</span> o<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> propertyName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>propertyName<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>propertyAlias<span class="token punctuation">,</span> that<span class="token punctuation">.</span>propertyAlias<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>oldValue<span class="token punctuation">,</span> that<span class="token punctuation">.</span>oldValue<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+                <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>newValue<span class="token punctuation">,</span> that<span class="token punctuation">.</span>newValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">hash</span><span class="token punctuation">(</span>propertyName<span class="token punctuation">,</span> propertyAlias<span class="token punctuation">,</span> oldValue<span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）BeanCompareUtils-核心实现"><a href="#（二）BeanCompareUtils-核心实现" class="headerlink" title="（二）BeanCompareUtils 核心实现"></a>（二）<code>BeanCompareUtils</code> 核心实现</h2><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>project<span class="token punctuation">.</span>util</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Field</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Modifier</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">ArrayList</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">List</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Objects</span></span><span class="token punctuation">;</span>
+<span class="token comment">// 可选：用于注解支持</span>
+<span class="token comment">// import java.lang.annotation.ElementType;</span>
+<span class="token comment">// import java.lang.annotation.Retention;</span>
+<span class="token comment">// import java.lang.annotation.RetentionPolicy;</span>
+<span class="token comment">// import java.lang.annotation.Target;</span>
+
+<span class="token comment">/**
+ * 对象属性变化比较工具类
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">BeanCompareUtils</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">BeanCompareUtils</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token string">"This is a utility class and cannot be instantiated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 定义注解 (可选, 用于后续扩展)</span>
+    <span class="token comment">// @Retention(RetentionPolicy.RUNTIME)</span>
+    <span class="token comment">// @Target(ElementType.FIELD)</span>
+    <span class="token comment">// public @interface CompareIgnore &#123;&#125;</span>
+
+    <span class="token comment">// @Retention(RetentionPolicy.RUNTIME)</span>
+    <span class="token comment">// @Target(ElementType.FIELD)</span>
+    <span class="token comment">// public @interface CompareAlias &#123;</span>
+    <span class="token comment">//     String value();</span>
+    <span class="token comment">// &#125;</span>
+
+    <span class="token comment">/**
+     * 比较两个对象的属性，并返回差异列表。
+     * 注意：此基础版本进行的是浅比较，且要求两个对象是同一类型。
+     *
+     * @param oldBean 旧对象
+     * @param newBean 新对象
+     * @return 属性差异列表。如果没有差异，则返回空列表。
+     * @throws IllegalArgumentException 如果oldBean或newBean为null，或者它们不是同一类型。
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PropertyDifference</span><span class="token punctuation">></span></span> <span class="token function">compare</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">Object</span> oldBean<span class="token punctuation">,</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> newBean<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>oldBean <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> newBean <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Old bean and new bean cannot be null."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>oldBean<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>newBean<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"Old bean and new bean must be of the same class."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PropertyDifference</span><span class="token punctuation">></span></span> differences <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz <span class="token operator">=</span> oldBean<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Field</span><span class="token punctuation">[</span><span class="token punctuation">]</span> fields <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Field</span> field <span class="token operator">:</span> fields<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 忽略静态字段和transient字段 (通常transient字段不参与状态比较)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isStatic</span><span class="token punctuation">(</span>field<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isTransient</span><span class="token punctuation">(</span>field<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token comment">// 可选：检查 @CompareIgnore 注解</span>
+            <span class="token comment">// if (field.isAnnotationPresent(CompareIgnore.class)) &#123;</span>
+            <span class="token comment">//     continue;</span>
+            <span class="token comment">// &#125;</span>
+
+            field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 允许访问私有字段</span>
+
+            <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">Object</span> oldValue <span class="token operator">=</span> field<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>oldBean<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">Object</span> newValue <span class="token operator">=</span> field<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>newBean<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>oldValue<span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token class-name">String</span> propertyName <span class="token operator">=</span> field<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span> propertyAlias <span class="token operator">=</span> propertyName<span class="token punctuation">;</span> <span class="token comment">// 默认别名即属性名</span>
+
+                    <span class="token comment">// 可选：检查 @CompareAlias 注解</span>
+                    <span class="token comment">// if (field.isAnnotationPresent(CompareAlias.class)) &#123;</span>
+                    <span class="token comment">//     propertyAlias = field.getAnnotation(CompareAlias.class).value();</span>
+                    <span class="token comment">// &#125;</span>
+                    differences<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PropertyDifference</span><span class="token punctuation">(</span>propertyName<span class="token punctuation">,</span> propertyAlias<span class="token punctuation">,</span> oldValue<span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalAccessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// Log or handle this error appropriately</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Error accessing field "</span> <span class="token operator">+</span> field<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment">// Depending on policy, you might re-throw or add to a list of errors</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> differences<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>实现说明</strong>：</p>
+<ul>
+<li><code>PropertyDifference</code> 类用于存储每个不同属性的名称、别名（当前简单实现为属性名）、旧值和新值。</li>
+<li><code>compare</code> 方法接收两个对象，首先检查 <code>null</code> 和类型一致性。</li>
+<li>通过反射获取对象的所有声明字段 (<code>getDeclaredFields()</code>)。</li>
+<li>遍历字段，忽略 <code>static</code> 和 <code>transient</code> 修饰的字段（这些通常不代表对象的可比较状态）。</li>
+<li>通过 <code>field.setAccessible(true)</code> 允许访问私有字段。</li>
+<li>使用 <code>field.get()</code> 获取旧对象和新对象中对应属性的值。</li>
+<li>使用 <code>java.util.Objects.equals()</code> 来比较这两个值。这个方法能正确处理 <code>null</code> 情况（例如，一个为 <code>null</code> 另一个不是，或者两个都为 <code>null</code>）。</li>
+<li>如果值不相等，就创建一个 <code>PropertyDifference</code> 对象并添加到结果列表中。</li>
+<li>代码中注释掉了使用 <code>@CompareIgnore</code> 和 <code>@CompareAlias</code> 注解的初步设想，这些是后续扩展的方向。</li>
+<li>当前的异常处理比较简单，实际应用中可能需要更完善的日志记录或错误传递机制。</li>
+<li><strong>这是一个浅比较</strong>：如果属性是对象类型，<code>Objects.equals()</code> 默认会调用该对象自身的 <code>equals()</code> 方法。如果该对象的 <code>equals()</code> 方法没有被重写以比较内容，那么这里比较的仍然是引用。对于集合、Map等，也是比较引用。</li>
+</ul>
+<h1 id="五、使用示例"><a href="#五、使用示例" class="headerlink" title="五、使用示例"></a>五、使用示例</h1><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> id<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> email<span class="token punctuation">;</span>
+    <span class="token comment">// @BeanCompareUtils.CompareAlias("激活状态") // 示例注解用法</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> isActive<span class="token punctuation">;</span>
+    <span class="token comment">// @BeanCompareUtils.CompareIgnore // 示例注解用法</span>
+    <span class="token keyword">private</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>Date</span> lastModified<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token class-name">Long</span> id<span class="token punctuation">,</span> <span class="token class-name">String</span> username<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">,</span> <span class="token class-name">String</span> email<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isActive<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">=</span> isActive<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>lastModified <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// Getters and setters for simplicity, or use Lombok</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setEmail</span><span class="token punctuation">(</span><span class="token class-name">String</span> email<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setActive</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> active<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> isActive <span class="token operator">=</span> active<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setLastModified</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>Date</span> lastModified<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lastModified <span class="token operator">=</span> lastModified<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// For easy printing</span>
+        <span class="token keyword">return</span> <span class="token string">"User&#123;"</span> <span class="token operator">+</span> <span class="token string">"id="</span> <span class="token operator">+</span> id <span class="token operator">+</span> <span class="token string">", username='"</span> <span class="token operator">+</span> username <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+               <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span> <span class="token string">", email='"</span> <span class="token operator">+</span> email <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+               <span class="token string">", isActive="</span> <span class="token operator">+</span> isActive <span class="token operator">+</span> <span class="token string">", lastModified="</span> <span class="token operator">+</span> lastModified <span class="token operator">+</span> <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BeanCompareUtilsDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">User</span> oldUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">,</span> <span class="token string">"john.doe"</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token string">"john.doe@example.com"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">User</span> newUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">,</span> <span class="token string">"john.doe.new"</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">,</span> <span class="token string">"john.new@example.com"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// 模拟时间变化，如果lastModified不被忽略，它会成为一个差异点</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> ignored<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+        newUser<span class="token punctuation">.</span><span class="token function">setLastModified</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Old User: "</span> <span class="token operator">+</span> oldUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"New User: "</span> <span class="token operator">+</span> newUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PropertyDifference</span><span class="token punctuation">></span></span> differences <span class="token operator">=</span> <span class="token class-name">BeanCompareUtils</span><span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>oldUser<span class="token punctuation">,</span> newUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>differences<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"\nNo differences found."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"\nDifferences found:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">PropertyDifference</span> diff <span class="token operator">:</span> differences<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" - Property: "</span> <span class="token operator">+</span> diff<span class="token punctuation">.</span><span class="token function">getPropertyAlias</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                                   <span class="token string">", Old: '"</span> <span class="token operator">+</span> diff<span class="token punctuation">.</span><span class="token function">getOldValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"', New: '"</span> <span class="token operator">+</span> diff<span class="token punctuation">.</span><span class="token function">getNewValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"'"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        
+        <span class="token class-name">User</span> identicalUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token number">1L</span><span class="token punctuation">,</span> <span class="token string">"john.doe.new"</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">,</span> <span class="token string">"john.new@example.com"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        identicalUser<span class="token punctuation">.</span>lastModified <span class="token operator">=</span> newUser<span class="token punctuation">.</span>lastModified<span class="token punctuation">;</span> <span class="token comment">//确保一致</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PropertyDifference</span><span class="token punctuation">></span></span> noDifferences <span class="token operator">=</span> <span class="token class-name">BeanCompareUtils</span><span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>newUser<span class="token punctuation">,</span> identicalUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"\nComparing newUser with identicalUser: "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>noDifferences<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"No differences"</span> <span class="token operator">:</span> noDifferences<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" differences"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>预期输出（<code>lastModified</code> 如果不忽略，其值会不同）：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">Old User: User&#123;id&#x3D;1, username&#x3D;&#39;john.doe&#39;, age&#x3D;30, email&#x3D;&#39;john.doe@example.com&#39;, isActive&#x3D;true, lastModified&#x3D;...&#125;
+New User: User&#123;id&#x3D;1, username&#x3D;&#39;john.doe.new&#39;, age&#x3D;31, email&#x3D;&#39;john.new@example.com&#39;, isActive&#x3D;false, lastModified&#x3D;...&#125;
+
+Differences found:
+ - Property: username, Old: &#39;john.doe&#39;, New: &#39;john.doe.new&#39;
+ - Property: age, Old: &#39;30&#39;, New: &#39;31&#39;
+ - Property: email, Old: &#39;john.doe@example.com&#39;, New: &#39;john.new@example.com&#39;
+ - Property: isActive, Old: &#39;true&#39;, New: &#39;false&#39;
+ - Property: lastModified, Old: &#39;...&#39;, New: &#39;...&#39;
+
+Comparing newUser with identicalUser: No differences<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><em>(如果<code>lastModified</code>被注解<code>@CompareIgnore</code>忽略且代码支持了该注解，则该行不会出现在差异中)</em></p>
+<h1 id="六、扩展方向"><a href="#六、扩展方向" class="headerlink" title="六、扩展方向"></a>六、扩展方向</h1><p>这个基础的 <code>BeanCompareUtils</code> 可以通过以下方式进行扩展：</p>
+<ol>
+<li><strong>注解支持</strong>：<ul>
+<li><code>@CompareIgnore</code>: 在字段上添加此注解以在比较中忽略该字段。</li>
+<li><code>@CompareAlias(&quot;中文名称&quot;)</code>: 为字段提供一个易读的别名，用于 <code>PropertyDifference</code>。</li>
+<li><code>@DeepCompare</code>: 标记一个字段需要进行深比较（递归比较）。</li>
+</ul>
+</li>
+<li><strong>深比较（递归比较）</strong>：<ul>
+<li>当检测到属性是自定义对象类型（并且可能标记了 <code>@DeepCompare</code>）时，递归调用 <code>compare</code> 方法。</li>
+<li>需要特别注意处理对象图中的循环引用，可以维护一个已访问对象的 <code>Set</code> 来避免无限递归。</li>
+</ul>
+</li>
+<li><strong>集合与Map的比较</strong>：<ul>
+<li><strong>集合 (List, Set)</strong>: 不仅比较集合对象本身的引用，还要比较集合内容。可能需要识别元素的增加、删除或（对于有序列表）顺序变化。对于元素是复杂对象的情况，还需递归比较元素。</li>
+<li><strong>Map</strong>: 比较键值对。识别键的增加、删除，以及现有键对应值的变化。</li>
+</ul>
+</li>
+<li><strong>自定义比较器</strong>：允许为特定类型或特定属性注册自定义的比较逻辑。例如，日期比较可能需要忽略毫秒，或者字符串比较需要忽略大小写。</li>
+<li><strong>更灵活的类型处理</strong>：允许比较不同类型但逻辑上相关的对象，可能需要配合属性名映射。</li>
+<li><strong>更友好的差异报告</strong>：提供将 <code>List&lt;PropertyDifference&gt;</code> 格式化为易读字符串或JSON的方法。</li>
+</ol>
+<h1 id="七、性能与替代方案"><a href="#七、性能与替代方案" class="headerlink" title="七、性能与替代方案"></a>七、性能与替代方案</h1><ul>
+<li><strong>性能</strong>：基于反射的比较在属性非常多或比较操作非常频繁时可能会有性能开销。可以通过缓存<code>Field</code>对象来略微优化。对于高性能要求的场景，编译时生成代码的库（如MapStruct的思路，但它是用于映射而非直接比较）或专门优化的比较库更佳。</li>
+<li><strong>替代方案</strong>：<ul>
+<li><strong>Apache Commons Lang <code>ReflectionDiffBuilder</code></strong>: 与 <code>DiffBuilder</code> 类似，但使用反射自动发现字段。</li>
+<li><strong>JaVers</strong>: 对于需要完整审计和复杂对象图比较的场景，JaVers是非常强大的选择。</li>
+<li><strong>手动实现 <code>equals()</code> 和自定义比较逻辑</strong>：如果仅针对特定几个类，且比较逻辑固定，直接在类中实现详细的比较方法可能更直接。</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>自定义 <code>BeanCompareUtils</code> 为对象属性变化检测提供了一种灵活且可控的方法。从一个简单的基于反射的浅比较工具开始，可以根据项目需求逐步添加更高级的功能，如注解支持、深比较、集合比较等。在选择自定义实现还是使用现有库时，应权衡项目的复杂度、性能要求以及开发和维护成本。</p>
+<h1 id="九、参考资料"><a href="#九、参考资料" class="headerlink" title="九、参考资料"></a>九、参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-comparing-objects">Comparing Objects in Java (baeldung.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://inside.java/2023/05/28/sip078/">Objects Utility Class - Sip of Java (inside.java)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openquartz/java-obj-diff">GitHub - openquartz&#x2F;java-obj-diff</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JING-START/object-equator">GitHub - JING-START&#x2F;object-equator</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vincemann/ez-compare">GitHub - vincemann&#x2F;ez-compare</a></li>
+</ul>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E6%8A%80%E5%B7%A7/" class="category-chain-item">JAVA技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+        <a href="/tags/%E5%8F%8D%E5%B0%84/" class="print-no-link">#反射</a>
+      
+        <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="print-no-link">#工具类</a>
+      
+        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="print-no-link">#自定义工具类</a>
+      
+        <a href="/tags/%E5%AF%B9%E8%B1%A1%E6%AF%94%E8%BE%83/" class="print-no-link">#对象比较</a>
+      
+        <a href="/tags/%E5%B1%9E%E6%80%A7%E5%B7%AE%E5%BC%82/" class="print-no-link">#属性差异</a>
+      
+        <a href="/tags/%E5%AE%A1%E8%AE%A1/" class="print-no-link">#审计</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E8%AF%A6%E8%A7%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7%E7%B1%BBBeanPropertyUtils/" title="【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%208%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4API%20(java.time)/" title="【JAVA技巧】深入理解Java 8日期与时间API (java.time)">
+                        <span class="hidden-mobile">【JAVA技巧】深入理解Java 8日期与时间API (java.time)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

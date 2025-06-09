@@ -1,0 +1,1307 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="后端常用命令启动jar包命令 直接启动  nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;fil">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LINUX】服务器常用命令">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="后端常用命令启动jar包命令 直接启动  nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;   在jar包同级创建文件夹config，然后用config中的配置文件启动  nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;fil">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.302Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.302Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="LINUX">
+<meta property="article:tag" content="工作">
+<meta property="article:tag" content="SHELL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【LINUX】服务器常用命令 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【LINUX】服务器常用命令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【LINUX】服务器常用命令</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="后端常用命令"><a href="#后端常用命令" class="headerlink" title="后端常用命令"></a>后端常用命令</h1><h2 id="启动jar包命令"><a href="#启动jar包命令" class="headerlink" title="启动jar包命令"></a>启动jar包命令</h2><ul>
+<li>直接启动</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">nohup java -jar web.jar &gt; web.out 2&gt;&amp;1 &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>在jar包同级创建文件夹config，然后用config中的配置文件启动</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">nohup java -Dfile.encoding&#x3D;UTF-8 -jar web.jar --spring.config.location&#x3D;file:.&#x2F;config&#x2F; &gt; web.out 2&gt;&amp;1 &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h1 id="数据库常用命令"><a href="#数据库常用命令" class="headerlink" title="数据库常用命令"></a>数据库常用命令</h1><h2 id="导出-备份MYSQL数据库"><a href="#导出-备份MYSQL数据库" class="headerlink" title="导出&#x2F;备份MYSQL数据库"></a>导出&#x2F;备份MYSQL数据库</h2><ul>
+<li>先cd到要存储备份文件的文件夹</li>
+<li>然后执行备份命令</li>
+</ul>
+<h3 id="（一）基本备份命令"><a href="#（一）基本备份命令" class="headerlink" title="（一）基本备份命令"></a>（一）基本备份命令</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 导出整个数据库</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：导出名为 mydb 的数据库到 backup.sql</span>
+mysqldump <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb <span class="token operator">></span> mydb_backup.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li>输入密码后即可导出数据</li>
+</ul>
+<h3 id="（二）导出特定表"><a href="#（二）导出特定表" class="headerlink" title="（二）导出特定表"></a>（二）导出特定表</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 导出数据库中的特定表</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token punctuation">[</span>表名1<span class="token punctuation">]</span> <span class="token punctuation">[</span>表名2<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：导出 mydb 数据库中的 users 和 orders 表</span>
+mysqldump <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb <span class="token function">users</span> orders <span class="token operator">></span> mydb_tables_backup.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）仅导出数据库结构（不含数据）"><a href="#（三）仅导出数据库结构（不含数据）" class="headerlink" title="（三）仅导出数据库结构（不含数据）"></a>（三）仅导出数据库结构（不含数据）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 仅导出数据库结构，不包含数据</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> --no-data <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>_structure.sql
+
+<span class="token comment"># 示例：仅导出 mydb 数据库结构</span>
+mysqldump <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> --no-data mydb <span class="token operator">></span> mydb_structure.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）仅导出数据（不含结构）"><a href="#（四）仅导出数据（不含结构）" class="headerlink" title="（四）仅导出数据（不含结构）"></a>（四）仅导出数据（不含结构）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 仅导出数据，不包含表结构</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> --no-create-info <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>_data.sql
+
+<span class="token comment"># 示例：仅导出 mydb 数据库数据</span>
+mysqldump <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> --no-create-info mydb <span class="token operator">></span> mydb_data.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）导出带条件的数据"><a href="#（五）导出带条件的数据" class="headerlink" title="（五）导出带条件的数据"></a>（五）导出带条件的数据</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用 WHERE 条件导出特定数据</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token punctuation">[</span>表名<span class="token punctuation">]</span> <span class="token parameter variable">--where</span><span class="token operator">=</span><span class="token string">"[条件]"</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：导出 users 表中 id 大于 1000 的记录</span>
+mysqldump <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb <span class="token function">users</span> <span class="token parameter variable">--where</span><span class="token operator">=</span><span class="token string">"id > 1000"</span> <span class="token operator">></span> users_filtered.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（六）导出时添加额外选项"><a href="#（六）导出时添加额外选项" class="headerlink" title="（六）导出时添加额外选项"></a>（六）导出时添加额外选项</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加 DROP TABLE 语句（如果表存在则先删除）</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> --add-drop-table <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 导出存储过程和函数</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">--routines</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 导出触发器</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">--triggers</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 导出事件</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">--events</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 完整备份（包含存储过程、函数、触发器和事件）</span>
+mysqldump <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">--routines</span> <span class="token parameter variable">--triggers</span> <span class="token parameter variable">--events</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token punctuation">[</span>导出文件名<span class="token punctuation">]</span>_full.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="恢复-导入MYSQL数据库"><a href="#恢复-导入MYSQL数据库" class="headerlink" title="恢复&#x2F;导入MYSQL数据库"></a>恢复&#x2F;导入MYSQL数据库</h2><ul>
+<li>先cd到备份文件的目录</li>
+</ul>
+<h3 id="（一）基本恢复命令"><a href="#（一）基本恢复命令" class="headerlink" title="（一）基本恢复命令"></a>（一）基本恢复命令</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建数据库（如果不存在）</span>
+mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> <span class="token parameter variable">-e</span> <span class="token string">"CREATE DATABASE mydb;"</span>
+
+<span class="token comment"># 恢复整个数据库</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：恢复 mydb_backup.sql 到 mydb 数据库</span>
+mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb <span class="token operator">&lt;</span> mydb_backup.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）导入时指定字符集"><a href="#（二）导入时指定字符集" class="headerlink" title="（二）导入时指定字符集"></a>（二）导入时指定字符集</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 指定字符集导入数据</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> --default-character-set<span class="token operator">=</span>utf8mb4 <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：使用 utf8mb4 字符集导入数据</span>
+mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> --default-character-set<span class="token operator">=</span>utf8mb4 mydb <span class="token operator">&lt;</span> mydb_backup.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）导入大型数据库的优化方法"><a href="#（三）导入大型数据库的优化方法" class="headerlink" title="（三）导入大型数据库的优化方法"></a>（三）导入大型数据库的优化方法</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 对于大型数据库，可以使用以下方式提高导入速度</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> --init-command<span class="token operator">=</span><span class="token string">"SET autocommit=0;"</span> <span class="token operator">&lt;</span> <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 或者在导入前禁用外键检查</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">-e</span> <span class="token string">"SET GLOBAL foreign_key_checks=0;"</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token parameter variable">-e</span> <span class="token string">"SET GLOBAL foreign_key_checks=1;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）使用source命令导入"><a href="#（四）使用source命令导入" class="headerlink" title="（四）使用source命令导入"></a>（四）使用source命令导入</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 先登录到MySQL</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span>
+
+<span class="token comment"># 然后在MySQL命令行中执行</span>
+mysql<span class="token operator">></span> USE <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span><span class="token punctuation">;</span>
+mysql<span class="token operator">></span> SOURCE <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql<span class="token punctuation">;</span>
+
+<span class="token comment"># 示例</span>
+mysql<span class="token operator">></span> USE mydb<span class="token punctuation">;</span>
+mysql<span class="token operator">></span> SOURCE /path/to/mydb_backup.sql<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）导入特定表数据"><a href="#（五）导入特定表数据" class="headerlink" title="（五）导入特定表数据"></a>（五）导入特定表数据</h3><p>如果备份文件只包含特定表的数据，可以直接导入到目标数据库：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 导入包含特定表的备份文件</span>
+mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token punctuation">[</span>特定表备份文件<span class="token punctuation">]</span>.sql
+
+<span class="token comment"># 示例：导入只包含users表的备份</span>
+mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb <span class="token operator">&lt;</span> users_backup.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（六）导入时显示进度"><a href="#（六）导入时显示进度" class="headerlink" title="（六）导入时显示进度"></a>（六）导入时显示进度</h3><p>对于大型数据库，可以使用pv工具显示导入进度：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 先安装pv工具</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">pv</span>  <span class="token comment"># Debian/Ubuntu</span>
+<span class="token comment"># 或</span>
+yum <span class="token function">install</span> <span class="token function">pv</span>      <span class="token comment"># CentOS/RHEL</span>
+
+<span class="token comment"># 使用pv显示导入进度</span>
+<span class="token function">pv</span> <span class="token punctuation">[</span>备份文件<span class="token punctuation">]</span>.sql <span class="token operator">|</span> mysql <span class="token parameter variable">-u</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span> <span class="token parameter variable">-p</span> <span class="token punctuation">[</span>数据库名<span class="token punctuation">]</span>
+
+<span class="token comment"># 示例</span>
+<span class="token function">pv</span> mydb_backup.sql <span class="token operator">|</span> mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span> mydb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="Linux压缩包命令"><a href="#Linux压缩包命令" class="headerlink" title="Linux压缩包命令"></a>Linux压缩包命令</h1><h2 id="常用压缩与解压命令"><a href="#常用压缩与解压命令" class="headerlink" title="常用压缩与解压命令"></a>常用压缩与解压命令</h2><p>Linux系统中处理压缩文件的命令多种多样，下面笔者整理了最常用的压缩解压命令及其用法。</p>
+<h3 id="（一）tar-命令"><a href="#（一）tar-命令" class="headerlink" title="（一）tar 命令"></a>（一）tar 命令</h3><p><code>tar</code>是Linux中最常用的归档工具，可以配合不同的压缩算法使用。</p>
+<h4 id="1-常用参数说明"><a href="#1-常用参数说明" class="headerlink" title="1. 常用参数说明"></a>1. 常用参数说明</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">-c：创建新的归档文件
+-x：从归档文件中提取文件
+-v：详细显示处理的文件
+-f：指定归档文件名
+-z：使用gzip压缩（.tar.gz或.tgz）
+-j：使用bzip2压缩（.tar.bz2）
+-J：使用xz压缩（.tar.xz）
+-C：切换到指定目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-创建归档-压缩文件"><a href="#2-创建归档-压缩文件" class="headerlink" title="2. 创建归档&#x2F;压缩文件"></a>2. 创建归档&#x2F;压缩文件</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建tar归档（不压缩）</span>
+<span class="token function">tar</span> <span class="token parameter variable">-cvf</span> archive.tar folder/
+
+<span class="token comment"># 创建tar.gz压缩包</span>
+<span class="token function">tar</span> <span class="token parameter variable">-czvf</span> archive.tar.gz folder/
+
+<span class="token comment"># 创建tar.bz2压缩包（压缩率更高但更慢）</span>
+<span class="token function">tar</span> <span class="token parameter variable">-cjvf</span> archive.tar.bz2 folder/
+
+<span class="token comment"># 创建tar.xz压缩包（压缩率最高但最慢）</span>
+<span class="token function">tar</span> <span class="token parameter variable">-cJvf</span> archive.tar.xz folder/
+
+<span class="token comment"># 排除某些文件</span>
+<span class="token function">tar</span> <span class="token parameter variable">-czvf</span> archive.tar.gz folder/ <span class="token parameter variable">--exclude</span><span class="token operator">=</span><span class="token string">"folder/temp"</span> <span class="token parameter variable">--exclude</span><span class="token operator">=</span><span class="token string">"*.log"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="3-解压归档文件"><a href="#3-解压归档文件" class="headerlink" title="3. 解压归档文件"></a>3. 解压归档文件</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压tar归档</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> archive.tar
+
+<span class="token comment"># 解压tar.gz</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xzvf</span> archive.tar.gz
+
+<span class="token comment"># 解压tar.bz2</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xjvf</span> archive.tar.bz2
+
+<span class="token comment"># 解压tar.xz</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xJvf</span> archive.tar.xz
+
+<span class="token comment"># 解压到指定目录</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xzvf</span> archive.tar.gz <span class="token parameter variable">-C</span> /target/directory/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="4-查看压缩包内容（不解压）"><a href="#4-查看压缩包内容（不解压）" class="headerlink" title="4. 查看压缩包内容（不解压）"></a>4. 查看压缩包内容（不解压）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 列出归档内容</span>
+<span class="token function">tar</span> <span class="token parameter variable">-tvf</span> archive.tar
+
+<span class="token comment"># 列出压缩归档内容</span>
+<span class="token function">tar</span> <span class="token parameter variable">-tzvf</span> archive.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）gzip-gunzip-命令"><a href="#（二）gzip-gunzip-命令" class="headerlink" title="（二）gzip&#x2F;gunzip 命令"></a>（二）gzip&#x2F;gunzip 命令</h3><p><code>gzip</code>命令用于压缩单个文件，不能直接压缩目录。</p>
+<h4 id="1-压缩文件"><a href="#1-压缩文件" class="headerlink" title="1. 压缩文件"></a>1. 压缩文件</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩文件（会删除原文件）</span>
+<span class="token function">gzip</span> file.txt
+
+<span class="token comment"># 保留原文件</span>
+<span class="token function">gzip</span> <span class="token parameter variable">-c</span> file.txt <span class="token operator">></span> file.txt.gz
+
+<span class="token comment"># 压缩多个文件</span>
+<span class="token function">gzip</span> file1.txt file2.txt file3.txt
+
+<span class="token comment"># 指定压缩级别（1-9，1最快，9压缩比最高）</span>
+<span class="token function">gzip</span> <span class="token parameter variable">-9</span> file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-解压文件"><a href="#2-解压文件" class="headerlink" title="2. 解压文件"></a>2. 解压文件</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压文件（会删除.gz文件）</span>
+gunzip file.txt.gz
+
+<span class="token comment"># 或使用gzip -d</span>
+<span class="token function">gzip</span> <span class="token parameter variable">-d</span> file.txt.gz
+
+<span class="token comment"># 保留.gz文件</span>
+gunzip <span class="token parameter variable">-c</span> file.txt.gz <span class="token operator">></span> file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）zip-unzip-命令"><a href="#（三）zip-unzip-命令" class="headerlink" title="（三）zip&#x2F;unzip 命令"></a>（三）zip&#x2F;unzip 命令</h3><p><code>zip</code>命令在跨平台场景中很有用，尤其是与Windows系统交互时。</p>
+<h4 id="1-压缩文件或目录"><a href="#1-压缩文件或目录" class="headerlink" title="1. 压缩文件或目录"></a>1. 压缩文件或目录</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩单个文件</span>
+<span class="token function">zip</span> compressed.zip file.txt
+
+<span class="token comment"># 压缩目录（递归）</span>
+<span class="token function">zip</span> <span class="token parameter variable">-r</span> compressed.zip directory/
+
+<span class="token comment"># 排除特定文件</span>
+<span class="token function">zip</span> <span class="token parameter variable">-r</span> compressed.zip directory/ <span class="token parameter variable">-x</span> <span class="token string">"*.git*"</span> <span class="token string">"*.log"</span>
+
+<span class="token comment"># 添加文件到已有的zip</span>
+<span class="token function">zip</span> <span class="token parameter variable">-u</span> compressed.zip newfile.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-解压文件-1"><a href="#2-解压文件-1" class="headerlink" title="2. 解压文件"></a>2. 解压文件</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压到当前目录</span>
+<span class="token function">unzip</span> compressed.zip
+
+<span class="token comment"># 解压到指定目录</span>
+<span class="token function">unzip</span> compressed.zip <span class="token parameter variable">-d</span> /target/directory/
+
+<span class="token comment"># 列出内容但不解压</span>
+<span class="token function">unzip</span> <span class="token parameter variable">-l</span> compressed.zip
+
+<span class="token comment"># 解压特定文件</span>
+<span class="token function">unzip</span> compressed.zip file.txt
+
+<span class="token comment"># 安静模式</span>
+<span class="token function">unzip</span> <span class="token parameter variable">-q</span> compressed.zip<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）bzip2-bunzip2-命令"><a href="#（四）bzip2-bunzip2-命令" class="headerlink" title="（四）bzip2&#x2F;bunzip2 命令"></a>（四）bzip2&#x2F;bunzip2 命令</h3><p><code>bzip2</code>提供比<code>gzip</code>更高的压缩率，但速度较慢。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩文件</span>
+<span class="token function">bzip2</span> file.txt
+
+<span class="token comment"># 保留原文件</span>
+<span class="token function">bzip2</span> <span class="token parameter variable">-k</span> file.txt
+
+<span class="token comment"># 解压文件</span>
+bunzip2 file.txt.bz2
+
+<span class="token comment"># 或使用bzip2 -d</span>
+<span class="token function">bzip2</span> <span class="token parameter variable">-d</span> file.txt.bz2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）xz-命令"><a href="#（五）xz-命令" class="headerlink" title="（五）xz 命令"></a>（五）xz 命令</h3><p><code>xz</code>提供极高的压缩率，但速度最慢。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩文件</span>
+xz file.txt
+
+<span class="token comment"># 保留原文件</span>
+xz <span class="token parameter variable">-k</span> file.txt
+
+<span class="token comment"># 解压文件</span>
+xz <span class="token parameter variable">-d</span> file.txt.xz
+
+<span class="token comment"># 使用多线程加速压缩（使用4线程）</span>
+xz <span class="token parameter variable">-T</span> <span class="token number">4</span> file.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（六）7z-命令"><a href="#（六）7z-命令" class="headerlink" title="（六）7z 命令"></a>（六）7z 命令</h3><p><code>7z</code>是一个高压缩率的跨平台归档工具。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装7zip</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> p7zip-full  <span class="token comment"># Debian/Ubuntu</span>
+yum <span class="token function">install</span> p7zip p7zip-plugins  <span class="token comment"># CentOS/RHEL</span>
+
+<span class="token comment"># 创建压缩包</span>
+7z a archive.7z files/
+
+<span class="token comment"># 解压</span>
+7z x archive.7z
+
+<span class="token comment"># 列出内容</span>
+7z l archive.7z<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="压缩包操作实用技巧"><a href="#压缩包操作实用技巧" class="headerlink" title="压缩包操作实用技巧"></a>压缩包操作实用技巧</h2><h3 id="（一）分割大型归档文件"><a href="#（一）分割大型归档文件" class="headerlink" title="（一）分割大型归档文件"></a>（一）分割大型归档文件</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用split命令分割大文件</span>
+<span class="token function">tar</span> <span class="token parameter variable">-czvf</span> - large_folder/ <span class="token operator">|</span> <span class="token function">split</span> <span class="token parameter variable">-b</span> 1G - large_archive.tar.gz.part_
+
+<span class="token comment"># 合并并解压</span>
+<span class="token function">cat</span> large_archive.tar.gz.part_* <span class="token operator">|</span> <span class="token function">tar</span> <span class="token parameter variable">-xzvf</span> -<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）通过管道传输远程归档"><a href="#（二）通过管道传输远程归档" class="headerlink" title="（二）通过管道传输远程归档"></a>（二）通过管道传输远程归档</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩本地目录并通过SSH发送到远程服务器</span>
+<span class="token function">tar</span> <span class="token parameter variable">-czvf</span> - local_folder/ <span class="token operator">|</span> <span class="token function">ssh</span> user@remote_host <span class="token string">"cat > /path/to/archive.tar.gz"</span>
+
+<span class="token comment"># 从远程服务器获取并解压归档</span>
+<span class="token function">ssh</span> user@remote_host <span class="token string">"cat /path/to/archive.tar.gz"</span> <span class="token operator">|</span> <span class="token function">tar</span> <span class="token parameter variable">-xzvf</span> - <span class="token parameter variable">-C</span> /local/target/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）结合find命令压缩特定文件"><a href="#（三）结合find命令压缩特定文件" class="headerlink" title="（三）结合find命令压缩特定文件"></a>（三）结合find命令压缩特定文件</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 压缩所有30天前的.log文件</span>
+<span class="token function">find</span> /var/log <span class="token parameter variable">-name</span> <span class="token string">"*.log"</span> <span class="token parameter variable">-mtime</span> +30 <span class="token operator">|</span> <span class="token function">tar</span> <span class="token parameter variable">-czvf</span> old_logs.tar.gz <span class="token parameter variable">-T</span> -
+
+<span class="token comment"># -T - 表示从标准输入读取文件名列表</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）快速比较压缩算法"><a href="#（四）快速比较压缩算法" class="headerlink" title="（四）快速比较压缩算法"></a>（四）快速比较压缩算法</h3><p>对相同数据使用不同压缩方式，可以比较压缩率和速度：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建测试数据</span>
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> /some/directory test_data
+
+<span class="token comment"># tar（无压缩）</span>
+<span class="token function">time</span> <span class="token function">tar</span> <span class="token parameter variable">-cf</span> test.tar test_data/
+<span class="token function">du</span> <span class="token parameter variable">-h</span> test.tar
+
+<span class="token comment"># gzip压缩</span>
+<span class="token function">time</span> <span class="token function">tar</span> <span class="token parameter variable">-czf</span> test.tar.gz test_data/
+<span class="token function">du</span> <span class="token parameter variable">-h</span> test.tar.gz
+
+<span class="token comment"># bzip2压缩</span>
+<span class="token function">time</span> <span class="token function">tar</span> <span class="token parameter variable">-cjf</span> test.tar.bz2 test_data/
+<span class="token function">du</span> <span class="token parameter variable">-h</span> test.tar.bz2
+
+<span class="token comment"># xz压缩</span>
+<span class="token function">time</span> <span class="token function">tar</span> <span class="token parameter variable">-cJf</span> test.tar.xz test_data/
+<span class="token function">du</span> <span class="token parameter variable">-h</span> test.tar.xz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>不同的压缩工具适用于不同的场景，选择合适的压缩方式可以提高工作效率：</p>
+<ul>
+<li>日常备份文件：tar.gz (速度与压缩率平衡)</li>
+<li>需要极致压缩率：tar.xz (适用于长期存档)</li>
+<li>与Windows用户交换：zip (兼容性最好)</li>
+<li>大型数据备份传输：tar.bz2 (压缩率高且广泛支持)</li>
+</ul>
+<h1 id="Linux日志查询技巧"><a href="#Linux日志查询技巧" class="headerlink" title="Linux日志查询技巧"></a>Linux日志查询技巧</h1><p>Linux系统的日志文件包含了系统运行、应用程序执行和用户操作等重要信息，掌握高效的日志查询技巧对于故障排查和系统维护至关重要。下面笔者总结了一些常用的日志查询方法和技巧。</p>
+<h2 id="常用日志文件位置"><a href="#常用日志文件位置" class="headerlink" title="常用日志文件位置"></a>常用日志文件位置</h2><h3 id="（一）系统日志位置"><a href="#（一）系统日志位置" class="headerlink" title="（一）系统日志位置"></a>（一）系统日志位置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/var/log/syslog          <span class="token comment"># Debian/Ubuntu系统主日志文件</span>
+/var/log/messages        <span class="token comment"># CentOS/RHEL系统主日志文件</span>
+/var/log/auth.log        <span class="token comment"># 认证相关日志(Debian/Ubuntu)</span>
+/var/log/secure          <span class="token comment"># 认证相关日志(CentOS/RHEL)</span>
+/var/log/boot.log        <span class="token comment"># 系统启动日志</span>
+/var/log/dmesg           <span class="token comment"># 内核缓冲区信息</span>
+/var/log/kern.log        <span class="token comment"># 内核日志</span>
+/var/log/cron            <span class="token comment"># 计划任务日志</span>
+/var/log/httpd/          <span class="token comment"># Apache日志目录</span>
+/var/log/nginx/          <span class="token comment"># Nginx日志目录</span>
+/var/log/mysql/          <span class="token comment"># MySQL日志目录</span>
+/var/log/audit/          <span class="token comment"># 审计日志</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）应用程序日志位置"><a href="#（二）应用程序日志位置" class="headerlink" title="（二）应用程序日志位置"></a>（二）应用程序日志位置</h3><p>应用程序日志通常保存在以下位置之一：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/var/log/<span class="token punctuation">[</span>应用程序名称<span class="token punctuation">]</span>/    <span class="token comment"># 应用程序专用日志目录</span>
+/opt/<span class="token punctuation">[</span>应用程序<span class="token punctuation">]</span>/logs/      <span class="token comment"># 自定义安装的应用程序日志</span>
+/usr/local/<span class="token punctuation">[</span>应用程序<span class="token punctuation">]</span>/logs/ <span class="token comment"># 本地安装的应用日志</span>
+~/.local/share/<span class="token punctuation">[</span>应用程序<span class="token punctuation">]</span>/ <span class="token comment"># 用户级应用程序日志</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="基本日志查看命令"><a href="#基本日志查看命令" class="headerlink" title="基本日志查看命令"></a>基本日志查看命令</h2><h3 id="（一）cat、head、tail命令"><a href="#（一）cat、head、tail命令" class="headerlink" title="（一）cat、head、tail命令"></a>（一）cat、head、tail命令</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看整个日志文件</span>
+<span class="token function">cat</span> /var/log/syslog
+
+<span class="token comment"># 查看日志文件的前20行</span>
+<span class="token function">head</span> <span class="token parameter variable">-n</span> <span class="token number">20</span> /var/log/syslog
+
+<span class="token comment"># 查看日志文件的最后20行</span>
+<span class="token function">tail</span> <span class="token parameter variable">-n</span> <span class="token number">20</span> /var/log/syslog
+
+<span class="token comment"># 实时查看日志更新（最常用）</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/syslog
+
+<span class="token comment"># 从第1000行开始显示</span>
+<span class="token function">tail</span> <span class="token parameter variable">-n</span> +1000 /var/log/syslog
+
+<span class="token comment"># 同时监控多个日志文件</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/syslog /var/log/auth.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）less命令（交互式查看）"><a href="#（二）less命令（交互式查看）" class="headerlink" title="（二）less命令（交互式查看）"></a>（二）less命令（交互式查看）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">less</span> /var/log/syslog<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>less命令常用的交互式操作：</p>
+<ul>
+<li>空格键&#x2F;PageDown：向下翻页</li>
+<li>b&#x2F;PageUp：向上翻页</li>
+<li>g：跳到文件开头</li>
+<li>G：跳到文件结尾</li>
+<li>&#x2F;pattern：搜索指定模式</li>
+<li>n：查找下一个匹配</li>
+<li>N：查找上一个匹配</li>
+<li>q：退出</li>
+</ul>
+<h3 id="（三）grep命令（搜索过滤）"><a href="#（三）grep命令（搜索过滤）" class="headerlink" title="（三）grep命令（搜索过滤）"></a>（三）grep命令（搜索过滤）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 基本搜索</span>
+<span class="token function">grep</span> <span class="token string">"error"</span> /var/log/syslog
+
+<span class="token comment"># 忽略大小写</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"error"</span> /var/log/syslog
+
+<span class="token comment"># 显示匹配行的行号</span>
+<span class="token function">grep</span> <span class="token parameter variable">-n</span> <span class="token string">"error"</span> /var/log/syslog
+
+<span class="token comment"># 显示匹配行及其前后各3行</span>
+<span class="token function">grep</span> <span class="token parameter variable">-A</span> <span class="token number">3</span> <span class="token parameter variable">-B</span> <span class="token number">3</span> <span class="token string">"error"</span> /var/log/syslog
+
+<span class="token comment"># 递归搜索目录中的所有文件</span>
+<span class="token function">grep</span> <span class="token parameter variable">-r</span> <span class="token string">"error"</span> /var/log/
+
+<span class="token comment"># 使用正则表达式</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"error|warning"</span> /var/log/syslog
+
+<span class="token comment"># 只显示匹配的部分</span>
+<span class="token function">grep</span> <span class="token parameter variable">-o</span> <span class="token string">"error [0-9]+"</span> /var/log/syslog
+
+<span class="token comment"># 反向匹配（排除某些行）</span>
+<span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token string">"debug"</span> /var/log/syslog
+
+<span class="token comment"># 统计匹配行数</span>
+<span class="token function">grep</span> <span class="token parameter variable">-c</span> <span class="token string">"error"</span> /var/log/syslog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）awk和sed命令（高级处理）"><a href="#（四）awk和sed命令（高级处理）" class="headerlink" title="（四）awk和sed命令（高级处理）"></a>（四）awk和sed命令（高级处理）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用awk提取特定列</span>
+<span class="token function">awk</span> <span class="token string">'&#123;print $1, $3, $9&#125;'</span> /var/log/nginx/access.log
+
+<span class="token comment"># 按时间过滤日志</span>
+<span class="token function">awk</span> <span class="token string">'/2023-10-15 10:2[0-9]/'</span> /var/log/syslog
+
+<span class="token comment"># 使用sed替换文本</span>
+<span class="token function">sed</span> <span class="token string">'s/error/ERROR/g'</span> /var/log/syslog
+
+<span class="token comment"># 提取IP地址</span>
+<span class="token function">grep</span> <span class="token parameter variable">-o</span> <span class="token string">'[0-9]\&#123;1,3\&#125;\.[0-9]\&#123;1,3\&#125;\.[0-9]\&#123;1,3\&#125;\.[0-9]\&#123;1,3\&#125;'</span> /var/log/nginx/access.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="高级日志查询技巧"><a href="#高级日志查询技巧" class="headerlink" title="高级日志查询技巧"></a>高级日志查询技巧</h2><h3 id="（一）按时间范围查询"><a href="#（一）按时间范围查询" class="headerlink" title="（一）按时间范围查询"></a>（一）按时间范围查询</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 提取特定日期的日志</span>
+<span class="token function">grep</span> <span class="token string">"Oct 15"</span> /var/log/syslog
+
+<span class="token comment"># 提取特定时间范围的日志</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"Oct 15 (1[0-1]|10):[0-9][0-9]"</span> /var/log/syslog
+
+<span class="token comment"># 使用sed提取时间范围</span>
+<span class="token function">sed</span> <span class="token parameter variable">-n</span> <span class="token string">'/2023-10-15 10:00:00/,/2023-10-15 11:00:00/p'</span> /var/log/app.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）过滤多个条件"><a href="#（二）过滤多个条件" class="headerlink" title="（二）过滤多个条件"></a>（二）过滤多个条件</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 同时满足多个条件（AND逻辑）</span>
+<span class="token function">grep</span> <span class="token string">"error"</span> /var/log/syslog <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"database"</span>
+
+<span class="token comment"># 满足任一条件（OR逻辑）</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"error|warning"</span> /var/log/syslog
+
+<span class="token comment"># 复杂条件组合</span>
+<span class="token function">grep</span> <span class="token string">"error"</span> /var/log/syslog <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token string">"expected"</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"database|disk"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）组合使用多个命令"><a href="#（三）组合使用多个命令" class="headerlink" title="（三）组合使用多个命令"></a>（三）组合使用多个命令</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看最近10分钟的系统错误</span>
+journalctl <span class="token parameter variable">--since</span> <span class="token string">"10 minutes ago"</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-i</span> error
+
+<span class="token comment"># 分析HTTP 500错误</span>
+<span class="token function">grep</span> <span class="token string">"HTTP/1.1<span class="token entity" title="\&quot;">\"</span> 500"</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span>
+
+<span class="token comment"># 提取特定的请求路径</span>
+<span class="token function">grep</span> <span class="token string">"POST"</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">cut</span> <span class="token parameter variable">-d</span> <span class="token string">'"'</span> <span class="token parameter variable">-f</span> <span class="token number">2</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span>
+
+<span class="token comment"># 查找耗时最长的请求</span>
+<span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token string">"static"</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $NF " " $7&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span> <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-n</span> <span class="token number">20</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）日志颜色高亮"><a href="#（四）日志颜色高亮" class="headerlink" title="（四）日志颜色高亮"></a>（四）日志颜色高亮</h3><p>使用<code>ccze</code>或<code>grc</code>工具为日志添加颜色：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装工具</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> ccze  <span class="token comment"># Debian/Ubuntu</span>
+yum <span class="token function">install</span> ccze      <span class="token comment"># CentOS/RHEL</span>
+
+<span class="token comment"># 实时彩色查看日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/syslog <span class="token operator">|</span> ccze <span class="token parameter variable">-A</span>
+
+<span class="token comment"># 或者使用grc</span>
+grc <span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/syslog<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）使用journalctl（systemd日志）"><a href="#（五）使用journalctl（systemd日志）" class="headerlink" title="（五）使用journalctl（systemd日志）"></a>（五）使用journalctl（systemd日志）</h3><p>对于使用systemd的系统，可以使用journalctl命令查询日志：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看系统所有日志</span>
+journalctl
+
+<span class="token comment"># 查看特定服务的日志</span>
+journalctl <span class="token parameter variable">-u</span> nginx.service
+journalctl <span class="token parameter variable">-u</span> ssh.service
+
+<span class="token comment"># 按时间过滤</span>
+journalctl <span class="token parameter variable">--since</span> <span class="token string">"2023-10-15 10:00:00"</span> <span class="token parameter variable">--until</span> <span class="token string">"2023-10-15 11:00:00"</span>
+journalctl <span class="token parameter variable">--since</span> <span class="token string">"1 hour ago"</span>
+
+<span class="token comment"># 查看内核日志</span>
+journalctl <span class="token parameter variable">-k</span>
+
+<span class="token comment"># 实时查看</span>
+journalctl <span class="token parameter variable">-f</span>
+
+<span class="token comment"># 按优先级过滤</span>
+journalctl <span class="token parameter variable">-p</span> err<span class="token punctuation">..</span>alert
+
+<span class="token comment"># 输出格式化为JSON</span>
+journalctl <span class="token parameter variable">-o</span> json<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="日志分析和监控工具"><a href="#日志分析和监控工具" class="headerlink" title="日志分析和监控工具"></a>日志分析和监控工具</h2><h3 id="（一）常用日志分析工具"><a href="#（一）常用日志分析工具" class="headerlink" title="（一）常用日志分析工具"></a>（一）常用日志分析工具</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装工具</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> logwatch lnav goaccess  <span class="token comment"># Debian/Ubuntu</span>
+yum <span class="token function">install</span> logwatch lnav goaccess      <span class="token comment"># CentOS/RHEL</span>
+
+<span class="token comment"># logwatch生成日志摘要报告</span>
+logwatch <span class="token parameter variable">--output</span> stdout <span class="token parameter variable">--format</span> html <span class="token parameter variable">--range</span> yesterday <span class="token parameter variable">--detail</span> high
+
+<span class="token comment"># lnav交互式日志查看器</span>
+lnav /var/log/syslog /var/log/auth.log
+
+<span class="token comment"># goaccess分析Web服务器日志</span>
+goaccess /var/log/nginx/access.log <span class="token parameter variable">-c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）创建日志分析脚本"><a href="#（二）创建日志分析脚本" class="headerlink" title="（二）创建日志分析脚本"></a>（二）创建日志分析脚本</h3><p>简单的日志错误统计脚本示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token assign-left variable">LOG_FILE</span><span class="token operator">=</span><span class="token string">"/var/log/syslog"</span>
+<span class="token assign-left variable">ERROR_PATTERN</span><span class="token operator">=</span><span class="token string">"error|ERROR|fail|FAIL|critical"</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"==== 日志错误统计 ===="</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"分析文件: <span class="token variable">$LOG_FILE</span>"</span>
+<span class="token builtin class-name">echo</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"错误总数:"</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"<span class="token variable">$ERROR_PATTERN</span>"</span> <span class="token string">"<span class="token variable">$LOG_FILE</span>"</span> <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
+
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token entity" title="\n">\n</span>错误类型统计:"</span>
+<span class="token function">grep</span> <span class="token parameter variable">-Eo</span> <span class="token string">"<span class="token variable">$ERROR_PATTERN</span>[a-zA-Z0-9:_ ]*"</span> <span class="token string">"<span class="token variable">$LOG_FILE</span>"</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span> <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-10</span>
+
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token entity" title="\n">\n</span>最近10条错误:"</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"<span class="token variable">$ERROR_PATTERN</span>"</span> <span class="token string">"<span class="token variable">$LOG_FILE</span>"</span> <span class="token operator">|</span> <span class="token function">tail</span> <span class="token parameter variable">-10</span>
+
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token entity" title="\n">\n</span>错误发生时间分布:"</span>
+<span class="token function">grep</span> <span class="token parameter variable">-E</span> <span class="token string">"<span class="token variable">$ERROR_PATTERN</span>"</span> <span class="token string">"<span class="token variable">$LOG_FILE</span>"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1, $2, $3&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="日志查询实用场景"><a href="#日志查询实用场景" class="headerlink" title="日志查询实用场景"></a>日志查询实用场景</h2><h3 id="（一）查询登录失败尝试"><a href="#（一）查询登录失败尝试" class="headerlink" title="（一）查询登录失败尝试"></a>（一）查询登录失败尝试</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查找SSH登录失败</span>
+<span class="token function">grep</span> <span class="token string">"Failed password"</span> /var/log/auth.log
+
+<span class="token comment"># 统计攻击IP</span>
+<span class="token function">grep</span> <span class="token string">"Failed password"</span> /var/log/auth.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $(NF-3)&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span>
+
+<span class="token comment"># 查看用户尝试登录</span>
+<span class="token function">grep</span> <span class="token string">"Failed password"</span> /var/log/auth.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $(NF-5)&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）检查系统关键错误"><a href="#（二）检查系统关键错误" class="headerlink" title="（二）检查系统关键错误"></a>（二）检查系统关键错误</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查找OOM (Out of Memory)错误</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"out of memory"</span> /var/log/syslog
+
+<span class="token comment"># 查找磁盘错误</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"I/O error"</span> /var/log/syslog /var/log/kern.log
+
+<span class="token comment"># 查找硬件故障</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"hardware error"</span> /var/log/syslog /var/log/kern.log
+
+<span class="token comment"># 查找启动问题</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"fail"</span> /var/log/boot.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）分析Web服务器访问日志"><a href="#（三）分析Web服务器访问日志" class="headerlink" title="（三）分析Web服务器访问日志"></a>（三）分析Web服务器访问日志</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看访问量最大的IP</span>
+<span class="token function">awk</span> <span class="token string">'&#123;print $1&#125;'</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span> <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-10</span>
+
+<span class="token comment"># 查看访问最多的页面</span>
+<span class="token function">awk</span> <span class="token string">'&#123;print $7&#125;'</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span> <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-10</span>
+
+<span class="token comment"># 统计HTTP状态码</span>
+<span class="token function">awk</span> <span class="token string">'&#123;print $9&#125;'</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token parameter variable">-nr</span>
+
+<span class="token comment"># 查找爬虫请求</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"bot"</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1, $14, $15, $16&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span>
+
+<span class="token comment"># 分析特定时间段的流量</span>
+<span class="token function">grep</span> <span class="token string">"15/Oct/2023:10"</span> /var/log/nginx/access.log <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）监控应用程序错误"><a href="#（四）监控应用程序错误" class="headerlink" title="（四）监控应用程序错误"></a>（四）监控应用程序错误</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查找Java应用异常</span>
+<span class="token function">grep</span> <span class="token parameter variable">-A</span> <span class="token number">10</span> <span class="token string">"Exception"</span> /path/to/application.log <span class="token operator">|</span> <span class="token function">less</span>
+
+<span class="token comment"># 查找应用程序的严重错误</span>
+<span class="token function">grep</span> <span class="token parameter variable">-i</span> <span class="token string">"fatal\|critical\|severe"</span> /path/to/application.log
+
+<span class="token comment"># 按时间范围分析应用错误趋势</span>
+<span class="token function">grep</span> <span class="token string">"ERROR"</span> /path/to/application.log <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1,$2&#125;'</span> <span class="token operator">|</span> <span class="token function">sort</span> <span class="token operator">|</span> <span class="token function">uniq</span> <span class="token parameter variable">-c</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="日志管理最佳实践"><a href="#日志管理最佳实践" class="headerlink" title="日志管理最佳实践"></a>日志管理最佳实践</h2><h3 id="（一）日志轮转"><a href="#（一）日志轮转" class="headerlink" title="（一）日志轮转"></a>（一）日志轮转</h3><p>确保系统正确配置logrotate以管理日志文件大小：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查配置</span>
+<span class="token function">cat</span> /etc/logrotate.conf
+<span class="token function">ls</span> <span class="token parameter variable">-l</span> /etc/logrotate.d/
+
+<span class="token comment"># 手动轮转日志</span>
+<span class="token function">logrotate</span> <span class="token parameter variable">-f</span> /etc/logrotate.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）日志聚合"><a href="#（二）日志聚合" class="headerlink" title="（二）日志聚合"></a>（二）日志聚合</h3><p>对于多服务器环境，考虑使用集中式日志管理：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用rsyslog发送日志到中央服务器</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"*.* @logserver.example.com:514"</span> <span class="token operator">>></span> /etc/rsyslog.conf
+systemctl restart rsyslog
+
+<span class="token comment"># 或者使用现代日志栈(ELK, Graylog等)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）定期日志审查"><a href="#（三）定期日志审查" class="headerlink" title="（三）定期日志审查"></a>（三）定期日志审查</h3><p>创建定期审查关键日志的计划任务：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建每日日志摘要邮件</span>
+<span class="token number">30</span> <span class="token number">7</span> * * * /usr/sbin/logwatch <span class="token parameter variable">--output</span> mail <span class="token parameter variable">--mailto</span> admin@example.com <span class="token parameter variable">--detail</span> high<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>通过掌握这些日志查询和分析技巧，可以更快地发现系统问题、排查故障并提高系统的稳定性与安全性。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%83%A8%E7%BD%B2/" class="print-no-link">#部署</a>
+      
+        <a href="/tags/LINUX/" class="print-no-link">#LINUX</a>
+      
+        <a href="/tags/%E5%B7%A5%E4%BD%9C/" class="print-no-link">#工作</a>
+      
+        <a href="/tags/SHELL/" class="print-no-link">#SHELL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%87%8D%E5%90%AF%E5%90%8E%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8%E8%84%9A%E6%9C%AC/" title="【LINUX】服务器重启后自动启动应用脚本">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【LINUX】服务器重启后自动启动应用脚本</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90LINUX%E3%80%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%AE%9E%E7%8E%B0/" title="【LINUX】服务器数据库自动备份脚本实现">
+                        <span class="hidden-mobile">【LINUX】服务器数据库自动备份脚本实现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

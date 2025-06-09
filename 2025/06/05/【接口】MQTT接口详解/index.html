@@ -1,0 +1,986 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布&#x2F;订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】MQTT接口详解">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布&#x2F;订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.328Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.328Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="MQTT">
+<meta property="article:tag" content="物联网">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【接口】MQTT接口详解 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【接口】MQTT接口详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【接口】MQTT接口详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="【接口】MQTT接口详解"><a href="#【接口】MQTT接口详解" class="headerlink" title="【接口】MQTT接口详解"></a>【接口】MQTT接口详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布&#x2F;订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、优势以及适用场景，并提供相关的代码示例。</p>
+<h2 id="一、MQTT核心概念"><a href="#一、MQTT核心概念" class="headerlink" title="一、MQTT核心概念"></a>一、MQTT核心概念</h2><p>理解MQTT的核心概念对于掌握其工作方式至关重要。</p>
+<h3 id="（一）发布-订阅（Publish-Subscribe）模式"><a href="#（一）发布-订阅（Publish-Subscribe）模式" class="headerlink" title="（一）发布&#x2F;订阅（Publish&#x2F;Subscribe）模式"></a>（一）发布&#x2F;订阅（Publish&#x2F;Subscribe）模式</h3><p>MQTT协议采用发布&#x2F;订阅模式，与传统的客户端&#x2F;服务器模式不同。在这种模式下，消息的发送者（发布者）和接收者（订阅者）之间没有直接联系，它们通过一个中间组件——代理（Broker）进行通信。</p>
+<ol>
+<li><strong>发布者（Publisher）</strong>：负责产生消息并将其发布到特定的主题（Topic）上。</li>
+<li><strong>订阅者（Subscriber）</strong>：对感兴趣的主题进行订阅，当有消息发布到这些主题时，代理会将消息推送给订阅者。</li>
+<li><strong>代理（Broker）</strong>：负责接收来自发布者的消息，并根据订阅关系将消息路由到相应的订阅者。代理还负责管理主题、处理连接、安全认证等。</li>
+</ol>
+<p>这种模式的优点在于解耦了发布者和订阅者，它们不需要知道对方的存在，只需要与代理交互即可。</p>
+<h3 id="（二）主题（Topic）"><a href="#（二）主题（Topic）" class="headerlink" title="（二）主题（Topic）"></a>（二）主题（Topic）</h3><p>主题是MQTT中消息路由的核心。它是一个UTF-8字符串，通常采用层级结构，类似于文件路径，使用斜杠（&#x2F;）作为分隔符。例如：<code>sensor/temperature/room1</code>。</p>
+<ul>
+<li>发布者将消息发布到特定的主题。</li>
+<li>订阅者可以订阅一个或多个主题，支持使用通配符进行模糊匹配：<ul>
+<li><code>+</code> (加号)：单层通配符，匹配一个层级。例如 <code>sensor/+/room1</code> 可以匹配 <code>sensor/temperature/room1</code> 和 <code>sensor/humidity/room1</code>，但不能匹配 <code>sensor/temperature/room2/room1</code>。</li>
+<li><code>#</code> (井号)：多层通配符，匹配主题中任意层级的剩余部分，必须放在主题的末尾。例如 <code>sensor/temperature/#</code> 可以匹配 <code>sensor/temperature/room1</code> 和 <code>sensor/temperature/room1/detail</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（三）服务质量等级（Quality-of-Service-QoS）"><a href="#（三）服务质量等级（Quality-of-Service-QoS）" class="headerlink" title="（三）服务质量等级（Quality of Service, QoS）"></a>（三）服务质量等级（Quality of Service, QoS）</h3><p>MQTT提供了三种不同的服务质量等级，以满足不同场景下对消息传递可靠性的需求：</p>
+<ol>
+<li>**QoS 0 (At most once，至多一次)**：消息传递依赖于底层TCP&#x2F;IP网络。消息可能丢失或重复。发送者发送消息后不关心是否送达。适用于对消息丢失不敏感的场景，例如传感器数据的周期性上报。</li>
+<li>**QoS 1 (At least once，至少一次)**：保证消息至少送达一次。发送者会存储消息，直到收到接收者的确认（PUBACK报文）。如果未收到确认，发送者会重发消息（设置DUP标志）。消息可能会重复，但不会丢失。适用于要求消息必须送达，但可以容忍少量重复的场景。</li>
+<li>**QoS 2 (Exactly once，恰好一次)**：保证消息仅送达一次。这是最高的服务质量等级，通过四次握手（PUBREC, PUBREL, PUBCOMP）实现。消息既不会丢失也不会重复。适用于对消息传递要求非常严格的场景，例如计费系统。</li>
+</ol>
+<p>选择合适的QoS等级需要在可靠性和系统开销之间进行权衡。</p>
+<h3 id="（四）保留消息（Retained-Message）"><a href="#（四）保留消息（Retained-Message）" class="headerlink" title="（四）保留消息（Retained Message）"></a>（四）保留消息（Retained Message）</h3><p>当发布者向某个主题发布一条保留消息时，代理会存储这条消息。之后，任何新的订阅者订阅该主题时，都会立即收到这条最新的保留消息。每个主题只能有一条保留消息，新的保留消息会覆盖旧的。</p>
+<p>这对于那些需要立即获取最新状态信息的订阅者非常有用，例如一个新连接的设备需要知道某个灯的当前开关状态。</p>
+<h3 id="（五）遗嘱消息（Last-Will-and-Testament-LWT）"><a href="#（五）遗嘱消息（Last-Will-and-Testament-LWT）" class="headerlink" title="（五）遗嘱消息（Last Will and Testament, LWT）"></a>（五）遗嘱消息（Last Will and Testament, LWT）</h3><p>客户端在连接到代理时，可以指定一条遗嘱消息。如果客户端异常断开连接（例如网络故障、设备崩溃，而不是正常的DISCONNECT报文），代理会自动将这条遗嘱消息发布到指定的主题。其他订阅了该主题的客户端就能收到通知，从而知道该客户端已下线。</p>
+<p>这对于监控设备状态非常有用。</p>
+<h2 id="二、MQTT架构与工作流程"><a href="#二、MQTT架构与工作流程" class="headerlink" title="二、MQTT架构与工作流程"></a>二、MQTT架构与工作流程</h2><h3 id="（一）MQTT系统架构"><a href="#（一）MQTT系统架构" class="headerlink" title="（一）MQTT系统架构"></a>（一）MQTT系统架构</h3><p>一个典型的MQTT系统包含以下组件：</p>
+<ol>
+<li><strong>MQTT客户端（Client）</strong>：任何运行MQTT库并连接到MQTT代理的设备或应用程序。客户端可以是发布者，也可以是订阅者，或者两者兼备。</li>
+<li><strong>MQTT代理（Broker）</strong>：也称为MQTT服务器，是MQTT系统的核心。它负责接收所有消息，过滤消息，确定哪些客户端订阅了每个消息，并将消息发送给这些订阅的客户端。</li>
+<li><strong>网络（Network）</strong>：MQTT通常运行在TCP&#x2F;IP协议栈之上，保证了消息传输的有序性和可靠性（在TCP层面）。</li>
+</ol>
+<h3 id="（二）MQTT工作流程"><a href="#（二）MQTT工作流程" class="headerlink" title="（二）MQTT工作流程"></a>（二）MQTT工作流程</h3><ol>
+<li><strong>连接（CONNECT）</strong>：客户端向代理发起连接请求，可以指定客户端ID、用户名&#x2F;密码、心跳间隔、清除会话标志（Clean Session）、遗嘱消息等参数。</li>
+<li><strong>发布（PUBLISH）</strong>：发布者客户端将消息（包含主题、QoS等级、消息体、保留标志等）发送给代理。</li>
+<li><strong>订阅（SUBSCRIBE）</strong>：订阅者客户端向代理发送订阅请求，指定感兴趣的主题和期望的QoS等级。</li>
+<li><strong>消息路由</strong>：代理收到发布的消息后，根据主题匹配规则，将消息转发给所有订阅了该主题的客户端。</li>
+<li><strong>取消订阅（UNSUBSCRIBE）</strong>：客户端可以取消对某些主题的订阅。</li>
+<li><strong>心跳（PINGREQ&#x2F;PINGRESP）</strong>：客户端和代理之间通过心跳机制维持连接，检测对方是否在线。</li>
+<li><strong>断开连接（DISCONNECT）</strong>：客户端主动向代理发送断开连接请求。</li>
+</ol>
+<h2 id="三、MQTT与HTTP等协议对比"><a href="#三、MQTT与HTTP等协议对比" class="headerlink" title="三、MQTT与HTTP等协议对比"></a>三、MQTT与HTTP等协议对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>MQTT</th>
+<th>HTTP&#x2F;1.1</th>
+<th>HTTP&#x2F;2</th>
+<th>WebSocket</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通信模式</strong></td>
+<td>发布&#x2F;订阅</td>
+<td>请求&#x2F;响应</td>
+<td>请求&#x2F;响应 (支持服务器推送)</td>
+<td>全双工</td>
+</tr>
+<tr>
+<td><strong>连接性</strong></td>
+<td>长连接</td>
+<td>短连接 (Keep-Alive可复用)</td>
+<td>长连接 (多路复用)</td>
+<td>长连接</td>
+</tr>
+<tr>
+<td><strong>头部开销</strong></td>
+<td>非常小 (最小2字节)</td>
+<td>较大</td>
+<td>头部压缩 (HPACK)</td>
+<td>较小 (握手后)</td>
+</tr>
+<tr>
+<td><strong>消息推送</strong></td>
+<td>Broker主动推送</td>
+<td>客户端轮询或长轮询</td>
+<td>服务器推送</td>
+<td>双向实时推送</td>
+</tr>
+<tr>
+<td><strong>状态保持</strong></td>
+<td>Broker维护客户端会话状态 (Clean Session)</td>
+<td>无状态 (依赖Cookie&#x2F;Session)</td>
+<td>无状态 (依赖Cookie&#x2F;Session)</td>
+<td>有状态</td>
+</tr>
+<tr>
+<td><strong>可靠性</strong></td>
+<td>三级QoS保证</td>
+<td>依赖TCP</td>
+<td>依赖TCP</td>
+<td>依赖TCP</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>物联网、消息推送、低带宽网络</td>
+<td>Web服务、API接口</td>
+<td>高性能Web服务、API</td>
+<td>实时Web应用、在线游戏</td>
+</tr>
+</tbody></table>
+<h2 id="四、MQTT的优势"><a href="#四、MQTT的优势" class="headerlink" title="四、MQTT的优势"></a>四、MQTT的优势</h2><ol>
+<li><strong>轻量高效</strong>：协议头部开销小，对网络带宽和设备资源要求低。</li>
+<li><strong>可靠的消息传递</strong>：提供三种QoS等级，满足不同可靠性需求。</li>
+<li><strong>发布&#x2F;订阅模式</strong>：解耦消息生产者和消费者，易于扩展。</li>
+<li><strong>支持海量连接</strong>：单个代理可以支持大量并发客户端连接。</li>
+<li><strong>状态感知</strong>：通过心跳和遗嘱消息机制，可以感知客户端的在线状态。</li>
+<li><strong>保留消息</strong>：方便新客户端获取最新状态。</li>
+<li><strong>广泛的语言和平台支持</strong>：拥有众多开源实现和商业产品。</li>
+</ol>
+<h2 id="五、MQTT适用场景"><a href="#五、MQTT适用场景" class="headerlink" title="五、MQTT适用场景"></a>五、MQTT适用场景</h2><p>MQTT因其特性广泛应用于以下场景：</p>
+<ol>
+<li><strong>物联网（IoT）</strong>：智能家居、智慧城市、工业自动化、环境监测、可穿戴设备等，传感器数据采集和设备控制。</li>
+<li><strong>移动应用消息推送</strong>：即时通讯、App消息提醒，尤其在网络不稳定或对电量敏感的移动设备上。</li>
+<li><strong>车联网（IoV）</strong>：车辆状态监控、远程控制、车载信息娱乐系统通信。</li>
+<li><strong>远程医疗</strong>：医疗设备数据采集与监控。</li>
+<li><strong>智能农业</strong>：环境数据监测、自动化灌溉与控制。</li>
+<li><strong>金融服务</strong>：实时交易信息推送（对QoS要求高）。</li>
+</ol>
+<h2 id="六、MQTT代码示例（以Python-Paho-MQTT库为例）"><a href="#六、MQTT代码示例（以Python-Paho-MQTT库为例）" class="headerlink" title="六、MQTT代码示例（以Python Paho MQTT库为例）"></a>六、MQTT代码示例（以Python Paho MQTT库为例）</h2><p>以下是一个简单的Python代码示例，演示如何使用Paho MQTT库实现一个发布者和一个订阅者。</p>
+<p>首先，需要安装Paho MQTT库：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> paho-mqtt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="（一）发布者-publisher-py"><a href="#（一）发布者-publisher-py" class="headerlink" title="（一）发布者 (publisher.py)"></a>（一）发布者 (publisher.py)</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> paho<span class="token punctuation">.</span>mqtt<span class="token punctuation">.</span>client <span class="token keyword">as</span> mqtt
+<span class="token keyword">import</span> time
+
+<span class="token comment"># MQTT代理的地址和端口</span>
+broker_address <span class="token operator">=</span> <span class="token string">"mqtt.eclipseprojects.io"</span> <span class="token comment"># 使用公共测试代理</span>
+port <span class="token operator">=</span> <span class="token number">1883</span>
+
+<span class="token comment"># 当连接到代理后的回调函数</span>
+<span class="token keyword">def</span> <span class="token function">on_connect</span><span class="token punctuation">(</span>client<span class="token punctuation">,</span> userdata<span class="token punctuation">,</span> flags<span class="token punctuation">,</span> rc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> rc <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"成功连接到MQTT代理"</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"连接失败，错误码: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>rc<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 创建MQTT客户端实例</span>
+client <span class="token operator">=</span> mqtt<span class="token punctuation">.</span>Client<span class="token punctuation">(</span><span class="token string">"PythonPublisher"</span><span class="token punctuation">)</span>
+client<span class="token punctuation">.</span>on_connect <span class="token operator">=</span> on_connect
+
+<span class="token comment"># 连接到代理</span>
+client<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>broker_address<span class="token punctuation">,</span> port<span class="token operator">=</span>port<span class="token punctuation">)</span>
+
+<span class="token comment"># 启动网络循环处理消息（非阻塞）</span>
+client<span class="token punctuation">.</span>loop_start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    count <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        message <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"Hello MQTT from Python Publisher! Count: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>count<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+        <span class="token comment"># 发布消息到主题 "test/topic"</span>
+        <span class="token comment"># QoS等级为1</span>
+        result <span class="token operator">=</span> client<span class="token punctuation">.</span>publish<span class="token punctuation">(</span><span class="token string">"test/topic"</span><span class="token punctuation">,</span> message<span class="token punctuation">,</span> qos<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        result<span class="token punctuation">.</span>wait_for_publish<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 等待发布完成 (对于QoS 1和2)</span>
+        <span class="token keyword">if</span> result<span class="token punctuation">.</span>rc <span class="token operator">==</span> mqtt<span class="token punctuation">.</span>MQTT_ERR_SUCCESS<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"消息已发布: '</span><span class="token interpolation"><span class="token punctuation">&#123;</span>message<span class="token punctuation">&#125;</span></span><span class="token string">' 到主题 'test/topic'"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"消息发布失败，错误码: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>result<span class="token punctuation">.</span>rc<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        count <span class="token operator">+=</span> <span class="token number">1</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>  <span class="token comment"># 每5秒发布一次消息</span>
+<span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"发布者停止"</span><span class="token punctuation">)</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    client<span class="token punctuation">.</span>loop_stop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 停止网络循环</span>
+    client<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 断开连接</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"与代理断开连接"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）订阅者-subscriber-py"><a href="#（二）订阅者-subscriber-py" class="headerlink" title="（二）订阅者 (subscriber.py)"></a>（二）订阅者 (subscriber.py)</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> paho<span class="token punctuation">.</span>mqtt<span class="token punctuation">.</span>client <span class="token keyword">as</span> mqtt
+
+<span class="token comment"># MQTT代理的地址和端口</span>
+broker_address <span class="token operator">=</span> <span class="token string">"mqtt.eclipseprojects.io"</span>
+port <span class="token operator">=</span> <span class="token number">1883</span>
+
+<span class="token comment"># 当连接到代理后的回调函数</span>
+<span class="token keyword">def</span> <span class="token function">on_connect</span><span class="token punctuation">(</span>client<span class="token punctuation">,</span> userdata<span class="token punctuation">,</span> flags<span class="token punctuation">,</span> rc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> rc <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"成功连接到MQTT代理"</span><span class="token punctuation">)</span>
+        <span class="token comment"># 连接成功后订阅主题 "test/topic"</span>
+        <span class="token comment"># QoS等级为1</span>
+        client<span class="token punctuation">.</span>subscribe<span class="token punctuation">(</span><span class="token string">"test/topic"</span><span class="token punctuation">,</span> qos<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"已订阅主题: 'test/topic'"</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"连接失败，错误码: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>rc<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 当收到订阅主题的消息时的回调函数</span>
+<span class="token keyword">def</span> <span class="token function">on_message</span><span class="token punctuation">(</span>client<span class="token punctuation">,</span> userdata<span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"收到消息: 主题='</span><span class="token interpolation"><span class="token punctuation">&#123;</span>msg<span class="token punctuation">.</span>topic<span class="token punctuation">&#125;</span></span><span class="token string">', QoS=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>msg<span class="token punctuation">.</span>qos<span class="token punctuation">&#125;</span></span><span class="token string">, 保留标志=</span><span class="token interpolation"><span class="token punctuation">&#123;</span>msg<span class="token punctuation">.</span>retain<span class="token punctuation">&#125;</span></span><span class="token string">, 消息='</span><span class="token interpolation"><span class="token punctuation">&#123;</span>msg<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">'"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 创建MQTT客户端实例</span>
+client <span class="token operator">=</span> mqtt<span class="token punctuation">.</span>Client<span class="token punctuation">(</span><span class="token string">"PythonSubscriber"</span><span class="token punctuation">)</span>
+client<span class="token punctuation">.</span>on_connect <span class="token operator">=</span> on_connect
+client<span class="token punctuation">.</span>on_message <span class="token operator">=</span> on_message
+
+<span class="token comment"># 连接到代理</span>
+client<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>broker_address<span class="token punctuation">,</span> port<span class="token operator">=</span>port<span class="token punctuation">)</span>
+
+<span class="token comment"># 启动网络循环处理消息（阻塞式，直到客户端断开连接）</span>
+<span class="token comment"># client.loop_forever() 会阻塞程序，直到调用 disconnect()</span>
+<span class="token comment"># 如果需要在后台运行，可以使用 client.loop_start() 和 client.loop_stop()</span>
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    client<span class="token punctuation">.</span>loop_forever<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"订阅者停止"</span><span class="token punctuation">)</span>
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    client<span class="token punctuation">.</span>disconnect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"与代理断开连接"</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>运行说明：</strong></p>
+<ol>
+<li>将以上两段代码分别保存为 <code>publisher.py</code> 和 <code>subscriber.py</code>。</li>
+<li>先运行 <code>subscriber.py</code>，它会连接到MQTT代理并订阅 <code>test/topic</code> 主题。</li>
+<li>再运行 <code>publisher.py</code>，它会每5秒向 <code>test/topic</code> 主题发布一条消息。</li>
+<li>您将在 <code>subscriber.py</code> 的控制台中看到接收到的消息。</li>
+</ol>
+<h2 id="七、MQTT安全性"><a href="#七、MQTT安全性" class="headerlink" title="七、MQTT安全性"></a>七、MQTT安全性</h2><p>虽然MQTT本身是一个轻量级协议，但在实际应用中，安全性是不可忽视的。以下是一些常见的MQTT安全措施：</p>
+<h3 id="（一）认证（Authentication）"><a href="#（一）认证（Authentication）" class="headerlink" title="（一）认证（Authentication）"></a>（一）认证（Authentication）</h3><ol>
+<li><strong>用户名&#x2F;密码</strong>：MQTT协议本身支持在CONNECT报文中携带用户名和密码，代理可以据此进行认证。</li>
+<li><strong>客户端证书</strong>：使用TLS&#x2F;SSL时，可以通过客户端证书进行认证，这提供了更强的安全性。</li>
+</ol>
+<h3 id="（二）授权（Authorization）"><a href="#（二）授权（Authorization）" class="headerlink" title="（二）授权（Authorization）"></a>（二）授权（Authorization）</h3><p>代理需要实现授权机制，控制客户端对特定主题的发布和订阅权限。这通常基于ACL（Access Control List）实现。</p>
+<h3 id="（三）传输层加密（Encryption）"><a href="#（三）传输层加密（Encryption）" class="headerlink" title="（三）传输层加密（Encryption）"></a>（三）传输层加密（Encryption）</h3><p>使用MQTTS（MQTT over TLS&#x2F;SSL）可以对MQTT通信进行加密，防止数据在传输过程中被窃听或篡改。通常MQTT默认端口是1883，MQTTS默认端口是8883。</p>
+<h3 id="（四）消息内容加密"><a href="#（四）消息内容加密" class="headerlink" title="（四）消息内容加密"></a>（四）消息内容加密</h3><p>除了传输层加密，还可以对消息体本身进行加密，提供端到端的安全保护。</p>
+<h3 id="（五）安全最佳实践"><a href="#（五）安全最佳实践" class="headerlink" title="（五）安全最佳实践"></a>（五）安全最佳实践</h3><ol>
+<li><strong>使用强密码和证书管理</strong>。</li>
+<li><strong>最小权限原则</strong>：仅授予客户端必要的发布&#x2F;订阅权限。</li>
+<li><strong>定期更新安全补丁</strong>：保持代理和客户端库的更新。</li>
+<li><strong>监控和日志</strong>：记录连接、发布、订阅等行为，及时发现异常。</li>
+<li><strong>避免使用默认配置</strong>。</li>
+</ol>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>MQTT以其轻量、高效、可靠的特性，在物联网和消息推送等领域扮演着越来越重要的角色。理解其核心概念如发布&#x2F;订阅模式、主题、QoS等级，以及其工作流程和安全机制，对于设计和实现稳健的MQTT应用至关重要。随着物联网设备的普及和连接需求的增长，MQTT协议将继续发展和完善，为万物互联提供坚实的通信基础。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="print-no-link">#消息队列</a>
+      
+        <a href="/tags/MQTT/" class="print-no-link">#MQTT</a>
+      
+        <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" class="print-no-link">#物联网</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】SOAP接口详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【接口】SOAP接口详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91UV%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E4%B8%8EMCP%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/" title="【工具】UV包管理工具与MCP服务配置">
+                        <span class="hidden-mobile">【工具】UV包管理工具与MCP服务配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

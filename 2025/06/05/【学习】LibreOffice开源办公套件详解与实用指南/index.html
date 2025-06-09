@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、前言LibreOffice是一款免费、开源且跨平台的办公套件，广泛应用于个人、企业和教育领域。笔者在实际办公和文档处理过程中，深刻体会到LibreOffice在文档兼容性、功能丰富性以及开源自由度方面的独特优势。本文将系统介绍LibreOffice的核心组件、主要功能、与主流办公软件的对比、安装与使用方法、命令行批量处理技巧及常见问题解决方案，帮助读者高效上手并灵活应用LibreOffice。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习】LibreOffice开源办公套件详解与实用指南">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91LibreOffice%E5%BC%80%E6%BA%90%E5%8A%9E%E5%85%AC%E5%A5%97%E4%BB%B6%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、前言LibreOffice是一款免费、开源且跨平台的办公套件，广泛应用于个人、企业和教育领域。笔者在实际办公和文档处理过程中，深刻体会到LibreOffice在文档兼容性、功能丰富性以及开源自由度方面的独特优势。本文将系统介绍LibreOffice的核心组件、主要功能、与主流办公软件的对比、安装与使用方法、命令行批量处理技巧及常见问题解决方案，帮助读者高效上手并灵活应用LibreOffice。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.317Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.317Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="LibreOffice">
+<meta property="article:tag" content="办公软件">
+<meta property="article:tag" content="开源">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【学习】LibreOffice开源办公套件详解与实用指南 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【学习】LibreOffice开源办公套件详解与实用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【学习】LibreOffice开源办公套件详解与实用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>LibreOffice是一款免费、开源且跨平台的办公套件，广泛应用于个人、企业和教育领域。笔者在实际办公和文档处理过程中，深刻体会到LibreOffice在文档兼容性、功能丰富性以及开源自由度方面的独特优势。本文将系统介绍LibreOffice的核心组件、主要功能、与主流办公软件的对比、安装与使用方法、命令行批量处理技巧及常见问题解决方案，帮助读者高效上手并灵活应用LibreOffice。</p>
+<h1 id="二、LibreOffice简介"><a href="#二、LibreOffice简介" class="headerlink" title="二、LibreOffice简介"></a>二、LibreOffice简介</h1><h2 id="（一）什么是LibreOffice"><a href="#（一）什么是LibreOffice" class="headerlink" title="（一）什么是LibreOffice"></a>（一）什么是LibreOffice</h2><p>LibreOffice是由The Document Foundation主导开发的开源办公套件，包含文字处理、电子表格、演示文稿、绘图、数据库和公式编辑等六大核心组件。其原生采用开放文档格式（ODF），并高度兼容Microsoft Office的.docx、.xlsx、.pptx等主流格式。</p>
+<h2 id="（二）核心组件介绍"><a href="#（二）核心组件介绍" class="headerlink" title="（二）核心组件介绍"></a>（二）核心组件介绍</h2><ol>
+<li><strong>Writer</strong>：文字处理器，功能类似于Word。</li>
+<li><strong>Calc</strong>：电子表格工具，对标Excel。</li>
+<li><strong>Impress</strong>：演示文稿制作，类似PowerPoint。</li>
+<li><strong>Draw</strong>：矢量绘图与流程图工具。</li>
+<li><strong>Base</strong>：数据库管理工具。</li>
+<li><strong>Math</strong>：数学公式编辑器。</li>
+</ol>
+<h1 id="三、主要特性与优势"><a href="#三、主要特性与优势" class="headerlink" title="三、主要特性与优势"></a>三、主要特性与优势</h1><h2 id="（一）开源免费，跨平台支持"><a href="#（一）开源免费，跨平台支持" class="headerlink" title="（一）开源免费，跨平台支持"></a>（一）开源免费，跨平台支持</h2><ul>
+<li>完全免费，无需授权费用</li>
+<li>支持Windows、Linux、macOS等主流操作系统</li>
+<li>社区活跃，持续更新</li>
+</ul>
+<h2 id="（二）文档兼容性与开放标准"><a href="#（二）文档兼容性与开放标准" class="headerlink" title="（二）文档兼容性与开放标准"></a>（二）文档兼容性与开放标准</h2><ul>
+<li>原生支持ODF（.odt、.ods、.odp等）</li>
+<li>高度兼容MS Office格式（.docx、.xlsx、.pptx等）</li>
+<li>支持PDF导出与导入</li>
+</ul>
+<h2 id="（三）扩展性与自定义"><a href="#（三）扩展性与自定义" class="headerlink" title="（三）扩展性与自定义"></a>（三）扩展性与自定义</h2><ul>
+<li>丰富的扩展插件与模板库</li>
+<li>支持多语言界面与本地化</li>
+<li>界面风格可自定义</li>
+</ul>
+<h2 id="（四）安全性"><a href="#（四）安全性" class="headerlink" title="（四）安全性"></a>（四）安全性</h2><ul>
+<li>支持文档加密、密码保护</li>
+<li>提供数字签名功能</li>
+</ul>
+<h1 id="四、与Microsoft-Office对比"><a href="#四、与Microsoft-Office对比" class="headerlink" title="四、与Microsoft Office对比"></a>四、与Microsoft Office对比</h1><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>LibreOffice</th>
+<th>Microsoft Office</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格</td>
+<td>免费开源</td>
+<td>商业付费</td>
+</tr>
+<tr>
+<td>平台支持</td>
+<td>Win&#x2F;Linux&#x2F;macOS</td>
+<td>Win&#x2F;macOS&#x2F;部分Web</td>
+</tr>
+<tr>
+<td>格式兼容性</td>
+<td>高（部分复杂格式略有差异）</td>
+<td>原生最佳</td>
+</tr>
+<tr>
+<td>扩展与定制</td>
+<td>丰富，完全开源</td>
+<td>有限，部分闭源</td>
+</tr>
+<tr>
+<td>云协作</td>
+<td>基础支持</td>
+<td>强大（OneDrive等）</td>
+</tr>
+<tr>
+<td>资源占用</td>
+<td>较低</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>社区支持</td>
+<td>活跃</td>
+<td>官方为主</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>笔者建议：对于预算有限、追求自由定制或跨平台需求的用户，LibreOffice是极佳选择；如需深度兼容复杂Office文档或依赖云协作，MS Office更为合适。</p>
+</blockquote>
+<h1 id="五、安装与基本使用"><a href="#五、安装与基本使用" class="headerlink" title="五、安装与基本使用"></a>五、安装与基本使用</h1><h2 id="（一）安装方法"><a href="#（一）安装方法" class="headerlink" title="（一）安装方法"></a>（一）安装方法</h2><h3 id="1-Windows平台"><a href="#1-Windows平台" class="headerlink" title="1. Windows平台"></a>1. Windows平台</h3><ul>
+<li>访问<a target="_blank" rel="noopener" href="https://www.libreoffice.org/download/download/">LibreOffice官网</a>下载最新版安装包</li>
+<li>双击安装包，按提示完成安装</li>
+</ul>
+<h3 id="2-Linux平台"><a href="#2-Linux平台" class="headerlink" title="2. Linux平台"></a>2. Linux平台</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update                    <span class="token comment"># 更新软件源</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> libreoffice       <span class="token comment"># 安装LibreOffice套件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-macOS平台"><a href="#3-macOS平台" class="headerlink" title="3. macOS平台"></a>3. macOS平台</h3><ul>
+<li>官网下载安装包，拖拽至应用程序目录即可</li>
+</ul>
+<h2 id="（二）基本使用"><a href="#（二）基本使用" class="headerlink" title="（二）基本使用"></a>（二）基本使用</h2><ul>
+<li>启动LibreOffice后，可选择所需组件（Writer、Calc等）</li>
+<li>支持打开、编辑、导出多种格式文档</li>
+<li>可通过”扩展管理器”安装插件增强功能</li>
+</ul>
+<h1 id="六、命令行批量处理技巧"><a href="#六、命令行批量处理技巧" class="headerlink" title="六、命令行批量处理技巧"></a>六、命令行批量处理技巧</h1><p>LibreOffice支持命令行操作，适合批量文档转换、自动化办公等场景。</p>
+<h2 id="（一）批量格式转换示例"><a href="#（一）批量格式转换示例" class="headerlink" title="（一）批量格式转换示例"></a>（一）批量格式转换示例</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 将docx批量转换为pdf</span>
+soffice <span class="token parameter variable">--headless</span> --convert-to pdf *.docx
+<span class="token comment"># --headless：无界面模式</span>
+<span class="token comment"># --convert-to：指定目标格式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）常用命令参数"><a href="#（二）常用命令参数" class="headerlink" title="（二）常用命令参数"></a>（二）常用命令参数</h2><ul>
+<li><code>--headless</code>：无界面运行，适合服务器&#x2F;自动化</li>
+<li><code>--convert-to</code>：文档格式转换</li>
+<li><code>--infilter</code>：指定输入过滤器</li>
+<li><code>--outdir</code>：指定输出目录</li>
+</ul>
+<h1 id="七、常见问题与解决方案"><a href="#七、常见问题与解决方案" class="headerlink" title="七、常见问题与解决方案"></a>七、常见问题与解决方案</h1><h2 id="（一）文档格式兼容性问题"><a href="#（一）文档格式兼容性问题" class="headerlink" title="（一）文档格式兼容性问题"></a>（一）文档格式兼容性问题</h2><ul>
+<li>复杂排版、宏、特殊字体等在不同办公套件间可能存在细微差异</li>
+<li>建议优先使用ODF格式进行跨平台协作</li>
+</ul>
+<h2 id="（二）宏与脚本支持"><a href="#（二）宏与脚本支持" class="headerlink" title="（二）宏与脚本支持"></a>（二）宏与脚本支持</h2><ul>
+<li>LibreOffice支持BASIC、Python等多种宏语言</li>
+<li>MS Office的VBA宏需适配或重写</li>
+</ul>
+<h2 id="（三）字体显示异常"><a href="#（三）字体显示异常" class="headerlink" title="（三）字体显示异常"></a>（三）字体显示异常</h2><ul>
+<li>确认系统已安装所需字体</li>
+<li>可在”选项-字体”中设置字体替换规则</li>
+</ul>
+<h2 id="（四）社区与文档支持"><a href="#（四）社区与文档支持" class="headerlink" title="（四）社区与文档支持"></a>（四）社区与文档支持</h2><ul>
+<li>官方文档：<a target="_blank" rel="noopener" href="https://documentation.libreoffice.org/zh-cn/">https://documentation.libreoffice.org/zh-cn/</a></li>
+<li>中文社区：<a target="_blank" rel="noopener" href="https://zh-cn.libreoffice.org/">https://zh-cn.libreoffice.org/</a></li>
+</ul>
+<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>LibreOffice以其开源、免费、跨平台和高度可定制的特性，成为办公自动化领域的重要选择。笔者建议根据实际需求选择合适的办公套件，并充分利用LibreOffice的扩展性和命令行能力提升办公效率。</p>
+<h1 id="九、参考资料"><a href="#九、参考资料" class="headerlink" title="九、参考资料"></a>九、参考资料</h1><ol>
+<li>LibreOffice官方文档：<a target="_blank" rel="noopener" href="https://www.libreoffice.org/get-help/documentation/">https://www.libreoffice.org/get-help/documentation/</a></li>
+<li>LibreOffice命令行用法：<a target="_blank" rel="noopener" href="https://wiki.documentfoundation.org/Documentation/zh-cn/HowTo/CommandLineOptions">https://wiki.documentfoundation.org/Documentation/zh-cn/HowTo/CommandLineOptions</a></li>
+<li>LibreOffice与MS Office对比分析：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19747841">https://www.zhihu.com/question/19747841</a></li>
+<li>LibreOffice中文社区：<a target="_blank" rel="noopener" href="https://zh-cn.libreoffice.org/">https://zh-cn.libreoffice.org/</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/LibreOffice/" class="print-no-link">#LibreOffice</a>
+      
+        <a href="/tags/%E5%8A%9E%E5%85%AC%E8%BD%AF%E4%BB%B6/" class="print-no-link">#办公软件</a>
+      
+        <a href="/tags/%E5%BC%80%E6%BA%90/" class="print-no-link">#开源</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91RabbitMQ%20%E8%AF%A6%E8%A7%A3/" title="【学习】RabbitMQ 详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习】RabbitMQ 详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Kubernetes%20(K8s)%20%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="【学习】Kubernetes (K8s) 基础入门笔记">
+                        <span class="hidden-mobile">【学习】Kubernetes (K8s) 基础入门笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

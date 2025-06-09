@@ -1,0 +1,1319 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、MCP服务器概述MCP（Model Context Protocol）服务器是连接AI模型与外部工具、数据和系统的桥梁。通过MCP服务器，AI模型能够获取外部信息、执行特定任务并将结果返回，极大扩展了AI在编程和其他领域的能力范围。 （一）MCP服务器的基本原理MCP服务器基于一种标准化协议工作，该协议由Anthropic推出，允许AI模型：  识别可用工具及其功能 发送工具调用请求 接收工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【AI】常用MCP服务器详解与应用指南">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90AI%E3%80%91%E5%B8%B8%E7%94%A8MCP%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、MCP服务器概述MCP（Model Context Protocol）服务器是连接AI模型与外部工具、数据和系统的桥梁。通过MCP服务器，AI模型能够获取外部信息、执行特定任务并将结果返回，极大扩展了AI在编程和其他领域的能力范围。 （一）MCP服务器的基本原理MCP服务器基于一种标准化协议工作，该协议由Anthropic推出，允许AI模型：  识别可用工具及其功能 发送工具调用请求 接收工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.291Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.291Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="MCP">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="开发工具">
+<meta property="article:tag" content="Cursor">
+<meta property="article:tag" content="工具集成">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【AI】常用MCP服务器详解与应用指南 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【AI】常用MCP服务器详解与应用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【AI】常用MCP服务器详解与应用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、MCP服务器概述"><a href="#一、MCP服务器概述" class="headerlink" title="一、MCP服务器概述"></a>一、MCP服务器概述</h1><p>MCP（Model Context Protocol）服务器是连接AI模型与外部工具、数据和系统的桥梁。通过MCP服务器，AI模型能够获取外部信息、执行特定任务并将结果返回，极大扩展了AI在编程和其他领域的能力范围。</p>
+<h2 id="（一）MCP服务器的基本原理"><a href="#（一）MCP服务器的基本原理" class="headerlink" title="（一）MCP服务器的基本原理"></a>（一）MCP服务器的基本原理</h2><p>MCP服务器基于一种标准化协议工作，该协议由Anthropic推出，允许AI模型：</p>
+<ul>
+<li>识别可用工具及其功能</li>
+<li>发送工具调用请求</li>
+<li>接收工具执行结果</li>
+<li>基于结果提供更准确的回应</li>
+</ul>
+<h2 id="（二）MCP服务器的分类"><a href="#（二）MCP服务器的分类" class="headerlink" title="（二）MCP服务器的分类"></a>（二）MCP服务器的分类</h2><p>根据功能和用途，MCP服务器主要分为以下几类：</p>
+<ol>
+<li><strong>信息检索类</strong>：如Web搜索、文档检索</li>
+<li><strong>文件操作类</strong>：如文件系统访问、代码分析</li>
+<li><strong>开发工具类</strong>：如GitHub集成、代码执行</li>
+<li><strong>自动化类</strong>：如浏览器自动化、UI测试</li>
+<li><strong>数据处理类</strong>：如数据库访问、数据分析</li>
+<li><strong>辅助思考类</strong>：如顺序思考工具、问题分解工具</li>
+</ol>
+<h1 id="二、常用MCP服务器详解"><a href="#二、常用MCP服务器详解" class="headerlink" title="二、常用MCP服务器详解"></a>二、常用MCP服务器详解</h1><h2 id="（一）文件系统服务器"><a href="#（一）文件系统服务器" class="headerlink" title="（一）文件系统服务器"></a>（一）文件系统服务器</h2><h3 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：File System MCP Server</li>
+<li><strong>功能</strong>：提供本地文件系统访问能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem">modelcontextprotocol&#x2F;server-filesystem</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> @modelcontextprotocol/server-filesystem<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"filesystem"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"@modelcontextprotocol/server-filesystem"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y @modelcontextprotocol&#x2F;server-filesystem<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>filesystem<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>@modelcontextprotocol/server-filesystem<span class="token entity" title="\&quot;">\"</span>]&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"filesystem"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"-y"</span><span class="token punctuation">,</span> <span class="token string">"@modelcontextprotocol/server-filesystem"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>读取文件内容</li>
+<li>写入文件内容</li>
+<li>列出目录内容</li>
+<li>创建&#x2F;删除文件和目录</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手读取项目文件进行分析</li>
+<li>需要AI助手创建或修改配置文件</li>
+<li>需要AI助手管理文件系统</li>
+</ul>
+<h2 id="（二）Web搜索服务器"><a href="#（二）Web搜索服务器" class="headerlink" title="（二）Web搜索服务器"></a>（二）Web搜索服务器</h2><h3 id="基本信息-1"><a href="#基本信息-1" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：Brave Search MCP Server</li>
+<li><strong>功能</strong>：提供网络搜索能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/smithery-ai/brave-search">smithery-ai&#x2F;brave-search</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> @smithery/cli@latest run @smithery-ai/brave-search <span class="token parameter variable">--config</span> <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>braveApiKey<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>YOUR_BRAVE_API_KEY<span class="token entity" title="\&quot;">\"</span>&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"brave-search"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"@smithery/cli@latest"</span><span class="token punctuation">,</span>
+        <span class="token string">"run"</span><span class="token punctuation">,</span>
+        <span class="token string">"@smithery-ai/brave-search"</span><span class="token punctuation">,</span>
+        <span class="token string">"--config"</span><span class="token punctuation">,</span>
+        <span class="token string">"&#123;\"braveApiKey\":\"YOUR_BRAVE_API_KEY\"&#125;"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y @smithery&#x2F;cli@latest run @smithery-ai&#x2F;brave-search --config &quot;&#123;\&quot;braveApiKey\&quot;:\&quot;YOUR_BRAVE_API_KEY\&quot;&#125;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>brave-search<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>@smithery/cli@latest<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>run<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>@smithery-ai/brave-search<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>--config<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>&#123;<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\"</span>braveApiKey<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\"</span>YOUR_BRAVE_API_KEY<span class="token entity" title="\\">\\</span><span class="token entity" title="\&quot;">\"</span>&#125;<span class="token entity" title="\&quot;">\"</span>]&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"brave-search"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"@smithery/cli@latest"</span><span class="token punctuation">,</span>
+        <span class="token string">"run"</span><span class="token punctuation">,</span>
+        <span class="token string">"@smithery-ai/brave-search"</span><span class="token punctuation">,</span>
+        <span class="token string">"--config"</span><span class="token punctuation">,</span>
+        <span class="token string">"&#123;\"braveApiKey\":\"YOUR_BRAVE_API_KEY\"&#125;"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-1"><a href="#主要功能-1" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>执行网络搜索查询</li>
+<li>返回相关搜索结果</li>
+<li>支持过滤和排序选项</li>
+</ul>
+<h3 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手获取最新信息</li>
+<li>需要AI助手查找特定主题的资料</li>
+<li>需要AI助手验证事实或数据</li>
+</ul>
+<h2 id="（三）GitHub集成服务器"><a href="#（三）GitHub集成服务器" class="headerlink" title="（三）GitHub集成服务器"></a>（三）GitHub集成服务器</h2><h3 id="基本信息-2"><a href="#基本信息-2" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：GitHub MCP Server</li>
+<li><strong>功能</strong>：提供GitHub API集成能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/github/github-mcp-server">github&#x2F;github-mcp-server</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>Docker方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-i</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">-e</span> <span class="token assign-left variable">GITHUB_PERSONAL_ACCESS_TOKEN</span><span class="token operator">=</span><span class="token operator">&lt;</span>your-token<span class="token operator">></span> ghcr.io/github/github-mcp-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"github"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"docker"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"run"</span><span class="token punctuation">,</span>
+        <span class="token string">"-i"</span><span class="token punctuation">,</span>
+        <span class="token string">"--rm"</span><span class="token punctuation">,</span>
+        <span class="token string">"-e"</span><span class="token punctuation">,</span>
+        <span class="token string">"GITHUB_PERSONAL_ACCESS_TOKEN"</span><span class="token punctuation">,</span>
+        <span class="token string">"ghcr.io/github/github-mcp-server"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"GITHUB_PERSONAL_ACCESS_TOKEN"</span><span class="token operator">:</span> <span class="token string">"YOUR_GITHUB_TOKEN"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN&#x3D;&lt;your-token&gt; ghcr.io&#x2F;github&#x2F;github-mcp-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>github<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>docker<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>run<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>-i<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>--rm<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>-e<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>GITHUB_PERSONAL_ACCESS_TOKEN<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>ghcr.io/github/github-mcp-server<span class="token entity" title="\&quot;">\"</span>],<span class="token entity" title="\&quot;">\"</span>env<span class="token entity" title="\&quot;">\"</span>:&#123;<span class="token entity" title="\&quot;">\"</span>GITHUB_PERSONAL_ACCESS_TOKEN<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>YOUR_GITHUB_TOKEN<span class="token entity" title="\&quot;">\"</span>&#125;&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"github"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"docker"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"run"</span><span class="token punctuation">,</span>
+        <span class="token string">"-i"</span><span class="token punctuation">,</span>
+        <span class="token string">"--rm"</span><span class="token punctuation">,</span>
+        <span class="token string">"-e"</span><span class="token punctuation">,</span>
+        <span class="token string">"GITHUB_PERSONAL_ACCESS_TOKEN"</span><span class="token punctuation">,</span>
+        <span class="token string">"ghcr.io/github/github-mcp-server"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"GITHUB_PERSONAL_ACCESS_TOKEN"</span><span class="token operator">:</span> <span class="token string">"YOUR_GITHUB_TOKEN"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-2"><a href="#主要功能-2" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>访问仓库内容</li>
+<li>创建和更新文件</li>
+<li>管理分支和提交</li>
+<li>处理Issues和Pull Requests</li>
+</ul>
+<h3 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手帮助管理GitHub仓库</li>
+<li>需要AI助手分析代码变更</li>
+<li>需要AI助手自动创建Issue或PR</li>
+</ul>
+<h2 id="（四）Python代码执行服务器"><a href="#（四）Python代码执行服务器" class="headerlink" title="（四）Python代码执行服务器"></a>（四）Python代码执行服务器</h2><h3 id="基本信息-3"><a href="#基本信息-3" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：MCP Code Executor</li>
+<li><strong>功能</strong>：提供Python代码执行环境</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/bazinga012/mcp_code_executor">bazinga012&#x2F;mcp_code_executor</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> mcp-code-executor<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"code-executor"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"mcp-code-executor"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"CODE_STORAGE_DIR"</span><span class="token operator">:</span> <span class="token string">"/path/to/code/storage"</span><span class="token punctuation">,</span>
+        <span class="token property">"ENV_TYPE"</span><span class="token operator">:</span> <span class="token string">"conda"</span><span class="token punctuation">,</span>
+        <span class="token property">"CONDA_ENV_NAME"</span><span class="token operator">:</span> <span class="token string">"your-conda-env"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y mcp-code-executor<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>code-executor<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>mcp-code-executor<span class="token entity" title="\&quot;">\"</span>],<span class="token entity" title="\&quot;">\"</span>env<span class="token entity" title="\&quot;">\"</span>:&#123;<span class="token entity" title="\&quot;">\"</span>CODE_STORAGE_DIR<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>/path/to/code/storage<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>ENV_TYPE<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>conda<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>CONDA_ENV_NAME<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>your-conda-env<span class="token entity" title="\&quot;">\"</span>&#125;&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"code-executor"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"mcp-code-executor"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"CODE_STORAGE_DIR"</span><span class="token operator">:</span> <span class="token string">"/path/to/code/storage"</span><span class="token punctuation">,</span>
+        <span class="token property">"ENV_TYPE"</span><span class="token operator">:</span> <span class="token string">"conda"</span><span class="token punctuation">,</span>
+        <span class="token property">"CONDA_ENV_NAME"</span><span class="token operator">:</span> <span class="token string">"your-conda-env"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-3"><a href="#主要功能-3" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>执行Python代码</li>
+<li>安装依赖包</li>
+<li>检查已安装包</li>
+<li>支持增量代码生成</li>
+</ul>
+<h3 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手执行数据分析代码</li>
+<li>需要AI助手测试和调试Python代码</li>
+<li>需要AI助手生成可执行的代码示例</li>
+</ul>
+<h2 id="（五）Puppeteer浏览器自动化服务器"><a href="#（五）Puppeteer浏览器自动化服务器" class="headerlink" title="（五）Puppeteer浏览器自动化服务器"></a>（五）Puppeteer浏览器自动化服务器</h2><h3 id="基本信息-4"><a href="#基本信息-4" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：Puppeteer MCP Server</li>
+<li><strong>功能</strong>：提供浏览器自动化能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/merajmehrabi/puppeteer-mcp-server">merajmehrabi&#x2F;puppeteer-mcp-server</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> puppeteer-mcp-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"puppeteer"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"puppeteer-mcp-server"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y puppeteer-mcp-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>puppeteer<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>puppeteer-mcp-server<span class="token entity" title="\&quot;">\"</span>]&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"puppeteer"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"puppeteer-mcp-server"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-4"><a href="#主要功能-4" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>网页导航</li>
+<li>截取屏幕截图</li>
+<li>点击和填写表单</li>
+<li>执行JavaScript代码</li>
+<li>连接到现有Chrome实例</li>
+</ul>
+<h3 id="使用场景-4"><a href="#使用场景-4" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手自动化Web任务</li>
+<li>需要AI助手测试网站功能</li>
+<li>需要AI助手提取网页内容</li>
+</ul>
+<h2 id="（六）Playwright浏览器自动化服务器"><a href="#（六）Playwright浏览器自动化服务器" class="headerlink" title="（六）Playwright浏览器自动化服务器"></a>（六）Playwright浏览器自动化服务器</h2><h3 id="基本信息-5"><a href="#基本信息-5" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：Playwright MCP Server</li>
+<li><strong>功能</strong>：提供跨浏览器自动化能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/microsoft/playwright-mcp">microsoft&#x2F;playwright-mcp</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> @playwright/mcp@latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"playwright"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"@playwright/mcp@latest"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y @playwright&#x2F;mcp@latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>playwright<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>@playwright/mcp@latest<span class="token entity" title="\&quot;">\"</span>]&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"playwright"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"@playwright/mcp@latest"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-5"><a href="#主要功能-5" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>跨浏览器自动化（Chrome、Firefox、Safari）</li>
+<li>页面快照和截图</li>
+<li>元素交互（点击、输入、选择）</li>
+<li>网络请求监控</li>
+<li>支持无头和有头模式</li>
+</ul>
+<h3 id="使用场景-5"><a href="#使用场景-5" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手在多种浏览器中测试</li>
+<li>需要AI助手分析网页结构</li>
+<li>需要AI助手自动填写表单</li>
+</ul>
+<h2 id="（七）顺序思考工具服务器"><a href="#（七）顺序思考工具服务器" class="headerlink" title="（七）顺序思考工具服务器"></a>（七）顺序思考工具服务器</h2><h3 id="基本信息-6"><a href="#基本信息-6" class="headerlink" title="基本信息"></a>基本信息</h3><ul>
+<li><strong>名称</strong>：Sequential Thinking MCP Server</li>
+<li><strong>功能</strong>：提供结构化思考和问题分解能力</li>
+<li><strong>官方仓库</strong>：<a target="_blank" rel="noopener" href="https://github.com/spences10/mcp-sequentialthinking-tools">spences10&#x2F;mcp-sequentialthinking-tools</a></li>
+<li><strong>安装命令</strong>：</li>
+</ul>
+<p><strong>NPX方式</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> mcp-sequentialthinking-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>JSON配置（通用）</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpservers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"sequential-thinking"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"mcp-sequentialthinking-tools"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>Cursor配置</strong>：<br>在Cursor中，导航至 Settings &gt; Features &gt; MCP Servers，点击”+ Add New MCP Server”，选择stdio类型，输入：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">命令: npx -y mcp-sequentialthinking-tools<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>VS Code安装</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">code --install-mcp <span class="token string">"&#123;<span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>sequential-thinking<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>command<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>npx<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>args<span class="token entity" title="\&quot;">\"</span>:[<span class="token entity" title="\&quot;">\"</span>-y<span class="token entity" title="\&quot;">\"</span>,<span class="token entity" title="\&quot;">\"</span>mcp-sequentialthinking-tools<span class="token entity" title="\&quot;">\"</span>]&#125;"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p><strong>Claude Desktop配置</strong>：<br>在Claude Desktop中，进入设置，添加新的MCP服务器，使用以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"sequential-thinking"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"-y"</span><span class="token punctuation">,</span>
+        <span class="token string">"mcp-sequentialthinking-tools"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="主要功能-6"><a href="#主要功能-6" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>分解复杂问题为可管理步骤</li>
+<li>为每个步骤推荐合适的工具</li>
+<li>提供信心评分和工具推荐理由</li>
+<li>支持思考过程的分支和修订</li>
+</ul>
+<h3 id="使用场景-6"><a href="#使用场景-6" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>需要AI助手解决复杂问题</li>
+<li>需要AI助手进行系统性分析</li>
+<li>需要AI助手评估多种解决方案</li>
+</ul>
+<h1 id="三、MCP服务器的安装与配置"><a href="#三、MCP服务器的安装与配置" class="headerlink" title="三、MCP服务器的安装与配置"></a>三、MCP服务器的安装与配置</h1><h2 id="（一）安装前准备"><a href="#（一）安装前准备" class="headerlink" title="（一）安装前准备"></a>（一）安装前准备</h2><p>在安装MCP服务器之前，需要确保系统满足以下条件：</p>
+<ol>
+<li><strong>Node.js环境</strong>：大多数MCP服务器基于Node.js开发，需要安装Node.js和npm</li>
+<li><strong>Docker</strong>：某些MCP服务器提供Docker镜像，需要安装Docker</li>
+<li><strong>Python环境</strong>：Python相关的MCP服务器需要Python环境</li>
+<li><strong>API密钥</strong>：某些服务器（如搜索服务器）需要相应的API密钥</li>
+</ol>
+<h2 id="（二）安装方法"><a href="#（二）安装方法" class="headerlink" title="（二）安装方法"></a>（二）安装方法</h2><p>MCP服务器的安装方法通常有以下几种：</p>
+<h3 id="1-使用NPX直接运行"><a href="#1-使用NPX直接运行" class="headerlink" title="1. 使用NPX直接运行"></a>1. 使用NPX直接运行</h3><p>这是最简单的方法，无需本地安装，直接通过npx命令运行：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> @modelcontextprotocol/server-filesystem<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="2-使用Docker容器"><a href="#2-使用Docker容器" class="headerlink" title="2. 使用Docker容器"></a>2. 使用Docker容器</h3><p>对于提供Docker镜像的MCP服务器，可以通过Docker运行：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-i</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">-e</span> <span class="token assign-left variable">API_KEY</span><span class="token operator">=</span>your_key image_name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="3-本地安装"><a href="#3-本地安装" class="headerlink" title="3. 本地安装"></a>3. 本地安装</h3><p>先安装包，然后运行：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> package-name
+package-name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）配置方法"><a href="#（三）配置方法" class="headerlink" title="（三）配置方法"></a>（三）配置方法</h2><h3 id="1-Claude-Desktop配置"><a href="#1-Claude-Desktop配置" class="headerlink" title="1. Claude Desktop配置"></a>1. Claude Desktop配置</h3><p>在Claude Desktop中配置MCP服务器：</p>
+<ol>
+<li>打开Claude Desktop</li>
+<li>进入设置</li>
+<li>添加新的MCP服务器</li>
+<li>输入配置信息（命令、参数和环境变量）</li>
+</ol>
+<h3 id="2-Cursor编辑器配置"><a href="#2-Cursor编辑器配置" class="headerlink" title="2. Cursor编辑器配置"></a>2. Cursor编辑器配置</h3><p>在Cursor中配置MCP服务器：</p>
+<ol>
+<li>打开Cursor设置</li>
+<li>导航至Features &gt; MCP Servers</li>
+<li>点击”+ Add New MCP Server”</li>
+<li>选择类型（通常是stdio）</li>
+<li>输入命令和参数</li>
+</ol>
+<h3 id="3-VS-Code配置"><a href="#3-VS-Code配置" class="headerlink" title="3. VS Code配置"></a>3. VS Code配置</h3><p>在VS Code中配置MCP服务器：</p>
+<ol>
+<li>使用命令行安装MCP服务器</li>
+<li>或者在设置文件中添加配置</li>
+</ol>
+<h1 id="四、MCP服务器的应用实践"><a href="#四、MCP服务器的应用实践" class="headerlink" title="四、MCP服务器的应用实践"></a>四、MCP服务器的应用实践</h1><h2 id="（一）基本使用流程"><a href="#（一）基本使用流程" class="headerlink" title="（一）基本使用流程"></a>（一）基本使用流程</h2><p>使用MCP服务器的基本流程如下：</p>
+<ol>
+<li><strong>安装和配置</strong>：按照上述方法安装和配置MCP服务器</li>
+<li><strong>启动AI助手</strong>：打开支持MCP的AI助手（如Claude、Cursor中的Copilot）</li>
+<li><strong>使用工具</strong>：在对话中自然地描述需求，AI助手会自动调用相应的MCP工具</li>
+<li><strong>审阅结果</strong>：查看AI助手返回的结果，必要时提供反馈</li>
+</ol>
+<h2 id="（二）常见应用场景"><a href="#（二）常见应用场景" class="headerlink" title="（二）常见应用场景"></a>（二）常见应用场景</h2><h3 id="1-代码开发场景"><a href="#1-代码开发场景" class="headerlink" title="1. 代码开发场景"></a>1. 代码开发场景</h3><ul>
+<li>使用文件系统服务器读取和修改项目文件</li>
+<li>使用GitHub服务器管理代码仓库</li>
+<li>使用代码执行服务器测试代码片段</li>
+</ul>
+<h3 id="2-信息检索场景"><a href="#2-信息检索场景" class="headerlink" title="2. 信息检索场景"></a>2. 信息检索场景</h3><ul>
+<li>使用Web搜索服务器获取最新信息</li>
+<li>使用浏览器自动化服务器提取特定网站内容</li>
+</ul>
+<h3 id="3-自动化测试场景"><a href="#3-自动化测试场景" class="headerlink" title="3. 自动化测试场景"></a>3. 自动化测试场景</h3><ul>
+<li>使用Puppeteer或Playwright服务器进行UI自动化测试</li>
+<li>结合代码执行服务器进行端到端测试</li>
+</ul>
+<h3 id="4-问题解决场景"><a href="#4-问题解决场景" class="headerlink" title="4. 问题解决场景"></a>4. 问题解决场景</h3><ul>
+<li>使用顺序思考工具服务器分解复杂问题</li>
+<li>结合其他工具服务器实现完整解决方案</li>
+</ul>
+<h2 id="（三）最佳实践"><a href="#（三）最佳实践" class="headerlink" title="（三）最佳实践"></a>（三）最佳实践</h2><ol>
+<li><strong>组合使用</strong>：将多个MCP服务器组合使用，发挥协同效应</li>
+<li><strong>明确指令</strong>：向AI助手提供明确的指令，帮助其选择合适的工具</li>
+<li><strong>安全考虑</strong>：对于敏感操作，设置适当的权限限制</li>
+<li><strong>定期更新</strong>：保持MCP服务器的版本更新，获取最新功能和安全修复</li>
+</ol>
+<h1 id="五、MCP服务器开发指南"><a href="#五、MCP服务器开发指南" class="headerlink" title="五、MCP服务器开发指南"></a>五、MCP服务器开发指南</h1><h2 id="（一）开发环境设置"><a href="#（一）开发环境设置" class="headerlink" title="（一）开发环境设置"></a>（一）开发环境设置</h2><p>要开发自己的MCP服务器，需要准备以下环境：</p>
+<ol>
+<li><strong>Node.js或Python</strong>：根据偏好选择开发语言</li>
+<li><strong>MCP SDK</strong>：安装相应语言的MCP SDK<ul>
+<li>Node.js: <code>npm install @modelcontextprotocol/sdk</code></li>
+<li>Python: <code>pip install mcp</code></li>
+</ul>
+</li>
+<li><strong>开发工具</strong>：选择合适的IDE或编辑器</li>
+</ol>
+<h2 id="（二）基本开发流程"><a href="#（二）基本开发流程" class="headerlink" title="（二）基本开发流程"></a>（二）基本开发流程</h2><ol>
+<li><strong>定义功能</strong>：明确MCP服务器要提供的功能</li>
+<li><strong>实现工具</strong>：使用MCP SDK实现工具函数</li>
+<li><strong>定义资源</strong>：如果需要，实现资源访问功能</li>
+<li><strong>测试</strong>：使用MCP Inspector或AI助手测试服务器功能</li>
+<li><strong>发布</strong>：将MCP服务器发布为npm包或Python包</li>
+</ol>
+<h2 id="（三）示例代码"><a href="#（三）示例代码" class="headerlink" title="（三）示例代码"></a>（三）示例代码</h2><h3 id="Node-js示例"><a href="#Node-js示例" class="headerlink" title="Node.js示例"></a>Node.js示例</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">&#123;</span> Server <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@modelcontextprotocol/sdk'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 创建服务器</span>
+<span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Server</span><span class="token punctuation">(</span><span class="token string">'example-server'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 定义工具</span>
+server<span class="token punctuation">.</span><span class="token function">registerTool</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'hello'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">'返回问候信息'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">parameters</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'string'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">'要问候的名字'</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">handler</span><span class="token operator">:</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">params</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hello, </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>params<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">!</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 启动服务器</span>
+server<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="Python示例"><a href="#Python示例" class="headerlink" title="Python示例"></a>Python示例</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> mcp<span class="token punctuation">.</span>server<span class="token punctuation">.</span>fastmcp <span class="token keyword">import</span> FastMCP
+
+<span class="token comment"># 创建服务器</span>
+mcp <span class="token operator">=</span> FastMCP<span class="token punctuation">(</span><span class="token string">"Example"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 定义工具</span>
+<span class="token decorator annotation punctuation">@mcp<span class="token punctuation">.</span>tool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">hello</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""返回问候信息"""</span>
+    <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"Hello, </span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string">!"</span></span>
+
+<span class="token comment"># 启动服务器</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    mcp<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="六、MCP服务器的未来发展"><a href="#六、MCP服务器的未来发展" class="headerlink" title="六、MCP服务器的未来发展"></a>六、MCP服务器的未来发展</h1><h2 id="（一）技术趋势"><a href="#（一）技术趋势" class="headerlink" title="（一）技术趋势"></a>（一）技术趋势</h2><p>MCP服务器技术正在快速发展，未来可能会出现以下趋势：</p>
+<ol>
+<li><strong>更多专业领域服务器</strong>：针对特定行业或领域的专业MCP服务器</li>
+<li><strong>更强的安全机制</strong>：更完善的权限控制和安全审计</li>
+<li><strong>更好的互操作性</strong>：不同MCP服务器之间的协作能力</li>
+<li><strong>更智能的工具推荐</strong>：基于上下文自动推荐合适的工具</li>
+</ol>
+<h2 id="（二）应用前景"><a href="#（二）应用前景" class="headerlink" title="（二）应用前景"></a>（二）应用前景</h2><p>MCP服务器在以下领域有广阔的应用前景：</p>
+<ol>
+<li><strong>软件开发</strong>：代码生成、测试、部署自动化</li>
+<li><strong>数据分析</strong>：数据获取、清洗、分析、可视化</li>
+<li><strong>内容创作</strong>：研究、写作、设计、发布</li>
+<li><strong>知识管理</strong>：信息检索、组织、总结、分享</li>
+</ol>
+<h2 id="（三）参与贡献"><a href="#（三）参与贡献" class="headerlink" title="（三）参与贡献"></a>（三）参与贡献</h2><p>如果你对MCP服务器感兴趣，可以通过以下方式参与贡献：</p>
+<ol>
+<li><strong>使用现有服务器</strong>：提供使用反馈和改进建议</li>
+<li><strong>开发新服务器</strong>：针对特定需求开发新的MCP服务器</li>
+<li><strong>完善文档</strong>：帮助改进MCP服务器的文档</li>
+<li><strong>参与社区</strong>：加入MCP相关的开发者社区</li>
+</ol>
+<h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>MCP服务器作为AI模型与外部世界交互的桥梁，极大地扩展了AI助手的能力范围。通过本文介绍的七种常用MCP服务器，用户可以根据自己的需求选择合适的服务器，实现文件操作、网络搜索、代码执行、浏览器自动化等多种功能。</p>
+<p>随着MCP技术的不断发展，我们可以期待更多功能强大、易于使用的MCP服务器出现，为AI助手提供更广泛的能力，帮助用户更高效地完成各种任务。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/">Model Context Protocol官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude/docs/model-context-protocol-mcp">Anthropic Claude MCP指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/github/github-mcp-server">GitHub MCP Server文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yzfly/Awesome-MCP-ZH">Awesome MCP Servers中文版</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MCP/" class="print-no-link">#MCP</a>
+      
+        <a href="/tags/AI%E7%BC%96%E7%A8%8B/" class="print-no-link">#AI编程</a>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="print-no-link">#开发工具</a>
+      
+        <a href="/tags/Cursor/" class="print-no-link">#Cursor</a>
+      
+        <a href="/tags/%E5%B7%A5%E5%85%B7%E9%9B%86%E6%88%90/" class="print-no-link">#工具集成</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93Comparison%20method%20violates%20its%20general%20contract%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3/" title="【BUG解决】数据库Comparison method violates its general contract错误分析与解决">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【BUG解决】数据库Comparison method violates its general contract错误分析与解决</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90AI%E3%80%91MCP%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" title="【AI】MCP协议详解与应用实践">
+                        <span class="hidden-mobile">【AI】MCP协议详解与应用实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

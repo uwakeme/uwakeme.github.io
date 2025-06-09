@@ -1,0 +1,1772 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、准备环境 首先要看服务器是什么系统，笔者所用的是Centos7系统，所以以下也是在Centos7下的操作。  如果是Ubantu可以参考最后的链接  查看服务器信息 uname -a          # 查看系统内核信息 lsb_release -a    # 如果是 Linux 系统，查看发行版本 df -h             # 查看磁盘空间 free -m           #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LINUX】在一台空服务器上部署网页系统">
+<meta property="og:url" content="https://uwakeme.top/2024/12/16/%E3%80%90LINUX%E3%80%91%E5%9C%A8%E4%B8%80%E5%8F%B0%E7%A9%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、准备环境 首先要看服务器是什么系统，笔者所用的是Centos7系统，所以以下也是在Centos7下的操作。  如果是Ubantu可以参考最后的链接  查看服务器信息 uname -a          # 查看系统内核信息 lsb_release -a    # 如果是 Linux 系统，查看发行版本 df -h             # 查看磁盘空间 free -m           #">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.301Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="LINUX">
+<meta property="article:tag" content="虚拟机">
+<meta property="article:tag" content="NGINX">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【LINUX】在一台空服务器上部署网页系统 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【LINUX】在一台空服务器上部署网页系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-16 00:00" pubdate>
+          2024-12-16 00:00
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【LINUX】在一台空服务器上部署网页系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、准备环境"><a href="#一、准备环境" class="headerlink" title="一、准备环境"></a>一、准备环境</h2><ul>
+<li><p>首先要看服务器是什么系统，笔者所用的是Centos7系统，所以以下也是在Centos7下的操作。</p>
+</li>
+<li><p>如果是Ubantu可以参考最后的链接</p>
+</li>
+<li><p>查看服务器信息</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">uname</span> <span class="token parameter variable">-a</span>          <span class="token comment"># 查看系统内核信息</span>
+lsb_release <span class="token parameter variable">-a</span>    <span class="token comment"># 如果是 Linux 系统，查看发行版本</span>
+<span class="token function">df</span> <span class="token parameter variable">-h</span>             <span class="token comment"># 查看磁盘空间</span>
+<span class="token function">free</span> <span class="token parameter variable">-m</span>           <span class="token comment"># 查看内存使用情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>虽然说是空环境，但是在服务器上面可能还有很多东西需要配置、安装，比如yum配置源等。</p>
+</li>
+<li><p>检查软件安装状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">--version</span>    <span class="token comment"># 检查 MySQL 是否已安装</span>
+nginx <span class="token parameter variable">-v</span>           <span class="token comment"># 检查 Nginx 是否已安装</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span>      <span class="token comment"># 检查 Java 是否已安装</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+<h2 id="二、安装部署所需的软件"><a href="#二、安装部署所需的软件" class="headerlink" title="二、安装部署所需的软件"></a>二、安装部署所需的软件</h2><ul>
+<li>本次部署的服务器可以连接互联网，所以本次部署采用的安装也是<strong>在线安装</strong>。</li>
+<li>如果发现yum安装依赖时连接失败或安装错误，可以查询一下看看是不是yum源没有配置。</li>
+</ul>
+<h3 id="（一）MYSQL"><a href="#（一）MYSQL" class="headerlink" title="（一）MYSQL"></a>（一）MYSQL</h3><ul>
+<li>MySQL是一个关系型数据库管理系统，是网站系统中常用的数据库软件。</li>
+</ul>
+<ol>
+<li>安装MySQL服务器</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装MySQL官方的yum源</span>
+<span class="token function">wget</span> https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+
+<span class="token comment"># 安装rpm包</span>
+<span class="token function">rpm</span> <span class="token parameter variable">-ivh</span> mysql80-community-release-el7-3.noarch.rpm
+
+<span class="token comment"># 安装MySQL服务器</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> mysql-server
+
+<span class="token comment"># 离线安装步骤（适用于无网络环境）</span>
+<span class="token comment"># 1. 在有网络的机器下载所需rpm包：</span>
+<span class="token comment"># repotrack mysql-server mysql-client</span>
+<span class="token comment"># 2. 将rpm包传输到服务器</span>
+<span class="token comment"># 3. 创建本地yum源：</span>
+<span class="token comment"># mkdir /local_repo</span>
+<span class="token comment"># cp *.rpm /local_repo</span>
+<span class="token comment"># createrepo /local_repo</span>
+<span class="token comment"># 4. 配置本地源：</span>
+<span class="token comment"># cat > /etc/yum.repos.d/mysql-local.repo &lt;&lt; EOF</span>
+<span class="token comment"># [mysql-local]</span>
+<span class="token comment"># name=MySQL Local Repo</span>
+<span class="token comment"># baseurl=file:///local_repo</span>
+<span class="token comment"># enabled=1</span>
+<span class="token comment"># gpgcheck=0</span>
+<span class="token comment"># EOF</span>
+<span class="token comment"># 5. 清除缓存并安装：</span>
+<span class="token comment"># yum clean all</span>
+<span class="token comment"># yum install -y mysql-server</span>
+
+<span class="token comment"># 启动MySQL服务</span>
+systemctl start mysqld
+
+<span class="token comment"># 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> mysqld
+
+<span class="token comment"># 查看MySQL状态</span>
+systemctl status mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>配置MySQL</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看MySQL初始密码</span>
+<span class="token function">grep</span> <span class="token string">'temporary password'</span> /var/log/mysqld.log
+
+<span class="token comment"># 登录MySQL</span>
+mysql <span class="token parameter variable">-uroot</span> <span class="token parameter variable">-p</span>
+
+<span class="token comment"># 修改密码（在MySQL命令行中执行）</span>
+ALTER <span class="token environment constant">USER</span> <span class="token string">'root'</span>@<span class="token string">'localhost'</span> IDENTIFIED BY <span class="token string">'新密码'</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 创建远程访问用户（在MySQL命令行中执行）</span>
+CREATE <span class="token environment constant">USER</span> <span class="token string">'用户名'</span>@<span class="token string">'%'</span> IDENTIFIED BY <span class="token string">'密码'</span><span class="token punctuation">;</span>
+GRANT ALL PRIVILEGES ON *.* TO <span class="token string">'用户名'</span>@<span class="token string">'%'</span><span class="token punctuation">;</span>
+FLUSH PRIVILEGES<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>配置MySQL安全设置</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 运行安全配置脚本</span>
+mysql_secure_installation<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>按照提示进行配置：</p>
+<ul>
+<li>设置root密码复杂度</li>
+<li>删除匿名用户</li>
+<li>禁止root远程登录</li>
+<li>删除测试数据库</li>
+<li>重新加载权限表</li>
+</ul>
+<ol start="4">
+<li>调整MySQL配置文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编辑配置文件</span>
+<span class="token function">vi</span> /etc/my.cnf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>添加或修改以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">[mysqld]
+character-set-server&#x3D;utf8mb4
+collation-server&#x3D;utf8mb4_unicode_ci
+default-storage-engine&#x3D;INNODB
+max_connections&#x3D;1000
+innodb_buffer_pool_size&#x3D;1G<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>重启MySQL使配置生效：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）NGINX"><a href="#（二）NGINX" class="headerlink" title="（二）NGINX"></a>（二）NGINX</h3><ul>
+<li>Nginx是一个高性能的HTTP和反向代理服务器，常用于部署前端应用和反向代理后端服务。</li>
+</ul>
+<h4 id="1-本地仓库安装（推荐批量部署）"><a href="#1-本地仓库安装（推荐批量部署）" class="headerlink" title="1. 本地仓库安装（推荐批量部署）"></a>1. 本地仓库安装（推荐批量部署）</h4><ol>
+<li>安装Nginx</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装Nginx的yum源</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/yum.repos.d/nginx.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[nginx]
+name=nginx repo
+baseurl=https://nginx.org/packages/centos/7/\<span class="token variable">$basearch</span>/
+gpgcheck=0
+enabled=1
+EOF</span>
+
+<span class="token comment"># 安装Nginx</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> nginx
+
+<span class="token comment"># 离线安装方法（适用于无网络环境）：</span>
+<span class="token comment"># 1. 在有网络的设备下载完整rpm包：</span>
+<span class="token comment"># reposync --repoid=nginx -p /path/to/download</span>
+<span class="token comment"># 2. 创建本地仓库：</span>
+<span class="token comment"># createrepo /path/to/download/nginx</span>
+<span class="token comment"># 3. 配置本地源：</span>
+<span class="token comment"># cat > /etc/yum.repos.d/nginx-local.repo &lt;&lt; EOF</span>
+<span class="token comment"># [nginx-local]</span>
+<span class="token comment"># name=nginx local repository</span>
+<span class="token comment"># baseurl=file:///path/to/download/nginx</span>
+<span class="token comment"># enabled=1</span>
+<span class="token comment"># gpgcheck=0</span>
+<span class="token comment"># EOF</span>
+<span class="token comment"># 4. 清除缓存并安装：</span>
+<span class="token comment"># yum clean all</span>
+<span class="token comment"># yum install -y nginx</span>
+
+<span class="token comment"># 启动Nginx</span>
+systemctl start nginx
+
+<span class="token comment"># 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> nginx
+
+<span class="token comment"># 查看Nginx状态</span>
+systemctl status nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-离线安装Nginx（使用tar-gz包）"><a href="#2-离线安装Nginx（使用tar-gz包）" class="headerlink" title="2. 离线安装Nginx（使用tar.gz包）"></a>2. 离线安装Nginx（使用tar.gz包）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 准备工作：在有网络的机器上下载Nginx</span>
+<span class="token comment"># 下载地址：http://nginx.org/download/nginx-1.20.2.tar.gz</span>
+
+<span class="token comment"># 1. 安装编译所需的依赖包</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> gcc gcc-c++ <span class="token function">make</span> pcre pcre-devel zlib zlib-devel openssl openssl-devel
+
+<span class="token comment"># 2. 将下载好的nginx-1.20.2.tar.gz上传到服务器</span>
+
+<span class="token comment"># 3. 解压安装包</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> nginx-1.20.2.tar.gz
+<span class="token builtin class-name">cd</span> nginx-1.20.2
+
+<span class="token comment"># 4. 配置安装选项</span>
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span>/usr/local/nginx <span class="token punctuation">\</span>
+--with-http_ssl_module <span class="token punctuation">\</span>
+            --with-http_stub_status_module <span class="token punctuation">\</span>
+--with-http_gzip_static_module
+
+<span class="token comment"># 5. 编译安装</span>
+<span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span>
+
+<span class="token comment"># 6. 创建软链接</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /usr/local/nginx/sbin/nginx /usr/bin/nginx
+
+<span class="token comment"># 7. 创建systemd服务文件</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/systemd/system/nginx.service <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/nginx/logs/nginx.pid
+ExecStartPre=/usr/local/nginx/sbin/nginx -t
+ExecStart=/usr/local/nginx/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT \<span class="token variable">$MAINPID</span>
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+EOF</span>
+
+<span class="token comment"># 8. 重新加载systemd配置</span>
+systemctl daemon-reload
+
+<span class="token comment"># 9. 启动Nginx</span>
+systemctl start nginx
+
+<span class="token comment"># 10. 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> nginx
+
+<span class="token comment"># 11. 查看Nginx状态</span>
+systemctl status nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>配置防火墙（如果开启了防火墙）</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开放80端口</span>
+firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">80</span>/tcp
+
+<span class="token comment"># 开放443端口（如果需要HTTPS）</span>
+firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">443</span>/tcp
+
+<span class="token comment"># 重新加载防火墙配置</span>
+firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>配置Nginx</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编辑Nginx主配置文件</span>
+<span class="token function">vi</span> /etc/nginx/nginx.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>基本配置示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">user  nginx;
+worker_processes  auto;
+
+error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log warn;
+pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+http &#123;
+    include       &#x2F;etc&#x2F;nginx&#x2F;mime.types;
+    default_type  application&#x2F;octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;
+
+    sendfile        on;
+    tcp_nopush      on;
+    tcp_nodelay     on;
+    keepalive_timeout  65;
+    types_hash_max_size 2048;
+    gzip  on;
+
+    include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>创建网站配置文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建网站配置文件</span>
+<span class="token function">vi</span> /etc/nginx/conf.d/mywebsite.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>配置示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">server &#123;
+    listen       80;
+    server_name  example.com www.example.com;
+
+    # 前端静态文件目录
+    location &#x2F; &#123;
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;mywebsite;
+        index  index.html index.htm;
+        try_files $uri $uri&#x2F; &#x2F;index.html;
+    &#125;
+
+    # 后端API代理
+    location &#x2F;api&#x2F; &#123;
+        proxy_pass http:&#x2F;&#x2F;localhost:8080&#x2F;;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    &#125;
+
+    # 错误页面
+    error_page   500 502 503 504  &#x2F;50x.html;
+    location &#x3D; &#x2F;50x.html &#123;
+        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="5">
+<li>测试配置并重启Nginx</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 测试配置文件语法</span>
+nginx <span class="token parameter variable">-t</span>
+
+<span class="token comment"># 重新加载配置</span>
+systemctl reload nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）JDK"><a href="#（三）JDK" class="headerlink" title="（三）JDK"></a>（三）JDK</h3><ul>
+<li>JDK（Java Development Kit）是Java开发工具包，用于运行Java应用程序。</li>
+</ul>
+<h4 id="1-在线安装OpenJDK（推荐）"><a href="#1-在线安装OpenJDK（推荐）" class="headerlink" title="1. 在线安装OpenJDK（推荐）"></a>1. 在线安装OpenJDK（推荐）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看可用的JDK版本</span>
+yum list available java*
+
+<span class="token comment"># 安装JDK 11（推荐版本）</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> java-11-openjdk-devel
+
+<span class="token comment"># 验证安装</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span>
+javac <span class="token parameter variable">-version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="2-离线安装JDK（使用tar-gz包）"><a href="#2-离线安装JDK（使用tar-gz包）" class="headerlink" title="2. 离线安装JDK（使用tar.gz包）"></a>2. 离线安装JDK（使用tar.gz包）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 准备工作：在Oracle官网下载JDK安装包</span>
+<span class="token comment"># 下载地址：https://www.oracle.com/java/technologies/javase-downloads.html</span>
+<span class="token comment"># 选择JDK 11或JDK 8的Linux x64 tar.gz版本</span>
+
+<span class="token comment"># 1. 将下载好的jdk-11.0.14_linux-x64_bin.tar.gz上传到服务器</span>
+
+<span class="token comment"># 2. 创建安装目录</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/local/java
+
+<span class="token comment"># 3. 解压JDK到安装目录</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> jdk-11.0.14_linux-x64_bin.tar.gz <span class="token parameter variable">-C</span> /usr/local/java/
+
+<span class="token comment"># 4. 设置环境变量</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/profile.d/java.sh <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+export JAVA_HOME=/usr/local/java/jdk-11.0.14
+export PATH=\<span class="token environment constant">$PATH</span>:\<span class="token variable">$JAVA_HOME</span>/bin
+export CLASSPATH=.:\<span class="token variable">$JAVA_HOME</span>/lib/dt.jar:\<span class="token variable">$JAVA_HOME</span>/lib/tools.jar
+EOF</span>
+
+<span class="token comment"># 5. 使环境变量生效</span>
+<span class="token builtin class-name">source</span> /etc/profile.d/java.sh
+
+<span class="token comment"># 6. 验证安装</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span>
+javac <span class="token parameter variable">-version</span>
+
+<span class="token comment"># 7. 设置系统默认Java</span>
+alternatives <span class="token parameter variable">--install</span> /usr/bin/java <span class="token function">java</span> <span class="token punctuation">\</span><span class="token variable">$JAVA_HOME</span>/bin/java <span class="token number">1</span>
+alternatives <span class="token parameter variable">--install</span> /usr/bin/javac javac <span class="token punctuation">\</span><span class="token variable">$JAVA_HOME</span>/bin/javac <span class="token number">1</span>
+alternatives <span class="token parameter variable">--install</span> /usr/bin/jar jar <span class="token punctuation">\</span><span class="token variable">$JAVA_HOME</span>/bin/jar <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>配置Java环境变量</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编辑环境变量配置文件</span>
+<span class="token function">vi</span> /etc/profile.d/java.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>添加以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">dirname</span> <span class="token punctuation">$(</span>dirname <span class="token punctuation">$(</span>readlink <span class="token parameter variable">-f</span> <span class="token punctuation">$(</span>which <span class="token function">java</span><span class="token punctuation">)</span><span class="token variable">)</span></span><span class="token punctuation">))</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$JAVA_HOME</span>/bin
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CLASSPATH</span><span class="token operator">=</span>.:<span class="token variable">$JAVA_HOME</span>/lib/dt.jar:<span class="token variable">$JAVA_HOME</span>/lib/tools.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>使环境变量生效：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /etc/profile.d/java.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>验证环境变量</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）MongoDB（如有必要）"><a href="#（四）MongoDB（如有必要）" class="headerlink" title="（四）MongoDB（如有必要）"></a>（四）MongoDB（如有必要）</h3><ul>
+<li>MongoDB是一个基于分布式文件存储的NoSQL数据库。</li>
+</ul>
+<ol>
+<li>安装MongoDB</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建MongoDB的yum源</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/yum.repos.d/mongodb-org.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[mongodb-org-4.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+EOF</span>
+
+<span class="token comment"># 安装MongoDB</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> mongodb-org
+
+<span class="token comment"># 启动MongoDB服务</span>
+systemctl start mongod
+
+<span class="token comment"># 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> mongod
+
+<span class="token comment"># 查看MongoDB状态</span>
+systemctl status mongod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>配置MongoDB</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编辑MongoDB配置文件</span>
+<span class="token function">vi</span> /etc/mongod.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>修改以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># 网络设置</span>
+<span class="token key atrule">net</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">27017</span>
+  <span class="token key atrule">bindIp</span><span class="token punctuation">:</span> 127.0.0.1  <span class="token comment"># 改为0.0.0.0允许远程连接</span>
+
+<span class="token comment"># 安全设置</span>
+<span class="token key atrule">security</span><span class="token punctuation">:</span>
+  <span class="token key atrule">authorization</span><span class="token punctuation">:</span> enabled  <span class="token comment"># 启用访问控制</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>创建管理员用户</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 连接到MongoDB</span>
+mongo
+
+<span class="token comment"># 在MongoDB shell中执行</span>
+use admin
+db.createUser<span class="token punctuation">(</span>
+  <span class="token punctuation">&#123;</span>
+    user: <span class="token string">"adminUser"</span>,
+    pwd: <span class="token string">"password"</span>,
+    roles: <span class="token punctuation">[</span> <span class="token punctuation">&#123;</span> role: <span class="token string">"userAdminAnyDatabase"</span>, db: <span class="token string">"admin"</span> <span class="token punctuation">&#125;</span>, <span class="token string">"readWriteAnyDatabase"</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>重启MongoDB使配置生效</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart mongod<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）Redis（如有必要）"><a href="#（五）Redis（如有必要）" class="headerlink" title="（五）Redis（如有必要）"></a>（五）Redis（如有必要）</h3><ul>
+<li>Redis是一个开源的内存数据库，常用于缓存、会话存储等场景。</li>
+</ul>
+<ol>
+<li>安装Redis</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装EPEL源</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> epel-release
+
+<span class="token comment"># 安装Redis</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> redis
+
+<span class="token comment"># 启动Redis服务</span>
+systemctl start redis
+
+<span class="token comment"># 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> redis
+
+<span class="token comment"># 查看Redis状态</span>
+systemctl status redis<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>配置Redis</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编辑Redis配置文件</span>
+<span class="token function">vi</span> /etc/redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>修改以下配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none"># 绑定地址（默认只允许本地访问）
+bind 127.0.0.1
+
+# 设置密码
+requirepass yourpassword
+
+# 持久化设置
+save 900 1
+save 300 10
+save 60 10000
+
+# 最大内存使用
+maxmemory 256mb
+maxmemory-policy allkeys-lru<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>重启Redis使配置生效</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart redis<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>测试Redis连接</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-cli
+auth yourpassword
+<span class="token function">ping</span>  <span class="token comment"># 应返回PONG</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（六）RabbitMQ（如有必要）"><a href="#（六）RabbitMQ（如有必要）" class="headerlink" title="（六）RabbitMQ（如有必要）"></a>（六）RabbitMQ（如有必要）</h3><ul>
+<li>RabbitMQ是一个开源的消息队列服务器，用于应用程序之间的通信。</li>
+</ul>
+<ol>
+<li>安装Erlang（RabbitMQ依赖）</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看EPEL仓库中可用的Erlang版本</span>
+yum info erlang
+
+<span class="token comment"># 输出示例：</span>
+<span class="token comment"># Name        : erlang</span>
+<span class="token comment"># Arch        : x86_64</span>
+<span class="token comment"># Version     : R16B</span>
+<span class="token comment"># Release     : 03.18.el7</span>
+<span class="token comment"># ...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>EPEL仓库提供的Erlang版本为R16B-03.18.el7，这个版本非常旧（发布于2013年左右），而现代版本的RabbitMQ（如3.10.0+）需要至少Erlang 23.2或更高版本。这就是为什么使用EPEL仓库安装的Erlang后，再安装RabbitMQ时会报错：<code>Requires: erlang &gt;= 23.2</code>。</p>
+<p>解决方案是完全卸载旧版本并安装新版本：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 完全卸载旧版本Erlang</span>
+yum remove <span class="token parameter variable">-y</span> erlang erlang-*
+
+<span class="token comment"># 方法二：使用RabbitMQ官方提供的Erlang仓库（推荐）</span>
+<span class="token comment"># 配置Erlang解决方案仓库</span>
+<span class="token function">curl</span> <span class="token parameter variable">-s</span> https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
+
+<span class="token comment"># 或者手动添加仓库</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/yum.repos.d/rabbitmq-erlang.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[rabbitmq-erlang]
+name=rabbitmq-erlang
+baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/\<span class="token variable">$basearch</span>
+gpgcheck=1
+gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
+repo_gpgcheck=0
+enabled=1
+EOF</span>
+
+<span class="token comment"># 导入所有相关GPG密钥（包括PackageCloud的主要密钥和特定仓库密钥）</span>
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://packagecloud.io/rabbitmq/erlang/gpgkey
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://packagecloud.io/gpg.key
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+
+<span class="token comment"># 刷新yum缓存，使新添加的仓库生效</span>
+yum clean all
+yum makecache
+
+<span class="token comment"># 确认可安装的Erlang版本（应该会显示23.x或更高版本）</span>
+yum info erlang
+
+<span class="token comment"># 安装新版Erlang</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> erlang
+
+<span class="token comment"># **推荐方案**：如果GPG密钥验证仍然出错，可以使用以下命令忽略GPG检查安装</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token parameter variable">--nogpgcheck</span> erlang
+
+<span class="token comment"># 验证安装的Erlang版本（应该是23.x或更高版本）</span>
+erl <span class="token parameter variable">-version</span>
+
+<span class="token comment"># 备选方案：如果仍然遇到问题，可以直接下载Erlang RPM包安装</span>
+<span class="token comment"># 下载特定版本的Erlang RPM包</span>
+<span class="token function">wget</span> https://github.com/rabbitmq/erlang-rpm/releases/download/v23.3.4.11/erlang-23.3.4.11-1.el7.x86_64.rpm
+
+<span class="token comment"># 使用rpm命令直接安装，忽略依赖和GPG验证</span>
+<span class="token function">rpm</span> <span class="token parameter variable">-ivh</span> <span class="token parameter variable">--nodeps</span> erlang-23.3.4.11-1.el7.x86_64.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>安装RabbitMQ</li>
+</ol>
+<p>安装完新版Erlang后，可以继续安装RabbitMQ：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加RabbitMQ仓库</span>
+<span class="token function">curl</span> <span class="token parameter variable">-s</span> https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">bash</span>
+
+<span class="token comment"># 或手动配置RabbitMQ仓库</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/yum.repos.d/rabbitmq.repo <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+[rabbitmq_rabbitmq-server]
+name=rabbitmq_rabbitmq-server
+baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/\<span class="token variable">$basearch</span>
+gpgcheck=1
+enabled=1
+gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+EOF</span>
+
+<span class="token comment"># 导入所有相关GPG密钥（包括PackageCloud的主要密钥和特定仓库密钥）</span>
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://packagecloud.io/gpg.key
+<span class="token function">rpm</span> <span class="token parameter variable">--import</span> https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
+
+<span class="token comment"># 清除YUM缓存</span>
+yum clean all
+<span class="token comment"># 重建缓存</span>
+yum makecache
+
+<span class="token comment"># 安装RabbitMQ 3.8.x（与Erlang 23.x兼容性最好）</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> rabbitmq-server-3.8.9
+
+<span class="token comment"># **推荐方案**：如果GPG密钥验证仍然出错，可以使用以下命令忽略GPG检查安装</span>
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token parameter variable">--nogpgcheck</span> rabbitmq-server-3.8.9
+
+<span class="token comment"># 如果上述命令无法找到特定版本，可以使用以下命令列出可用版本</span>
+<span class="token comment"># yum list --showduplicates rabbitmq-server</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>启动RabbitMQ服务并配置</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启动RabbitMQ服务</span>
+systemctl start rabbitmq-server
+
+<span class="token comment"># 设置开机自启动</span>
+systemctl <span class="token builtin class-name">enable</span> rabbitmq-server
+
+<span class="token comment"># 查看RabbitMQ状态</span>
+systemctl status rabbitmq-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>启用RabbitMQ管理插件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启用RabbitMQ管理界面插件</span>
+rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_management
+
+<span class="token comment"># 重启RabbitMQ服务以应用更改</span>
+systemctl restart rabbitmq-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>完成后，可以通过浏览器访问RabbitMQ管理界面：http:&#x2F;&#x2F;服务器IP:15672</p>
+<ol start="5">
+<li>创建RabbitMQ管理用户</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建管理员用户（将 'admin' 和 'password' 替换为您想要的用户名和密码）</span>
+rabbitmqctl add_user admin password
+
+<span class="token comment"># 设置用户角色为管理员</span>
+rabbitmqctl set_user_tags admin administrator
+
+<span class="token comment"># 设置用户权限（允许访问所有虚拟主机）</span>
+rabbitmqctl set_permissions <span class="token parameter variable">-p</span> / admin <span class="token string">".*"</span> <span class="token string">".*"</span> <span class="token string">".*"</span>
+
+<span class="token comment"># 列出所有用户</span>
+rabbitmqctl list_users<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="6">
+<li>创建应用程序专用用户</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建应用程序使用的用户</span>
+rabbitmqctl add_user app_user app_password
+
+<span class="token comment"># 设置为普通用户（不需要管理权限）</span>
+rabbitmqctl set_user_tags app_user
+
+<span class="token comment"># 设置用户权限</span>
+rabbitmqctl set_permissions <span class="token parameter variable">-p</span> / app_user <span class="token string">".*"</span> <span class="token string">".*"</span> <span class="token string">".*"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="7">
+<li>管理虚拟主机</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建新的虚拟主机</span>
+rabbitmqctl add_vhost my_vhost
+
+<span class="token comment"># 为用户设置特定虚拟主机的权限</span>
+rabbitmqctl set_permissions <span class="token parameter variable">-p</span> my_vhost app_user <span class="token string">".*"</span> <span class="token string">".*"</span> <span class="token string">".*"</span>
+
+<span class="token comment"># 列出所有虚拟主机</span>
+rabbitmqctl list_vhosts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="8">
+<li>常见命令和操作</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看RabbitMQ状态</span>
+rabbitmqctl status
+
+<span class="token comment"># 查看集群状态</span>
+rabbitmqctl cluster_status
+
+<span class="token comment"># 列出所有队列</span>
+rabbitmqctl list_queues
+
+<span class="token comment"># 列出所有交换机</span>
+rabbitmqctl list_exchanges
+
+<span class="token comment"># 列出所有绑定</span>
+rabbitmqctl list_bindings
+
+<span class="token comment"># 查看特定虚拟主机中的所有队列</span>
+rabbitmqctl list_queues <span class="token parameter variable">-p</span> my_vhost
+
+<span class="token comment"># 删除用户</span>
+rabbitmqctl delete_user username
+
+<span class="token comment"># 修改用户密码</span>
+rabbitmqctl change_password username newpassword
+
+<span class="token comment"># 删除虚拟主机</span>
+rabbitmqctl delete_vhost vhost_name
+
+<span class="token comment"># 清除特定队列的消息</span>
+rabbitmqctl purge_queue queue_name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="9">
+<li>设置防火墙规则（如果启用了防火墙）</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开放RabbitMQ管理界面端口</span>
+firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">15672</span>/tcp
+
+<span class="token comment"># 开放RabbitMQ消息传递端口</span>
+firewall-cmd <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span><span class="token number">5672</span>/tcp
+
+<span class="token comment"># 重新加载防火墙配置</span>
+firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="10">
+<li>故障排查</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看RabbitMQ日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/rabbitmq/rabbit@<span class="token variable"><span class="token variable">$(</span><span class="token function">hostname</span> <span class="token parameter variable">-s</span><span class="token variable">)</span></span>.log
+
+<span class="token comment"># 查看系统日志中的RabbitMQ相关条目</span>
+  journalctl <span class="token parameter variable">-u</span> rabbitmq-server
+  
+<span class="token comment"># 检查RabbitMQ进程</span>
+<span class="token function">ps</span> aux <span class="token operator">|</span> <span class="token function">grep</span> rabbit
+
+<span class="token comment"># 检查RabbitMQ的端口是否正在监听</span>
+ss <span class="token parameter variable">-tunlp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">5672</span>
+  ss <span class="token parameter variable">-tunlp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">15672</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="11">
+<li>解决常见登录问题</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 问题：User can only log in via localhost</span>
+
+<span class="token comment"># 这个问题通常发生在使用默认的guest用户远程登录时</span>
+<span class="token comment"># RabbitMQ 3.3.0及以后版本出于安全考虑，默认的guest用户只允许从localhost登录</span>
+
+<span class="token comment"># 解决方案1：创建新的管理员用户</span>
+rabbitmqctl add_user admin strong_password
+rabbitmqctl set_user_tags admin administrator
+rabbitmqctl set_permissions <span class="token parameter variable">-p</span> / admin <span class="token string">".*"</span> <span class="token string">".*"</span> <span class="token string">".*"</span>
+
+<span class="token comment"># 解决方案2：修改RabbitMQ配置允许guest用户远程登录（不推荐，安全风险）</span>
+<span class="token comment"># 编辑配置文件</span>
+<span class="token function">vi</span> /etc/rabbitmq/rabbitmq.conf
+<span class="token comment"># 如果不存在此文件，则创建它</span>
+<span class="token function">touch</span> /etc/rabbitmq/rabbitmq.conf
+
+<span class="token comment"># 添加以下配置行</span>
+<span class="token comment"># loopback_users = none</span>
+
+<span class="token comment"># 或者使用以下命令一次性创建/修改配置</span>
+<span class="token function">cat</span> <span class="token operator">></span> /etc/rabbitmq/rabbitmq.conf <span class="token operator">&lt;&lt;</span> <span class="token string">EOF
+loopback_users = none
+EOF</span>
+
+<span class="token comment"># 重启RabbitMQ服务</span>
+systemctl restart rabbitmq-server
+  
+<span class="token comment"># 解决方案3：临时允许guest用户远程登录（不创建rabbitmq.conf文件）</span>
+rabbitmqctl <span class="token builtin class-name">eval</span> <span class="token string">'application:set_env(rabbit, loopback_users, []).'</span>
+<span class="token comment"># 重启服务使更改生效</span>
+systemctl restart rabbitmq-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="三、准备部署所必需的资源"><a href="#三、准备部署所必需的资源" class="headerlink" title="三、准备部署所必需的资源"></a>三、准备部署所必需的资源</h2><h3 id="（一）数据库"><a href="#（一）数据库" class="headerlink" title="（一）数据库"></a>（一）数据库</h3><ul>
+<li>在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。</li>
+</ul>
+<ol>
+<li>准备SQL脚本文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建存放SQL脚本的目录</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>上传SQL脚本文件</li>
+</ol>
+<p>可以使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的<code>/opt/deploy/sql</code>目录。</p>
+<ol start="3">
+<li>导入数据库脚本</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 登录MySQL</span>
+mysql -u用户名 -p密码
+
+<span class="token comment"># 在MySQL命令行中执行</span>
+<span class="token builtin class-name">source</span> /opt/deploy/sql/create_database.sql
+<span class="token builtin class-name">source</span> /opt/deploy/sql/create_tables.sql
+<span class="token builtin class-name">source</span> /opt/deploy/sql/init_data.sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）前端打包"><a href="#（二）前端打包" class="headerlink" title="（二）前端打包"></a>（二）前端打包</h3><ul>
+<li>前端项目通常需要打包后部署到Nginx服务器上。</li>
+</ul>
+<ol>
+<li>准备前端打包文件</li>
+</ol>
+<p>在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在前端项目目录中执行</span>
+<span class="token function">npm</span> run build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>上传打包文件</li>
+</ol>
+<p>使用SFTP工具将打包生成的文件（通常在dist或build目录）上传到服务器：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在服务器上创建存放前端文件的目录</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /usr/share/nginx/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>解压前端文件（如果是压缩包）</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压前端文件到Nginx目录</span>
+<span class="token function">unzip</span> frontend.zip <span class="token parameter variable">-d</span> /usr/share/nginx/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）后端打包"><a href="#（三）后端打包" class="headerlink" title="（三）后端打包"></a>（三）后端打包</h3><ul>
+<li>后端Java项目通常打包为JAR或WAR文件部署。</li>
+</ul>
+<ol>
+<li>准备后端打包文件</li>
+</ol>
+<p>在本地开发环境中，使用Maven或Gradle打包后端项目：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Maven打包</span>
+mvn clean package <span class="token parameter variable">-Dmaven.test.skip</span><span class="token operator">=</span>true
+
+<span class="token comment"># 或Gradle打包</span>
+gradle build <span class="token parameter variable">-x</span> <span class="token builtin class-name">test</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>上传后端JAR文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在服务器上创建存放后端文件的目录</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/backend<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>使用SFTP工具将JAR文件上传到服务器的<code>/opt/deploy/backend</code>目录。</p>
+<ol start="3">
+<li>准备配置文件</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建配置文件目录</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/backend/config
+
+<span class="token comment"># 创建应用配置文件</span>
+<span class="token function">vi</span> /opt/deploy/backend/config/application.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>配置文件示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>3306/mydb<span class="token punctuation">?</span>useUnicode=true<span class="token important">&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> dbuser
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> dbpassword
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+  
+  <span class="token comment"># Redis配置（如果使用）</span>
+  <span class="token key atrule">redis</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">6379</span>
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> redispassword
+    <span class="token key atrule">database</span><span class="token punctuation">:</span> <span class="token number">0</span>
+    
+  <span class="token comment"># MongoDB配置（如果使用）</span>
+  <span class="token key atrule">data</span><span class="token punctuation">:</span>
+    <span class="token key atrule">mongodb</span><span class="token punctuation">:</span>
+      <span class="token key atrule">uri</span><span class="token punctuation">:</span> mongodb<span class="token punctuation">:</span>//user<span class="token punctuation">:</span>password@localhost<span class="token punctuation">:</span>27017/mydb
+      
+  <span class="token comment"># RabbitMQ配置（如果使用）</span>
+  <span class="token key atrule">rabbitmq</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">5672</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> admin
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> password
+    <span class="token key atrule">virtual-host</span><span class="token punctuation">:</span> /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="四、部署资源并调试"><a href="#四、部署资源并调试" class="headerlink" title="四、部署资源并调试"></a>四、部署资源并调试</h2><h3 id="（一）数据库-1"><a href="#（一）数据库-1" class="headerlink" title="（一）数据库"></a>（一）数据库</h3><ol>
+<li>验证数据库连接</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 连接MySQL数据库</span>
+mysql -u用户名 -p密码 -h数据库地址 数据库名
+
+<span class="token comment"># 查看数据库表</span>
+SHOW TABLES<span class="token punctuation">;</span>
+
+<span class="token comment"># 查看表数据</span>
+SELECT * FROM 表名 LIMIT <span class="token number">10</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>检查数据库字符集</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在MySQL命令行中执行</span>
+SHOW VARIABLES LIKE <span class="token string">'character_set%'</span><span class="token punctuation">;</span>
+SHOW VARIABLES LIKE <span class="token string">'collation%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）前端"><a href="#（二）前端" class="headerlink" title="（二）前端"></a>（二）前端</h3><ol>
+<li>配置Nginx虚拟主机</li>
+</ol>
+<p>确保Nginx配置文件已正确设置（参考前面的Nginx配置部分）。</p>
+<ol start="2">
+<li>检查文件权限</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 确保Nginx用户有权限访问前端文件</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> nginx:nginx /usr/share/nginx/html/mywebsite
+<span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /usr/share/nginx/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>重启Nginx服务</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>测试前端访问</li>
+</ol>
+<p>在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。</p>
+<h3 id="（三）后端"><a href="#（三）后端" class="headerlink" title="（三）后端"></a>（三）后端</h3><ol>
+<li>创建启动脚本</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建启动脚本</span>
+<span class="token function">vi</span> /opt/deploy/backend/start.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>添加以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">JAVA_OPTS</span><span class="token operator">=</span><span class="token string">"-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"</span>
+<span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"myapp.jar"</span>
+<span class="token assign-left variable">APP_PATH</span><span class="token operator">=</span><span class="token string">"/opt/deploy/backend"</span>
+
+<span class="token builtin class-name">cd</span> <span class="token variable">$APP_PATH</span>
+<span class="token function">nohup</span> <span class="token function">java</span> <span class="token variable">$JAVA_OPTS</span> <span class="token parameter variable">-jar</span> <span class="token variable">$APP_NAME</span> <span class="token parameter variable">--spring.config.location</span><span class="token operator">=</span>file:./config/application.yml <span class="token operator">></span> app.log <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$!</span> <span class="token operator">></span> app.pid
+<span class="token builtin class-name">echo</span> <span class="token string">"应用已启动，进程ID：<span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> app.pid<span class="token variable">)</span></span>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>创建停止脚本</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建停止脚本</span>
+<span class="token function">vi</span> /opt/deploy/backend/stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<p>添加以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">APP_PATH</span><span class="token operator">=</span><span class="token string">"/opt/deploy/backend"</span>
+<span class="token assign-left variable">PID_FILE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$APP_PATH</span>/app.pid"</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-f</span> <span class="token string">"<span class="token variable">$PID_FILE</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> $PID_FILE<span class="token variable">)</span></span>
+    <span class="token keyword">if</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"正在停止应用，进程ID：<span class="token variable">$PID</span>"</span>
+        <span class="token function">kill</span> <span class="token variable">$PID</span>
+        <span class="token function">sleep</span> <span class="token number">5</span>
+        <span class="token keyword">if</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+            <span class="token builtin class-name">echo</span> <span class="token string">"应用未能正常停止，强制终止"</span>
+            <span class="token function">kill</span> <span class="token parameter variable">-9</span> <span class="token variable">$PID</span>
+        <span class="token keyword">fi</span>
+    <span class="token keyword">else</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"应用未运行"</span>
+    <span class="token keyword">fi</span>
+    <span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable">$PID_FILE</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"PID文件不存在，应用可能未运行"</span>
+<span class="token keyword">fi</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"应用已停止"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>设置脚本权限</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> +x /opt/deploy/backend/start.sh
+<span class="token function">chmod</span> +x /opt/deploy/backend/stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>启动后端应用</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启动应用</span>
+/opt/deploy/backend/start.sh
+
+<span class="token comment"># 查看启动日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /opt/deploy/backend/app.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）调试"><a href="#（四）调试" class="headerlink" title="（四）调试"></a>（四）调试</h3><ol>
+<li>检查应用状态</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查后端应用进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">java</span>
+
+<span class="token comment"># 检查端口监听情况</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-tunlp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">8080</span>
+
+<span class="token comment"># 检查Nginx进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> nginx
+
+<span class="token comment"># 检查Nginx端口</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-tunlp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li>检查日志</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看后端应用日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /opt/deploy/backend/app.log
+
+<span class="token comment"># 查看Nginx访问日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/access.log
+
+<span class="token comment"># 查看Nginx错误日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li>测试API接口</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用curl测试后端API</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> GET http://localhost:8080/api/test
+
+<span class="token comment"># 带参数的POST请求</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token parameter variable">-d</span> <span class="token string">'&#123;"key":"value"&#125;'</span> http://localhost:8080/api/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="4">
+<li>常见问题排查</li>
+</ol>
+<ul>
+<li>前端访问404：检查Nginx配置和前端文件路径</li>
+<li>后端无法启动：检查Java版本、内存设置和配置文件</li>
+<li>数据库连接失败：检查数据库配置、用户权限和防火墙设置</li>
+<li>跨域问题：检查Nginx代理配置和后端CORS设置</li>
+<li>RabbitMQ管理界面无法访问：<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查服务状态</span>
+systemctl status rabbitmq-server
+
+<span class="token comment"># 检查日志</span>
+<span class="token function">cat</span> /var/log/rabbitmq/rabbit@<span class="token variable"><span class="token variable">$(</span><span class="token function">hostname</span> <span class="token parameter variable">-s</span><span class="token variable">)</span></span>.log
+journalctl <span class="token parameter variable">-u</span> rabbitmq-server
+
+<span class="token comment"># 检查端口是否开放</span>
+ss <span class="token parameter variable">-tunlp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">15672</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>本文详细介绍了在CentOS 7空服务器上部署网页系统的完整流程，包括环境准备、软件安装、资源准备和部署调试等步骤。通过按照本文的步骤操作，可以快速搭建一个包含前端、后端和数据库的完整网页系统。</p>
+<p>在实际部署过程中，可能会遇到各种问题，建议根据具体情况灵活调整配置参数，并结合日志信息进行排查。同时，为了保证系统的安全性和稳定性，还应该考虑添加防火墙规则、设置定时备份、配置监控告警等措施。</p>
+<h2 id="六、参考链接"><a href="#六、参考链接" class="headerlink" title="六、参考链接"></a>六、参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.centos.org/">CentOS 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/">MySQL 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/">Nginx 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-boot">Spring Boot 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://vuejs.org/guide/introduction.html">Vue.js 官方文档</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JAVA/" class="print-no-link">#JAVA</a>
+      
+        <a href="/tags/%E9%83%A8%E7%BD%B2/" class="print-no-link">#部署</a>
+      
+        <a href="/tags/LINUX/" class="print-no-link">#LINUX</a>
+      
+        <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="print-no-link">#虚拟机</a>
+      
+        <a href="/tags/NGINX/" class="print-no-link">#NGINX</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/20/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90%E4%B8%8E%E5%AF%B9%E6%AF%94/" title="【博客】Hexo博客主题推荐与对比">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【博客】Hexo博客主题推荐与对比</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/12/%E3%80%90BUG%E8%A7%A3%E5%86%B3%E3%80%91Node%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/" title="【BUG解决】Node打包失败">
+                        <span class="hidden-mobile">【BUG解决】Node打包失败</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

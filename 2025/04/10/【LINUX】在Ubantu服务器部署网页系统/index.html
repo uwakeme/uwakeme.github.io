@@ -1,0 +1,1342 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="【LINUX】在Ubuntu服务器部署网页系统前言本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LINUX】在Ubuntu服务器部署网页系统">
+<meta property="og:url" content="https://uwakeme.top/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【LINUX】在Ubuntu服务器部署网页系统前言本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.300Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="LINUX">
+<meta property="article:tag" content="UBUNTU">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【LINUX】在Ubuntu服务器部署网页系统 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【LINUX】在Ubuntu服务器部署网页系统"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-10 00:00" pubdate>
+          2025-04-10 00:00
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【LINUX】在Ubuntu服务器部署网页系统</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="【LINUX】在Ubuntu服务器部署网页系统"><a href="#【LINUX】在Ubuntu服务器部署网页系统" class="headerlink" title="【LINUX】在Ubuntu服务器部署网页系统"></a>【LINUX】在Ubuntu服务器部署网页系统</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部署的新手，还是有一定经验的开发者，都可以从本文中获取有价值的信息。</p>
+<h2 id="一、准备环境"><a href="#一、准备环境" class="headerlink" title="一、准备环境"></a>一、准备环境</h2><ul>
+<li><p>查看服务器信息</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">uname</span> <span class="token parameter variable">-a</span>          <span class="token comment"># 查看系统内核信息</span>
+lsb_release <span class="token parameter variable">-a</span>    <span class="token comment"># 如果是 Linux 系统，查看发行版本</span>
+<span class="token function">df</span> <span class="token parameter variable">-h</span>             <span class="token comment"># 查看磁盘空间</span>
+<span class="token function">free</span> <span class="token parameter variable">-m</span>           <span class="token comment"># 查看内存使用情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>检查软件安装状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">--version</span>    <span class="token comment"># 检查 MySQL 是否已安装</span>
+nginx <span class="token parameter variable">-v</span>           <span class="token comment"># 检查 Nginx 是否已安装</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span>      <span class="token comment"># 检查 Java 是否已安装</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+<h2 id="二、安装部署所需的软件"><a href="#二、安装部署所需的软件" class="headerlink" title="二、安装部署所需的软件"></a>二、安装部署所需的软件</h2><h3 id="（一）MYSQL"><a href="#（一）MYSQL" class="headerlink" title="（一）MYSQL"></a>（一）MYSQL</h3><ol>
+<li><p><strong>更新软件包列表</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>安装MySQL服务器</strong> <mcreference link="https://ubuntu.com/server/docs/install-and-configure-a-mysql-server" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04" index="2">2</mcreference> <mcreference link="https://phoenixnap.com/kb/install-mysql-ubuntu-22-04" index="4">4</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> mysql-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>离线安装</strong> <mcreference link="https://dev.mysql.com/doc/mysql-installation-excerpt/8.0/en/linux-installation-debian.html" index="5">5</mcreference></p>
+<p>当服务器无法连接互联网时，可按照以下步骤进行离线安装：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在有网络的机器上下载deb包</span>
+<span class="token function">wget</span> https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
+
+<span class="token comment"># 将deb包传输到服务器</span>
+<span class="token function">scp</span> mysql-apt-config_0.8.24-1_all.deb user@server:/tmp
+
+<span class="token comment"># 在服务器上配置本地源</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> /tmp/mysql-apt-config_0.8.24-1_all.deb
+<span class="token function">sudo</span> <span class="token function">apt</span> update
+
+<span class="token comment"># 安装依赖（需提前下载传输）</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> libaio1_*.deb libmecab2_*.deb
+
+<span class="token comment"># 安装MySQL服务</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> mysql-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>验证安装</strong> <mcreference link="https://ubuntu.com/server/docs/install-and-configure-a-mysql-server" index="1">1</mcreference> <mcreference link="https://phoenixnap.com/kb/install-mysql-ubuntu-22-04" index="4">4</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>或者查看服务状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>安全配置</strong> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04" index="2">2</mcreference> <mcreference link="https://phoenixnap.com/kb/install-mysql-ubuntu-22-04" index="4">4</mcreference></p>
+<p>运行安全脚本以提高MySQL安装的安全性：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mysql_secure_installation<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>根据提示进行设置，例如设置root密码、删除匿名用户、禁止root远程登录、删除测试数据库等。</p>
+</li>
+<li><p><strong>（可选）配置远程访问</strong> <mcreference link="https://ubuntu.com/server/docs/install-and-configure-a-mysql-server" index="1">1</mcreference></p>
+<p>如果需要允许远程连接，需要修改MySQL配置文件。通常是 <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code> 文件。<br>找到 <code>bind-address</code> 配置项，将其值从 <code>127.0.0.1</code> 修改为 <code>0.0.0.0</code> 或者服务器的IP地址。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token key attr-name">bind-address</span>            <span class="token punctuation">=</span> <span class="token value attr-value">0.0.0.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>修改后重启MySQL服务：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart mysql.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>登录MySQL</strong> <mcreference link="https://phoenixnap.com/kb/install-mysql-ubuntu-22-04" index="4">4</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>然后输入之前设置的root密码。</p>
+</li>
+</ol>
+<h3 id="（二）NGINX"><a href="#（二）NGINX" class="headerlink" title="（二）NGINX"></a>（二）NGINX</h3><ol>
+<li><p><strong>更新软件包列表</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>安装Nginx</strong> <mcreference link="https://ubuntu.com/tutorials/install-and-configure-nginx" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04" index="2">2</mcreference> <mcreference link="https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/" index="3">3</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>离线安装</strong> <mcreference link="https://nginx.org/en/linux_packages.html" index="6">6</mcreference></p>
+<p>离线环境安装步骤：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在有网络的设备下载安装包</span>
+<span class="token function">wget</span> http://nginx.org/packages/ubuntu/pool/nginx/n/nginx/nginx_1.18.0-0ubuntu1_amd64.deb
+
+<span class="token comment"># 传输deb包到服务器</span>
+<span class="token function">scp</span> nginx_1.18.0-0ubuntu1_amd64.deb user@server:/tmp
+
+<span class="token comment"># 安装依赖（需提前下载）</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> libpcre3_*.deb zlib1g_*.deb openssl_*.deb
+
+<span class="token comment"># 安装Nginx</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> /tmp/nginx_1.18.0-0ubuntu1_amd64.deb
+
+<span class="token comment"># 修复依赖关系</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> --fix-broken <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>验证安装</strong></p>
+<p>检查Nginx服务状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>或者通过访问服务器IP地址在浏览器中查看Nginx欢迎页面。</p>
+</li>
+<li><p><strong>配置防火墙</strong> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04" index="2">2</mcreference></p>
+<p>如果启用了UFW防火墙，需要允许Nginx的HTTP和HTTPS流量：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw allow <span class="token string">'Nginx HTTP'</span>
+<span class="token function">sudo</span> ufw allow <span class="token string">'Nginx HTTPS'</span>
+<span class="token function">sudo</span> ufw status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>Nginx常用命令</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl stop nginx       <span class="token comment"># 停止Nginx服务</span>
+<span class="token function">sudo</span> systemctl start nginx      <span class="token comment"># 启动Nginx服务</span>
+<span class="token function">sudo</span> systemctl restart nginx    <span class="token comment"># 重启Nginx服务</span>
+<span class="token function">sudo</span> systemctl reload nginx     <span class="token comment"># 重新加载配置（不中断服务）</span>
+<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> nginx     <span class="token comment"># 设置开机自启动</span>
+<span class="token function">sudo</span> systemctl disable nginx    <span class="token comment"># 禁止开机自启动</span>
+nginx <span class="token parameter variable">-t</span>                       <span class="token comment"># 测试Nginx配置文件语法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>Nginx配置文件</strong></p>
+<p>主要的Nginx配置文件位于 <code>/etc/nginx/nginx.conf</code>。<br>服务器块（虚拟主机）配置文件通常位于 <code>/etc/nginx/sites-available/</code> 目录下，并通过软链接到 <code>/etc/nginx/sites-enabled/</code> 目录来启用。<br>默认的服务器块配置文件是 <code>/etc/nginx/sites-available/default</code>。</p>
+</li>
+</ol>
+<h3 id="（三）JDK"><a href="#（三）JDK" class="headerlink" title="（三）JDK"></a>（三）JDK</h3><p>在Ubuntu上安装JDK，推荐使用OpenJDK，它是Java的开源实现，并且Ubuntu的官方仓库中提供了易于安装的包。 <mcreference link="https://ubuntu.com/tutorials/install-jre" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-22-04" index="2">2</mcreference></p>
+<ol>
+<li><p><strong>更新软件包列表</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>安装默认的JDK (OpenJDK)</strong> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-22-04" index="2">2</mcreference> <mcreference link="https://www.theserverside.com/video/5-steps-for-an-easy-JDK-13-install-on-Ubuntu" index="4">4</mcreference></p>
+<p>这将安装一个推荐的LTS（长期支持）版本的OpenJDK。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> default-jdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>离线安装</strong> <mcreference link="https://openjdk.org/install/" index="7">7</mcreference></p>
+<p>离线环境安装步骤：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在有网络的机器下载deb包</span>
+<span class="token function">wget</span> https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.deb
+
+<span class="token comment"># 传输文件到服务器</span>
+<span class="token function">scp</span> openjdk-11+28_linux-x64_bin.deb user@server:/tmp
+
+<span class="token comment"># 安装依赖（需提前下载）</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> libc6_*.deb libstdc++6_*.deb
+
+<span class="token comment"># 安装JDK</span>
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> /tmp/openjdk-11+28_linux-x64_bin.deb
+
+<span class="token comment"># 配置环境变量</span>
+<span class="token function">sudo</span> update-alternatives <span class="token parameter variable">--config</span> <span class="token function">java</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>如果你需要安装特定版本的OpenJDK，例如OpenJDK 11，可以使用：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> openjdk-11-jdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>或者OpenJDK 17：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> openjdk-17-jdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>验证安装</strong> <mcreference link="https://ubuntu.com/tutorials/install-jre" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-22-04" index="2">2</mcreference></p>
+<p>检查Java编译器版本：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">javac <span class="token parameter variable">-version</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>检查Java运行时版本：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">java</span> <span class="token parameter variable">-version</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>（可选）配置JAVA_HOME环境变量</strong> <mcreference link="https://www.theserverside.com/video/5-steps-for-an-easy-JDK-13-install-on-Ubuntu" index="4">4</mcreference></p>
+<p>虽然许多现代Java应用程序不需要显式设置<code>JAVA_HOME</code>，但某些旧版应用程序或构建工具可能仍需要它。</p>
+<p>首先，找到Java的安装路径。对于<code>default-jdk</code>，它通常是一个指向具体OpenJDK版本的符号链接。可以通过以下命令找到实际路径：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">update-alternatives <span class="token parameter variable">--config</span> <span class="token function">java</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>输出会列出可用的Java版本及其路径。例如，路径可能是 <code>/usr/lib/jvm/java-11-openjdk-amd64/bin/java</code>。那么 <code>JAVA_HOME</code> 应该是 <code>/usr/lib/jvm/java-11-openjdk-amd64</code>。</p>
+<p>编辑 <code>/etc/environment</code> 文件来全局设置环境变量：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">nano</span> /etc/environment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>在文件末尾添加以下行（根据你的实际路径修改）：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">JAVA_HOME&#x3D;&quot;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-11-openjdk-amd64&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>保存并关闭文件。然后，重新加载环境变量：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /etc/environment<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>验证<code>JAVA_HOME</code>是否设置成功：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>（可选）管理多个Java版本</strong> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-22-04" index="2">2</mcreference></p>
+<p>如果安装了多个Java版本，可以使用 <code>update-alternatives</code> 命令来切换默认版本：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> update-alternatives <span class="token parameter variable">--config</span> <span class="token function">java</span>
+<span class="token function">sudo</span> update-alternatives <span class="token parameter variable">--config</span> javac<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>根据提示选择你想要设置为默认的版本号。</p>
+</li>
+</ol>
+<h3 id="（四）MongoDB（如有必要）"><a href="#（四）MongoDB（如有必要）" class="headerlink" title="（四）MongoDB（如有必要）"></a>（四）MongoDB（如有必要）</h3><p>MongoDB是一个基于分布式文件存储的NoSQL数据库。以下是在Ubuntu上安装MongoDB Community Edition的步骤。 <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04" index="2">2</mcreference></p>
+<ol>
+<li><p><strong>导入MongoDB的GPG密钥</strong> <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference> <mcreference link="https://www.mongodb.com/docs/mongodb-shell/install/" index="5">5</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> gnupg
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://pgp.mongodb.com/server-8.0.asc <span class="token operator">|</span> <span class="token punctuation">\</span>
+   <span class="token function">sudo</span> gpg <span class="token parameter variable">-o</span> /usr/share/keyrings/mongodb-server-8.0.gpg <span class="token punctuation">\</span>
+   <span class="token parameter variable">--dearmor</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><em>注意：请根据MongoDB官方文档检查最新的GPG密钥和版本。</em></p>
+</li>
+<li><p><strong>创建MongoDB的apt源列表文件</strong> <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference></p>
+<p>根据你的Ubuntu版本选择对应的命令。例如，对于Ubuntu 22.04 (Jammy Jellyfish)：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse"</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/apt/sources.list.d/mongodb-org-8.0.list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>对于其他Ubuntu版本，请参考MongoDB官方文档替换 <code>jammy</code> 部分。</p>
+</li>
+<li><p><strong>更新软件包列表并安装MongoDB</strong> <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04" index="2">2</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> mongodb-org<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>启动并验证MongoDB服务</strong> <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04" index="2">2</mcreference></p>
+<p>启动MongoDB服务：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl start mongod<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>验证服务状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status mongod<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>如果服务未启动，可以尝试：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> mongod <span class="token comment"># 设置开机自启动</span>
+<span class="token function">sudo</span> systemctl restart mongod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>连接到MongoDB Shell</strong> <mcreference link="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/" index="1">1</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mongosh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>（可选）配置MongoDB</strong></p>
+<p>MongoDB的配置文件位于 <code>/etc/mongod.conf</code>。你可以根据需要修改配置，例如绑定IP地址以允许远程连接、配置认证等。 <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-20-04" index="2">2</mcreference><br>例如，要允许所有IP连接，可以将 <code>net.bindIp</code> 修改为 <code>0.0.0.0</code>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># network interfaces</span>
+<span class="token key atrule">net</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">27017</span>
+  <span class="token key atrule">bindIp</span><span class="token punctuation">:</span> 0.0.0.0  <span class="token comment"># Listen to all interfaces</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>修改配置后，需要重启MongoDB服务：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart mongod<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p><em>强烈建议在生产环境中启用认证并配置防火墙规则。</em></p>
+</li>
+</ol>
+<h3 id="（五）Redis（如有必要）"><a href="#（五）Redis（如有必要）" class="headerlink" title="（五）Redis（如有必要）"></a>（五）Redis（如有必要）</h3><p>Redis是一个开源的内存数据结构存储系统，可用作数据库、缓存和消息代理。 <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04" index="2">2</mcreference></p>
+<ol>
+<li><p><strong>更新软件包列表</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>安装Redis服务器</strong> <mcreference link="https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/install-redis-on-linux/" index="1">1</mcreference> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04" index="2">2</mcreference></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> redis-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>验证安装</strong></p>
+<p>检查Redis服务状态：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status redis-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>或者连接到Redis CLI：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-cli
+<span class="token function">ping</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>如果返回 <code>PONG</code>，则表示连接成功。</p>
+</li>
+<li><p><strong>（可选）配置Redis</strong> <mcreference link="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04" index="2">2</mcreference> <mcreference link="https://phoenixnap.com/kb/install-redis-on-ubuntu-20-04" index="3">3</mcreference></p>
+<p>Redis的配置文件位于 <code>/etc/redis/redis.conf</code>。<br>一个重要的配置是 <code>supervised</code> 指令。由于Ubuntu使用systemd，建议将其设置为 <code>systemd</code>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">supervised systemd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>修改配置后，重启Redis服务：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart redis-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+<p>你还可以配置密码、绑定IP等以增强安全性。</p>
+</li>
+<li><p><strong>Redis常用命令</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl stop redis-server       <span class="token comment"># 停止Redis服务</span>
+<span class="token function">sudo</span> systemctl start redis-server      <span class="token comment"># 启动Redis服务</span>
+<span class="token function">sudo</span> systemctl restart redis-server    <span class="token comment"># 重启Redis服务</span>
+<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> redis-server     <span class="token comment"># 设置开机自启动</span>
+<span class="token function">sudo</span> systemctl disable redis-server    <span class="token comment"># 禁止开机自启动</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<h2 id="三、准备部署所必需的资源"><a href="#三、准备部署所必需的资源" class="headerlink" title="三、准备部署所必需的资源"></a>三、准备部署所必需的资源</h2><h3 id="（一）数据库"><a href="#（一）数据库" class="headerlink" title="（一）数据库"></a>（一）数据库</h3><ul>
+<li>在部署前，需要准备好数据库脚本，包括建库、建表和初始数据。</li>
+</ul>
+<ol>
+<li><p>准备SQL脚本文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建存放SQL脚本的目录 (可自定义)</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/sql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>上传SQL脚本文件</p>
+<p>使用SFTP工具（如FileZilla、WinSCP等）将本地的SQL脚本上传到服务器的<code>/opt/deploy/sql</code>目录。</p>
+</li>
+<li><p>导入数据库脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 登录MySQL</span>
+<span class="token function">sudo</span> mysql -u用户名 -p密码
+
+<span class="token comment"># 在MySQL命令行中执行 (假设数据库已创建，如果未创建，请先创建)</span>
+USE 数据库名<span class="token punctuation">;</span>
+SOURCE /opt/deploy/sql/create_tables.sql<span class="token punctuation">;</span> <span class="token comment"># 假设这是建表脚本</span>
+SOURCE /opt/deploy/sql/init_data.sql<span class="token punctuation">;</span>   <span class="token comment"># 假设这是初始化数据脚本</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果需要创建数据库：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> 数据库名 <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> utf8mb4 <span class="token keyword">COLLATE</span> utf8mb4_unicode_ci<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure></li>
+</ol>
+<h3 id="（二）前端打包"><a href="#（二）前端打包" class="headerlink" title="（二）前端打包"></a>（二）前端打包</h3><ul>
+<li>前端项目通常需要打包后部署到Nginx服务器上。</li>
+</ul>
+<ol>
+<li><p>准备前端打包文件</p>
+<p>在本地开发环境中，使用构建工具（如npm、yarn等）打包前端项目：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在前端项目目录中执行</span>
+<span class="token function">npm</span> run build  <span class="token comment"># 或 yarn build，具体命令根据项目配置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>上传打包文件</p>
+<p>使用SFTP工具将打包生成的文件（通常在<code>dist</code>或<code>build</code>目录）上传到服务器。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在服务器上创建存放前端文件的目录 (可自定义，需与Nginx配置对应)</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /var/www/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>解压前端文件（如果是压缩包）</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 假设上传的是 frontend.zip</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">unzip</span> <span class="token comment"># 如果没有unzip命令，先安装</span>
+<span class="token function">sudo</span> <span class="token function">unzip</span> frontend.zip <span class="token parameter variable">-d</span> /var/www/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果直接上传的是文件夹内容，则跳过解压步骤。</p>
+</li>
+</ol>
+<h3 id="（三）后端打包"><a href="#（三）后端打包" class="headerlink" title="（三）后端打包"></a>（三）后端打包</h3><ul>
+<li>后端Java项目通常打包为JAR或WAR文件部署。</li>
+</ul>
+<ol>
+<li><p>准备后端打包文件</p>
+<p>在本地开发环境中，使用Maven或Gradle打包后端项目：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Maven打包</span>
+mvn clean package <span class="token parameter variable">-Dmaven.test.skip</span><span class="token operator">=</span>true
+
+<span class="token comment"># 或Gradle打包</span>
+gradle build <span class="token parameter variable">-x</span> <span class="token builtin class-name">test</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>上传后端JAR&#x2F;WAR文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在服务器上创建存放后端文件的目录 (可自定义)</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/backend<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>使用SFTP工具将JAR或WAR文件上传到服务器的<code>/opt/deploy/backend</code>目录。</p>
+</li>
+<li><p>准备配置文件</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建配置文件目录</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /opt/deploy/backend/config
+
+<span class="token comment"># 创建应用配置文件 (例如 application.yml 或 application.properties)</span>
+<span class="token function">sudo</span> <span class="token function">nano</span> /opt/deploy/backend/config/application.yml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>配置文件示例 (<code>application.yml</code>)：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>3306/mydb<span class="token punctuation">?</span>useUnicode=true<span class="token important">&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> dbuser
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> dbpassword
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+  
+  <span class="token comment"># Redis配置（如果使用）</span>
+  <span class="token key atrule">redis</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">6379</span>
+    <span class="token comment"># password: your_redis_password # 如果设置了密码</span>
+    <span class="token key atrule">database</span><span class="token punctuation">:</span> <span class="token number">0</span>
+    
+  <span class="token comment"># MongoDB配置（如果使用）</span>
+  <span class="token key atrule">data</span><span class="token punctuation">:</span>
+    <span class="token key atrule">mongodb</span><span class="token punctuation">:</span>
+      <span class="token key atrule">uri</span><span class="token punctuation">:</span> mongodb<span class="token punctuation">:</span>//user<span class="token punctuation">:</span>password@localhost<span class="token punctuation">:</span>27017/mydb
+      
+  <span class="token comment"># RabbitMQ配置（如果使用，请先安装）</span>
+  <span class="token comment"># rabbitmq:</span>
+  <span class="token comment">#   host: localhost</span>
+  <span class="token comment">#   port: 5672</span>
+  <span class="token comment">#   username: admin</span>
+  <span class="token comment">#   password: password</span>
+  <span class="token comment">#   virtual-host: /</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<h2 id="四、部署资源并调试"><a href="#四、部署资源并调试" class="headerlink" title="四、部署资源并调试"></a>四、部署资源并调试</h2><h3 id="（一）数据库-1"><a href="#（一）数据库-1" class="headerlink" title="（一）数据库"></a>（一）数据库</h3><ol>
+<li><p>验证数据库连接</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 连接MySQL数据库</span>
+<span class="token function">sudo</span> mysql -u用户名 -p密码 -h数据库主机<span class="token punctuation">(</span>通常是localhost<span class="token punctuation">)</span> 数据库名
+
+<span class="token comment"># 查看数据库表</span>
+SHOW TABLES<span class="token punctuation">;</span>
+
+<span class="token comment"># 查看表数据</span>
+SELECT * FROM 表名 LIMIT <span class="token number">10</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>检查数据库字符集</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在MySQL命令行中执行</span>
+SHOW VARIABLES LIKE <span class="token string">'character_set%'</span><span class="token punctuation">;</span>
+SHOW VARIABLES LIKE <span class="token string">'collation%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>确保字符集设置正确（例如 <code>utf8mb4</code>），以避免乱码问题。</p>
+</li>
+</ol>
+<h3 id="（二）前端"><a href="#（二）前端" class="headerlink" title="（二）前端"></a>（二）前端</h3><ol>
+<li><p>配置Nginx虚拟主机</p>
+<p>确保Nginx配置文件已正确设置（参考前面的Nginx安装与配置部分）。<br>一个简单的Nginx配置示例，用于托管静态前端资源 (例如在 <code>/etc/nginx/sites-available/mywebsite</code>):</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">&#123;</span>
+    <span class="token directive"><span class="token keyword">listen</span> <span class="token number">80</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">server_name</span> your_domain_or_ip</span><span class="token punctuation">;</span> <span class="token comment"># 替换为你的域名或IP</span>
+
+    <span class="token directive"><span class="token keyword">root</span> /var/www/html/mywebsite</span><span class="token punctuation">;</span> <span class="token comment"># 前端文件存放路径</span>
+    <span class="token directive"><span class="token keyword">index</span> index.html index.htm</span><span class="token punctuation">;</span>
+
+    <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">&#123;</span>
+        <span class="token directive"><span class="token keyword">try_files</span> <span class="token variable">$uri</span> <span class="token variable">$uri</span>/ /index.html</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment"># 可选：配置API反向代理 (如果后端服务在不同端口或主机)</span>
+    <span class="token comment"># location /api/ &#123;</span>
+    <span class="token comment">#     proxy_pass http://localhost:8080/api/; # 后端API地址</span>
+    <span class="token comment">#     proxy_set_header Host $host;</span>
+    <span class="token comment">#     proxy_set_header X-Real-IP $remote_addr;</span>
+    <span class="token comment">#     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span>
+    <span class="token comment">#     proxy_set_header X-Forwarded-Proto $scheme;</span>
+    <span class="token comment"># &#125;</span>
+
+    <span class="token directive"><span class="token keyword">access_log</span> /var/log/nginx/mywebsite.access.log</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">error_log</span> /var/log/nginx/mywebsite.error.log</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>创建软链接以启用配置：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> /etc/nginx/sites-available/mywebsite /etc/nginx/sites-enabled/
+<span class="token function">sudo</span> nginx <span class="token parameter variable">-t</span> <span class="token comment"># 测试配置是否正确</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>检查文件权限</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 确保Nginx运行用户(通常是www-data)有权限访问前端文件</span>
+<span class="token function">sudo</span> <span class="token function">chown</span> <span class="token parameter variable">-R</span> www-data:www-data /var/www/html/mywebsite
+<span class="token function">sudo</span> <span class="token function">chmod</span> <span class="token parameter variable">-R</span> <span class="token number">755</span> /var/www/html/mywebsite<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>重启Nginx服务</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p>测试前端访问</p>
+<p>在浏览器中访问服务器IP或域名，检查前端页面是否正常显示。</p>
+</li>
+</ol>
+<h3 id="（三）后端-以Java-Spring-Boot应用为例"><a href="#（三）后端-以Java-Spring-Boot应用为例" class="headerlink" title="（三）后端 (以Java Spring Boot应用为例)"></a>（三）后端 (以Java Spring Boot应用为例)</h3><ol>
+<li><p>创建启动脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建启动脚本 (例如 /opt/deploy/backend/start.sh)</span>
+<span class="token function">sudo</span> <span class="token function">nano</span> /opt/deploy/backend/start.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>添加以下内容 (根据实际情况修改 <code>APP_NAME</code> 和路径)：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">JAVA_OPTS</span><span class="token operator">=</span><span class="token string">"-Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m"</span>
+<span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"your-app-name.jar"</span> <span class="token comment"># 替换为你的JAR文件名</span>
+<span class="token assign-left variable">APP_PATH</span><span class="token operator">=</span><span class="token string">"/opt/deploy/backend"</span>
+<span class="token assign-left variable">CONFIG_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$APP_PATH</span>/config/application.yml"</span> <span class="token comment"># 配置文件路径</span>
+<span class="token assign-left variable">LOG_FILE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$APP_PATH</span>/app.log"</span>
+<span class="token assign-left variable">PID_FILE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$APP_PATH</span>/app.pid"</span>
+
+<span class="token builtin class-name">cd</span> <span class="token variable">$APP_PATH</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-f</span> <span class="token variable">$PID_FILE</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> $PID_FILE<span class="token variable">)</span></span>
+    <span class="token keyword">if</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"Application is already running with PID: <span class="token variable">$PID</span>"</span>
+        <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+    <span class="token keyword">else</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"PID file exists but process is not running. Removing PID file."</span>
+        <span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable">$PID_FILE</span>
+    <span class="token keyword">fi</span>
+<span class="token keyword">fi</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"Starting application <span class="token variable">$APP_NAME</span>..."</span>
+<span class="token function">nohup</span> <span class="token function">java</span> <span class="token variable">$JAVA_OPTS</span> <span class="token parameter variable">-jar</span> <span class="token variable">$APP_NAME</span> <span class="token parameter variable">--spring.config.location</span><span class="token operator">=</span>file:<span class="token variable">$CONFIG_PATH</span> <span class="token operator">></span> <span class="token variable">$LOG_FILE</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$!</span> <span class="token operator">></span> <span class="token variable">$PID_FILE</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"Application started. PID: <span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> $PID_FILE<span class="token variable">)</span></span>. Log: <span class="token variable">$LOG_FILE</span>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>创建停止脚本</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建停止脚本 (例如 /opt/deploy/backend/stop.sh)</span>
+<span class="token function">sudo</span> <span class="token function">nano</span> /opt/deploy/backend/stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>添加以下内容：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">APP_PATH</span><span class="token operator">=</span><span class="token string">"/opt/deploy/backend"</span>
+<span class="token assign-left variable">PID_FILE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$APP_PATH</span>/app.pid"</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-f</span> <span class="token string">"<span class="token variable">$PID_FILE</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"PID file not found. Application may not be running."</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token assign-left variable">PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> $PID_FILE<span class="token variable">)</span></span>
+<span class="token keyword">if</span> <span class="token operator">!</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"Process with PID <span class="token variable">$PID</span> not found. Removing stale PID file."</span>
+    <span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable">$PID_FILE</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"Stopping application with PID: <span class="token variable">$PID</span>..."</span>
+<span class="token function">kill</span> <span class="token variable">$PID</span>
+
+<span class="token comment"># 等待进程停止</span>
+<span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token keyword">while</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">do</span>
+    <span class="token function">sleep</span> <span class="token number">1</span>
+    <span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$((</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token variable">))</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$count</span> <span class="token parameter variable">-gt</span> <span class="token number">10</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token comment"># 最多等待10秒</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">"Application did not stop gracefully after 10 seconds. Forcing kill..."</span>
+        <span class="token function">kill</span> <span class="token parameter variable">-9</span> <span class="token variable">$PID</span>
+        <span class="token builtin class-name">break</span>
+    <span class="token keyword">fi</span>
+<span class="token keyword">done</span>
+
+<span class="token keyword">if</span> <span class="token operator">!</span> <span class="token function">ps</span> <span class="token parameter variable">-p</span> <span class="token variable">$PID</span> <span class="token operator">></span> /dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"Application stopped successfully."</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"Failed to stop application."</span>
+<span class="token keyword">fi</span>
+
+<span class="token function">rm</span> <span class="token parameter variable">-f</span> <span class="token variable">$PID_FILE</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>设置脚本权限</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x /opt/deploy/backend/start.sh
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x /opt/deploy/backend/stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>启动后端应用</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启动应用</span>
+<span class="token function">sudo</span> /opt/deploy/backend/start.sh
+
+<span class="token comment"># 查看启动日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /opt/deploy/backend/app.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<h3 id="（四）调试"><a href="#（四）调试" class="headerlink" title="（四）调试"></a>（四）调试</h3><ol>
+<li><p>检查应用状态</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查后端应用进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">java</span>
+
+<span class="token comment"># 检查端口监听情况 (例如后端应用监听8080端口)</span>
+<span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">8080</span>
+
+<span class="token comment"># 检查Nginx进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> nginx
+
+<span class="token comment"># 检查Nginx端口 (通常是80或443)</span>
+<span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>检查日志</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看后端应用日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /opt/deploy/backend/app.log
+
+<span class="token comment"># 查看Nginx访问日志 (路径可能因配置而异)</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/mywebsite.access.log
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/access.log
+
+<span class="token comment"># 查看Nginx错误日志 (路径可能因配置而异)</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/mywebsite.error.log
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>测试API接口</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用curl测试后端API (假设后端运行在localhost:8080)</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> GET http://localhost:8080/api/test
+
+<span class="token comment"># 带参数的POST请求</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token parameter variable">-d</span> <span class="token string">'&#123;"key":"value"&#125;'</span> http://localhost:8080/api/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果Nginx配置了反向代理，可以通过Nginx访问API：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET http://your_domain_or_ip/api/test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p>常见问题排查</p>
+<ul>
+<li><strong>前端访问404&#x2F;50x</strong>：检查Nginx配置、前端文件路径、文件权限、Nginx日志。</li>
+<li><strong>后端无法启动</strong>：检查Java版本、内存设置 (<code>JAVA_OPTS</code>)、配置文件路径和内容、后端应用日志。</li>
+<li><strong>数据库连接失败</strong>：检查后端配置文件中的数据库连接信息（地址、端口、用户名、密码、数据库名）、MySQL用户权限、MySQL服务是否运行、防火墙设置（如<code>ufw</code>是否允许3306端口）。</li>
+<li><strong>API请求失败&#x2F;无响应</strong>：检查后端应用是否正常运行、端口是否监听、Nginx反向代理配置是否正确、后端日志是否有错误信息。</li>
+<li>**跨域问题 (CORS)**：如果前端和后端部署在不同源（域名、端口），后端需要配置CORS策略，或者通过Nginx反向代理解决。</li>
+<li><strong>防火墙</strong>：确保服务器防火墙（如<code>ufw</code>）允许了Nginx (80, 443)、后端应用 (如8080)、数据库 (如3306) 等所需服务的端口。<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw status <span class="token comment"># 查看防火墙状态和规则</span>
+<span class="token function">sudo</span> ufw allow <span class="token number">80</span>/tcp
+<span class="token function">sudo</span> ufw allow <span class="token number">443</span>/tcp
+<span class="token function">sudo</span> ufw allow <span class="token number">8080</span>/tcp <span class="token comment"># 示例后端端口</span>
+<span class="token function">sudo</span> ufw <span class="token builtin class-name">enable</span> <span class="token comment"># 启用防火墙 (如果未启用)</span>
+<span class="token function">sudo</span> ufw reload <span class="token comment"># 重载规则</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>本文详细介绍了在Ubuntu服务器上部署一个完整网页系统的主要步骤，从最初的环境准备，到核心软件MySQL、Nginx、JDK的安装与配置，再到可选的MongoDB和Redis的安装，最后覆盖了前后端资源的准备、部署和基础调试方法。笔者力求提供一套清晰、实用的操作指南。</p>
+<p>部署过程中，务必注意各个软件版本之间的兼容性，以及配置文件中路径、端口、用户凭据的准确性。日志文件是排查问题的最重要工具，无论是Nginx的访问&#x2F;错误日志，还是后端应用的运行日志，都能提供关键线索。</p>
+<p>此外，安全是生产环境部署中不可忽视的一环。建议进一步配置防火墙规则、数据库安全策略、定期备份数据，并对应用进行安全加固。希望本笔记能为您的部署工作带来帮助。</p>
+<h2 id="六、参考链接"><a href="#六、参考链接" class="headerlink" title="六、参考链接"></a>六、参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ubuntu.com/server/docs">Ubuntu 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/">MySQL 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/">Nginx 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://openjdk.java.net/">OpenJDK 官方站点</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/">MongoDB 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://redis.io/docs/">Redis 官方文档</a></li>
+</ul>
+<ol>
+<li><p>检查应用状态</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 检查后端应用进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">java</span>
+
+<span class="token comment"># 检查端口监听情况 (例如后端应用监听8080端口)</span>
+<span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">8080</span>
+
+<span class="token comment"># 检查Nginx进程</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> nginx
+
+<span class="token comment"># 检查Nginx端口 (通常是80或443)</span>
+<span class="token function">sudo</span> <span class="token function">netstat</span> <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>检查日志</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看后端应用日志</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /opt/deploy/backend/app.log
+
+<span class="token comment"># 查看Nginx访问日志 (路径可能因配置而异)</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/mywebsite.access.log
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/access.log
+
+<span class="token comment"># 查看Nginx错误日志 (路径可能因配置而异)</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/mywebsite.error.log
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /var/log/nginx/error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p>测试API接口</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用curl测试后端API (假设后端运行在localhost:8080)</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> GET http://localhost:8080/api/test
+
+<span class="token comment"># 带参数的POST请求</span>
+<span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token parameter variable">-d</span> <span class="token string">'&#123;"key":"value"&#125;'</span> http://localhost:8080/api/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果Nginx配置了反向代理，可以通过Nginx访问API：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET http://your_domain_or_ip/api/test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+</li>
+<li><p>常见问题排查</p>
+<ul>
+<li><strong>前端访问404&#x2F;50x</strong>：检查Nginx配置、前端文件路径、文件权限、Nginx日志。</li>
+<li><strong>后端无法启动</strong>：检查Java版本、内存设置 (<code>JAVA_OPTS</code>)、配置文件路径和内容、后端应用日志。</li>
+<li><strong>数据库连接失败</strong>：检查后端配置文件中的数据库连接信息（地址、端口、用户名、密码、数据库名）、MySQL用户权限、MySQL服务是否运行、防火墙设置（如<code>ufw</code>是否允许3306端口）。</li>
+<li><strong>API请求失败&#x2F;无响应</strong>：检查后端应用是否正常运行、端口是否监听、Nginx反向代理配置是否正确、后端日志是否有错误信息。</li>
+<li>**跨域问题 (CORS)**：如果前端和后端部署在不同源（域名、端口），后端需要配置CORS策略，或者通过Nginx反向代理解决。</li>
+<li><strong>防火墙</strong>：确保服务器防火墙（如<code>ufw</code>）允许了Nginx (80, 443)、后端应用 (如8080)、数据库 (如3306) 等所需服务的端口。<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ufw status <span class="token comment"># 查看防火墙状态和规则</span>
+<span class="token function">sudo</span> ufw allow <span class="token number">80</span>/tcp
+<span class="token function">sudo</span> ufw allow <span class="token number">443</span>/tcp
+<span class="token function">sudo</span> ufw allow <span class="token number">8080</span>/tcp <span class="token comment"># 示例后端端口</span>
+<span class="token function">sudo</span> ufw <span class="token builtin class-name">enable</span> <span class="token comment"># 启用防火墙 (如果未启用)</span>
+<span class="token function">sudo</span> ufw reload <span class="token comment"># 重载规则</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%83%A8%E7%BD%B2/" class="print-no-link">#部署</a>
+      
+        <a href="/tags/LINUX/" class="print-no-link">#LINUX</a>
+      
+        <a href="/tags/UBUNTU/" class="print-no-link">#UBUNTU</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" title="【学习】VUE中的watch监听">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习】VUE中的watch监听</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E2%80%94%E2%80%94exceljs/" title="【学习】前端导出Excel">
+                        <span class="hidden-mobile">【学习】前端导出Excel</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

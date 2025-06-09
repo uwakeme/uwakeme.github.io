@@ -1,0 +1,1107 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言在Java应用程序开发中，经常需要在不同的对象之间传递数据，特别是当处理数据传输对象（DTOs）、视图对象（VOs）、领域模型（Entities&#x2F;Models）等分层对象时，属性的复制成为一项常见任务。虽然存在许多优秀的第三方库（如Apache Commons BeanUtils, Spring Framework BeanUtils, MapStruct等）来简化这一过程，但在某些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils">
+<meta property="og:url" content="https://uwakeme.top/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E8%AF%A6%E8%A7%A3%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7%E7%B1%BBBeanPropertyUtils/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言在Java应用程序开发中，经常需要在不同的对象之间传递数据，特别是当处理数据传输对象（DTOs）、视图对象（VOs）、领域模型（Entities&#x2F;Models）等分层对象时，属性的复制成为一项常见任务。虽然存在许多优秀的第三方库（如Apache Commons BeanUtils, Spring Framework BeanUtils, MapStruct等）来简化这一过程，但在某些">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-05T02:52:13.299Z">
+<meta property="article:modified_time" content="2025-06-05T02:52:13.299Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="反射">
+<meta property="article:tag" content="工具类">
+<meta property="article:tag" content="自定义工具类">
+<meta property="article:tag" content="对象属性复制">
+<meta property="article:tag" content="BeanUtils">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-05 10:52" pubdate>
+          2025-06-05 10:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Java应用程序开发中，经常需要在不同的对象之间传递数据，特别是当处理数据传输对象（DTOs）、视图对象（VOs）、领域模型（Entities&#x2F;Models）等分层对象时，属性的复制成为一项常见任务。虽然存在许多优秀的第三方库（如Apache Commons BeanUtils, Spring Framework BeanUtils, MapStruct等）来简化这一过程，但在某些情况下，我们可能需要更细粒度的控制、避免引入额外的重型依赖，或者仅仅是为了学习和理解其内部机制，这时编写一个自定义的对象属性复制工具类就显得很有价值。本文将详细探讨如何设计和实现一个自定义的 <code>BeanPropertyUtils</code> 工具类。</p>
+<p>本工具类的设计也将遵循<a href="/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%9A%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%8C%87%E5%8D%97.md">《【JAVA技巧】编写自定义通用工具类指南》</a>中提出的各项原则。</p>
+<h1 id="一、为何需要自定义对象属性复制工具？"><a href="#一、为何需要自定义对象属性复制工具？" class="headerlink" title="一、为何需要自定义对象属性复制工具？"></a>一、为何需要自定义对象属性复制工具？</h1><ol>
+<li><strong>细粒度控制</strong>：自定义实现可以让我们完全控制复制逻辑，例如：<ul>
+<li>如何处理 <code>null</code> 值（是跳过、赋 <code>null</code> 还是抛异常）。</li>
+<li>当源和目标属性名称或类型不完全匹配时如何处理。</li>
+<li>是否复制静态或瞬态（<code>transient</code>）字段。</li>
+<li>在复制前后执行自定义逻辑（钩子方法）。</li>
+</ul>
+</li>
+<li><strong>轻量级</strong>：如果项目对依赖大小敏感，或者仅需简单的属性复制功能，引入一个功能全面的大型库可能显得冗余。</li>
+<li><strong>特定需求</strong>：有时项目有非常特殊的复制规则，通用库难以满足或配置复杂。</li>
+<li><strong>学习目的</strong>：通过自己实现，可以更深入地理解Java反射机制及其在对象操作中的应用。</li>
+</ol>
+<h1 id="二、现有解决方案概览"><a href="#二、现有解决方案概览" class="headerlink" title="二、现有解决方案概览"></a>二、现有解决方案概览</h1><p>在着手自定义之前，了解一些成熟的解决方案是必要的：</p>
+<ul>
+<li><strong>Apache Commons BeanUtils</strong>：提供了 <code>copyProperties(Object dest, Object orig)</code> 方法，能够进行属性复制，并支持一定的类型转换。但其性能相对较低（因为大量使用反射且早期版本有一些性能问题），且对于不存在的属性会抛出异常。</li>
+<li><strong>Spring Framework BeanUtils</strong>：同样提供了 <code>copyProperties(Object source, Object target)</code> 方法，是Spring框架的一部分。它比Apache Commons BeanUtils更简洁，性能也相对较好，通常只进行浅拷贝，且当属性名和类型匹配时才复制。</li>
+<li><strong>MapStruct</strong>：一个编译时代码生成器，通过定义接口和注解来生成类型安全、高性能的Bean映射代码。它避免了运行时的反射开销，配置灵活，支持复杂的映射逻辑。是目前推荐的高性能解决方案。</li>
+<li><strong>ModelMapper, Dozer, Orika</strong>：其他流行的映射库，各有特点，提供不同程度的配置灵活性和性能表现。</li>
+</ul>
+<h1 id="三、自定义-BeanPropertyUtils-设计原则"><a href="#三、自定义-BeanPropertyUtils-设计原则" class="headerlink" title="三、自定义 BeanPropertyUtils 设计原则"></a>三、自定义 <code>BeanPropertyUtils</code> 设计原则</h1><p>在自定义 <code>BeanPropertyUtils</code> 时，除了通用工具类的设计原则外，还需特别关注：</p>
+<ol>
+<li><strong>明确的复制策略</strong>：<ul>
+<li><strong>属性匹配</strong>：是基于名称完全相同，还是可以忽略大小写，或者支持注解指定别名？</li>
+<li><strong>类型兼容性</strong>：如果类型不完全匹配，是否尝试进行类型转换（如 <code>int</code> 到 <code>Integer</code>，<code>String</code> 到 <code>enum</code>）？如何处理不兼容的类型？</li>
+<li><strong>Null值处理</strong>：源对象的 <code>null</code> 属性是否复制到目标对象？或者目标对象对应的属性保持不变？</li>
+<li><strong>目标对象实例化</strong>：工具类是否负责创建目标对象实例？还是要求调用者传入已实例化的目标对象？（通常后者更灵活）</li>
+</ul>
+</li>
+<li><strong>错误处理</strong>：属性访问或类型转换失败时，是抛出异常（以及何种异常）还是静默忽略？或者提供一个错误处理器回调？</li>
+<li><strong>深拷贝 vs. 浅拷贝</strong>：明确工具类执行的是浅拷贝（只复制引用）还是深拷贝（递归复制对象内容）。对于集合和自定义对象类型的属性，浅拷贝可能导致意外的共享状态。</li>
+<li><strong>性能意识</strong>：反射操作相对直接方法调用有性能开销。对于性能敏感的场景，应考虑缓存反射信息（如 <code>Method</code> 对象）或采用其他技术。</li>
+<li><strong>可配置性与易用性</strong>：提供简单易用的API，同时允许通过参数或配置对象定制复制行为。</li>
+</ol>
+<h1 id="四、自定义-BeanPropertyUtils-实现详解-基于反射的浅拷贝"><a href="#四、自定义-BeanPropertyUtils-实现详解-基于反射的浅拷贝" class="headerlink" title="四、自定义 BeanPropertyUtils 实现详解 (基于反射的浅拷贝)"></a>四、自定义 <code>BeanPropertyUtils</code> 实现详解 (基于反射的浅拷贝)</h1><p>下面我们提供一个简单的基于Java反射的 <code>BeanPropertyUtils</code> 实现，主要用于浅拷贝同名属性。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>project<span class="token punctuation">.</span>util</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Field</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Method</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Modifier</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">HashMap</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Map</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">Objects</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 自定义对象属性复制工具类 (基于反射的浅拷贝)
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">BeanPropertyUtils</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">BeanPropertyUtils</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token string">"This is a utility class and cannot be instantiated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">/**
+     * 将源对象的属性值复制到目标对象。
+     * 只复制名称相同且类型兼容的属性。
+     * 源对象属性值为null时，也会复制null到目标对象。
+     *
+     * @param source 源对象
+     * @param target 目标对象
+     * @throws NullPointerException 如果source或target为null
+     * @throws RuntimeException 如果复制过程中发生反射相关的错误
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">copyProperties</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">Object</span> source<span class="token punctuation">,</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> target<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> <span class="token string">"Source object cannot be null"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">requireNonNull</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token string">"Target object cannot be null"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> sourceClass <span class="token operator">=</span> source<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> targetClass <span class="token operator">=</span> target<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">Field</span><span class="token punctuation">[</span><span class="token punctuation">]</span> sourceFields <span class="token operator">=</span> sourceClass<span class="token punctuation">.</span><span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Field</span> sourceField <span class="token operator">:</span> sourceFields<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 忽略静态字段和final字段 (通常final字段在构造后不应被修改)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isStatic</span><span class="token punctuation">(</span>sourceField<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span><span class="token function">isFinal</span><span class="token punctuation">(</span>sourceField<span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 尝试在目标对象中查找同名同类型的字段，或名称相同且类型兼容的setter方法</span>
+                <span class="token class-name">Field</span> targetField <span class="token operator">=</span> <span class="token function">findTargetField</span><span class="token punctuation">(</span>targetClass<span class="token punctuation">,</span> sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> sourceField<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>targetField <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    sourceField<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 允许访问私有字段</span>
+                    targetField<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 允许访问私有字段</span>
+                    <span class="token class-name">Object</span> value <span class="token operator">=</span> sourceField<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    targetField<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 直接字段赋值</span>
+                <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                    <span class="token comment">// 如果直接字段找不到或类型不完全匹配，尝试通过getter/setter方法</span>
+                    <span class="token comment">// 为了简化，这里仅演示通过名称匹配，实际应用中类型检查和转换更复杂</span>
+                    <span class="token class-name">String</span> getterName <span class="token operator">=</span> <span class="token string">"get"</span> <span class="token operator">+</span> <span class="token function">capitalize</span><span class="token punctuation">(</span>sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token class-name">String</span> setterName <span class="token operator">=</span> <span class="token string">"set"</span> <span class="token operator">+</span> <span class="token function">capitalize</span><span class="token punctuation">(</span>sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                        <span class="token class-name">Method</span> getterMethod <span class="token operator">=</span> <span class="token function">findGetter</span><span class="token punctuation">(</span>sourceClass<span class="token punctuation">,</span> getterName<span class="token punctuation">,</span> sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token class-name">Method</span> setterMethod <span class="token operator">=</span> <span class="token function">findSetter</span><span class="token punctuation">(</span>targetClass<span class="token punctuation">,</span> setterName<span class="token punctuation">,</span> sourceField<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>getterMethod <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> setterMethod <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                            <span class="token comment">// 确保getter的返回类型与setter的参数类型兼容</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>setterMethod<span class="token punctuation">.</span><span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">isAssignableFrom</span><span class="token punctuation">(</span>getterMethod<span class="token punctuation">.</span><span class="token function">getReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                                <span class="token class-name">Object</span> value <span class="token operator">=</span> getterMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                setterMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">&#125;</span>
+                        <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> nsme<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                        <span class="token comment">// 忽略：源对象没有对应的getter或目标对象没有对应的setter</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalAccessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// Log or handle: 无法访问字段或方法</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Access error for field "</span> <span class="token operator">+</span> sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalArgumentException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// Log or handle: 参数类型不匹配 (通常在setter调用时)</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Argument error for field "</span> <span class="token operator">+</span> sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 其他反射异常，例如 InvocationTargetException</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Error copying property '"</span> <span class="token operator">+</span> sourceField<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"'"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Field</span> <span class="token function">findTargetField</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> targetClass<span class="token punctuation">,</span> <span class="token class-name">String</span> fieldName<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> fieldType<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Field</span> field <span class="token operator">=</span> targetClass<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span>fieldName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 简单类型匹配，实际场景可能需要更复杂的类型兼容性判断</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>field<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>fieldType<span class="token punctuation">)</span> <span class="token operator">||</span> field<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isAssignableFrom</span><span class="token punctuation">(</span>fieldType<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">isPrimitiveWrapperMatch</span><span class="token punctuation">(</span>field<span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fieldType<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> field<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchFieldException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 字段不存在</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 也可以向上查找父类字段</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>targetClass<span class="token punctuation">.</span><span class="token function">getSuperclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token function">findTargetField</span><span class="token punctuation">(</span>targetClass<span class="token punctuation">.</span><span class="token function">getSuperclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> fieldName<span class="token punctuation">,</span> fieldType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Method</span> <span class="token function">findGetter</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz<span class="token punctuation">,</span> <span class="token class-name">String</span> methodName<span class="token punctuation">,</span> <span class="token class-name">String</span> fieldName<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">NoSuchMethodException</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">NoSuchMethodException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 尝试boolean类型的isXXX getter</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>fieldName <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token keyword">boolean</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span>fieldName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token class-name">Boolean</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>clazz<span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span>fieldName<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+                 <span class="token class-name">String</span> booleanGetterName <span class="token operator">=</span> <span class="token string">"is"</span> <span class="token operator">+</span> <span class="token function">capitalize</span><span class="token punctuation">(</span>fieldName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>booleanGetterName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 避免重复尝试</span>
+                    <span class="token keyword">return</span> clazz<span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span>booleanGetterName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">throw</span> e<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Method</span> <span class="token function">findSetter</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> clazz<span class="token punctuation">,</span> <span class="token class-name">String</span> methodName<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> paramType<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">NoSuchMethodException</span> <span class="token punctuation">&#123;</span>
+         <span class="token comment">// 遍历所有方法查找名称和参数类型都匹配的setter，更精确</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Method</span> method <span class="token operator">:</span> clazz<span class="token punctuation">.</span><span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>methodName<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> method<span class="token punctuation">.</span><span class="token function">getParameterCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">isAssignableFrom</span><span class="token punctuation">(</span>paramType<span class="token punctuation">)</span> <span class="token operator">||</span> 
+                    <span class="token function">isPrimitiveWrapperMatch</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> paramType<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">return</span> method<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NoSuchMethodException</span><span class="token punctuation">(</span><span class="token string">"No compatible setter found for "</span> <span class="token operator">+</span> methodName <span class="token operator">+</span> <span class="token string">" with param type "</span> <span class="token operator">+</span> paramType<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">capitalize</span><span class="token punctuation">(</span><span class="token class-name">String</span> str<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>str <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> str<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> str<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Character</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> str<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">isPrimitiveWrapperMatch</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> type1<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> type2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type1<span class="token punctuation">.</span><span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> type1 <span class="token operator">=</span> <span class="token function">getWrapperClass</span><span class="token punctuation">(</span>type1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type2<span class="token punctuation">.</span><span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> type2 <span class="token operator">=</span> <span class="token function">getWrapperClass</span><span class="token punctuation">(</span>type2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> type1<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>type2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span><span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span><span class="token punctuation">></span></span> <span class="token constant">PRIMITIVE_TO_WRAPPER</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token punctuation">&#123;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">boolean</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Boolean</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Byte</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Character</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">short</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Short</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token class-name">Double</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> <span class="token function">getWrapperClass</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> primitiveClass<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token constant">PRIMITIVE_TO_WRAPPER</span><span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span>primitiveClass<span class="token punctuation">,</span> primitiveClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 还可以添加其他配置，例如：</span>
+    <span class="token comment">// public static void copyProperties(Object source, Object target, boolean ignoreNulls) &#123; ... &#125;</span>
+    <span class="token comment">// public static void copyProperties(Object source, Object target, String... ignoreProperties) &#123; ... &#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p><strong>实现说明</strong>：</p>
+<ul>
+<li>遍历源对象的所有声明字段（不包括继承的，可按需修改为 <code>getFields()</code> 或递归获取）。</li>
+<li>忽略 <code>static</code> 和 <code>final</code> 字段。</li>
+<li>优先尝试直接通过反射访问和设置同名同类型的字段 (<code>targetField.set(target, value)</code>)。这可以处理没有公共getter&#x2F;setter但需要复制的字段（如果安全策略允许）。</li>
+<li>如果直接字段访问不成功或类型不完全匹配，则尝试通过标准的getter&#x2F;setter方法 (<code>getterMethod.invoke(source)</code>, <code>setterMethod.invoke(target, value)</code>)。这里对getter&#x2F;setter名称做了简单约定 (<code>getXxx</code>&#x2F;<code>isXxx</code> 和 <code>setXxx</code>)。</li>
+<li><code>capitalize</code> 是一个辅助方法，用于首字母大写以构造getter&#x2F;setter名称。</li>
+<li><code>findTargetField</code>, <code>findGetter</code>, <code>findSetter</code> 是辅助方法，用于查找对应的字段和方法，并进行了简单的类型兼容性检查，包括基本类型和其包装类型的匹配 (<code>isPrimitiveWrapperMatch</code>)。</li>
+<li>异常处理：简单打印了错误信息或抛出运行时异常，实际项目中应根据需求细化。</li>
+<li><strong>这是一个浅拷贝实现</strong>：如果属性是对象类型，复制的是引用，不是对象本身。</li>
+</ul>
+<h2 id="（一）处理-null-值"><a href="#（一）处理-null-值" class="headerlink" title="（一）处理 null 值"></a>（一）处理 <code>null</code> 值</h2><p>当前实现会将源对象的 <code>null</code> 值复制到目标对象。如果希望忽略 <code>null</code> 值，可以在 <code>targetField.set()</code> 或 <code>setterMethod.invoke()</code> 之前添加判断：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// ...</span>
+<span class="token class-name">Object</span> value <span class="token operator">=</span> sourceField<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>source<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 或根据配置参数 decide whether to copy nulls</span>
+    targetField<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// 类似地修改setter调用</span>
+<span class="token comment">// ...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）忽略特定属性"><a href="#（二）忽略特定属性" class="headerlink" title="（二）忽略特定属性"></a>（二）忽略特定属性</h2><p>可以传递一个 <code>String</code> 数组或 <code>Set</code> 来指定哪些属性不需要复制：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 在 for 循环开始处添加：</span>
+<span class="token comment">// if (isIgnored(sourceField.getName(), ignoreProperties)) &#123; continue; &#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）不同名属性映射"><a href="#（三）不同名属性映射" class="headerlink" title="（三）不同名属性映射"></a>（三）不同名属性映射</h2><p>如果源和目标属性名称不同，简单的基于名称匹配的反射就行不通了。这时可以考虑：</p>
+<ul>
+<li><strong>注解</strong>：在字段或getter&#x2F;setter上使用自定义注解指定映射关系，如 <code>@MapField(&quot;sourceFieldName&quot;)</code>。</li>
+<li><strong>配置对象</strong>：传递一个 <code>Map&lt;String, String&gt;</code> 来定义源字段名到目标字段名的映射。</li>
+</ul>
+<p>这些会使实现变得更复杂。</p>
+<h2 id="（四）深拷贝"><a href="#（四）深拷贝" class="headerlink" title="（四）深拷贝"></a>（四）深拷贝</h2><p>实现通用的深拷贝非常复杂，因为需要处理循环引用、集合和数组的深拷贝、以及不可变对象的识别。<br>对于自定义对象，简单的深拷贝思路是：</p>
+<ol>
+<li>如果属性类型是自定义的可变对象，递归调用 <code>copyProperties</code> 创建新的目标属性实例。</li>
+<li>对于集合或数组，需要创建新的集合&#x2F;数组实例，并对其中每个元素进行深拷贝（如果元素也是可变对象）。</li>
+</ol>
+<p>更可靠的深拷贝通常依赖于序列化（如使用Jackson或Gson将对象转为JSON再转回来，前提是对象可序列化且无复杂引用）或者专门的深拷贝库。</p>
+<h1 id="五、使用示例"><a href="#五、使用示例" class="headerlink" title="五、使用示例"></a>五、使用示例</h1><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">SourceBean</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> email<span class="token punctuation">;</span> <span class="token comment">// 源对象有，目标对象没有</span>
+    <span class="token keyword">private</span> <span class="token class-name">NestedBean</span> nested<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">SourceBean</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">,</span> <span class="token class-name">String</span> email<span class="token punctuation">,</span> <span class="token class-name">NestedBean</span> nested<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>nested <span class="token operator">=</span> nested<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// Getters and Setters...</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> name<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> age<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getEmail</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> email<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setEmail</span><span class="token punctuation">(</span><span class="token class-name">String</span> email<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>email <span class="token operator">=</span> email<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">NestedBean</span> <span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> nested<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setNested</span><span class="token punctuation">(</span><span class="token class-name">NestedBean</span> nested<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>nested <span class="token operator">=</span> nested<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">TargetBean</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> age<span class="token punctuation">;</span> <span class="token comment">// 类型不同但兼容 (int -> Integer)</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> address<span class="token punctuation">;</span> <span class="token comment">// 目标对象有，源对象没有</span>
+    <span class="token keyword">private</span> <span class="token class-name">NestedBean</span> nested<span class="token punctuation">;</span>
+
+    <span class="token comment">// Getters and Setters...</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> name<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> age<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> age<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> address<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAddress</span><span class="token punctuation">(</span><span class="token class-name">String</span> address<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>address <span class="token operator">=</span> address<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">NestedBean</span> <span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> nested<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setNested</span><span class="token punctuation">(</span><span class="token class-name">NestedBean</span> nested<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>nested <span class="token operator">=</span> nested<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"TargetBean&#123;"</span> <span class="token operator">+</span>
+                <span class="token string">"name='"</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", age="</span> <span class="token operator">+</span> age <span class="token operator">+</span>
+                <span class="token string">", address='"</span> <span class="token operator">+</span> address <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">", nested="</span> <span class="token operator">+</span> <span class="token punctuation">(</span>nested <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> nested<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                <span class="token char">'&#125;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">NestedBean</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> value<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token class-name">NestedBean</span><span class="token punctuation">(</span><span class="token class-name">String</span> value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> value<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token class-name">String</span> value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BeanPropertyUtilsDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">NestedBean</span> sourceNested <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NestedBean</span><span class="token punctuation">(</span><span class="token string">"SourceNestedValue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">SourceBean</span> source <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SourceBean</span><span class="token punctuation">(</span><span class="token string">"John Doe"</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token string">"john.doe@example.com"</span><span class="token punctuation">,</span> sourceNested<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">TargetBean</span> target <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TargetBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        target<span class="token punctuation">.</span><span class="token function">setAddress</span><span class="token punctuation">(</span><span class="token string">"Initial Address"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 目标对象的初始值</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Target before copy: "</span> <span class="token operator">+</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">BeanPropertyUtils</span><span class="token punctuation">.</span><span class="token function">copyProperties</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Target after copy: "</span> <span class="token operator">+</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Source nested hash: "</span> <span class="token operator">+</span> source<span class="token punctuation">.</span><span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Target nested hash: "</span> <span class="token operator">+</span> target<span class="token punctuation">.</span><span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Nested objects are same (shallow copy): "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>source<span class="token punctuation">.</span><span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">.</span><span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 演示如果修改源的嵌套对象，目标也会变 (因为是浅拷贝)</span>
+        source<span class="token punctuation">.</span><span class="token function">getNested</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">"ModifiedSourceNestedValue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Target after modifying source nested: "</span> <span class="token operator">+</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><strong>预期输出</strong> (部分，哈希值会变化):</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">Target before copy: TargetBean&#123;name&#x3D;&#39;null&#39;, age&#x3D;null, address&#x3D;&#39;Initial Address&#39;, nested&#x3D;null&#125;
+Target after copy: TargetBean&#123;name&#x3D;&#39;John Doe&#39;, age&#x3D;30, address&#x3D;&#39;Initial Address&#39;, nested&#x3D;SourceNestedValue&#125;
+Source nested hash: ...
+Target nested hash: ...
+Nested objects are same (shallow copy): true
+Target after modifying source nested: TargetBean&#123;name&#x3D;&#39;John Doe&#39;, age&#x3D;30, address&#x3D;&#39;Initial Address&#39;, nested&#x3D;ModifiedSourceNestedValue&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="六、性能考虑与替代方案"><a href="#六、性能考虑与替代方案" class="headerlink" title="六、性能考虑与替代方案"></a>六、性能考虑与替代方案</h1><p>基于反射的属性复制通常比直接的getter&#x2F;setter调用慢。原因包括：</p>
+<ul>
+<li>方法查找的开销。</li>
+<li>安全检查。</li>
+<li>参数打包&#x2F;解包。</li>
+</ul>
+<p><strong>优化技巧</strong>：</p>
+<ul>
+<li><strong>缓存反射对象</strong>：对于频繁复制相同类型的对象，可以将 <code>Field</code>、<code>Method</code> 对象缓存起来（例如在 <code>Map&lt;Class&lt;?&gt;, Map&lt;String, Field&gt;&gt;</code> 中），避免重复查找。</li>
+<li><strong>动态代码生成</strong>：更高级的技术是使用字节码操作库（如 ASM, ByteBuddy）在运行时动态生成专门的复制类，其性能接近手动编写的代码。</li>
+</ul>
+<p><strong>替代方案</strong>：</p>
+<ul>
+<li><strong>手动编写</strong>：对于固定类型的、性能要求极高的复制，手动编写getter&#x2F;setter调用是最快的。</li>
+<li><strong>MapStruct</strong>：如前所述，它在编译时生成映射代码，性能非常好，且类型安全。</li>
+<li>**Cglib的 <code>BeanCopier</code>**：Cglib库提供了一个 <code>BeanCopier</code> 类，它通过动态生成字节码来实现属性复制，性能优于纯反射，但不如MapStruct类型安全，且配置不如MapStruct灵活。</li>
+</ul>
+<h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>自定义 <code>BeanPropertyUtils</code> 可以在特定场景下提供灵活性和轻量级的解决方案。通过Java反射，我们可以实现基本的属性复制功能。然而，开发者需要仔细考虑复制策略、错误处理、尤其是浅拷贝和深拷贝的区别，以及反射带来的性能影响。对于大多数复杂的应用场景或对性能有较高要求的场景，优先考虑成熟的映射库如 MapStruct 通常是更佳的选择。自己实现此类工具更多的是为了应对特定简单需求或加深对底层机制的理解。</p>
+<h1 id="八、参考资料"><a href="#八、参考资料" class="headerlink" title="八、参考资料"></a>八、参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://dev.to/markyu/advanced-java-simplifying-object-property-copy-and-manipulation-with-beanutil-3l2n">Advanced Java: Simplifying Object Property Copy and Manipulation with BeanUtil (dev.to)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-deep-copy">How to Make a Deep Copy of an Object in Java (baeldung.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/thehackersdeck/objutils">GitHub - thehackersdeck&#x2F;objutils (github.com)</a></li>
+</ul>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E6%8A%80%E5%B7%A7/" class="category-chain-item">JAVA技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+        <a href="/tags/%E5%8F%8D%E5%B0%84/" class="print-no-link">#反射</a>
+      
+        <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="print-no-link">#工具类</a>
+      
+        <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="print-no-link">#自定义工具类</a>
+      
+        <a href="/tags/%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%A4%8D%E5%88%B6/" class="print-no-link">#对象属性复制</a>
+      
+        <a href="/tags/BeanUtils/" class="print-no-link">#BeanUtils</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90LINUX%E3%80%91%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="【LINUX】常用网络工具安装与使用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【LINUX】常用网络工具安装与使用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91%E8%AF%A6%E8%A7%A3%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%8F%98%E5%8C%96%E6%AF%94%E8%BE%83%E5%B7%A5%E5%85%B7%E7%B1%BBBeanCompareUtils/" title="【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils">
+                        <span class="hidden-mobile">【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
