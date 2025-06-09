@@ -23,23 +23,28 @@
     
     // 初始化函数
     function init() {
-        // 创建UI
-        createChatUI();
-        
-        // 绑定事件
-        bindEvents();
-        
-        // 添加欢迎消息
-        addBotMessage(config.welcomeMessage);
-        
-        // 检查本地存储中的历史记录
-        loadChatHistory();
-        
-        // 初始化输入框样式
-        userInput.style.height = 'auto';
-        userInput.style.overflowX = 'hidden';
-        
-        console.log('AI助手初始化完成');
+        // 延迟初始化，优先保证页面渲染完成
+        setTimeout(() => {
+            // 创建UI
+            createChatUI();
+            
+            // 绑定事件
+            bindEvents();
+            
+            // 添加欢迎消息
+            addBotMessage(config.welcomeMessage);
+            
+            // 检查本地存储中的历史记录
+            loadChatHistory();
+            
+            // 初始化输入框样式
+            if (userInput) {
+                userInput.style.height = 'auto';
+                userInput.style.overflowX = 'hidden';
+            }
+            
+            console.log('AI助手初始化完成');
+        }, 1000); // 延迟1秒初始化
     }
     
     // 创建聊天界面
@@ -249,6 +254,10 @@
         }
         
         try {
+            // 添加超时处理
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超时
+            
             const response = await fetch(config.apiEndpoint, {
                 method: 'POST',
                 headers: {
@@ -269,8 +278,17 @@
                     ],
                     max_tokens: config.maxTokens,
                     temperature: config.temperature
-                })
+                }),
+                signal: controller.signal // 添加AbortController信号
             });
+            
+            // 清除超时计时器
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) {
+                console.error('API响应错误:', response.status, response.statusText);
+                return `抱歉，AI服务返回错误：${response.status} ${response.statusText}`;
+            }
             
             const data = await response.json();
             
@@ -283,6 +301,10 @@
             
         } catch(error) {
             console.error('网络请求错误:', error);
+            // 判断是否为超时错误
+            if (error.name === 'AbortError') {
+                return '抱歉，请求超时。服务器可能繁忙，请稍后再试。';
+            }
             return '抱歉，连接AI服务时出现错误。请检查网络连接或稍后再试。';
         }
     }
@@ -341,8 +363,12 @@
     
     // 页面加载完成后初始化
     if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', () => {
+            // 等待页面完全加载完成后再初始化AI助手
+            window.addEventListener('load', init);
+        });
     } else {
-        init();
+        // 如果DOM已加载，等待所有资源加载完成
+        window.addEventListener('load', init);
     }
 })();
