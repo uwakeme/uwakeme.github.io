@@ -29,10 +29,10 @@
 <meta property="og:description" content="前言《算法图解》第四章引入了一种强大的算法设计策略——分而治之 (Divide and Conquer, D&amp;C)。这种策略将复杂问题分解为更小、更易于管理的部分，然后递归地解决这些部分，最终合并结果。作为 D&amp;C 策略的经典应用，本章详细介绍了快速排序 (Quicksort) 算法，它是一种非常高效且广泛使用的排序方法。本笔记将梳理 D&amp;C 的核心思想以及快速排序的实现原">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-05T03:29:53.662Z">
-<meta property="article:modified_time" content="2025-06-05T03:30:15.784Z">
+<meta property="article:modified_time" content="2025-06-10T04:51:10.762Z">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="算法图解">
+<meta property="article:tag" content="《算法图解》">
 <meta property="article:tag" content="递归">
 <meta property="article:tag" content="快速排序">
 <meta property="article:tag" content="分而治之">
@@ -456,12 +456,6 @@ sorted_list <span class="token operator">=</span> quicksort<span class="token pu
 <li><code>len &lt; 2</code>，返回 <code>[1]</code> (基线条件)</li>
 </ul>
 </li>
-<li><p><strong><code>quicksort([])</code></strong> (右孙子数组)</p>
-<ul>
-<li><code>len &lt; 2</code>，返回 <code>[]</code> (基线条件)</li>
-</ul>
-<p>此时，步骤2返回 <code>[1] + [2] + [] = [1, 2]</code>。</p>
-</li>
 <li><p><strong><code>quicksort([6, 5, 4])</code></strong> (右子数组)</p>
 <ul>
 <li><code>pivot = 6</code></li>
@@ -487,9 +481,17 @@ sorted_list <span class="token operator">=</span> quicksort<span class="token pu
 <ul>
 <li><code>len &lt; 2</code>，返回 <code>[]</code> (基线条件)</li>
 </ul>
-<p>此时，步骤6返回 <code>[4] + [5] + [] = [4, 5]</code>。<br>步骤5返回 <code>[4, 5] + [6] + [] = [4, 5, 6]</code>。</p>
+<p>此时，步骤2返回 <code>[1] + [2] + [] = [1, 2]</code>。</p>
 </li>
-<li><p>最终，步骤1返回 <code>[1, 2] + [3] + [4, 5, 6] = [1, 2, 3, 4, 5, 6]</code>。</p>
+<li><p><strong><code>quicksort([5, 4])</code></strong> (右孙子数组)</p>
+<ul>
+<li><code>pivot = 5</code></li>
+<li><code>less = [4]</code></li>
+<li><code>greater = []</code></li>
+<li>返回 <code>quicksort([4]) + [5] + quicksort([])</code></li>
+</ul>
+</li>
+<li><p>最终，步骤1返回 <code>[1, 2] + [3] + [4, 5] = [1, 2, 3, 4, 5]</code>。</p>
 </li>
 </ol>
 <h1 id="三、再谈大-O-表示法与快速排序的性能"><a href="#三、再谈大-O-表示法与快速排序的性能" class="headerlink" title="三、再谈大 O 表示法与快速排序的性能"></a>三、再谈大 O 表示法与快速排序的性能</h1><p>快速排序的性能分析是理解其为何”快速”的关键。</p>
@@ -556,7 +558,7 @@ sorted_list <span class="token operator">=</span> quicksort<span class="token pu
       
         <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/" class="print-no-link">#算法图解</a>
+        <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" class="print-no-link">#《算法图解》</a>
       
         <a href="/tags/%E9%80%92%E5%BD%92/" class="print-no-link">#递归</a>
       

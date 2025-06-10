@@ -1,0 +1,935 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言《算法图解》第十二章介绍了一种简单而强大的机器学习算法——K近邻算法（K-Nearest Neighbors，简称KNN）。这是一种基于实例的学习方法，也是机器学习领域中最基础、最直观的算法之一。本章不仅讲解了KNN的基本原理和实现方式，还探讨了特征提取、归一化等重要概念，为读者打开了机器学习的大门。本笔记将梳理KNN算法的核心思想、实现步骤以及应用场景。 一、K近邻算法概述（一）基本思想K近">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习】《算法图解》第十二章学习笔记：K近邻算法">
+<meta property="og:url" content="https://uwakeme.top/2025/06/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言《算法图解》第十二章介绍了一种简单而强大的机器学习算法——K近邻算法（K-Nearest Neighbors，简称KNN）。这是一种基于实例的学习方法，也是机器学习领域中最基础、最直观的算法之一。本章不仅讲解了KNN的基本原理和实现方式，还探讨了特征提取、归一化等重要概念，为读者打开了机器学习的大门。本笔记将梳理KNN算法的核心思想、实现步骤以及应用场景。 一、K近邻算法概述（一）基本思想K近">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-10T05:15:45.595Z">
+<meta property="article:modified_time" content="2025-06-10T06:41:07.505Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="《算法图解》">
+<meta property="article:tag" content="K近邻算法">
+<meta property="article:tag" content="KNN">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="分类算法">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【学习】《算法图解》第十二章学习笔记：K近邻算法 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/post.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【学习】《算法图解》第十二章学习笔记：K近邻算法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-10 13:15" pubdate>
+          2025-06-10 13:15
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【学习】《算法图解》第十二章学习笔记：K近邻算法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>《算法图解》第十二章介绍了一种简单而强大的机器学习算法——K近邻算法（K-Nearest Neighbors，简称KNN）。这是一种基于实例的学习方法，也是机器学习领域中最基础、最直观的算法之一。本章不仅讲解了KNN的基本原理和实现方式，还探讨了特征提取、归一化等重要概念，为读者打开了机器学习的大门。本笔记将梳理KNN算法的核心思想、实现步骤以及应用场景。</p>
+<h1 id="一、K近邻算法概述"><a href="#一、K近邻算法概述" class="headerlink" title="一、K近邻算法概述"></a>一、K近邻算法概述</h1><h2 id="（一）基本思想"><a href="#（一）基本思想" class="headerlink" title="（一）基本思想"></a>（一）基本思想</h2><p>K近邻算法的核心思想非常简单：<strong>物以类聚，人以群分</strong>。它基于一个假设：相似的事物通常具有相似的特征，并且在特征空间中彼此靠近。</p>
+<p>具体来说，KNN算法的基本思路是：</p>
+<ol>
+<li>对于一个待分类的新实例，在训练数据集中找到与它最相似（距离最近）的K个实例</li>
+<li>这K个实例中出现最多的类别，就作为新实例的预测类别</li>
+</ol>
+<h2 id="（二）算法特点"><a href="#（二）算法特点" class="headerlink" title="（二）算法特点"></a>（二）算法特点</h2><p>KNN算法具有以下特点：</p>
+<ol>
+<li><strong>非参数化方法</strong>：不对数据分布做任何假设，完全依赖于数据本身</li>
+<li><strong>惰性学习</strong>：没有显式的训练过程，只在需要预测时才进行计算</li>
+<li><strong>直观易懂</strong>：算法思想简单，容易理解和实现</li>
+<li><strong>计算复杂度高</strong>：预测时需要计算新实例与所有训练实例的距离</li>
+</ol>
+<h1 id="二、KNN算法步骤详解"><a href="#二、KNN算法步骤详解" class="headerlink" title="二、KNN算法步骤详解"></a>二、KNN算法步骤详解</h1><h2 id="（一）算法流程"><a href="#（一）算法流程" class="headerlink" title="（一）算法流程"></a>（一）算法流程</h2><p>KNN算法的基本流程如下：</p>
+<ol>
+<li><strong>收集数据</strong>：准备训练数据集，每个实例包含特征向量和类别标签</li>
+<li><strong>选择距离度量</strong>：确定如何计算实例之间的相似度（通常使用欧几里得距离）</li>
+<li><strong>对新实例进行分类</strong>：<ul>
+<li>计算新实例与训练集中所有实例的距离</li>
+<li>选择距离最近的K个实例</li>
+<li>统计这K个实例中各类别的频次</li>
+<li>将出现频次最高的类别作为新实例的预测类别</li>
+</ul>
+</li>
+</ol>
+<h2 id="（二）距离度量"><a href="#（二）距离度量" class="headerlink" title="（二）距离度量"></a>（二）距离度量</h2><p>KNN算法中，距离度量是衡量两个实例相似度的关键。常用的距离度量方法包括：</p>
+<ol>
+<li><p><strong>欧几里得距离</strong>：最常用的距离计算方法<br>$$d(x, y) &#x3D; \sqrt{\sum_{i&#x3D;1}^{n}(x_i - y_i)^2}$$</p>
+</li>
+<li><p><strong>曼哈顿距离</strong>：沿坐标轴方向的距离总和<br>$$d(x, y) &#x3D; \sum_{i&#x3D;1}^{n}|x_i - y_i|$$</p>
+</li>
+<li><p><strong>闵可夫斯基距离</strong>：欧几里得距离和曼哈顿距离的一般化形式<br>$$d(x, y) &#x3D; \left(\sum_{i&#x3D;1}^{n}|x_i - y_i|^p\right)^{1&#x2F;p}$$</p>
+</li>
+<li><p><strong>余弦相似度</strong>：计算两个向量的夹角余弦值，常用于文本分析<br>$$\cos(\theta) &#x3D; \frac{x \cdot y}{||x|| \times ||y||}$$</p>
+</li>
+</ol>
+<p>在《算法图解》中，主要使用欧几里得距离作为度量标准。</p>
+<h2 id="（三）K值的选择"><a href="#（三）K值的选择" class="headerlink" title="（三）K值的选择"></a>（三）K值的选择</h2><p>K值的选择对KNN算法的性能有重要影响：</p>
+<ul>
+<li><strong>K值过小</strong>（如K&#x3D;1）：算法对噪声敏感，容易过拟合</li>
+<li><strong>K值过大</strong>：可能会忽略局部特征，导致欠拟合</li>
+<li><strong>经验法则</strong>：一般选择训练样本数量的平方根作为K值的参考</li>
+<li><strong>实践建议</strong>：通常通过交叉验证等方法从多个候选值中选择最优的K值</li>
+</ul>
+<p>另外，为了避免平局情况，K值通常选择奇数。</p>
+<h1 id="三、特征工程与数据预处理"><a href="#三、特征工程与数据预处理" class="headerlink" title="三、特征工程与数据预处理"></a>三、特征工程与数据预处理</h1><h2 id="（一）特征提取"><a href="#（一）特征提取" class="headerlink" title="（一）特征提取"></a>（一）特征提取</h2><p>在应用KNN算法之前，需要将原始数据转换为特征向量。《算法图解》中提到了几种常见的特征提取方法：</p>
+<ol>
+<li><strong>数值型特征</strong>：直接使用原始数值，如身高、体重等</li>
+<li><strong>分类特征</strong>：通过独热编码（One-Hot Encoding）等方法转换为数值</li>
+<li><strong>文本特征</strong>：可以使用词袋模型（Bag of Words）或TF-IDF等方法提取特征</li>
+<li><strong>图像特征</strong>：可以提取颜色直方图、纹理特征等</li>
+</ol>
+<p>特征提取的质量直接影响KNN算法的性能，因此需要根据具体问题选择合适的特征表示方法。</p>
+<h2 id="（二）特征归一化"><a href="#（二）特征归一化" class="headerlink" title="（二）特征归一化"></a>（二）特征归一化</h2><p>由于KNN算法基于距离计算，不同特征的量纲（单位和范围）差异会对结果产生不公平的影响。例如，如果一个特征的取值范围是0-1，另一个特征的取值范围是0-1000，那么第二个特征将在距离计算中占据主导地位。</p>
+<p>为了解决这个问题，需要对特征进行归一化处理，常用的方法包括：</p>
+<ol>
+<li><p><strong>最小-最大归一化（Min-Max Scaling）</strong>：将特征缩放到[0, 1]区间<br>$$x’ &#x3D; \frac{x - \min(x)}{\max(x) - \min(x)}$$</p>
+</li>
+<li><p><strong>Z-score标准化</strong>：将特征转换为均值为0、标准差为1的分布<br>$$x’ &#x3D; \frac{x - \mu}{\sigma}$$</p>
+</li>
+</ol>
+<p>在《算法图解》中，作者强调了归一化的重要性，并建议在实际应用中始终对特征进行适当的归一化处理。</p>
+<h1 id="四、Python实现KNN算法"><a href="#四、Python实现KNN算法" class="headerlink" title="四、Python实现KNN算法"></a>四、Python实现KNN算法</h1><h2 id="（一）基本实现"><a href="#（一）基本实现" class="headerlink" title="（一）基本实现"></a>（一）基本实现</h2><p>以下是KNN算法的简单Python实现：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> Counter
+
+<span class="token keyword">def</span> <span class="token function">knn_classify</span><span class="token punctuation">(</span>training_data<span class="token punctuation">,</span> training_labels<span class="token punctuation">,</span> new_instance<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> distance_fn<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    使用KNN算法对新实例进行分类
+    
+    参数:
+    training_data -- 训练数据集，每行是一个实例的特征向量
+    training_labels -- 训练数据的类别标签
+    new_instance -- 待分类的新实例
+    k -- 近邻数量
+    distance_fn -- 距离计算函数，默认为欧几里得距离
+    
+    返回:
+    predicted_label -- 预测的类别标签
+    """</span>
+    <span class="token comment"># 如果没有提供距离函数，使用欧几里得距离</span>
+    <span class="token keyword">if</span> distance_fn <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        distance_fn <span class="token operator">=</span> <span class="token keyword">lambda</span> x<span class="token punctuation">,</span> y<span class="token punctuation">:</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">(</span>x <span class="token operator">-</span> y<span class="token punctuation">)</span> <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 计算新实例与所有训练实例的距离</span>
+    distances <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> instance <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>training_data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        dist <span class="token operator">=</span> distance_fn<span class="token punctuation">(</span>instance<span class="token punctuation">,</span> new_instance<span class="token punctuation">)</span>
+        distances<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span>dist<span class="token punctuation">,</span> training_labels<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 按距离排序并选择前k个</span>
+    distances<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    k_nearest <span class="token operator">=</span> distances<span class="token punctuation">[</span><span class="token punctuation">:</span>k<span class="token punctuation">]</span>
+    
+    <span class="token comment"># 统计这k个近邻中各类别的频次</span>
+    k_nearest_labels <span class="token operator">=</span> <span class="token punctuation">[</span>label <span class="token keyword">for</span> _<span class="token punctuation">,</span> label <span class="token keyword">in</span> k_nearest<span class="token punctuation">]</span>
+    most_common <span class="token operator">=</span> Counter<span class="token punctuation">(</span>k_nearest_labels<span class="token punctuation">)</span><span class="token punctuation">.</span>most_common<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> most_common<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）示例应用"><a href="#（二）示例应用" class="headerlink" title="（二）示例应用"></a>（二）示例应用</h2><p>以《算法图解》中的电影分类例子为例，我们可以使用KNN算法对电影进行分类：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 电影数据：[动作场景数, 浪漫场景数]</span>
+movies <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">104</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># "爱情片"</span>
+    <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">,</span>  <span class="token comment"># "爱情片"</span>
+    <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">81</span><span class="token punctuation">]</span><span class="token punctuation">,</span>   <span class="token comment"># "爱情片"</span>
+    <span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment"># "动作片"</span>
+    <span class="token punctuation">[</span><span class="token number">99</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span>   <span class="token comment"># "动作片"</span>
+    <span class="token punctuation">[</span><span class="token number">98</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>    <span class="token comment"># "动作片"</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 电影类别标签</span>
+labels <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"爱情片"</span><span class="token punctuation">,</span> <span class="token string">"爱情片"</span><span class="token punctuation">,</span> <span class="token string">"爱情片"</span><span class="token punctuation">,</span> <span class="token string">"动作片"</span><span class="token punctuation">,</span> <span class="token string">"动作片"</span><span class="token punctuation">,</span> <span class="token string">"动作片"</span><span class="token punctuation">]</span>
+
+<span class="token comment"># 对特征进行归一化</span>
+<span class="token keyword">def</span> <span class="token function">normalize</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    min_vals <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+    max_vals <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+    ranges <span class="token operator">=</span> max_vals <span class="token operator">-</span> min_vals
+    normalized_data <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    m <span class="token operator">=</span> data<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    normalized_data <span class="token operator">=</span> <span class="token punctuation">(</span>data <span class="token operator">-</span> np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>min_vals<span class="token punctuation">,</span> <span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>ranges<span class="token punctuation">,</span> <span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> normalized_data
+
+<span class="token comment"># 归一化后的电影数据</span>
+normalized_movies <span class="token operator">=</span> normalize<span class="token punctuation">(</span>movies<span class="token punctuation">)</span>
+
+<span class="token comment"># 待分类的新电影：[动作场景数, 浪漫场景数]</span>
+new_movie <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">90</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+normalized_new_movie <span class="token operator">=</span> <span class="token punctuation">(</span>new_movie <span class="token operator">-</span> np<span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span>movies<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span>movies<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">-</span> np<span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span>movies<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 使用KNN算法进行分类</span>
+predicted_category <span class="token operator">=</span> knn_classify<span class="token punctuation">(</span>normalized_movies<span class="token punctuation">,</span> labels<span class="token punctuation">,</span> normalized_new_movie<span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"这部新电影可能是: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>predicted_category<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="五、KNN算法的优缺点"><a href="#五、KNN算法的优缺点" class="headerlink" title="五、KNN算法的优缺点"></a>五、KNN算法的优缺点</h1><h2 id="（一）优点"><a href="#（一）优点" class="headerlink" title="（一）优点"></a>（一）优点</h2><ol>
+<li><strong>简单直观</strong>：算法思想容易理解，实现简单</li>
+<li><strong>无需训练</strong>：不需要构建模型，可以直接用于分类</li>
+<li><strong>适用性广</strong>：可用于分类和回归问题</li>
+<li><strong>理论成熟</strong>：有完善的数学理论支持</li>
+<li><strong>对数据分布无假设</strong>：不需要对数据分布做任何假设</li>
+</ol>
+<h2 id="（二）缺点"><a href="#（二）缺点" class="headerlink" title="（二）缺点"></a>（二）缺点</h2><ol>
+<li><strong>计算复杂度高</strong>：预测时需要计算与所有训练实例的距离，时间复杂度为O(n)，其中n是训练集大小</li>
+<li><strong>存储开销大</strong>：需要存储全部训练数据</li>
+<li><strong>对特征缩放敏感</strong>：不同特征的量纲差异会影响结果</li>
+<li><strong>维度灾难</strong>：在高维空间中，距离度量的区分能力下降</li>
+<li><strong>对噪声敏感</strong>：异常值可能对结果产生较大影响</li>
+</ol>
+<h1 id="六、KNN的实际应用"><a href="#六、KNN的实际应用" class="headerlink" title="六、KNN的实际应用"></a>六、KNN的实际应用</h1><h2 id="（一）应用场景"><a href="#（一）应用场景" class="headerlink" title="（一）应用场景"></a>（一）应用场景</h2><p>KNN算法在许多领域都有广泛应用：</p>
+<ol>
+<li><strong>推荐系统</strong>：基于用户相似度推荐商品、电影等</li>
+<li><strong>图像识别</strong>：通过图像特征进行分类</li>
+<li><strong>文本分类</strong>：对文档进行主题分类</li>
+<li><strong>医疗诊断</strong>：基于病人症状和历史病例进行疾病诊断</li>
+<li><strong>金融风控</strong>：信用评分和风险评估</li>
+</ol>
+<h2 id="（二）KNN的改进"><a href="#（二）KNN的改进" class="headerlink" title="（二）KNN的改进"></a>（二）KNN的改进</h2><p>为了解决KNN算法的一些缺点，研究人员提出了多种改进方法：</p>
+<ol>
+<li><strong>KD树</strong>：使用KD树等数据结构加速近邻搜索</li>
+<li><strong>加权KNN</strong>：根据距离对近邻的投票进行加权</li>
+<li><strong>局部加权回归</strong>：在回归问题中使用加权平均</li>
+<li><strong>降维技术</strong>：使用PCA等方法降低特征维度</li>
+<li><strong>特征选择</strong>：选择最相关的特征子集</li>
+</ol>
+<h1 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h1><p>K近邻算法是一种简单而强大的机器学习方法，它通过比较新实例与已知实例的相似度来进行分类或回归。尽管KNN算法有计算复杂度高、存储开销大等缺点，但其简单直观的特性使其成为机器学习入门的理想算法，也是实际应用中的重要工具之一。</p>
+<p>在实践中，特征工程（特别是特征提取和归一化）对KNN算法的性能至关重要。此外，K值的选择也需要根据具体问题进行调整，通常通过交叉验证等方法确定最优值。</p>
+<p>《算法图解》通过生动的例子和清晰的解释，帮助读者理解了KNN算法的基本原理和应用方法，为进一步学习更复杂的机器学习算法奠定了基础。</p>
+<h1 id="八、参考资料"><a href="#八、参考资料" class="headerlink" title="八、参考资料"></a>八、参考资料</h1><ul>
+<li>《算法图解》（Grokking Algorithms）by Aditya Y. Bhargava</li>
+<li>周志华《机器学习》</li>
+<li>Peter Harrington《机器学习实战》</li>
+<li><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/neighbors.html">scikit-learn KNN文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm">K近邻算法 - 维基百科</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+      
+        <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" class="print-no-link">#《算法图解》</a>
+      
+        <a href="/tags/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" class="print-no-link">#K近邻算法</a>
+      
+        <a href="/tags/KNN/" class="print-no-link">#KNN</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" class="print-no-link">#分类算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【学习】《算法图解》第十三章学习笔记：接下来如何做">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习】《算法图解》第十三章学习笔记：接下来如何做</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/10/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="【学习】《算法图解》第十一章学习笔记：动态规划">
+                        <span class="hidden-mobile">【学习】《算法图解》第十一章学习笔记：动态规划</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
