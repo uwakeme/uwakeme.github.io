@@ -29,13 +29,13 @@
 <meta property="og:description" content="前言《算法图解》(Grokking Algorithms) 是由 Aditya Y. Bhargava 编写的一本算法入门书籍，以其通俗易懂的语言和生动形象的图解闻名。本书特别适合算法初学者，通过简明的解释和丰富的插图，将复杂的算法概念转化为易于理解的内容。笔者通过系统学习这本书，记录了各章节的学习笔记，本文作为总结和导航，帮助读者快速了解全书内容并方便查阅各章节的详细笔记。 一、《算法图解》整体">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-05T04:09:23.794Z">
-<meta property="article:modified_time" content="2025-06-05T04:09:44.741Z">
+<meta property="article:modified_time" content="2025-06-21T05:07:18.739Z">
 <meta property="article:author" content="Wake">
+<meta property="article:tag" content="编程基础">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="算法图解">
+<meta property="article:tag" content="《算法图解》">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="编程基础">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -321,7 +321,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.7k 字
+          2.6k 字
         
       </span>
     
@@ -333,7 +333,7 @@
         
         
           <!-- compatible with older versions-->
-          14 分钟
+          22 分钟
         
       </span>
     
@@ -385,12 +385,12 @@
               <div class="markdown-body">
                 
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>《算法图解》(Grokking Algorithms) 是由 Aditya Y. Bhargava 编写的一本算法入门书籍，以其通俗易懂的语言和生动形象的图解闻名。本书特别适合算法初学者，通过简明的解释和丰富的插图，将复杂的算法概念转化为易于理解的内容。笔者通过系统学习这本书，记录了各章节的学习笔记，本文作为总结和导航，帮助读者快速了解全书内容并方便查阅各章节的详细笔记。</p>
-<h1 id="一、《算法图解》整体内容概述"><a href="#一、《算法图解》整体内容概述" class="headerlink" title="一、《算法图解》整体内容概述"></a>一、《算法图解》整体内容概述</h1><p>《算法图解》从基础的算法概念开始，逐步深入到更复杂的算法思想，全书共11章，涵盖了以下核心内容：</p>
+<h1 id="一、《算法图解》整体内容概述"><a href="#一、《算法图解》整体内容概述" class="headerlink" title="一、《算法图解》整体内容概述"></a>一、《算法图解》整体内容概述</h1><p>《算法图解》从基础的算法概念开始，逐步深入到更复杂的算法思想，全书共13章，涵盖了以下核心内容：</p>
 <h2 id="（一）基础算法与数据结构"><a href="#（一）基础算法与数据结构" class="headerlink" title="（一）基础算法与数据结构"></a>（一）基础算法与数据结构</h2><ul>
 <li><strong>二分查找</strong>：一种针对有序数组的高效查找算法，时间复杂度为O(log n)</li>
 <li><strong>数组与链表</strong>：两种基本数据结构，各有优缺点</li>
 <li><strong>递归</strong>：一种解决问题的重要思想，通过函数调用自身来解决问题</li>
-<li><strong>栈</strong>：一种后进先出(LIFO)的数据结构</li>
+<li><strong>栈</strong>：一种后进先出(LIFO)的数据结构，用于实现递归</li>
 <li>**散列表(哈希表)**：通过键值对实现快速查找的数据结构</li>
 </ul>
 <h2 id="（二）排序算法"><a href="#（二）排序算法" class="headerlink" title="（二）排序算法"></a>（二）排序算法</h2><ul>
@@ -398,32 +398,75 @@
 <li><strong>快速排序</strong>：一种高效的分治排序算法，平均时间复杂度为O(n log n)</li>
 <li><strong>归并排序</strong>：另一种分治排序算法，稳定且时间复杂度为O(n log n)</li>
 </ul>
-<h2 id="（三）图算法"><a href="#（三）图算法" class="headerlink" title="（三）图算法"></a>（三）图算法</h2><ul>
-<li>**广度优先搜索(BFS)**：用于解决最短路径问题</li>
-<li><strong>狄克斯特拉算法</strong>：解决带权图的最短路径问题</li>
-<li><strong>贝尔曼-福特算法</strong>：能处理负权边的最短路径算法</li>
+<h2 id="（三）图算法与树结构"><a href="#（三）图算法与树结构" class="headerlink" title="（三）图算法与树结构"></a>（三）图算法与树结构</h2><ul>
+<li>**广度优先搜索(BFS)**：用于解决无权图的最短路径问题</li>
+<li><strong>树</strong>：一种重要的数据结构，包括二叉树、二叉搜索树等</li>
+<li><strong>平衡树</strong>：解决二叉搜索树退化问题的结构，如AVL树、红黑树、B树、B+树</li>
+<li><strong>迪杰斯特拉算法</strong>：解决带权图的最短路径问题</li>
 </ul>
 <h2 id="（四）高级算法思想"><a href="#（四）高级算法思想" class="headerlink" title="（四）高级算法思想"></a>（四）高级算法思想</h2><ul>
 <li><strong>贪心算法</strong>：通过局部最优选择达到全局最优解的策略</li>
 <li><strong>动态规划</strong>：通过解决子问题来解决复杂问题的方法</li>
-<li>**K最近邻(KNN)**：一种简单的机器学习算法</li>
+<li>**K近邻(KNN)**：一种简单的机器学习算法，用于分类和回归</li>
 </ul>
 <h2 id="（五）进阶主题"><a href="#（五）进阶主题" class="headerlink" title="（五）进阶主题"></a>（五）进阶主题</h2><p>书的最后一章介绍了十种进阶算法与数据结构，包括树、反向索引、傅里叶变换、并行算法、MapReduce、布隆过滤器等，为读者进一步学习指明了方向。</p>
 <h1 id="二、各章节学习笔记导航"><a href="#二、各章节学习笔记导航" class="headerlink" title="二、各章节学习笔记导航"></a>二、各章节学习笔记导航</h1><p>以下是笔者对《算法图解》各章节的详细学习笔记链接，点击即可跳转到相应章节：</p>
 <ol>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/">《算法图解》第一章学习笔记：算法简介</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">《算法图解》第二章学习笔记：选择排序</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%80%92%E5%BD%92/">《算法图解》第三章学习笔记：递归</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">《算法图解》第四章学习笔记：快速排序</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%A3%E5%88%97%E8%A1%A8/">《算法图解》第五章学习笔记：散列表</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%80%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">《算法图解》第一章学习笔记：算法简介与二分查找</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E7%BB%84%E3%80%81%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">《算法图解》第二章学习笔记：数组、链表与选择排序</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E9%80%92%E5%BD%92%E7%9A%84%E5%A5%A5%E7%A7%98/">《算法图解》第三章学习笔记：递归的奥秘</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">《算法图解》第四章学习笔记：分而治之与快速排序</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%A3%E5%88%97%E8%A1%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/">《算法图解》第五章学习笔记：散列表的工作原理与应用</a></li>
 <li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AD%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/">《算法图解》第六章学习笔记：广度优先搜索</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%83%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%8B%84%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/">《算法图解》第七章学习笔记：狄克斯特拉算法</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/">《算法图解》第八章学习笔记：贪婪算法</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B9%9D%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">《算法图解》第九章学习笔记：动态规划</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/">《算法图解》第十章学习笔记：K最近邻算法</a></li>
-<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E7%BB%A7%E7%BB%AD%E5%AD%A6%E4%B9%A0%EF%BC%9F/">《算法图解》第十一章学习笔记：接下来如何继续学习？</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B8%83%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%A0%91/">《算法图解》第七章学习笔记：树</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/">《算法图解》第八章学习笔记：平衡树</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E4%B9%9D%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/">《算法图解》第九章学习笔记：迪杰斯特拉算法</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/">《算法图解》第十章学习笔记：贪婪算法</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">《算法图解》第十一章学习笔记：动态规划</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/">《算法图解》第十二章学习笔记：K近邻算法</a></li>
+<li><a href="/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/">《算法图解》第十三章学习笔记：接下来如何做</a></li>
 </ol>
-<h1 id="三、算法复杂度总结"><a href="#三、算法复杂度总结" class="headerlink" title="三、算法复杂度总结"></a>三、算法复杂度总结</h1><p>算法的效率通常用大O表示法来衡量。以下是书中涉及的主要算法的时间复杂度比较：</p>
+<h1 id="三、核心算法与数据结构概览"><a href="#三、核心算法与数据结构概览" class="headerlink" title="三、核心算法与数据结构概览"></a>三、核心算法与数据结构概览</h1><h2 id="（一）查找算法"><a href="#（一）查找算法" class="headerlink" title="（一）查找算法"></a>（一）查找算法</h2><h3 id="1-二分查找"><a href="#1-二分查找" class="headerlink" title="1. 二分查找"></a>1. 二分查找</h3><ul>
+<li><strong>核心思想</strong>：在有序数组中通过不断缩小查找范围来定位目标元素</li>
+<li><strong>时间复杂度</strong>：O(log n)</li>
+<li><strong>应用场景</strong>：在有序数据集中快速查找元素</li>
+</ul>
+<h3 id="2-广度优先搜索"><a href="#2-广度优先搜索" class="headerlink" title="2. 广度优先搜索"></a>2. 广度优先搜索</h3><ul>
+<li><strong>核心思想</strong>：逐层探索图中节点，找到从起点到终点的最短路径</li>
+<li><strong>时间复杂度</strong>：O(V+E)，V为顶点数，E为边数</li>
+<li><strong>应用场景</strong>：寻找无权图中的最短路径、社交网络分析</li>
+</ul>
+<h3 id="3-迪杰斯特拉算法"><a href="#3-迪杰斯特拉算法" class="headerlink" title="3. 迪杰斯特拉算法"></a>3. 迪杰斯特拉算法</h3><ul>
+<li><strong>核心思想</strong>：通过贪心策略寻找带权图中的最短路径</li>
+<li><strong>时间复杂度</strong>：O((V+E)logV)（使用优先队列）</li>
+<li><strong>应用场景</strong>：GPS导航、网络路由</li>
+</ul>
+<h2 id="（二）排序算法-1"><a href="#（二）排序算法-1" class="headerlink" title="（二）排序算法"></a>（二）排序算法</h2><h3 id="1-选择排序"><a href="#1-选择排序" class="headerlink" title="1. 选择排序"></a>1. 选择排序</h3><ul>
+<li><strong>核心思想</strong>：每次从未排序部分选择最小元素放到已排序部分末尾</li>
+<li><strong>时间复杂度</strong>：O(n²)</li>
+<li><strong>特点</strong>：实现简单，但效率较低</li>
+</ul>
+<h3 id="2-快速排序"><a href="#2-快速排序" class="headerlink" title="2. 快速排序"></a>2. 快速排序</h3><ul>
+<li><strong>核心思想</strong>：选择基准元素，将数组分为小于和大于基准的两部分，递归排序</li>
+<li><strong>时间复杂度</strong>：平均O(n log n)，最坏O(n²)</li>
+<li><strong>特点</strong>：实际应用中效率高，原地排序</li>
+</ul>
+<h2 id="（三）数据结构"><a href="#（三）数据结构" class="headerlink" title="（三）数据结构"></a>（三）数据结构</h2><h3 id="1-数组与链表"><a href="#1-数组与链表" class="headerlink" title="1. 数组与链表"></a>1. 数组与链表</h3><ul>
+<li><strong>数组</strong>：连续内存空间，随机访问O(1)，插入删除O(n)</li>
+<li><strong>链表</strong>：非连续内存，随机访问O(n)，插入删除O(1)</li>
+<li><strong>应用场景</strong>：数组适合频繁访问，链表适合频繁增删</li>
+</ul>
+<h3 id="2-散列表"><a href="#2-散列表" class="headerlink" title="2. 散列表"></a>2. 散列表</h3><ul>
+<li><strong>核心思想</strong>：通过散列函数将键映射到数组索引，实现快速查找</li>
+<li><strong>时间复杂度</strong>：平均O(1)，最坏O(n)</li>
+<li><strong>应用场景</strong>：键值对存储、缓存、防止重复</li>
+</ul>
+<h3 id="3-树结构"><a href="#3-树结构" class="headerlink" title="3. 树结构"></a>3. 树结构</h3><ul>
+<li><strong>二叉搜索树</strong>：左子树值小于节点，右子树值大于节点</li>
+<li><strong>平衡树</strong>：如AVL树、红黑树，防止树退化为链表</li>
+<li><strong>B树和B+树</strong>：多路搜索树，适用于磁盘存储和数据库索引</li>
+</ul>
+<h1 id="四、算法复杂度总结"><a href="#四、算法复杂度总结" class="headerlink" title="四、算法复杂度总结"></a>四、算法复杂度总结</h1><p>算法的效率通常用大O表示法来衡量。以下是书中涉及的主要算法的时间复杂度比较：</p>
 <table>
 <thead>
 <tr>
@@ -458,13 +501,13 @@
 <td>最短路径问题，V为顶点数，E为边数</td>
 </tr>
 <tr>
-<td>狄克斯特拉算法</td>
-<td>O(E log V)</td>
+<td>迪杰斯特拉算法</td>
+<td>O((V+E)log V)</td>
 <td>O(V)</td>
 <td>带权图的最短路径</td>
 </tr>
 <tr>
-<td>贪婪算法</td>
+<td>贪心算法</td>
 <td>视具体问题而定</td>
 <td>视具体问题而定</td>
 <td>局部最优可导致全局最优的问题</td>
@@ -476,13 +519,33 @@
 <td>重叠子问题和最优子结构问题</td>
 </tr>
 <tr>
-<td>K最近邻</td>
+<td>K近邻</td>
 <td>预测时O(n)</td>
 <td>O(n)</td>
 <td>分类和回归问题</td>
 </tr>
 </tbody></table>
-<h1 id="四、学习心得与实践建议"><a href="#四、学习心得与实践建议" class="headerlink" title="四、学习心得与实践建议"></a>四、学习心得与实践建议</h1><h2 id="（一）学习心得"><a href="#（一）学习心得" class="headerlink" title="（一）学习心得"></a>（一）学习心得</h2><ol>
+<h1 id="五、算法思想总结"><a href="#五、算法思想总结" class="headerlink" title="五、算法思想总结"></a>五、算法思想总结</h1><h2 id="（一）分治法（Divide-and-Conquer）"><a href="#（一）分治法（Divide-and-Conquer）" class="headerlink" title="（一）分治法（Divide and Conquer）"></a>（一）分治法（Divide and Conquer）</h2><ul>
+<li><strong>核心思想</strong>：将问题分解为更小的子问题，解决子问题后合并结果</li>
+<li><strong>代表算法</strong>：快速排序、归并排序、二分查找</li>
+<li><strong>优点</strong>：能有效处理大规模问题，适合并行计算</li>
+</ul>
+<h2 id="（二）动态规划（Dynamic-Programming）"><a href="#（二）动态规划（Dynamic-Programming）" class="headerlink" title="（二）动态规划（Dynamic Programming）"></a>（二）动态规划（Dynamic Programming）</h2><ul>
+<li><strong>核心思想</strong>：通过存储子问题的解来避免重复计算</li>
+<li><strong>关键要素</strong>：最优子结构、重叠子问题、状态转移方程</li>
+<li><strong>应用场景</strong>：背包问题、最长公共子序列、编辑距离</li>
+</ul>
+<h2 id="（三）贪心策略（Greedy-Algorithm）"><a href="#（三）贪心策略（Greedy-Algorithm）" class="headerlink" title="（三）贪心策略（Greedy Algorithm）"></a>（三）贪心策略（Greedy Algorithm）</h2><ul>
+<li><strong>核心思想</strong>：在每一步选择当前最优解，期望最终得到全局最优解</li>
+<li><strong>应用场景</strong>：活动选择问题、霍夫曼编码、最小生成树</li>
+<li><strong>局限性</strong>：不是所有问题都能通过贪心策略得到最优解</li>
+</ul>
+<h2 id="（四）图算法思想"><a href="#（四）图算法思想" class="headerlink" title="（四）图算法思想"></a>（四）图算法思想</h2><ul>
+<li><strong>广度优先</strong>：逐层探索，适合最短路径问题</li>
+<li><strong>深度优先</strong>：尽可能深入探索，适合拓扑排序、连通性检查</li>
+<li><strong>最短路径</strong>：迪杰斯特拉算法（非负权重）、贝尔曼-福特算法（可处理负权重）</li>
+</ul>
+<h1 id="六、学习心得与实践建议"><a href="#六、学习心得与实践建议" class="headerlink" title="六、学习心得与实践建议"></a>六、学习心得与实践建议</h1><h2 id="（一）学习心得"><a href="#（一）学习心得" class="headerlink" title="（一）学习心得"></a>（一）学习心得</h2><ol>
 <li><strong>循序渐进</strong>：《算法图解》采用由浅入深的讲解方式，适合按顺序学习</li>
 <li><strong>动手实践</strong>：算法学习最重要的是实践，建议边学边实现代码</li>
 <li><strong>可视化理解</strong>：利用书中的图解和在线可视化工具加深理解</li>
@@ -496,7 +559,7 @@
 <li><strong>阅读源码</strong>：阅读一些开源项目中的算法实现</li>
 <li><strong>应用到实际项目</strong>：将学到的算法应用到自己的实际项目中</li>
 </ol>
-<h1 id="五、进阶学习路径"><a href="#五、进阶学习路径" class="headerlink" title="五、进阶学习路径"></a>五、进阶学习路径</h1><p>完成《算法图解》的学习后，可以按照以下路径继续深入学习算法：</p>
+<h1 id="七、进阶学习路径"><a href="#七、进阶学习路径" class="headerlink" title="七、进阶学习路径"></a>七、进阶学习路径</h1><p>完成《算法图解》的学习后，可以按照以下路径继续深入学习算法：</p>
 <ol>
 <li><strong>深入学习数据结构</strong>：进一步学习高级数据结构，如红黑树、B树、跳表等</li>
 <li><strong>研究高级算法</strong>：学习更复杂的算法，如A*搜索、最小生成树算法等</li>
@@ -504,14 +567,15 @@
 <li><strong>阅读经典书籍</strong>：《算法导论》、《编程珠玑》等经典著作</li>
 <li><strong>参与开源项目</strong>：通过参与开源项目，实践和提升算法能力</li>
 </ol>
-<h1 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h1><p>《算法图解》是一本优秀的算法入门书籍，通过简洁明了的语言和生动形象的图解，让读者能够轻松理解复杂的算法概念。本系列学习笔记记录了笔者在学习过程中的理解和思考，希望能够帮助更多的读者更好地学习算法。</p>
+<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>《算法图解》是一本优秀的算法入门书籍，通过简洁明了的语言和生动形象的图解，让读者能够轻松理解复杂的算法概念。本系列学习笔记记录了笔者在学习过程中的理解和思考，希望能够帮助更多的读者更好地学习算法。</p>
 <p>算法学习是一个持续的过程，需要不断的实践和思考。正如书中最后一章所说，学习算法的道路没有尽头，重要的是保持好奇心和探索精神，不断挑战自我，提升解决问题的能力。</p>
-<h1 id="七、参考资料"><a href="#七、参考资料" class="headerlink" title="七、参考资料"></a>七、参考资料</h1><ul>
+<h1 id="九、参考资料"><a href="#九、参考资料" class="headerlink" title="九、参考资料"></a>九、参考资料</h1><ul>
 <li>《算法图解》（Grokking Algorithms）by Aditya Y. Bhargava</li>
 <li><a target="_blank" rel="noopener" href="https://algs4.cs.princeton.edu/home/">《算法》（第4版）</a> by Robert Sedgewick and Kevin Wayne</li>
 <li><a target="_blank" rel="noopener" href="https://visualgo.net/">VisuAlgo - 数据结构和算法动态可视化</a></li>
 <li><a target="_blank" rel="noopener" href="https://leetcode.com/">LeetCode</a> - 在线编程练习平台</li>
 <li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/">GeeksforGeeks</a> - 算法和数据结构学习资源</li>
+<li><a target="_blank" rel="noopener" href="https://www.hello-algo.com/">Hello 算法</a> - 动画图解、一键运行的数据结构与算法教程</li>
 </ul>
 
                 
@@ -546,15 +610,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="print-no-link">#编程基础</a>
+      
         <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/" class="print-no-link">#算法图解</a>
+        <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" class="print-no-link">#《算法图解》</a>
       
         <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
       
         <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="print-no-link">#学习笔记</a>
-      
-        <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="print-no-link">#编程基础</a>
       
     </div>
   
