@@ -316,15 +316,155 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/06/05/%E3%80%90JAVA%E3%80%91JAVA%E4%B8%AD%E5%AF%B9%E6%8E%A5%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/" target="_self">
-          【JAVA】JAVA中对接外部接口的常用方法汇总
+        <a href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" target="_self">
+          【JAVA技巧】Java反射（Reflection）机制详解
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/05/%E3%80%90JAVA%E3%80%91JAVA%E4%B8%AD%E5%AF%B9%E6%8E%A5%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" target="_self">
         <div>
-          【JAVA】JAVA中对接外部接口的常用方法汇总前言在现代的分布式系统和微服务架构中，Java应用程序经常需要与外部服务进行交互，调用其提供的API接口以获取数据或执行操作。这些接口可能遵循不同的设计风格和协议，例如常见的RESTful API、基于XML的SOAP服务，以及日益流行的GraphQL查询语言（通常也通过HTTP传输）。了解不同接口类型的特点对于选择合适的对接方法至关重要，您可以参考
+          前言Java反射（Reflection）机制是Java语言一个非常强大且重要的特性。它允许程序在运行时（Runtime）检查或修改自身行为，例如获取任意一个类的内部信息（包括其成员变量、构造方法、成员方法等），以及在运行时动态创建对象、调用方法、设置和获取字段值等。这种能力使得Java具有了动态语言的一些特性，为框架设计、工具开发等提供了极大的灵活性。本文将深入探讨Java反射机制的核心概念、AP
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-05 10:52" pubdate>
+              2025-06-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E6%8A%80%E5%B7%A7/" class="category-chain-item">JAVA技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+              <a href="/tags/Reflection/">#Reflection</a>
+            
+              <a href="/tags/%E5%8F%8D%E5%B0%84/">#反射</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E7%BC%96%E7%A8%8B/">#动态编程</a>
+            
+              <a href="/tags/%E5%85%83%E7%BC%96%E7%A8%8B/">#元编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%A6%82%E8%A7%88/" target="_self">
+          【JAVA技巧】Java常用工具类概览
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/05/%E3%80%90JAVA%E6%8A%80%E5%B7%A7%E3%80%91Java%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB%E6%A6%82%E8%A7%88/" target="_self">
+        <div>
+          前言Java语言之所以强大且应用广泛，除了其本身的特性外，还得益于其庞大而完善的生态系统。在这个生态系统中，各种优秀的工具类库扮演着至关重要的角色。它们封装了大量常见的功能，使开发者能够避免重复造轮子，专注于业务逻辑的实现，从而极大地提高了开发效率和代码质量。本文将对Java中常用的内置工具类以及一些主流的第三方工具库进行概览性介绍，为后续针对具体工具类的详细学习打下基础。 一、JDK内置工具类J
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-05 10:52" pubdate>
+              2025-06-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA%E6%8A%80%E5%B7%A7/" class="category-chain-item">JAVA技巧</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">#工具类</a>
+            
+              <a href="/tags/Commons-Lang/">#Commons Lang</a>
+            
+              <a href="/tags/Guava/">#Guava</a>
+            
+              <a href="/tags/Hutool/">#Hutool</a>
+            
+              <a href="/tags/JDK%E5%86%85%E7%BD%AE/">#JDK内置</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/06/05/%E3%80%90JAVA%E3%80%91%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94StringUtils/" target="_self">
+          【JAVA】字符串操作工具——StringUtils
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/05/%E3%80%90JAVA%E3%80%91%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94StringUtils/" target="_self">
+        <div>
+          【JAVA】字符串操作工具——StringUtils一、前言在Java开发中，字符串操作是最常见的需求之一。虽然Java提供了String类，但其API在某些场景下显得不够丰富和便捷。为了解决这个问题，Apache Commons Lang包提供了StringUtils工具类，它包含了丰富的字符串处理方法，能有效简化代码并提高开发效率。本文将详细介绍StringUtils的常用功能及使用技巧。 二
         </div>
       </a>
 
@@ -366,18 +506,6 @@
               <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
             
               <a href="/tags/JAVA/">#JAVA</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/">#接口调用</a>
-            
-              <a href="/tags/HttpURLConnection/">#HttpURLConnection</a>
-            
-              <a href="/tags/HttpClient/">#HttpClient</a>
-            
-              <a href="/tags/OkHttp/">#OkHttp</a>
-            
-              <a href="/tags/RestTemplate/">#RestTemplate</a>
-            
-              <a href="/tags/WebClient/">#WebClient</a>
             
           </div>
         
@@ -441,6 +569,81 @@
               <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
             
               <a href="/tags/JAVA/">#JAVA</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/06/05/%E3%80%90JAVA%E3%80%91JAVA%E4%B8%AD%E5%AF%B9%E6%8E%A5%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/" target="_self">
+          【JAVA】JAVA中对接外部接口的常用方法汇总
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/05/%E3%80%90JAVA%E3%80%91JAVA%E4%B8%AD%E5%AF%B9%E6%8E%A5%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/" target="_self">
+        <div>
+          【JAVA】JAVA中对接外部接口的常用方法汇总前言在现代的分布式系统和微服务架构中，Java应用程序经常需要与外部服务进行交互，调用其提供的API接口以获取数据或执行操作。这些接口可能遵循不同的设计风格和协议，例如常见的RESTful API、基于XML的SOAP服务，以及日益流行的GraphQL查询语言（通常也通过HTTP传输）。了解不同接口类型的特点对于选择合适的对接方法至关重要，您可以参考
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-05 10:52" pubdate>
+              2025-06-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JAVA/" class="category-chain-item">JAVA</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+            
+              <a href="/tags/JAVA/">#JAVA</a>
+            
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/">#接口调用</a>
+            
+              <a href="/tags/HttpURLConnection/">#HttpURLConnection</a>
+            
+              <a href="/tags/HttpClient/">#HttpClient</a>
+            
+              <a href="/tags/OkHttp/">#OkHttp</a>
+            
+              <a href="/tags/RestTemplate/">#RestTemplate</a>
+            
+              <a href="/tags/WebClient/">#WebClient</a>
             
           </div>
         
@@ -704,13 +907,13 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
+              <a href="/tags/AI/">#AI</a>
+            
               <a href="/tags/MCP/">#MCP</a>
             
               <a href="/tags/AI%E7%BC%96%E7%A8%8B/">#AI编程</a>
             
               <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">#开发工具</a>
-            
-              <a href="/tags/AI/">#AI</a>
             
               <a href="/tags/Cursor/">#Cursor</a>
             
@@ -784,199 +987,6 @@
               <a href="/tags/%E6%99%BA%E8%B0%B1AI/">#智谱AI</a>
             
               <a href="/tags/GLM-4/">#GLM-4</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/07/%E3%80%90MYSQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" target="_self">
-          【MYSQL】关联查询问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/07/%E3%80%90MYSQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" target="_self">
-        <div>
-          数据库关联查询的字段类型不一致问题问题描述在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。 错误示例以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系： SELECT      lct.id as task_id,     rtwm.id as report_id,
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-07 00:00" pubdate>
-              2025-05-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/MYSQL/" class="category-chain-item">MYSQL</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/BUG%E8%A7%A3%E5%86%B3/">#BUG解决</a>
-            
-              <a href="/tags/MYSQL/">#MYSQL</a>
-            
-              <a href="/tags/SQL%E4%BC%98%E5%8C%96/">#SQL优化</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" target="_self">
-          【学习】VUE中的watch监听
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/22/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" target="_self">
-        <div>
-          一、watch概述（一）什么是watch？ watch是Vue中的一个特性，用于监听数据的变化并执行相应的操作。 当被监听的数据发生变化时，会触发一个回调函数，我们可以在这个回调函数中执行一些逻辑操作。 watch适用于需要在数据变化时执行异步或开销较大的操作的场景。  （二）基本语法1. 选项式API（Options API）中的watchexport default &#123;   data
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-22 00:00" pubdate>
-              2025-04-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%8A%9F%E8%83%BD/" class="category-chain-item">前端功能</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/VUE/">#VUE</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" target="_self">
-          【LINUX】在Ubuntu服务器部署网页系统
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" target="_self">
-        <div>
-          【LINUX】在Ubuntu服务器部署网页系统前言本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-10 00:00" pubdate>
-              2025-04-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
-            
-              <a href="/tags/LINUX/">#LINUX</a>
-            
-              <a href="/tags/UBUNTU/">#UBUNTU</a>
             
           </div>
         
