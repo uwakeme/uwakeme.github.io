@@ -1,6 +1,6 @@
 ---
 title: 【学习】Nacos详解：微服务注册中心与配置中心实战指南
-date: 2024-12-19 10:30:00
+date: 2025-6-26
 tags:
   - Nacos
   - 微服务
@@ -10,7 +10,6 @@ tags:
   - 分布式系统
 categories: 学习
 description: 深入解析Nacos的核心功能、架构原理和实际应用，包括服务注册发现、配置管理、集群部署等关键特性的详细介绍
-cover: /images/nacos-cover.jpg
 ---
 
 ## 前言
