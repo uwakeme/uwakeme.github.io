@@ -1,8 +1,8 @@
 ---
-title: 【JAVA技巧】编写自定义通用工具类指南
-categories: JAVA技巧
+title: 【JAVA】编写自定义通用工具类指南
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - 工具类
   - 自定义工具类
   - 最佳实践

@@ -1,7 +1,7 @@
 ---
-title: 【BUG解决】Node打包失败
+title: 【BUG】Node打包失败
 tags:
-  - BUG解决
+  - BUG
   - NODE
   - 前端
   - 打包

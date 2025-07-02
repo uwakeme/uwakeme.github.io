@@ -1,8 +1,8 @@
 ---
-title: 【JAVA技巧】详解对象属性变化比较工具类BeanCompareUtils
-categories: JAVA技巧
+title: 【JAVA】详解对象属性变化比较工具类BeanCompareUtils
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - 工具类
   - 对象比较
   - 属性差异

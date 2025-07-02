@@ -1,6 +1,6 @@
 ---
-title: 【JAVA技巧】深入理解Java 8日期与时间API (java.time)
-categories: JAVA技巧
+title: 【JAVA】深入理解Java 8日期与时间API (java.time)
+categories: JAVA
 tags:
   - JAVA
   - Java 8

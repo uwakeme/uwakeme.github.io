@@ -1,10 +1,10 @@
 ---
-title: 【存储过程】新增或更新数据
+title: 【MYSQL】新增或更新数据
 tags:
   - MYSQL
   - 存储过程
   - DBEAVER
-categories: 数据库
+categories: MYSQL
 date: 2024-11-11 17:43:42
 ---
 

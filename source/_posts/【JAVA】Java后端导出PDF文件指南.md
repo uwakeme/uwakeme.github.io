@@ -1,8 +1,8 @@
 ---
-title: 【后端】Java后端导出PDF文件指南
-categories: 后端
+title: 【JAVA】Java后端导出PDF文件指南
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - PDF
   - iText
   - Apache PDFBox

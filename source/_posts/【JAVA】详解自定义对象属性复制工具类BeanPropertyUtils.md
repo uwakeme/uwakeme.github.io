@@ -1,8 +1,8 @@
 ---
-title: 【JAVA技巧】详解自定义对象属性复制工具类BeanPropertyUtils
-categories: JAVA技巧
+title: 【JAVA】详解自定义对象属性复制工具类BeanPropertyUtils
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - 工具类
   - 对象属性复制
   - BeanUtils

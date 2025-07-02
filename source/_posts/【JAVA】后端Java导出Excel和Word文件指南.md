@@ -1,6 +1,6 @@
 ---
-title: 【JAVA技巧】后端Java导出Excel和Word文件指南
-categories: JAVA技巧
+title: 【JAVA】后端Java导出Excel和Word文件指南
+categories: JAVA
 tags:
   - JAVA
   - Excel

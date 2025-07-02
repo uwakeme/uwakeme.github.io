@@ -1,8 +1,8 @@
 ---
-title: 【后端】Java后端主动推送消息到前端的技术方案
-categories: 后端
+title: 【JAVA】Java后端主动推送消息到前端的技术方案
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - WebSocket
   - Server-Sent Events
   - SSE

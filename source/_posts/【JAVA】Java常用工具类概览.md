@@ -1,8 +1,8 @@
 ---
-title: 【JAVA技巧】Java常用工具类概览
-categories: JAVA技巧
+title: 【JAVA】Java常用工具类概览
+categories: JAVA
 tags:
-  - Java
+  - JAVA
   - 工具类
   - Commons Lang
   - Guava
