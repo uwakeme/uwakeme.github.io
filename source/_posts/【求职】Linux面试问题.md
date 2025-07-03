@@ -1,5 +1,5 @@
 ---
-title: 【求职】Linux运维面试问题与回答技巧详解
+title: 【求职】Linux面试问题
 categories: 求职
 tags:
   - Linux
