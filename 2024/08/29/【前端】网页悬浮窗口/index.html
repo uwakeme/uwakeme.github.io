@@ -1,0 +1,1591 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="网页悬浮窗口需求场景 项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。 之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。 在代码层面的需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【前端】网页悬浮窗口">
+<meta property="og:url" content="https://uwakeme.top/2024/08/29/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E7%BD%91%E9%A1%B5%E6%82%AC%E6%B5%AE%E7%AA%97%E5%8F%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="网页悬浮窗口需求场景 项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。 之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。 在代码层面的需">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uwakeme.top/images/image-20240830103044026.png">
+<meta property="article:published_time" content="2024-08-29T10:05:17.000Z">
+<meta property="article:modified_time" content="2025-07-04T15:20:21.217Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="VUE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://uwakeme.top/images/image-20240830103044026.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【前端】网页悬浮窗口 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【前端】网页悬浮窗口"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-29 18:05" pubdate>
+          2024-08-29 18:05
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【前端】网页悬浮窗口</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="网页悬浮窗口"><a href="#网页悬浮窗口" class="headerlink" title="网页悬浮窗口"></a>网页悬浮窗口</h1><h2 id="需求场景"><a href="#需求场景" class="headerlink" title="需求场景"></a>需求场景</h2><ul>
+<li>项目中集成了设备取数的功能，而在和设备取数现场人员对接的时候，发现设备无法绑定样品，也无法实时取数，所以设备获取到的数据就会不定时的通过接口保存到项目的数据库中。而在软件系统中，需要能获取到设备取数的数值，然后填写到对应的输入框。</li>
+<li>之前我的做法是通过实时数据来获取设备取到的数据，这种方法并不够严谨。之后遇到这个不定时取数的问题，就可以连同之前的问题也进行优化。</li>
+<li>在代码层面的需求应该是：<ul>
+<li>可以展示设备取数数据</li>
+<li>可以选择数据，并填写到输入框内</li>
+<li>不影响其他地方的操作，即设备取数和其他功能应该是相互独立，互不影响的</li>
+<li>符合操作习惯，易于操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="解决构想"><a href="#解决构想" class="headerlink" title="解决构想"></a>解决构想</h2><ul>
+<li><p>首先，弹出层<code>el-dialog</code> 应该是无法满足这个需求的，因为弹出层组件会在弹出层弹出后，其他地方都会无法操作，只能操作弹出层之内的内容。所以我就寻思自己写一个组件，来实现既展示了设备取数数据，又可以操作其他地方。</p>
+</li>
+<li><p>我在别的系统中曾看到过类似的功能，是通过一个悬浮按钮【设备取数】，点击后会弹出一个悬浮窗口，里面展示的是设备取数的列表数据，可以获取到该功能开启后取到的所有数据，可以自行选择，然后选中的数据会自动填写在输入框内。</p>
+</li>
+<li><p>所以我想着可不可以类似这样做两个组件，一个是悬浮按钮，另一个是悬浮窗口，这样应该可以满足以上需求。</p>
+</li>
+<li><p>构想：</p>
+<ul>
+<li>做成两个可复用的公共组件，一来需要在不同页面复用，二来以后有类似需求可以接着改进复用</li>
+<li>做成悬浮窗，与页面相互独立，不会互相影响</li>
+<li>需要可以拖拽移动位置，可以手动调节悬浮窗口的大小，防止遮挡页面内容</li>
+</ul>
+</li>
+<li><p>最终成果图</p>
+<p><img src="/../images/image-20240830103044026.png" srcset="/img/loading.gif" lazyload alt="image-20240830103044026"></p>
+</li>
+</ul>
+<h1 id="三、技术实现"><a href="#三、技术实现" class="headerlink" title="三、技术实现"></a>三、技术实现</h1><h2 id="（一）悬浮窗口组件"><a href="#（一）悬浮窗口组件" class="headerlink" title="（一）悬浮窗口组件"></a>（一）悬浮窗口组件</h2><p>悬浮窗口组件是整个功能的核心，需要实现拖拽、调节大小、悬浮显示等功能。</p>
+<h3 id="1-组件结构"><a href="#1-组件结构" class="headerlink" title="1. 组件结构"></a>1. 组件结构</h3><figure><div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;div
+    v-if&#x3D;&quot;visible&quot;
+    ref&#x3D;&quot;floatWindow&quot;
+    class&#x3D;&quot;float-window&quot;
+    :style&#x3D;&quot;windowStyle&quot;
+    @mousedown&#x3D;&quot;handleMouseDown&quot;
+  &gt;
+    &lt;!-- 窗口头部 --&gt;
+    &lt;div class&#x3D;&quot;window-header&quot; @mousedown&#x3D;&quot;startDrag&quot;&gt;
+      &lt;div class&#x3D;&quot;window-title&quot;&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;window-controls&quot;&gt;
+        &lt;button class&#x3D;&quot;control-btn&quot; @click&#x3D;&quot;minimize&quot;&gt;-&lt;&#x2F;button&gt;
+        &lt;button class&#x3D;&quot;control-btn&quot; @click&#x3D;&quot;close&quot;&gt;×&lt;&#x2F;button&gt;
+      &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+    
+    &lt;!-- 窗口内容 --&gt;
+    &lt;div class&#x3D;&quot;window-content&quot;&gt;
+      &lt;slot&gt;&lt;&#x2F;slot&gt;
+    &lt;&#x2F;div&gt;
+    
+    &lt;!-- 调节大小的控制点 --&gt;
+    &lt;div class&#x3D;&quot;resize-handles&quot;&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-n&quot; @mousedown&#x3D;&quot;startResize(&#39;n&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-s&quot; @mousedown&#x3D;&quot;startResize(&#39;s&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-w&quot; @mousedown&#x3D;&quot;startResize(&#39;w&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-e&quot; @mousedown&#x3D;&quot;startResize(&#39;e&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-nw&quot; @mousedown&#x3D;&quot;startResize(&#39;nw&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-ne&quot; @mousedown&#x3D;&quot;startResize(&#39;ne&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-sw&quot; @mousedown&#x3D;&quot;startResize(&#39;sw&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+      &lt;div class&#x3D;&quot;resize-handle resize-se&quot; @mousedown&#x3D;&quot;startResize(&#39;se&#39;)&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+export default &#123;
+  name: &#39;FloatWindow&#39;,
+  props: &#123;
+    title: &#123;
+      type: String,
+      default: &#39;悬浮窗口&#39;
+    &#125;,
+    initialWidth: &#123;
+      type: Number,
+      default: 400
+    &#125;,
+    initialHeight: &#123;
+      type: Number,
+      default: 300
+    &#125;,
+    initialX: &#123;
+      type: Number,
+      default: 100
+    &#125;,
+    initialY: &#123;
+      type: Number,
+      default: 100
+    &#125;,
+    minWidth: &#123;
+      type: Number,
+      default: 200
+    &#125;,
+    minHeight: &#123;
+      type: Number,
+      default: 150
+    &#125;,
+    visible: &#123;
+      type: Boolean,
+      default: true
+    &#125;
+  &#125;,
+  data() &#123;
+    return &#123;
+      &#x2F;&#x2F; 窗口位置和大小
+      x: this.initialX,
+      y: this.initialY,
+      width: this.initialWidth,
+      height: this.initialHeight,
+      
+      &#x2F;&#x2F; 拖拽状态
+      isDragging: false,
+      dragStartX: 0,
+      dragStartY: 0,
+      windowStartX: 0,
+      windowStartY: 0,
+      
+      &#x2F;&#x2F; 调节大小状态
+      isResizing: false,
+      resizeDirection: &#39;&#39;,
+      resizeStartX: 0,
+      resizeStartY: 0,
+      resizeStartWidth: 0,
+      resizeStartHeight: 0,
+      resizeStartLeft: 0,
+      resizeStartTop: 0
+    &#125;
+  &#125;,
+  computed: &#123;
+    windowStyle() &#123;
+      return &#123;
+        left: this.x + &#39;px&#39;,
+        top: this.y + &#39;px&#39;,
+        width: this.width + &#39;px&#39;,
+        height: this.height + &#39;px&#39;
+      &#125;
+    &#125;
+  &#125;,
+  mounted() &#123;
+    &#x2F;&#x2F; 添加全局事件监听
+    document.addEventListener(&#39;mousemove&#39;, this.handleMouseMove)
+    document.addEventListener(&#39;mouseup&#39;, this.handleMouseUp)
+  &#125;,
+  beforeDestroy() &#123;
+    &#x2F;&#x2F; 移除全局事件监听
+    document.removeEventListener(&#39;mousemove&#39;, this.handleMouseMove)
+    document.removeEventListener(&#39;mouseup&#39;, this.handleMouseUp)
+  &#125;,
+  methods: &#123;
+    &#x2F;&#x2F; 开始拖拽
+    startDrag(e) &#123;
+      e.preventDefault()
+      this.isDragging &#x3D; true
+      this.dragStartX &#x3D; e.clientX
+      this.dragStartY &#x3D; e.clientY
+      this.windowStartX &#x3D; this.x
+      this.windowStartY &#x3D; this.y
+    &#125;,
+    
+    &#x2F;&#x2F; 开始调节大小
+    startResize(direction) &#123;
+      this.isResizing &#x3D; true
+      this.resizeDirection &#x3D; direction
+      this.resizeStartX &#x3D; event.clientX
+      this.resizeStartY &#x3D; event.clientY
+      this.resizeStartWidth &#x3D; this.width
+      this.resizeStartHeight &#x3D; this.height
+      this.resizeStartLeft &#x3D; this.x
+      this.resizeStartTop &#x3D; this.y
+    &#125;,
+    
+    &#x2F;&#x2F; 鼠标移动处理
+    handleMouseMove(e) &#123;
+      if (this.isDragging) &#123;
+        this.handleDrag(e)
+      &#125; else if (this.isResizing) &#123;
+        this.handleResize(e)
+      &#125;
+    &#125;,
+    
+    &#x2F;&#x2F; 处理拖拽
+    handleDrag(e) &#123;
+      const deltaX &#x3D; e.clientX - this.dragStartX
+      const deltaY &#x3D; e.clientY - this.dragStartY
+      
+      let newX &#x3D; this.windowStartX + deltaX
+      let newY &#x3D; this.windowStartY + deltaY
+      
+      &#x2F;&#x2F; 边界检测
+      const maxX &#x3D; window.innerWidth - this.width
+      const maxY &#x3D; window.innerHeight - this.height
+      
+      newX &#x3D; Math.max(0, Math.min(newX, maxX))
+      newY &#x3D; Math.max(0, Math.min(newY, maxY))
+      
+      this.x &#x3D; newX
+      this.y &#x3D; newY
+    &#125;,
+    
+    &#x2F;&#x2F; 处理调节大小
+    handleResize(e) &#123;
+      const deltaX &#x3D; e.clientX - this.resizeStartX
+      const deltaY &#x3D; e.clientY - this.resizeStartY
+      
+      let newWidth &#x3D; this.resizeStartWidth
+      let newHeight &#x3D; this.resizeStartHeight
+      let newX &#x3D; this.resizeStartLeft
+      let newY &#x3D; this.resizeStartTop
+      
+      &#x2F;&#x2F; 根据调节方向计算新的尺寸和位置
+      switch (this.resizeDirection) &#123;
+        case &#39;n&#39;:
+          newHeight &#x3D; this.resizeStartHeight - deltaY
+          newY &#x3D; this.resizeStartTop + deltaY
+          break
+        case &#39;s&#39;:
+          newHeight &#x3D; this.resizeStartHeight + deltaY
+          break
+        case &#39;w&#39;:
+          newWidth &#x3D; this.resizeStartWidth - deltaX
+          newX &#x3D; this.resizeStartLeft + deltaX
+          break
+        case &#39;e&#39;:
+          newWidth &#x3D; this.resizeStartWidth + deltaX
+          break
+        case &#39;nw&#39;:
+          newWidth &#x3D; this.resizeStartWidth - deltaX
+          newHeight &#x3D; this.resizeStartHeight - deltaY
+          newX &#x3D; this.resizeStartLeft + deltaX
+          newY &#x3D; this.resizeStartTop + deltaY
+          break
+        case &#39;ne&#39;:
+          newWidth &#x3D; this.resizeStartWidth + deltaX
+          newHeight &#x3D; this.resizeStartHeight - deltaY
+          newY &#x3D; this.resizeStartTop + deltaY
+          break
+        case &#39;sw&#39;:
+          newWidth &#x3D; this.resizeStartWidth - deltaX
+          newHeight &#x3D; this.resizeStartHeight + deltaY
+          newX &#x3D; this.resizeStartLeft + deltaX
+          break
+        case &#39;se&#39;:
+          newWidth &#x3D; this.resizeStartWidth + deltaX
+          newHeight &#x3D; this.resizeStartHeight + deltaY
+          break
+      &#125;
+      
+      &#x2F;&#x2F; 应用最小尺寸限制
+      newWidth &#x3D; Math.max(this.minWidth, newWidth)
+      newHeight &#x3D; Math.max(this.minHeight, newHeight)
+      
+      &#x2F;&#x2F; 边界检测
+      if (newX &lt; 0) &#123;
+        newWidth +&#x3D; newX
+        newX &#x3D; 0
+      &#125;
+      if (newY &lt; 0) &#123;
+        newHeight +&#x3D; newY
+        newY &#x3D; 0
+      &#125;
+      if (newX + newWidth &gt; window.innerWidth) &#123;
+        newWidth &#x3D; window.innerWidth - newX
+      &#125;
+      if (newY + newHeight &gt; window.innerHeight) &#123;
+        newHeight &#x3D; window.innerHeight - newY
+      &#125;
+      
+      this.width &#x3D; newWidth
+      this.height &#x3D; newHeight
+      this.x &#x3D; newX
+      this.y &#x3D; newY
+    &#125;,
+    
+    &#x2F;&#x2F; 鼠标释放处理
+    handleMouseUp() &#123;
+      this.isDragging &#x3D; false
+      this.isResizing &#x3D; false
+      this.resizeDirection &#x3D; &#39;&#39;
+    &#125;,
+    
+    &#x2F;&#x2F; 最小化窗口
+    minimize() &#123;
+      this.$emit(&#39;minimize&#39;)
+    &#125;,
+    
+    &#x2F;&#x2F; 关闭窗口
+    close() &#123;
+      this.$emit(&#39;close&#39;)
+    &#125;
+  &#125;
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+.float-window &#123;
+  position: fixed;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  user-select: none;
+&#125;
+
+.window-header &#123;
+  height: 32px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  cursor: move;
+&#125;
+
+.window-title &#123;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+&#125;
+
+.window-controls &#123;
+  display: flex;
+  gap: 4px;
+&#125;
+
+.control-btn &#123;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  background: #e0e0e0;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+&#125;
+
+.control-btn:hover &#123;
+  background: #d0d0d0;
+&#125;
+
+.window-content &#123;
+  padding: 12px;
+  overflow: auto;
+  height: calc(100% - 32px);
+&#125;
+
+&#x2F;* 调节大小的控制点 *&#x2F;
+.resize-handles &#123;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+&#125;
+
+.resize-handle &#123;
+  position: absolute;
+  pointer-events: auto;
+&#125;
+
+.resize-n &#123;
+  top: -3px;
+  left: 3px;
+  right: 3px;
+  height: 6px;
+  cursor: n-resize;
+&#125;
+
+.resize-s &#123;
+  bottom: -3px;
+  left: 3px;
+  right: 3px;
+  height: 6px;
+  cursor: s-resize;
+&#125;
+
+.resize-w &#123;
+  left: -3px;
+  top: 3px;
+  bottom: 3px;
+  width: 6px;
+  cursor: w-resize;
+&#125;
+
+.resize-e &#123;
+  right: -3px;
+  top: 3px;
+  bottom: 3px;
+  width: 6px;
+  cursor: e-resize;
+&#125;
+
+.resize-nw &#123;
+  top: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  cursor: nw-resize;
+&#125;
+
+.resize-ne &#123;
+  top: -3px;
+  right: -3px;
+  width: 6px;
+  height: 6px;
+  cursor: ne-resize;
+&#125;
+
+.resize-sw &#123;
+  bottom: -3px;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  cursor: sw-resize;
+&#125;
+
+.resize-se &#123;
+  bottom: -3px;
+  right: -3px;
+  width: 6px;
+  height: 6px;
+  cursor: se-resize;
+&#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-核心功能实现"><a href="#2-核心功能实现" class="headerlink" title="2. 核心功能实现"></a>2. 核心功能实现</h3><h4 id="组件拖拽功能"><a href="#组件拖拽功能" class="headerlink" title="组件拖拽功能"></a>组件拖拽功能</h4><p>拖拽功能通过监听鼠标事件实现：<mcreference link="https://www.cnblogs.com/deng-jie/p/16408876.html" index="2">2</mcreference></p>
+<ol>
+<li><strong>开始拖拽</strong>：在窗口头部按下鼠标时记录初始位置</li>
+<li><strong>拖拽过程</strong>：监听鼠标移动事件，计算偏移量并更新窗口位置</li>
+<li><strong>结束拖拽</strong>：鼠标释放时停止拖拽</li>
+<li><strong>边界检测</strong>：确保窗口不会拖拽到屏幕外</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 开始拖拽</span>
+<span class="token function">startDrag</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>isDragging <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>dragStartX <span class="token operator">=</span> e<span class="token punctuation">.</span>clientX
+  <span class="token keyword">this</span><span class="token punctuation">.</span>dragStartY <span class="token operator">=</span> e<span class="token punctuation">.</span>clientY
+  <span class="token keyword">this</span><span class="token punctuation">.</span>windowStartX <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x
+  <span class="token keyword">this</span><span class="token punctuation">.</span>windowStartY <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 处理拖拽</span>
+<span class="token function">handleDrag</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> deltaX <span class="token operator">=</span> e<span class="token punctuation">.</span>clientX <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dragStartX
+  <span class="token keyword">const</span> deltaY <span class="token operator">=</span> e<span class="token punctuation">.</span>clientY <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dragStartY
+  
+  <span class="token keyword">let</span> newX <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>windowStartX <span class="token operator">+</span> deltaX
+  <span class="token keyword">let</span> newY <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>windowStartY <span class="token operator">+</span> deltaY
+  
+  <span class="token comment">// 边界检测</span>
+  <span class="token keyword">const</span> maxX <span class="token operator">=</span> window<span class="token punctuation">.</span>innerWidth <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width
+  <span class="token keyword">const</span> maxY <span class="token operator">=</span> window<span class="token punctuation">.</span>innerHeight <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height
+  
+  newX <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> maxX<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  newY <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>newY<span class="token punctuation">,</span> maxY<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  
+  <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> newX
+  <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> newY
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="调节窗口大小功能"><a href="#调节窗口大小功能" class="headerlink" title="调节窗口大小功能"></a>调节窗口大小功能</h4><p>窗口大小调节通过在窗口边缘添加控制点实现：<mcreference link="https://blog.csdn.net/gitblog_01140/article/details/141344870" index="1">1</mcreference></p>
+<ol>
+<li><strong>控制点布局</strong>：在窗口四边和四角添加不可见的控制点</li>
+<li><strong>方向识别</strong>：根据点击的控制点确定调节方向</li>
+<li><strong>尺寸计算</strong>：根据鼠标移动距离计算新的窗口尺寸</li>
+<li><strong>最小尺寸限制</strong>：确保窗口不会小于最小尺寸</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 开始调节大小</span>
+<span class="token function">startResize</span><span class="token punctuation">(</span><span class="token parameter">direction</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>isResizing <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeDirection <span class="token operator">=</span> direction
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartX <span class="token operator">=</span> event<span class="token punctuation">.</span>clientX
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartY <span class="token operator">=</span> event<span class="token punctuation">.</span>clientY
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartWidth <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartHeight <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartLeft <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x
+  <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartTop <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 处理调节大小</span>
+<span class="token function">handleResize</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> deltaX <span class="token operator">=</span> e<span class="token punctuation">.</span>clientX <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartX
+  <span class="token keyword">const</span> deltaY <span class="token operator">=</span> e<span class="token punctuation">.</span>clientY <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartY
+  
+  <span class="token comment">// 根据调节方向计算新的尺寸和位置</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>resizeDirection<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> <span class="token string">'se'</span><span class="token operator">:</span> <span class="token comment">// 右下角</span>
+      newWidth <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartWidth <span class="token operator">+</span> deltaX
+      newHeight <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>resizeStartHeight <span class="token operator">+</span> deltaY
+      <span class="token keyword">break</span>
+    <span class="token comment">// ... 其他方向的处理</span>
+  <span class="token punctuation">&#125;</span>
+  
+  <span class="token comment">// 应用最小尺寸限制</span>
+  newWidth <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>minWidth<span class="token punctuation">,</span> newWidth<span class="token punctuation">)</span>
+  newHeight <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>minHeight<span class="token punctuation">,</span> newHeight<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="悬浮在其他组件之上"><a href="#悬浮在其他组件之上" class="headerlink" title="悬浮在其他组件之上"></a>悬浮在其他组件之上</h4><p>通过CSS的<code>z-index</code>属性实现悬浮效果：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.float-window</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> fixed<span class="token punctuation">;</span>  <span class="token comment">/* 固定定位，脱离文档流 */</span>
+  <span class="token property">z-index</span><span class="token punctuation">:</span> 9999<span class="token punctuation">;</span>    <span class="token comment">/* 高层级，确保在最上层 */</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #ddd<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 6px<span class="token punctuation">;</span>
+  <span class="token property">box-shadow</span><span class="token punctuation">:</span> 0 4px 12px <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0.15<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token comment">/* 禁止文本选择 */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）悬浮按钮组件"><a href="#（二）悬浮按钮组件" class="headerlink" title="（二）悬浮按钮组件"></a>（二）悬浮按钮组件</h2><p>悬浮按钮用于触发悬浮窗口的显示和隐藏。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;div
+    ref&#x3D;&quot;floatButton&quot;
+    class&#x3D;&quot;float-button&quot;
+    :style&#x3D;&quot;buttonStyle&quot;
+    @click&#x3D;&quot;toggleWindow&quot;
+    @mousedown&#x3D;&quot;startDrag&quot;
+  &gt;
+    &lt;i class&#x3D;&quot;icon&quot;&gt;&#123;&#123; icon &#125;&#125;&lt;&#x2F;i&gt;
+    &lt;span v-if&#x3D;&quot;showText&quot; class&#x3D;&quot;button-text&quot;&gt;&#123;&#123; text &#125;&#125;&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+export default &#123;
+  name: &#39;FloatButton&#39;,
+  props: &#123;
+    icon: &#123;
+      type: String,
+      default: &#39;📊&#39;
+    &#125;,
+    text: &#123;
+      type: String,
+      default: &#39;设备取数&#39;
+    &#125;,
+    showText: &#123;
+      type: Boolean,
+      default: true
+    &#125;,
+    initialX: &#123;
+      type: Number,
+      default: 50
+    &#125;,
+    initialY: &#123;
+      type: Number,
+      default: 200
+    &#125;
+  &#125;,
+  data() &#123;
+    return &#123;
+      x: this.initialX,
+      y: this.initialY,
+      isDragging: false,
+      dragStartX: 0,
+      dragStartY: 0,
+      buttonStartX: 0,
+      buttonStartY: 0,
+      clickStartTime: 0
+    &#125;
+  &#125;,
+  computed: &#123;
+    buttonStyle() &#123;
+      return &#123;
+        left: this.x + &#39;px&#39;,
+        top: this.y + &#39;px&#39;
+      &#125;
+    &#125;
+  &#125;,
+  mounted() &#123;
+    document.addEventListener(&#39;mousemove&#39;, this.handleMouseMove)
+    document.addEventListener(&#39;mouseup&#39;, this.handleMouseUp)
+  &#125;,
+  beforeDestroy() &#123;
+    document.removeEventListener(&#39;mousemove&#39;, this.handleMouseMove)
+    document.removeEventListener(&#39;mouseup&#39;, this.handleMouseUp)
+  &#125;,
+  methods: &#123;
+    &#x2F;&#x2F; 开始拖拽
+    startDrag(e) &#123;
+      this.clickStartTime &#x3D; Date.now()
+      this.isDragging &#x3D; false
+      this.dragStartX &#x3D; e.clientX
+      this.dragStartY &#x3D; e.clientY
+      this.buttonStartX &#x3D; this.x
+      this.buttonStartY &#x3D; this.y
+    &#125;,
+    
+    &#x2F;&#x2F; 鼠标移动处理
+    handleMouseMove(e) &#123;
+      if (Math.abs(e.clientX - this.dragStartX) &gt; 5 || Math.abs(e.clientY - this.dragStartY) &gt; 5) &#123;
+        this.isDragging &#x3D; true
+      &#125;
+      
+      if (this.isDragging) &#123;
+        const deltaX &#x3D; e.clientX - this.dragStartX
+        const deltaY &#x3D; e.clientY - this.dragStartY
+        
+        let newX &#x3D; this.buttonStartX + deltaX
+        let newY &#x3D; this.buttonStartY + deltaY
+        
+        &#x2F;&#x2F; 边界检测
+        const buttonWidth &#x3D; this.$refs.floatButton.offsetWidth
+        const buttonHeight &#x3D; this.$refs.floatButton.offsetHeight
+        
+        newX &#x3D; Math.max(0, Math.min(newX, window.innerWidth - buttonWidth))
+        newY &#x3D; Math.max(0, Math.min(newY, window.innerHeight - buttonHeight))
+        
+        this.x &#x3D; newX
+        this.y &#x3D; newY
+      &#125;
+    &#125;,
+    
+    &#x2F;&#x2F; 鼠标释放处理
+    handleMouseUp() &#123;
+      if (!this.isDragging &amp;&amp; Date.now() - this.clickStartTime &lt; 200) &#123;
+        &#x2F;&#x2F; 如果没有拖拽且时间很短，认为是点击事件
+        this.toggleWindow()
+      &#125;
+      this.isDragging &#x3D; false
+    &#125;,
+    
+    &#x2F;&#x2F; 切换窗口显示状态
+    toggleWindow() &#123;
+      this.$emit(&#39;toggle-window&#39;)
+    &#125;
+  &#125;
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+.float-button &#123;
+  position: fixed;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9998;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+&#125;
+
+.float-button:hover &#123;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+&#125;
+
+.icon &#123;
+  font-size: 18px;
+&#125;
+
+.button-text &#123;
+  font-size: 14px;
+  font-weight: 500;
+&#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="四、使用示例"><a href="#四、使用示例" class="headerlink" title="四、使用示例"></a>四、使用示例</h1><h2 id="（一）在页面中使用组件"><a href="#（一）在页面中使用组件" class="headerlink" title="（一）在页面中使用组件"></a>（一）在页面中使用组件</h2><figure><div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;div class&#x3D;&quot;page-container&quot;&gt;
+    &lt;!-- 页面主要内容 --&gt;
+    &lt;div class&#x3D;&quot;main-content&quot;&gt;
+      &lt;h1&gt;设备取数页面&lt;&#x2F;h1&gt;
+      &lt;el-form&gt;
+        &lt;el-form-item label&#x3D;&quot;数值1&quot;&gt;
+          &lt;el-input v-model&#x3D;&quot;form.value1&quot; placeholder&#x3D;&quot;请输入或选择设备数据&quot;&gt;&lt;&#x2F;el-input&gt;
+        &lt;&#x2F;el-form-item&gt;
+        &lt;el-form-item label&#x3D;&quot;数值2&quot;&gt;
+          &lt;el-input v-model&#x3D;&quot;form.value2&quot; placeholder&#x3D;&quot;请输入或选择设备数据&quot;&gt;&lt;&#x2F;el-input&gt;
+        &lt;&#x2F;el-form-item&gt;
+      &lt;&#x2F;el-form&gt;
+    &lt;&#x2F;div&gt;
+    
+    &lt;!-- 悬浮按钮 --&gt;
+    &lt;FloatButton
+      icon&#x3D;&quot;📊&quot;
+      text&#x3D;&quot;设备取数&quot;
+      @toggle-window&#x3D;&quot;toggleDeviceWindow&quot;
+    &#x2F;&gt;
+    
+    &lt;!-- 悬浮窗口 --&gt;
+    &lt;FloatWindow
+      v-if&#x3D;&quot;showDeviceWindow&quot;
+      title&#x3D;&quot;设备取数数据&quot;
+      :initial-width&#x3D;&quot;500&quot;
+      :initial-height&#x3D;&quot;400&quot;
+      @close&#x3D;&quot;closeDeviceWindow&quot;
+      @minimize&#x3D;&quot;minimizeDeviceWindow&quot;
+    &gt;
+      &lt;!-- 设备数据列表 --&gt;
+      &lt;div class&#x3D;&quot;device-data-list&quot;&gt;
+        &lt;el-table :data&#x3D;&quot;deviceData&quot; @row-click&#x3D;&quot;selectDeviceData&quot;&gt;
+          &lt;el-table-column prop&#x3D;&quot;timestamp&quot; label&#x3D;&quot;时间&quot; width&#x3D;&quot;150&quot;&gt;&lt;&#x2F;el-table-column&gt;
+          &lt;el-table-column prop&#x3D;&quot;deviceId&quot; label&#x3D;&quot;设备ID&quot; width&#x3D;&quot;100&quot;&gt;&lt;&#x2F;el-table-column&gt;
+          &lt;el-table-column prop&#x3D;&quot;value&quot; label&#x3D;&quot;数值&quot;&gt;&lt;&#x2F;el-table-column&gt;
+          &lt;el-table-column prop&#x3D;&quot;unit&quot; label&#x3D;&quot;单位&quot; width&#x3D;&quot;80&quot;&gt;&lt;&#x2F;el-table-column&gt;
+        &lt;&#x2F;el-table&gt;
+      &lt;&#x2F;div&gt;
+    &lt;&#x2F;FloatWindow&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+import FloatButton from &#39;@&#x2F;components&#x2F;FloatButton.vue&#39;
+import FloatWindow from &#39;@&#x2F;components&#x2F;FloatWindow.vue&#39;
+
+export default &#123;
+  name: &#39;DeviceDataPage&#39;,
+  components: &#123;
+    FloatButton,
+    FloatWindow
+  &#125;,
+  data() &#123;
+    return &#123;
+      showDeviceWindow: false,
+      form: &#123;
+        value1: &#39;&#39;,
+        value2: &#39;&#39;
+      &#125;,
+      deviceData: [
+        &#123;
+          timestamp: &#39;2024-08-29 10:30:15&#39;,
+          deviceId: &#39;DEV001&#39;,
+          value: &#39;25.6&#39;,
+          unit: &#39;°C&#39;
+        &#125;,
+        &#123;
+          timestamp: &#39;2024-08-29 10:31:20&#39;,
+          deviceId: &#39;DEV001&#39;,
+          value: &#39;26.1&#39;,
+          unit: &#39;°C&#39;
+        &#125;
+        &#x2F;&#x2F; ... 更多数据
+      ]
+    &#125;
+  &#125;,
+  methods: &#123;
+    &#x2F;&#x2F; 切换设备窗口显示
+    toggleDeviceWindow() &#123;
+      this.showDeviceWindow &#x3D; !this.showDeviceWindow
+    &#125;,
+    
+    &#x2F;&#x2F; 关闭设备窗口
+    closeDeviceWindow() &#123;
+      this.showDeviceWindow &#x3D; false
+    &#125;,
+    
+    &#x2F;&#x2F; 最小化设备窗口
+    minimizeDeviceWindow() &#123;
+      this.showDeviceWindow &#x3D; false
+    &#125;,
+    
+    &#x2F;&#x2F; 选择设备数据
+    selectDeviceData(row) &#123;
+      &#x2F;&#x2F; 将选中的数据填入表单
+      if (!this.form.value1) &#123;
+        this.form.value1 &#x3D; row.value
+      &#125; else if (!this.form.value2) &#123;
+        this.form.value2 &#x3D; row.value
+      &#125;
+      
+      &#x2F;&#x2F; 提示用户
+      this.$message.success(&#96;已选择数据：$&#123;row.value&#125; $&#123;row.unit&#125;&#96;)
+    &#125;
+  &#125;
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+.page-container &#123;
+  padding: 20px;
+&#125;
+
+.main-content &#123;
+  max-width: 800px;
+  margin: 0 auto;
+&#125;
+
+.device-data-list &#123;
+  height: 300px;
+  overflow-y: auto;
+&#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）组件注册"><a href="#（二）组件注册" class="headerlink" title="（二）组件注册"></a>（二）组件注册</h2><p>在<code>main.js</code>中全局注册组件：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> createApp <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+<span class="token keyword">import</span> FloatButton <span class="token keyword">from</span> <span class="token string">'@/components/FloatButton.vue'</span>
+<span class="token keyword">import</span> FloatWindow <span class="token keyword">from</span> <span class="token string">'@/components/FloatWindow.vue'</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">createApp</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span>
+
+<span class="token comment">// 全局注册悬浮组件</span>
+app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'FloatButton'</span><span class="token punctuation">,</span> FloatButton<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'FloatWindow'</span><span class="token punctuation">,</span> FloatWindow<span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="五、功能特点"><a href="#五、功能特点" class="headerlink" title="五、功能特点"></a>五、功能特点</h1><h2 id="（一）技术特点"><a href="#（一）技术特点" class="headerlink" title="（一）技术特点"></a>（一）技术特点</h2><ol>
+<li><strong>完全自定义</strong>：不依赖第三方组件库，完全可控</li>
+<li><strong>响应式设计</strong>：支持不同屏幕尺寸的适配</li>
+<li><strong>事件驱动</strong>：通过事件通信，组件间解耦</li>
+<li><strong>性能优化</strong>：使用计算属性和事件委托优化性能</li>
+</ol>
+<h2 id="（二）用户体验"><a href="#（二）用户体验" class="headerlink" title="（二）用户体验"></a>（二）用户体验</h2><ol>
+<li><strong>直观操作</strong>：拖拽和调节大小操作符合用户习惯</li>
+<li><strong>视觉反馈</strong>：鼠标悬停和拖拽时的视觉效果</li>
+<li><strong>边界保护</strong>：防止窗口拖拽到屏幕外</li>
+<li><strong>最小尺寸限制</strong>：确保窗口内容可见</li>
+</ol>
+<h2 id="（三）扩展性"><a href="#（三）扩展性" class="headerlink" title="（三）扩展性"></a>（三）扩展性</h2><ol>
+<li><strong>插槽支持</strong>：窗口内容完全可定制</li>
+<li><strong>事件机制</strong>：支持自定义事件处理</li>
+<li><strong>样式定制</strong>：CSS变量支持主题定制</li>
+<li><strong>配置灵活</strong>：丰富的props配置选项</li>
+</ol>
+<h1 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h1><p>通过实现这个悬浮窗口组件，我们解决了设备取数功能中的用户体验问题。该组件具有以下优势：</p>
+<ol>
+<li><strong>独立性强</strong>：悬浮窗口不会阻塞页面其他操作</li>
+<li><strong>交互友好</strong>：支持拖拽移动和大小调节</li>
+<li><strong>复用性好</strong>：组件化设计，可在多个页面复用</li>
+<li><strong>扩展性强</strong>：通过插槽和事件支持各种定制需求</li>
+</ol>
+<p>这种设计模式特别适用于需要在不影响主要工作流程的情况下，提供辅助功能的场景。在实际项目中，可以根据具体需求对组件进行进一步的优化和扩展。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>Vue.js官方文档 - 组件开发指南</li>
+<li>MDN Web Docs - 鼠标事件处理</li>
+<li>CSS-Tricks - 拖拽功能实现</li>
+<li>Vue可拖拽缩放组件教程：vue-draggable-resizable 使用指南 <mcreference link="https://blog.csdn.net/gitblog_01140/article/details/141344870" index="1">1</mcreference></li>
+<li>页面悬浮按钮可拖动实现（vue2和vue3写法） <mcreference link="https://www.cnblogs.com/deng-jie/p/16408876.html" index="2">2</mcreference></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+        <a href="/tags/VUE/" class="print-no-link">#VUE</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/18/%E3%80%90%E5%85%A8%E5%B1%80%E6%8C%87%E4%BB%A4%E3%80%91%E5%8E%BB%E9%99%A4%E8%BE%93%E5%85%A5%E6%A1%86el-input%E7%9A%84%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/" title="【全局指令】去除输入框el-input的前后空格">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【全局指令】去除输入框el-input的前后空格</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/25/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91hello-hexo/" title="【学习】Hello Hexo - 基础命令指南">
+                        <span class="hidden-mobile">【学习】Hello Hexo - 基础命令指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
