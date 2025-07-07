@@ -10,6 +10,7 @@ tags:
   - 框架
 description: 全面深入解析FastAPI现代Python异步Web框架，从基础概念到高级特性，涵盖异步编程模式、RESTful API设计、数据验证与序列化、用户认证授权、数据库集成、WebSocket实时通信、性能优化、安全防护、测试策略、容器化部署等核心技术，助力开发者构建高性能、可扩展的现代Web应用和微服务架构
 keywords: FastAPI, Python异步框架, REST API开发, Pydantic数据验证, 异步编程, 微服务架构, OpenAPI文档, JWT认证, SQLAlchemy ORM, WebSocket, 性能优化, 容器化部署
+date: 2025-07-05
 ---
 
 # 前言

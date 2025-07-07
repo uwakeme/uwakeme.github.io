@@ -12,6 +12,7 @@ tags:
 categories: 后端
 description: 全面深入解析Express.js框架，涵盖路由系统设计、中间件机制、模板引擎集成、数据库操作、用户认证授权、错误处理机制、性能优化策略、安全防护等Node.js Web开发的核心技术与最佳实践
 keywords: Express.js, Node.js, Web框架, 路由系统, 中间件, REST API, 模板引擎, 数据库集成, 用户认证, 性能优化
+date: 2025-07-05
 ---
 
 # 前言

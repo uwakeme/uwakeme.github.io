@@ -11,6 +11,7 @@ tags:
 categories: 后端
 description: 全面深入解析Django框架，涵盖MTV架构模式、ORM数据库操作、模板引擎系统、表单处理机制、用户认证授权、REST API开发、中间件应用、缓存优化、安全防护等Python Web开发的核心技术与最佳实践
 keywords: Django, Python Web框架, MTV架构, ORM, 模板引擎, 表单处理, 用户认证, REST API, 中间件, 缓存, Web安全
+date: 2025-07-05
 ---
 
 # 前言
