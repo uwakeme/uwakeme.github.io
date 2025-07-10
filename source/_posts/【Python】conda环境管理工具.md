@@ -1,6 +1,6 @@
 ---
-title: 【学习】conda环境管理工具
-categories: 学习
+title: 【Python】conda环境管理工具
+categories: Python
 tags:
   - Python
   - conda
