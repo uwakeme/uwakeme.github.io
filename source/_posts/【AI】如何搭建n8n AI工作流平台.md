@@ -1,6 +1,5 @@
 ---
-title: 【AI】如何搭建n8n工作流平台
-date: 2023-09-26 00:00:00
+title: 【AI】如何搭建n8n AI工作流平台
 categories: AI
 tags:
   - AI
