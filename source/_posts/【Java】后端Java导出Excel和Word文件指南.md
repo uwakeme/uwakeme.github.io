@@ -2,7 +2,7 @@
 title: 【Java】后端Java导出Excel和Word文件指南
 categories: Java
 tags:
-  - JAVA
+  - Java
   - Excel
   - Word
   - Apache POI

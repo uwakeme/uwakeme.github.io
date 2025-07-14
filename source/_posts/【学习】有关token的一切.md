@@ -1,7 +1,7 @@
 ---
 title: 【学习】有关token的一切
 tags:
-  - JAVA
+  - Java
   - 后端
 ---
 # 一、token概述

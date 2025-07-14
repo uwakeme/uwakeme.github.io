@@ -1,11 +1,12 @@
 ---
-title: 【BUG解决】Maven打包失败
-categories: BUG解决
+title: 【BUG】Maven打包失败
+categories: BUG
 tags:
   - 打包
   - 后端
-  - JAVA
+  - Java
   - MAVEN
+  - BUG
 date: 2025-04-07
 ---
 

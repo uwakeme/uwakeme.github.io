@@ -1,11 +1,11 @@
 ---
-title: 【BUG解决】Node打包失败
+title: 【BUG】Node打包失败
 tags:
-  - BUG解决
+  - BUG
   - NODE
   - 前端
   - 打包
-categories: BUG解决
+categories: BUG
 date: 2024-11-12 10:15:08
 ---
 

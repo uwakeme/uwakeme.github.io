@@ -5,7 +5,7 @@ tags:
   - 虚拟机
   - 部署
   - LINUX
-  - JAVA
+  - Java
   - NGINX
 date: 2024-12-16
 ---

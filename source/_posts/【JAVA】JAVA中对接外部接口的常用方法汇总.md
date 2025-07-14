@@ -2,7 +2,7 @@
 title: 【Java】Java中对接外部接口的常用方法汇总
 categories: Java
 tags:
-  - JAVA
+  - Java
   - 后端
   - 接口调用
   - HttpURLConnection
@@ -12,7 +12,7 @@ tags:
   - WebClient
 ---
 
-# 【JAVA】JAVA中对接外部接口的常用方法汇总
+# 【Java】JAVA中对接外部接口的常用方法汇总
 
 ## 前言
 
