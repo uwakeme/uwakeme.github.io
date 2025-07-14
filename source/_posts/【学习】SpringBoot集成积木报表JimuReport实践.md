@@ -6,7 +6,7 @@ tags:
   - JimuReport
   - 报表
   - 数据可视化
-  - JAVA
+  - Java
 ---
 
 # 前言

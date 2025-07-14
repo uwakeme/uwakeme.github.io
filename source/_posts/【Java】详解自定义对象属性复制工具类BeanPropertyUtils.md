@@ -1,6 +1,11 @@
 ---
+<<<<<<<< HEAD:source/_posts/【JAVA】详解自定义对象属性复制工具类BeanPropertyUtils.md
 title: 【JAVA】详解自定义对象属性复制工具类BeanPropertyUtils
 categories: JAVA
+========
+title: 【Java】详解自定义对象属性复制工具类BeanPropertyUtils
+categories: Java
+>>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】详解自定义对象属性复制工具类BeanPropertyUtils.md
 tags:
   - JAVA
   - 工具类
@@ -14,7 +19,7 @@ tags:
 
 在Java应用程序开发中，经常需要在不同的对象之间传递数据，特别是当处理数据传输对象（DTOs）、视图对象（VOs）、领域模型（Entities/Models）等分层对象时，属性的复制成为一项常见任务。虽然存在许多优秀的第三方库（如Apache Commons BeanUtils, Spring Framework BeanUtils, MapStruct等）来简化这一过程，但在某些情况下，我们可能需要更细粒度的控制、避免引入额外的重型依赖，或者仅仅是为了学习和理解其内部机制，这时编写一个自定义的对象属性复制工具类就显得很有价值。本文将详细探讨如何设计和实现一个自定义的 `BeanPropertyUtils` 工具类。
 
-本工具类的设计也将遵循[《【JAVA技巧】编写自定义通用工具类指南》](/【JAVA技巧】编写自定义通用工具类指南.md)中提出的各项原则。
+本工具类的设计也将遵循[《【Java】编写自定义通用工具类指南》](/【Java】编写自定义通用工具类指南.md)中提出的各项原则。
 
 # 一、为何需要自定义对象属性复制工具？
 

@@ -1,12 +1,12 @@
 ---
-title: 【JAVA】字符串操作工具——StringUtils
-categories: JAVA
+title: 【Java】字符串操作工具——StringUtils
+categories: Java
 tags:
-  - JAVA
+  - Java
   - 后端
 ---
 
-# 【JAVA】字符串操作工具——StringUtils
+# 【Java】字符串操作工具——StringUtils
 
 ## 一、前言
 

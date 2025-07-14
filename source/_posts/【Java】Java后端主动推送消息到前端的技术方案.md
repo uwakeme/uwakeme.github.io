@@ -1,6 +1,4 @@
 ---
-title: 【JAVA】Java后端主动推送消息到前端的技术方案
-categories: JAVA
 tags:
   - JAVA
   - WebSocket

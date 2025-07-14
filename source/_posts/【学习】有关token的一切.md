@@ -1,8 +1,11 @@
 ---
 title: 【学习】有关token的一切
+categories: 学习
 tags:
-  - JAVA
   - 后端
+  - token
+  - 认证
+  - 授权
 ---
 # 一、token概述
 ## （一）什么是token？

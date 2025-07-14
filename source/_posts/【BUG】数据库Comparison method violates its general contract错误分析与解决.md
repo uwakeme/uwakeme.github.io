@@ -2,9 +2,10 @@
 title: 【BUG】数据库Comparison method violates its general contract错误分析与解决
 categories: BUG
 tags:
-  - JAVA
+  - Java
   - 排序
   - 数据库
+  - BUG
 ---
 
 # 一、问题背景

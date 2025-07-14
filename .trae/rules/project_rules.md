@@ -33,9 +33,9 @@ tags:
 - 标题格式为【分类】具体标题，其中分类应与categories保持一致
 - 常见分类包括：
   - 【LINUX】：Linux系统相关内容
-  - 【JAVA技巧】：Java编程技巧和最佳实践
+  - 【Java】：Java编程技巧和最佳实践
   - 【学习】：新技术学习笔记
-  - 【BUG解决】：问题排查和解决方案
+  - 【BUG】：BUG问题排查和解决方案
   - 【数据库】：数据库相关内容
   - 【前端】：前端开发相关内容
 
@@ -103,10 +103,10 @@ df -h             # 查看磁盘空间
 
 ```
 ---
-title: 【JAVA技巧】利用stream流对List列表对象进行操作
-categories: JAVA技巧
+title: 【Java】利用stream流对List列表对象进行操作
+categories: Java
 tags:
-  - JAVA
+  - Java
   - 后端
 ---
 

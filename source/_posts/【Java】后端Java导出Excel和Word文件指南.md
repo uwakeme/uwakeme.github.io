@@ -1,8 +1,13 @@
 ---
+<<<<<<<< HEAD:source/_posts/【JAVA】后端Java导出Excel和Word文件指南.md
 title: 【JAVA】后端Java导出Excel和Word文件指南
 categories: JAVA
+========
+title: 【Java】后端Java导出Excel和Word文件指南
+categories: Java
+>>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】后端Java导出Excel和Word文件指南.md
 tags:
-  - JAVA
+  - Java
   - Excel
   - Word
   - Apache POI

@@ -1,6 +1,11 @@
 ---
+<<<<<<<< HEAD:source/_posts/【JAVA】Java常用工具类概览.md
 title: 【JAVA】Java常用工具类概览
 categories: JAVA
+========
+title: 【Java】Java常用工具类概览
+categories: Java
+>>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】Java常用工具类概览.md
 tags:
   - JAVA
   - 工具类
@@ -189,17 +194,17 @@ Java的工具类生态极其丰富，无论是JDK内置还是第三方库，都�
 
 # 五、后续笔记计划（示例）
 
-*   【JAVA技巧】Apache Commons Lang `StringUtils`详解
-*   【JAVA技巧】Apache Commons Lang `DateUtils`与`DateFormatUtils`应用实践
-*   【JAVA技巧】Apache Commons Collections `CollectionUtils`用法集锦
-*   【JAVA技巧】Apache Commons IO `FileUtils`与`IOUtils`核心功能
-*   【JAVA技巧】Google Guava 不可变集合（Immutable Collections）的应用
-*   【JAVA技巧】Google Guava 缓存（Cache）机制详解
-*   【JAVA技巧】Google Guava `Strings`, `Joiner`, `Splitter`字符串处理技巧
-*   【JAVA技巧】Hutool `DateUtil`日期时间工具实践
-*   【JAVA技巧】Hutool `StrUtil`字符串操作详解
-*   【JAVA技巧】Java 8 `java.time`日期时间API使用指南
-*   【JAVA技巧】Java `Optional`优雅处理空指针
-*   【JAVA技巧】Java Stream API常用操作汇总
+*   【Java】Apache Commons Lang `StringUtils`详解
+*   【Java】Apache Commons Lang `DateUtils`与`DateFormatUtils`应用实践
+*   【Java】Apache Commons Collections `CollectionUtils`用法集锦
+*   【Java】Apache Commons IO `FileUtils`与`IOUtils`核心功能
+*   【Java】Google Guava 不可变集合（Immutable Collections）的应用
+*   【Java】Google Guava 缓存（Cache）机制详解
+*   【Java】Google Guava `Strings`, `Joiner`, `Splitter`字符串处理技巧
+*   【Java】Hutool `DateUtil`日期时间工具实践
+*   【Java】Hutool `StrUtil`字符串操作详解
+*   【Java】Java 8 `java.time`日期时间API使用指南
+*   【Java】Java `Optional`优雅处理空指针
+*   【Java】Java Stream API常用操作汇总
 
 --- 

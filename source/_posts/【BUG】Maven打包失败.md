@@ -4,8 +4,9 @@ categories: BUG
 tags:
   - 打包
   - 后端
-  - JAVA
+  - Java
   - MAVEN
+  - BUG
 date: 2025-04-07
 ---
 
