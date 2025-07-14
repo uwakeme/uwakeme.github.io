@@ -1,6 +1,6 @@
 ---
-title: 【Python】conda环境管理工具
-categories: Python
+title: 【工具】conda环境管理工具
+categories: 工具
 tags:
   - Python
   - conda

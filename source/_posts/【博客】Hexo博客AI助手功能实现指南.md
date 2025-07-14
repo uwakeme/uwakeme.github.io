@@ -1,6 +1,6 @@
 ---
-title: 【前端功能】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）
-categories: 前端功能
+title: 【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）
+categories: 博客
 tags:
   - JavaScript
   - CSS
@@ -10,15 +10,13 @@ tags:
   - GLM-4
 ---
 
-# 【前端功能】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）
-
-## 一、前言
+# 一、前言
 
 在AI技术快速发展的时代，为个人博客添加智能助手功能已成为提升用户体验的重要手段。本文详细介绍如何在Hexo博客中实现一个美观实用的AI助手，支持多种AI模型接入（智谱GLM-4、DeepSeek等），并提供完整的代码实现。
 
 特别值得一提的是，智谱AI推出的GLM-4模型目前提供了免费版本（glm-4-flash），可以零成本为你的博客增添智能交互能力。
 
-## 二、功能特点
+# 二、功能特点
 
 实现后的AI助手功能将具备以下特点：
 
@@ -29,24 +27,24 @@ tags:
 - **响应式设计**：完美适配移动端和桌面端
 - **本地记忆功能**：保存聊天历史，提供连续对话体验
 
-## 三、实现步骤
+# 三、实现步骤
 
-### （一）准备工作
+## （一）准备工作
 
-#### 1. 所需资源
+### 1. 所需资源
 
 - 已搭建的Hexo博客
 - 智谱AI平台账号（使用GLM-4时需要）或DeepSeek账号
 - 基本的JavaScript和CSS知识
 
-#### 2. 注册智谱AI账号（可选）
+### 2. 注册智谱AI账号（可选）
 
 如果选择使用智谱GLM-4模型：
 1. 访问[智谱AI官网](https://open.bigmodel.cn/)
 2. 完成注册并登录
 3. 在个人中心创建API密钥并保存
 
-### （二）创建必要文件
+## （二）创建必要文件
 
 1. 在博客的`source/js`目录下创建以下文件：
    - `ai-assistant.js`（API版本）
@@ -55,7 +53,7 @@ tags:
 2. 在博客的`source/css`目录下创建：
    - `ai-assistant.css`（样式定义）
 
-### （三）编写CSS样式
+## （三）编写CSS样式
 
 创建美观的UI界面，以下是核心CSS代码：
 
@@ -200,7 +198,7 @@ tags:
 }
 ```
 
-### （四）实现智谱GLM-4版本（完整版）
+## （四）实现智谱GLM-4版本（完整版）
 
 以下是使用智谱GLM-4模型的JavaScript实现：
 
@@ -342,7 +340,7 @@ tags:
 })();
 ```
 
-### （五）实现DeepSeek版本
+## （五）实现DeepSeek版本
 
 如果你想使用DeepSeek API，只需修改配置部分：
 
@@ -360,7 +358,7 @@ const config = {
 };
 ```
 
-### （六）基础版实现（无需API）
+## （六）基础版实现（无需API）
 
 如果不想申请API密钥或担心API使用成本，可以使用基础版：
 
@@ -401,7 +399,7 @@ const config = {
 })();
 ```
 
-### （七）引入AI助手到博客中
+## （七）引入AI助手到博客中
 
 在Hexo主题的配置文件中添加自定义JS和CSS：
 
@@ -413,9 +411,9 @@ custom_css:
   - /css/ai-assistant.css
 ```
 
-## 四、高级功能
+# 四、高级功能
 
-### （一）保护API密钥安全
+## （一）保护API密钥安全
 
 为了避免API密钥在前端暴露，可以使用代理服务器：
 
@@ -458,7 +456,7 @@ exports.handler = async function(event) {
 };
 ```
 
-### （二）实现多轮对话记忆
+## （二）实现多轮对话记忆
 
 保存对话历史，实现上下文连续对话：
 
@@ -503,7 +501,7 @@ async function sendMessageWithContext(message) {
 }
 ```
 
-### （三）添加语音输入功能
+## （三）添加语音输入功能
 
 使用Web Speech API实现语音输入：
 
@@ -534,9 +532,9 @@ voiceButton.addEventListener('click', function() {
 });
 ```
 
-## 五、常见问题解决
+# 五、常见问题解决
 
-### （一）API调用失败
+## （一）API调用失败
 
 如果遇到API调用失败的问题：
 
@@ -559,7 +557,7 @@ async function fetchWithRetry(url, options, retries = 3) {
 }
 ```
 
-### （二）深色模式适配问题
+## （二）深色模式适配问题
 
 如果深色模式显示不正确，可能需要修改CSS变量或添加更多适配规则：
 
@@ -582,7 +580,7 @@ async function fetchWithRetry(url, options, retries = 3) {
 }
 ```
 
-## 六、总结
+# 六、总结
 
 通过本文介绍的方法，我们可以为Hexo博客添加一个美观实用的AI助手功能。无论是选择接入智谱GLM-4的免费模型，还是使用DeepSeek等其他AI服务，或者仅实现基础版预设问答，都能为博客访客提供更好的交互体验。
 

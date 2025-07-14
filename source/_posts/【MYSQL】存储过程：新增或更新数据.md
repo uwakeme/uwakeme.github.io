@@ -1,5 +1,5 @@
 ---
-title: 【存储过程】新增或更新数据
+title: 【MYSQL】存储过程：新增或更新数据
 tags:
   - MYSQL
   - 存储过程
@@ -9,7 +9,7 @@ date: 2024-11-11 17:43:42
 ---
 
 
-# 【存储过程】新增或更新数据
+# 存储过程：新增或更新数据
 
 ```mysql
 CREATE DEFINER=`root`@`%` PROCEDURE `database`.`UpdateOrInsertReviseHistory`(

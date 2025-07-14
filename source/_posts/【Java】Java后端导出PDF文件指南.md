@@ -1,6 +1,6 @@
 ---
-title: 【后端】Java后端导出PDF文件指南
-categories: 后端
+title: 【Java】Java后端导出PDF文件指南
+categories: Java
 tags:
   - Java
   - PDF
