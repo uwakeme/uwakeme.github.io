@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【JAVA】详解自定义对象属性复制工具类BeanPropertyUtils.md
-title: 【JAVA】详解自定义对象属性复制工具类BeanPropertyUtils
-categories: JAVA
-========
 title: 【Java】详解自定义对象属性复制工具类BeanPropertyUtils
 categories: Java
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】详解自定义对象属性复制工具类BeanPropertyUtils.md
 tags:
   - JAVA
   - 工具类

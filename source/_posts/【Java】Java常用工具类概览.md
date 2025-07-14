@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【JAVA】Java常用工具类概览.md
-title: 【JAVA】Java常用工具类概览
-categories: JAVA
-========
 title: 【Java】Java常用工具类概览
 categories: Java
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】Java常用工具类概览.md
 tags:
   - JAVA
   - 工具类

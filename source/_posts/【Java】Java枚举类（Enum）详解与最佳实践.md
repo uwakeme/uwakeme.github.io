@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【JAVA】Java枚举类（Enum）详解与最佳实践.md
-title: 【JAVA】Java枚举类（Enum）详解与最佳实践
-categories: JAVA
-========
 title: 【Java】Java枚举类（Enum）详解与最佳实践
 categories: Java
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】Java枚举类（Enum）详解与最佳实践.md
 tags:
   - JAVA
   - Enum

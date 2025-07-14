@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【JAVA】Java反射（Reflection）机制详解.md
-title: 【JAVA】Java反射（Reflection）机制详解
-categories: JAVA
-========
 title: 【Java】Java反射（Reflection）机制详解
 categories: Java
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】Java反射（Reflection）机制详解.md
 tags:
   - JAVA
   - Reflection

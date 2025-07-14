@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【JAVA】详解对象属性变化比较工具类BeanCompareUtils.md
-title: 【JAVA】详解对象属性变化比较工具类BeanCompareUtils
-categories: JAVA
-========
 title: 【Java】详解对象属性变化比较工具类BeanCompareUtils
 categories: Java
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【Java】详解对象属性变化比较工具类BeanCompareUtils.md
 tags:
   - JAVA
   - 工具类

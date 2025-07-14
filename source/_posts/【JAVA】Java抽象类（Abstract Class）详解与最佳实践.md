@@ -1,8 +1,8 @@
 ---
-title: 【JAVA】Java抽象类（Abstract Class）详解与最佳实践
-categories: JAVA
+title: 【Java】Java抽象类（Abstract Class）详解与最佳实践
+categories: Java
 tags:
-  - JAVA
+  - Java
   - 面向对象
   - 抽象类
   - 设计模式
