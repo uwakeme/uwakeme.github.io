@@ -1,6 +1,6 @@
 ---
-title: 【学习】Hello Hexo - 基础命令指南
-categories: 学习
+title: 【博客】Hello Hexo - 基础命令指南
+categories: 博客
 tags:
   - HEXO
   - 博客

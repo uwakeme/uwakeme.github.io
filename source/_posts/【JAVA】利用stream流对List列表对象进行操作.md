@@ -6,7 +6,7 @@ tags:
   - 后端
 ---
 
-# 【JAVA技巧】利用stream流对List列表对象进行操作
+# 【Java】利用stream流对List列表对象进行操作
 
 ## 前言
 

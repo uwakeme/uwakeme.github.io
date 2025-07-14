@@ -1,6 +1,6 @@
 ---
-title: 【JAVA】JAVA中对接外部接口的常用方法汇总
-categories: JAVA
+title: 【Java】Java中对接外部接口的常用方法汇总
+categories: Java
 tags:
   - JAVA
   - 后端

@@ -1,6 +1,6 @@
 ---
-title: 【JAVA技巧】Java反射（Reflection）机制详解
-categories: JAVA技巧
+title: 【Java】Java反射（Reflection）机制详解
+categories: Java
 tags:
   - Java
   - Reflection

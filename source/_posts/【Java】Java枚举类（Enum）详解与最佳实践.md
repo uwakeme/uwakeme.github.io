@@ -1,6 +1,6 @@
 ---
-title: 【JAVA技巧】Java枚举类（Enum）详解与最佳实践
-categories: JAVA技巧
+title: 【Java】Java枚举类（Enum）详解与最佳实践
+categories: Java
 tags:
   - Java
   - Enum
