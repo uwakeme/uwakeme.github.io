@@ -780,6 +780,6 @@ Python内置函数是Python编程的基础工具，掌握这些函数能够显�
 
 # 参考资料
 
-1. Python官方文档 - 内置函数：https://docs.python.org/zh-cn/3/library/functions.html <mcreference link="https://docs.python.org/zh-cn/3/library/functions.html" index="3">3</mcreference>
-2. 菜鸟教程 - Python内置函数：https://www.runoob.com/python/python-built-in-functions.html <mcreference link="https://www.runoob.com/python/python-built-in-functions.html" index="1">1</mcreference>
-3. 知乎专栏 - Python内置函数详解：https://zhuanlan.zhihu.com/p/341323946 <mcreference link="https://zhuanlan.zhihu.com/p/341323946" index="2">2</mcreference>
+1. Python官方文档 - 内置函数：https://docs.python.org/zh-cn/3/library/functions.html [3](https://docs.python.org/zh-cn/3/library/functions.html)
+2. 菜鸟教程 - Python内置函数：https://www.runoob.com/python/python-built-in-functions.html [1](https://www.runoob.com/python/python-built-in-functions.html)
+3. 知乎专栏 - Python内置函数详解：https://zhuanlan.zhihu.com/p/341323946 [2](https://zhuanlan.zhihu.com/p/341323946)
