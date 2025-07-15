@@ -53,8 +53,7 @@ hexo_blog/
 1. 克隆仓库
 
 ```bash
-git clone https://github.com/uwakeme/hexo_blog.git
-cd hexo_blog
+git clone https://github.com/uwakeme/uwakeme.github.io.git
 ```
 
 2. 安装依赖
@@ -69,8 +68,6 @@ yarn install
 
 ```bash
 hexo clean && hexo server
-# 或使用脚本
-./hexo.sh
 ```
 
 4. 访问 `http://localhost:4000` 查看效果
