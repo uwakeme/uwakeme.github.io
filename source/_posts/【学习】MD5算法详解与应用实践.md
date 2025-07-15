@@ -18,29 +18,29 @@ description: 深入解析MD5算法的原理、实现、应用场景及安全性�
 
 ## （一）什么是MD5
 
-MD5（Message Digest Algorithm 5）是一种广泛使用的哈希函数，用于生成128位（32个十六进制数字）的消息摘要。<mcreference link="https://www.cnblogs.com/Amd794/p/18130041" index="2">2</mcreference> 它由美国密码学家罗纳德·李维斯特（Ronald Rivest）于1991年设计，是MD家族中的第五个算法。<mcreference link="https://www.cnblogs.com/Amd794/p/18130041" index="2">2</mcreference>
+MD5（Message Digest Algorithm 5）是一种广泛使用的哈希函数，用于生成128位（32个十六进制数字）的消息摘要。[2](https://www.cnblogs.com/Amd794/p/18130041) 它由美国密码学家罗纳德·李维斯特（Ronald Rivest）于1991年设计，是MD家族中的第五个算法。[2](https://www.cnblogs.com/Amd794/p/18130041)
 
 **MD5的核心特性**：
-- **压缩性**：任意长度的数据，算出的MD5值长度都是固定的（128位）<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
-- **容易计算**：从原数据计算出MD5值很容易<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
-- **抗修改性**：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
-- **强抗碰撞**：已知原数据和其MD5值，想找到一个具有相同MD5值的数据（即伪造数据）是非常困难的<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
+- **压缩性**：任意长度的数据，算出的MD5值长度都是固定的（128位）[3](https://zhuanlan.zhihu.com/p/37257569)
+- **容易计算**：从原数据计算出MD5值很容易[3](https://zhuanlan.zhihu.com/p/37257569)
+- **抗修改性**：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别[3](https://zhuanlan.zhihu.com/p/37257569)
+- **强抗碰撞**：已知原数据和其MD5值，想找到一个具有相同MD5值的数据（即伪造数据）是非常困难的[3](https://zhuanlan.zhihu.com/p/37257569)
 
 ## （二）哈希函数的本质
 
-MD5本质上是一个哈希函数（hash function），它能把任意大小的数据映射为一个固定大小的值。<mcreference link="https://www.xiaogd.net/md/md5-intro" index="4">4</mcreference> 哈希函数所返回的这个值称为哈希值（hash value），又称为哈希码（hash codes）。
+MD5本质上是一个哈希函数（hash function），它能把任意大小的数据映射为一个固定大小的值。[4](https://www.xiaogd.net/md/md5-intro) 哈希函数所返回的这个值称为哈希值（hash value），又称为哈希码（hash codes）。
 
-对于MD5来说，由于输出是固定的128比特，这限制了所有可能的值是2^128种，也就是值的范围是从0到2^128-1。<mcreference link="https://www.xiaogd.net/md/md5-intro" index="4">4</mcreference>
+对于MD5来说，由于输出是固定的128比特，这限制了所有可能的值是2^128种，也就是值的范围是从0到2^128-1。[4](https://www.xiaogd.net/md/md5-intro)
 
 ## （三）MD5的历史背景
 
-MD5算法最初设计是为了替代MD4算法，后来被广泛应用于网络通信、数据校验等领域。<mcreference link="https://www.cnblogs.com/Amd794/p/18130041" index="2">2</mcreference> 然而，随着计算能力的增强和密码学研究的发展，MD5算法的安全性逐渐受到挑战，不建议在安全领域中单独使用MD5算法。
+MD5算法最初设计是为了替代MD4算法，后来被广泛应用于网络通信、数据校验等领域。[2](https://www.cnblogs.com/Amd794/p/18130041) 然而，随着计算能力的增强和密码学研究的发展，MD5算法的安全性逐渐受到挑战，不建议在安全领域中单独使用MD5算法。
 
 # 二、MD5算法原理详解
 
 ## （一）算法流程概述
 
-MD5算法的处理流程可以概括为以下几个步骤：<mcreference link="https://www.cnblogs.com/Amd794/p/18130041" index="2">2</mcreference>
+MD5算法的处理流程可以概括为以下几个步骤：[2](https://www.cnblogs.com/Amd794/p/18130041)
 
 1. **初始化寄存器**：初始化四个32位寄存器A、B、C、D
 2. **填充消息**：将输入消息填充到512位的倍数
@@ -50,14 +50,14 @@ MD5算法的处理流程可以概括为以下几个步骤：<mcreference link="h
 
 ## （二）消息填充过程
 
-在MD5算法中，首先需要对信息进行填充，使其位长对512求余的结果等于448。<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference> 填充必须进行，即使其位长对512求余的结果等于448。
+在MD5算法中，首先需要对信息进行填充，使其位长对512求余的结果等于448。[3](https://zhuanlan.zhihu.com/p/37257569) 填充必须进行，即使其位长对512求余的结果等于448。
 
-**填充方法**：<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
+**填充方法**：[3](https://zhuanlan.zhihu.com/p/37257569)
 1. 在信息的后面填充一个1和无数个0，直到满足条件
 2. 在结果后面附加一个以64位二进制表示的填充前信息长度
 
 **填充示例**：
-以消息"gnubd"为例：<mcreference link="https://blog.csdn.net/goodnameused/article/details/81068697" index="1">1</mcreference>
+以消息"gnubd"为例：[1](https://blog.csdn.net/goodnameused/article/details/81068697)
 
 ```
 67 6E 75 62 64 80 00 00 00 00 00 00 00 00 00 00
@@ -68,7 +68,7 @@ MD5算法的处理流程可以概括为以下几个步骤：<mcreference link="h
 
 ## （三）初始化变量
 
-MD5算法使用四个32位寄存器作为初始向量：<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
+MD5算法使用四个32位寄存器作为初始向量：[3](https://zhuanlan.zhihu.com/p/37257569)
 
 ```c
 A = 0x67452301
@@ -85,7 +85,7 @@ D = 0x10325476
 
 ## （四）四轮循环操作
 
-MD5算法的核心是四轮循环操作，每轮使用不同的非线性函数：<mcreference link="https://zhuanlan.zhihu.com/p/37257569" index="3">3</mcreference>
+MD5算法的核心是四轮循环操作，每轮使用不同的非线性函数：[3](https://zhuanlan.zhihu.com/p/37257569)
 
 **四个非线性函数**：
 ```c
@@ -112,7 +112,7 @@ II(a,b,c,d,Mj,s,ti) 操作为 a = b + ((a + I(b,c,d) + Mj + ti) << s)
 
 ## （一）Java实现示例
 
-以下是使用Java标准库实现MD5计算的示例：<mcreference link="https://www.xiaogd.net/md/md5-intro" index="4">4</mcreference>
+以下是使用Java标准库实现MD5计算的示例：[4](https://www.xiaogd.net/md/md5-intro)
 
 ```java
 import java.nio.charset.StandardCharsets;
@@ -372,7 +372,7 @@ public static String sha256(String input) {
 
 ## （一）算法优化
 
-在实现MD5算法时，可以采用以下优化技巧：<mcreference link="https://www.cnblogs.com/Amd794/p/18130041" index="2">2</mcreference>
+在实现MD5算法时，可以采用以下优化技巧：[2](https://www.cnblogs.com/Amd794/p/18130041)
 
 1. **位运算优化**：利用位运算替代乘法、除法等运算
 2. **预计算表**：提前计算固定值，减少重复计算

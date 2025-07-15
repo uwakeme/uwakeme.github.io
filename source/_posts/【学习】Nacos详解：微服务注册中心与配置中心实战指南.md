@@ -20,11 +20,11 @@ description: 深入解析Nacos的核心功能、架构原理和实际应用，�
 
 ### 基本概念
 
-Nacos致力于帮助您发现、配置和管理微服务 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>。它提供了一组简单易用的特性集，帮助您快速实现动态服务发现、服务配置、服务元数据及流量管理 <mcreference link="https://www.cnblogs.com/wenxuehai/p/16179629.html" index="3">3</mcreference>。
+Nacos致力于帮助您发现、配置和管理微服务 [2](https://blog.csdn.net/u011397981/article/details/129718590)。它提供了一组简单易用的特性集，帮助您快速实现动态服务发现、服务配置、服务元数据及流量管理 [3](https://www.cnblogs.com/wenxuehai/p/16179629.html)。
 
 ### 核心特性
 
-Nacos主要提供以下四大功能 <mcreference link="https://www.cnblogs.com/wenxuehai/p/16179629.html" index="3">3</mcreference>：
+Nacos主要提供以下四大功能 [3](https://www.cnblogs.com/wenxuehai/p/16179629.html)：
 
 1. **服务发现与服务健康检查**
    - 使服务更容易注册
@@ -51,7 +51,7 @@ Nacos主要提供以下四大功能 <mcreference link="https://www.cnblogs.com/w
 
 ### 整体架构
 
-Nacos注册中心分为server与client <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+Nacos注册中心分为server与client [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 - **Server端**：采用Java编写，为client提供注册发现服务与配置服务
 - **Client端**：可以用多语言实现，与微服务嵌套在一起
@@ -59,7 +59,7 @@ Nacos注册中心分为server与client <mcreference link="https://blog.csdn.net/
 
 ### 服务注册与发现流程
 
-Nacos注册概括来说有6个步骤 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+Nacos注册概括来说有6个步骤 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 1. **服务容器**负责启动、加载、运行服务提供者
 2. **服务提供者**在启动时，向注册中心注册自己提供的服务
@@ -70,7 +70,7 @@ Nacos注册概括来说有6个步骤 <mcreference link="https://blog.csdn.net/u0
 
 ### 服务领域模型
 
-Nacos的注册发现采用三层模型 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+Nacos的注册发现采用三层模型 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 - **服务（Service）**：保存健康检查开关、元数据、路由机制、保护阈值等设置
 - **集群（Cluster）**：保存健康检查模式、元数据、同步机制等数据
@@ -80,7 +80,7 @@ Nacos的注册发现采用三层模型 <mcreference link="https://blog.csdn.net/
 
 ### 服务注册机制
 
-以Java nacos client v1.0.1为例 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+以Java nacos client v1.0.1为例 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 - **心跳机制**：每5秒向nacos server发送一次心跳，携带服务名、服务IP、服务端口等信息
 - **主动健康检查**：nacos server主动向client发起健康检查，支持TCP/HTTP检查
@@ -88,7 +88,7 @@ Nacos的注册发现采用三层模型 <mcreference link="https://blog.csdn.net/
 
 ### 通讯协议演进
 
-整个服务注册与发现过程的通讯协议经历了重要演进 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+整个服务注册与发现过程的通讯协议经历了重要演进 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 - **1.x版本**：服务端只支持HTTP协议
 - **2.x版本**：引入了Google的gRPC协议
@@ -99,7 +99,7 @@ Nacos的注册发现采用三层模型 <mcreference link="https://blog.csdn.net/
 
 ### Pull/Push混合模式
 
-Nacos与其他注册中心不同的是，采用了Pull/Push同时运作的方式 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+Nacos与其他注册中心不同的是，采用了Pull/Push同时运作的方式 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 - **Pull模式**：客户端定时从服务端拉取服务列表
 - **Push模式**：服务端主动推送变更通知给客户端
@@ -109,7 +109,7 @@ Nacos与其他注册中心不同的是，采用了Pull/Push同时运作的方式
 
 ### 配置管理流程
 
-Nacos配置中心的工作流程包括 <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>：
+Nacos配置中心的工作流程包括 [2](https://blog.csdn.net/u011397981/article/details/129718590)：
 
 1. **配置发布**：客户端发布配置到服务端
 2. **配置拉取**：客户端从服务端拉取配置
@@ -543,9 +543,9 @@ Nacos作为一个功能强大的微服务基础设施，提供了服务注册发
 
 - [Nacos官方文档](https://nacos.io/zh-cn/docs/quick-start.html)
 - [Spring Cloud Alibaba官方文档](https://spring-cloud-alibaba-group.github.io/github-pages/hoxton/zh-cn/index.html)
-- [Nacos架构原理详解](https://blog.csdn.net/u011397981/article/details/129718590) <mcreference link="https://blog.csdn.net/u011397981/article/details/129718590" index="2">2</mcreference>
-- [Nacos基本使用指南](https://www.cnblogs.com/wenxuehai/p/16179629.html) <mcreference link="https://www.cnblogs.com/wenxuehai/p/16179629.html" index="3">3</mcreference>
-- [阿里云Nacos配置中心实践](https://developer.aliyun.com/article/778666) <mcreference link="https://developer.aliyun.com/article/778666" index="4">4</mcreference>
+- [Nacos架构原理详解](https://blog.csdn.net/u011397981/article/details/129718590) [2](https://blog.csdn.net/u011397981/article/details/129718590)
+- [Nacos基本使用指南](https://www.cnblogs.com/wenxuehai/p/16179629.html) [3](https://www.cnblogs.com/wenxuehai/p/16179629.html)
+- [阿里云Nacos配置中心实践](https://developer.aliyun.com/article/778666) [4](https://developer.aliyun.com/article/778666)
 
 ---
 

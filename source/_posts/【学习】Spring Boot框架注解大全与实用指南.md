@@ -18,9 +18,9 @@ Spring Boot通过大量的注解简化了Spring应用的开发和配置，让开
 
 ### 1.1 @SpringBootApplication
 
-**作用**：Spring Boot应用的核心注解，标识主启动类 <mcreference link="https://blog.csdn.net/youanyyou/article/details/100013330" index="1">1</mcreference>
+**作用**：Spring Boot应用的核心注解，标识主启动类 [1](https://blog.csdn.net/youanyyou/article/details/100013330)
 
-**组合注解**：包含`@Configuration`、`@EnableAutoConfiguration`和`@ComponentScan`三个注解 <mcreference link="https://blog.csdn.net/youanyyou/article/details/100013330" index="1">1</mcreference>
+**组合注解**：包含`@Configuration`、`@EnableAutoConfiguration`和`@ComponentScan`三个注解 [1](https://blog.csdn.net/youanyyou/article/details/100013330)
 
 ```java
 @SpringBootApplication
@@ -33,7 +33,7 @@ public class Application {
 
 ### 1.2 @EnableAutoConfiguration
 
-**作用**：启用Spring Boot的自动配置机制 <mcreference link="https://blog.csdn.net/youanyyou/article/details/100013330" index="1">1</mcreference>
+**作用**：启用Spring Boot的自动配置机制 [1](https://blog.csdn.net/youanyyou/article/details/100013330)
 
 **原理**：根据classpath中的jar依赖自动配置Spring应用
 
@@ -47,7 +47,7 @@ public class AppConfig {
 
 ### 1.3 @ComponentScan
 
-**作用**：指定Spring应该扫描的包路径 <mcreference link="https://cloud.tencent.com/developer/article/2528816" index="3">3</mcreference>
+**作用**：指定Spring应该扫描的包路径 [3](https://cloud.tencent.com/developer/article/2528816)
 
 **默认行为**：扫描启动类所在包及其子包
 
@@ -64,7 +64,7 @@ public class Application {
 ### 2.1 基础组件注解
 
 #### @Component
-**作用**：标识一个类为Spring组件，是所有组件注解的基础 <mcreference link="https://juejin.cn/post/7179038534711967800" index="4">4</mcreference>
+**作用**：标识一个类为Spring组件，是所有组件注解的基础 [4](https://juejin.cn/post/7179038534711967800)
 
 ```java
 @Component
@@ -76,7 +76,7 @@ public class EmailService {
 ```
 
 #### @Service
-**作用**：标识业务逻辑层组件 <mcreference link="https://juejin.cn/post/7179038534711967800" index="4">4</mcreference>
+**作用**：标识业务逻辑层组件 [4](https://juejin.cn/post/7179038534711967800)
 
 ```java
 @Service
@@ -89,7 +89,7 @@ public class UserService {
 ```
 
 #### @Repository
-**作用**：标识数据访问层组件，提供异常转译功能 <mcreference link="https://juejin.cn/post/7179038534711967800" index="4">4</mcreference>
+**作用**：标识数据访问层组件，提供异常转译功能 [4](https://juejin.cn/post/7179038534711967800)
 
 ```java
 @Repository
@@ -102,7 +102,7 @@ public class UserRepository {
 ```
 
 #### @Controller
-**作用**：标识控制层组件，处理HTTP请求 <mcreference link="https://blog.csdn.net/youanyyou/article/details/100013330" index="1">1</mcreference>
+**作用**：标识控制层组件，处理HTTP请求 [1](https://blog.csdn.net/youanyyou/article/details/100013330)
 
 ```java
 @Controller
@@ -116,7 +116,7 @@ public class UserController {
 ```
 
 #### @RestController
-**作用**：组合了`@Controller`和`@ResponseBody`，用于RESTful API开发 <mcreference link="https://cloud.tencent.com/developer/article/2528816" index="3">3</mcreference>
+**作用**：组合了`@Controller`和`@ResponseBody`，用于RESTful API开发 [3](https://cloud.tencent.com/developer/article/2528816)
 
 ```java
 @RestController
@@ -132,7 +132,7 @@ public class UserRestController {
 ## 三、依赖注入注解
 
 ### 3.1 @Autowired
-**作用**：根据类型自动注入依赖 <mcreference link="https://cloud.tencent.com/developer/article/2528816" index="3">3</mcreference>
+**作用**：根据类型自动注入依赖 [3](https://cloud.tencent.com/developer/article/2528816)
 
 ```java
 @Service
@@ -149,7 +149,7 @@ public class OrderService {
 ```
 
 ### 3.2 @Qualifier
-**作用**：当存在多个同类型Bean时，指定具体注入哪个 <mcreference link="https://cloud.tencent.com/developer/article/2528816" index="3">3</mcreference>
+**作用**：当存在多个同类型Bean时，指定具体注入哪个 [3](https://cloud.tencent.com/developer/article/2528816)
 
 ```java
 @Service
@@ -161,7 +161,7 @@ public class PaymentService {
 ```
 
 ### 3.3 @Resource
-**作用**：根据名称注入依赖（JSR-250标准） <mcreference link="https://juejin.cn/post/7179038534711967800" index="4">4</mcreference>
+**作用**：根据名称注入依赖（JSR-250标准） [4](https://juejin.cn/post/7179038534711967800)
 
 ```java
 @Service
@@ -190,7 +190,7 @@ public class DatabaseConfig {
 ### 4.1 请求映射注解
 
 #### @RequestMapping
-**作用**：映射HTTP请求到处理方法 <mcreference link="https://blog.csdn.net/youanyyou/article/details/100013330" index="1">1</mcreference>
+**作用**：映射HTTP请求到处理方法 [1](https://blog.csdn.net/youanyyou/article/details/100013330)
 
 ```java
 @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -200,7 +200,7 @@ public ResponseEntity<List<User>> getUsers() {
 ```
 
 #### HTTP方法特定注解
-**作用**：简化特定HTTP方法的映射 <mcreference link="https://cloud.tencent.com/developer/article/2528816" index="3">3</mcreference>
+**作用**：简化特定HTTP方法的映射 [3](https://cloud.tencent.com/developer/article/2528816)
 
 ```java
 @RestController
