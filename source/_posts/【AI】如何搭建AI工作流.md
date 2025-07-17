@@ -1,8 +1,6 @@
 ---
 title: 【AI】如何搭建AI工作流
-date: 2023-09-26 00:00:00
-categories:
-  - AI
+categories: AI
 tags:
   - AI
   - 工作流
