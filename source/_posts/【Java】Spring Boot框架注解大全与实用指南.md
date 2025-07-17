@@ -1,6 +1,6 @@
 ---
-title: 【学习】Spring Boot框架注解大全与实用指南
-categories: 学习
+title: 【Java】Spring Boot框架注解大全与实用指南
+categories: Java
 tags:
   - Spring Boot
   - Java

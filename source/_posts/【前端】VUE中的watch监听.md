@@ -1,6 +1,6 @@
 ---
-title: 【学习】VUE中的watch监听
-categories: 前端功能
+title: 【前端】VUE中的watch监听
+categories: 前端
 tags:
   - 前端
   - VUE

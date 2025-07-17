@@ -1,5 +1,5 @@
 ---
-title: 【学习】RabbitMQ 详解
+title: 【学习】RabbitMQ详解
 categories: 学习
 tags:
   - RabbitMQ

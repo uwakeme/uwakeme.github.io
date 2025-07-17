@@ -1,6 +1,6 @@
 ---
-title: 【学习】搭建个人Hexo博客网站
-categories: 学习
+title: 【博客】搭建个人Hexo博客网站
+categories: 博客
 tags:
   - 博客
   - HEXO

@@ -1,11 +1,6 @@
 ---
-<<<<<<<< HEAD:source/_posts/【Python】conda环境管理工具.md
-title: 【Python】conda环境管理工具
-categories: Python
-========
 title: 【工具】conda环境管理工具
 categories: 工具
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【工具】conda环境管理工具.md
 tags:
   - Python
   - conda

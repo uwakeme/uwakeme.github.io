@@ -1,6 +1,6 @@
 ---
-title: 【学习】MongoDB学习笔记
-categories: 学习
+title: 【数据库】MongoDB学习笔记
+categories: 数据库
 tags:
   - MongoDB
   - NoSQL

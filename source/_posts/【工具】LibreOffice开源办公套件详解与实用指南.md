@@ -1,6 +1,6 @@
 ---
-title: 【学习】LibreOffice开源办公套件详解与实用指南
-categories: 学习
+title: 【工具】LibreOffice开源办公套件详解与实用指南
+categories: 工具
 tags:
   - LibreOffice
   - 办公软件

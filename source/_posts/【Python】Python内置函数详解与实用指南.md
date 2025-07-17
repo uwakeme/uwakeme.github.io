@@ -1,6 +1,6 @@
 ---
-title: 【学习】Python内置函数详解与实用指南
-categories: 学习
+title: 【Python】Python内置函数详解与实用指南
+categories: Python
 tags:
   - Python
   - 编程基础

@@ -1,6 +1,6 @@
 ---
-title: 【学习】Python常用技术框架详解与应用指南
-categories: 学习
+title: 【Python】Python常用技术框架详解与应用指南
+categories: Python
 tags:
   - Python
   - 框架
