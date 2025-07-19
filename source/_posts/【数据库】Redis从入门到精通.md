@@ -1,6 +1,6 @@
 ---
-title: 【学习】Redis从入门到精通
-categories: 学习
+title: 【数据库】Redis从入门到精通
+categories: 数据库
 tags:
   - Redis
   - 数据库
