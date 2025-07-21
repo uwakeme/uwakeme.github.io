@@ -56,7 +56,7 @@ theme: fluid
 
 ## 2. NexT - 极简且强大
 
-![Next主题预览](https://camo.githubusercontent.com/5827280b40a7c5c2d0006149cdb01b7d4b0dbae5d06f57a5c549d902b392da33/68747470733a2f2f757365722d696d616765732e67697468756275736572636f6e74656e742e636f6d2f31323639353636302f36343231343036312d6638316438332d356165662d313032352d3932386261613965363661382e706e67)
+![Next主题预览](./images/【博客】Hexo博客主题推荐与对比/hexo-next.png)
 
 **特点：**
 - 极简设计风格，专注于内容
@@ -85,7 +85,7 @@ sidebar:
 
 ## 3. Butterfly - 华丽而全面
 
-![Butterfly主题预览](https://camo.githubusercontent.com/bdf5a5df634ec57cb334b23c4b296219c6c93c5d8f02fe45c8d38cf833732ced/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f6a65727279633132372f43444e4033312e322f696d672f627574746572666c792d73637265656e73686f742e706e67)
+![Butterfly主题预览](./images/【博客】Hexo博客主题推荐与对比/hexo-butterfly.png)
 
 **特点：**
 - 精美华丽的视觉设计
@@ -148,7 +148,7 @@ widgets:
 
 ## 5. Stellar - 现代简约
 
-![Stellar主题预览](https://github.com/xaoxuu/hexo-theme-stellar/raw/main/screenshot/01.png)
+![Stellar主题预览](./images/【博客】Hexo博客主题推荐与对比/hexo-stellar.png)
 
 **特点：**
 - 现代简约的设计风格
@@ -183,7 +183,7 @@ navbar:
 
 ## 6. Matery - 卡片式设计
 
-![Matery主题预览](https://camo.githubusercontent.com/827184e38b7545b937401425d7915000bb0f0c37911d7382a55ccb05c1ce5eb3/68747470733a2f2f626c696e6b666f782e6769746875622e696f2f323032302f30352f32302f6d61746572792d74686d65652d736e6970706574732d706c7567696e2f6d61746572792e6a7067)
+![Matery主题预览](./images/【博客】Hexo博客主题推荐与对比/hexo-matery.png)
 
 **特点：**
 - 卡片式博客布局，现代感强
@@ -253,7 +253,7 @@ menu:
 
 ## 8. Volantis - 超级灵活
 
-![Volantis主题预览](https://volantis.js.org/assets/screenshot/full.jpg)
+![Volantis主题预览](./images/【博客】Hexo博客主题推荐与对比/hexo-volantis.png)
 
 **特点：**
 - 高度自定义的布局系统
