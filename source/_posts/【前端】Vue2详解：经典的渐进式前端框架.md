@@ -1,8 +1,12 @@
 ---
 title: 【前端】Vue2详解：经典的渐进式前端框架
-date: 2024-01-15 10:00:00
-tags: [Vue.js, 前端框架, JavaScript, Web开发]
-categories: [前端技术, Vue.js]
+date: 2025-07-06
+tags: 
+  - Vue
+  - 前端框架
+  - JavaScript
+  - Web开发
+categories: 前端
 description: 深入解析Vue 2框架的核心概念、特性和最佳实践，包括响应式系统、组件化开发、状态管理等内容
 keywords: Vue2, 前端框架, 响应式, 组件化, Vuex, Vue Router
 ---
@@ -10,8 +14,6 @@ keywords: Vue2, 前端框架, 响应式, 组件化, Vuex, Vue Router
 # 前言
 
 Vue 2是一个渐进式的JavaScript前端框架，以其简洁的API设计、优秀的性能表现和丰富的生态系统而广受开发者喜爱。本文将深入探讨Vue 2的核心概念、特性和最佳实践，帮助开发者全面掌握这个经典的前端框架。
-
-<!-- more -->
 
 # 一、Vue 2基础概念
 
