@@ -1,388 +1,167 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Wake">
-  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-  
-    <meta name="description" content="【接口】WebService接口详解一、WebService概述（一）WebService的定义WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【接口】WebService接口详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【接口】WebService接口详解一、WebService概述（一）WebService的定义WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【接口】WebService接口详解">
 <meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="【接口】WebService接口详解一、WebService概述（一）WebService的定义WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
 <meta property="article:published_time" content="2025-07-14T08:45:04.518Z">
 <meta property="article:modified_time" content="2025-07-14T08:45:04.518Z">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="分布式">
 <meta property="article:tag" content="接口">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>【接口】WebService接口详解 - Uwakeme</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
-<link rel="stylesheet" href="/css/custom.css">
-<link rel="stylesheet" href="/css/ai-assistant.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【接口】WebService接口详解",
+  "url": "https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2025-07-14T08:45:04.518Z",
+  "dateModified": "2025-07-14T08:45:04.518Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://uwakeme.top"
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-  
-    <!-- Baidu Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
+  ]
+}</script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
       }
-    </script>
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
 
-  
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
 
-  
-
-  
-
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-
-<body>
-  
-
-  <header>
+      const theme = saveToLocal.get('theme')
     
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Wake 的博客</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives" target="_self">
-                <i class="iconfont icon-books"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories" target="_self">
-                <i class="iconfont icon-th-large"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-book"></i>
-                <span>文档</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
-                    
-                    <span>主题博客</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
-                    
-                    <span>配置指南</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
-                    
-                    <span>图标用法</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="【接口】WebService接口详解"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-author" aria-hidden="true"></i>
-        Wake
-      </span>
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-14 16:45" pubdate>
-          2025-07-14 16:45
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          <!-- compatible with older versions-->
-          3.1k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          <!-- compatible with older versions-->
-          26 分钟
-        
-      </span>
-    
-
-    
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
     
       
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次
-        </span>
-        
-
-      
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">【接口】WebService接口详解</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="【接口】WebService接口详解"><a href="#【接口】WebService接口详解" class="headerlink" title="【接口】WebService接口详解"></a>【接口】WebService接口详解</h1><h2 id="一、WebService概述"><a href="#一、WebService概述" class="headerlink" title="一、WebService概述"></a>一、WebService概述</h2><h3 id="（一）WebService的定义"><a href="#（一）WebService的定义" class="headerlink" title="（一）WebService的定义"></a>（一）WebService的定义</h3><p>WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，使得这些服务可以被其他应用程序发现并调用。</p>
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【接口】WebService接口详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【接口】WebService接口详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【接口】WebService接口详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-14T08:45:04.518Z" title="发表于 2025-07-14 16:45:04">2025-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-14T08:45:04.518Z" title="更新于 2025-07-14 16:45:04">2025-07-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8E%A5%E5%8F%A3/">接口</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="【接口】WebService接口详解"><a href="#【接口】WebService接口详解" class="headerlink" title="【接口】WebService接口详解"></a>【接口】WebService接口详解</h1><h2 id="一、WebService概述"><a href="#一、WebService概述" class="headerlink" title="一、WebService概述"></a>一、WebService概述</h2><h3 id="（一）WebService的定义"><a href="#（一）WebService的定义" class="headerlink" title="（一）WebService的定义"></a>（一）WebService的定义</h3><p>WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，使得这些服务可以被其他应用程序发现并调用。</p>
 <h3 id="（二）WebService的特点"><a href="#（二）WebService的特点" class="headerlink" title="（二）WebService的特点"></a>（二）WebService的特点</h3><ol>
 <li><strong>平台无关性</strong>：不受操作系统、编程语言的限制</li>
 <li><strong>松耦合性</strong>：服务提供者与服务消费者之间松散耦合</li>
@@ -398,17 +177,7 @@
 <li><strong>跨平台移动应用后端</strong>：为不同平台的移动应用提供统一接口</li>
 </ol>
 <h2 id="二、WebService的主要技术标准"><a href="#二、WebService的主要技术标准" class="headerlink" title="二、WebService的主要技术标准"></a>二、WebService的主要技术标准</h2><h3 id="（一）SOAP（简单对象访问协议）"><a href="#（一）SOAP（简单对象访问协议）" class="headerlink" title="（一）SOAP（简单对象访问协议）"></a>（一）SOAP（简单对象访问协议）</h3><p>SOAP是一种基于XML的通信协议，用于在Web服务中交换结构化信息。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Envelope</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>soap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2003/05/soap-envelope<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
-    <span class="token comment">&lt;!-- 头部信息，如认证信息 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>GetStockPrice</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>m</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.org/stock<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>StockName</span><span class="token punctuation">></span></span>IBM<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>StockName</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>GetStockPrice</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Envelope</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Envelope</span> <span class="attr">xmlns:soap</span>=<span class="string">&quot;http://www.w3.org/2003/05/soap-envelope&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">soap:Header</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 头部信息，如认证信息 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">soap:Header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">soap:Body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">m:GetStockPrice</span> <span class="attr">xmlns:m</span>=<span class="string">&quot;http://example.org/stock&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">m:StockName</span>&gt;</span>IBM<span class="tag">&lt;/<span class="name">m:StockName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">m:GetStockPrice</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">soap:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>SOAP协议的特点：</p>
 <ol>
@@ -418,36 +187,7 @@
 <li><strong>支持RPC调用</strong>：可实现远程过程调用</li>
 </ol>
 <h3 id="（二）WSDL（Web服务描述语言）"><a href="#（二）WSDL（Web服务描述语言）" class="headerlink" title="（二）WSDL（Web服务描述语言）"></a>（二）WSDL（Web服务描述语言）</h3><p>WSDL是一种XML格式，用于描述Web服务的公共接口。它定义了服务的位置、可用的操作（方法）以及访问服务所需的消息格式。</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0"?></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>definitions</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuote<span class="token punctuation">"</span></span>
-             <span class="token attr-name">targetNamespace</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote.wsdl<span class="token punctuation">"</span></span>
-             <span class="token attr-name"><span class="token namespace">xmlns:</span>tns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote.wsdl<span class="token punctuation">"</span></span>
-             <span class="token attr-name"><span class="token namespace">xmlns:</span>xsd</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema<span class="token punctuation">"</span></span>
-             <span class="token attr-name"><span class="token namespace">xmlns:</span>soap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/wsdl/soap/<span class="token punctuation">"</span></span>
-             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/wsdl/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  
-  <span class="token comment">&lt;!-- 数据类型定义 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>types</span><span class="token punctuation">></span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>types</span><span class="token punctuation">></span></span>
-  
-  <span class="token comment">&lt;!-- 消息定义 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>message</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetStockPriceInput<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>part</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stockName<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xsd:string<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>message</span><span class="token punctuation">></span></span>
-  
-  <span class="token comment">&lt;!-- 端口类型（接口）定义 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>portType</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuotePortType<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>operation</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetStockPrice<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">message</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:GetStockPriceInput<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>output</span> <span class="token attr-name">message</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:GetStockPriceOutput<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>operation</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>portType</span><span class="token punctuation">></span></span>
-  
-  <span class="token comment">&lt;!-- 绑定定义 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>binding</span><span class="token punctuation">></span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>binding</span><span class="token punctuation">></span></span>
-  
-  <span class="token comment">&lt;!-- 服务定义 --></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>service</span><span class="token punctuation">></span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>service</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>definitions</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">name</span>=<span class="string">&quot;StockQuote&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">targetNamespace</span>=<span class="string">&quot;http://example.com/stockquote.wsdl&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:tns</span>=<span class="string">&quot;http://example.com/stockquote.wsdl&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:xsd</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:soap</span>=<span class="string">&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.xmlsoap.org/wsdl/&quot;</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- 数据类型定义 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">types</span>&gt;</span>...<span class="tag">&lt;/<span class="name">types</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- 消息定义 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">message</span> <span class="attr">name</span>=<span class="string">&quot;GetStockPriceInput&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">part</span> <span class="attr">name</span>=<span class="string">&quot;stockName&quot;</span> <span class="attr">type</span>=<span class="string">&quot;xsd:string&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">message</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- 端口类型（接口）定义 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">portType</span> <span class="attr">name</span>=<span class="string">&quot;StockQuotePortType&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">operation</span> <span class="attr">name</span>=<span class="string">&quot;GetStockPrice&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">message</span>=<span class="string">&quot;tns:GetStockPriceInput&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">output</span> <span class="attr">message</span>=<span class="string">&quot;tns:GetStockPriceOutput&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">operation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">portType</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- 绑定定义 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">binding</span>&gt;</span>...<span class="tag">&lt;/<span class="name">binding</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- 服务定义 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">service</span>&gt;</span>...<span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>WSDL文档的主要元素：</p>
 <ol>
@@ -479,41 +219,10 @@
 </li>
 </ol>
 <p>服务端代码：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 定义服务接口</span>
-<span class="token annotation punctuation">@WebService</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">HelloService</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@WebMethod</span>
-    <span class="token class-name">String</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 实现服务接口</span>
-<span class="token annotation punctuation">@WebService</span><span class="token punctuation">(</span>endpointInterface <span class="token operator">=</span> <span class="token string">"com.example.HelloService"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">HelloService</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">"!"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 发布服务</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloServicePublisher</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Endpoint</span><span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8080/hello"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">HelloServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Service published!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义服务接口</span></span><br><span class="line"><span class="meta">@WebService</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HelloService</span> &#123;</span><br><span class="line">    <span class="meta">@WebMethod</span></span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">(String name)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现服务接口</span></span><br><span class="line"><span class="meta">@WebService(endpointInterface = &quot;com.example.HelloService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">HelloService</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布服务</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServicePublisher</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Endpoint.publish(<span class="string">&quot;http://localhost:8080/hello&quot;</span>, <span class="keyword">new</span> <span class="title class_">HelloServiceImpl</span>());</span><br><span class="line">        System.out.println(<span class="string">&quot;Service published!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>客户端代码：</p>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 使用wsimport工具生成的客户端代码</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloServiceClient</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">HelloService_Service</span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloService_Service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">HelloService</span> port <span class="token operator">=</span> service<span class="token punctuation">.</span><span class="token function">getHelloServiceImplPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
-        <span class="token class-name">String</span> response <span class="token operator">=</span> port<span class="token punctuation">.</span><span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token string">"World"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 输出: Hello, World!</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用wsimport工具生成的客户端代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServiceClient</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">HelloService_Service</span> <span class="variable">service</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloService_Service</span>();</span><br><span class="line">        <span class="type">HelloService</span> <span class="variable">port</span> <span class="operator">=</span> service.getHelloServiceImplPort();</span><br><span class="line">        </span><br><span class="line">        <span class="type">String</span> <span class="variable">response</span> <span class="operator">=</span> port.sayHello(<span class="string">&quot;World&quot;</span>);</span><br><span class="line">        System.out.println(response);  <span class="comment">// 输出: Hello, World!</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="（二）RESTful-WebService"><a href="#（二）RESTful-WebService" class="headerlink" title="（二）RESTful WebService"></a>（二）RESTful WebService</h3><p>REST（表述性状态转移）是一种更轻量级的Web服务实现方式，它直接使用HTTP方法（GET、POST、PUT、DELETE等）对资源进行操作。</p>
 <ol>
@@ -528,52 +237,7 @@
 <li><p><strong>Java实现示例</strong>（使用JAX-RS）：</p>
 </li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 使用Jersey实现RESTful服务</span>
-<span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserResource</span> <span class="token punctuation">&#123;</span>
-    
-    <span class="token annotation punctuation">@GET</span>
-    <span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token class-name">MediaType</span><span class="token punctuation">.</span><span class="token constant">APPLICATION_JSON</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">User</span><span class="token punctuation">></span></span> <span class="token function">getAllUsers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 返回所有用户</span>
-        <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">getAllUsers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@GET</span>
-    <span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/&#123;id&#125;"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token class-name">MediaType</span><span class="token punctuation">.</span><span class="token constant">APPLICATION_JSON</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathParam</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 返回指定ID的用户</span>
-        <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">getUserById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@POST</span>
-    <span class="token annotation punctuation">@Consumes</span><span class="token punctuation">(</span><span class="token class-name">MediaType</span><span class="token punctuation">.</span><span class="token constant">APPLICATION_JSON</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Produces</span><span class="token punctuation">(</span><span class="token class-name">MediaType</span><span class="token punctuation">.</span><span class="token constant">APPLICATION_JSON</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">Response</span> <span class="token function">createUser</span><span class="token punctuation">(</span><span class="token class-name">User</span> user<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 创建新用户</span>
-        userService<span class="token punctuation">.</span><span class="token function">addUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token class-name">Response</span><span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">201</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">entity</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@PUT</span>
-    <span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/&#123;id&#125;"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Consumes</span><span class="token punctuation">(</span><span class="token class-name">MediaType</span><span class="token punctuation">.</span><span class="token constant">APPLICATION_JSON</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">Response</span> <span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathParam</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> id<span class="token punctuation">,</span> <span class="token class-name">User</span> user<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 更新用户信息</span>
-        user<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        userService<span class="token punctuation">.</span><span class="token function">updateUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token class-name">Response</span><span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@DELETE</span>
-    <span class="token annotation punctuation">@Path</span><span class="token punctuation">(</span><span class="token string">"/&#123;id&#125;"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">Response</span> <span class="token function">deleteUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathParam</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 删除用户</span>
-        userService<span class="token punctuation">.</span><span class="token function">deleteUser</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token class-name">Response</span><span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Jersey实现RESTful服务</span></span><br><span class="line"><span class="meta">@Path(&quot;/users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserResource</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GET</span></span><br><span class="line">    <span class="meta">@Produces(MediaType.APPLICATION_JSON)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;User&gt; <span class="title function_">getAllUsers</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 返回所有用户</span></span><br><span class="line">        <span class="keyword">return</span> userService.getAllUsers();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GET</span></span><br><span class="line">    <span class="meta">@Path(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@Produces(MediaType.APPLICATION_JSON)</span></span><br><span class="line">    <span class="keyword">public</span> User <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathParam(&quot;id&quot;)</span> <span class="type">int</span> id)</span> &#123;</span><br><span class="line">        <span class="comment">// 返回指定ID的用户</span></span><br><span class="line">        <span class="keyword">return</span> userService.getUserById(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@POST</span></span><br><span class="line">    <span class="meta">@Consumes(MediaType.APPLICATION_JSON)</span></span><br><span class="line">    <span class="meta">@Produces(MediaType.APPLICATION_JSON)</span></span><br><span class="line">    <span class="keyword">public</span> Response <span class="title function_">createUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">        <span class="comment">// 创建新用户</span></span><br><span class="line">        userService.addUser(user);</span><br><span class="line">        <span class="keyword">return</span> Response.status(<span class="number">201</span>).entity(user).build();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@PUT</span></span><br><span class="line">    <span class="meta">@Path(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@Consumes(MediaType.APPLICATION_JSON)</span></span><br><span class="line">    <span class="keyword">public</span> Response <span class="title function_">updateUser</span><span class="params">(<span class="meta">@PathParam(&quot;id&quot;)</span> <span class="type">int</span> id, User user)</span> &#123;</span><br><span class="line">        <span class="comment">// 更新用户信息</span></span><br><span class="line">        user.setId(id);</span><br><span class="line">        userService.updateUser(user);</span><br><span class="line">        <span class="keyword">return</span> Response.status(<span class="number">200</span>).build();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@DELETE</span></span><br><span class="line">    <span class="meta">@Path(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Response <span class="title function_">deleteUser</span><span class="params">(<span class="meta">@PathParam(&quot;id&quot;)</span> <span class="type">int</span> id)</span> &#123;</span><br><span class="line">        <span class="comment">// 删除用户</span></span><br><span class="line">        userService.deleteUser(id);</span><br><span class="line">        <span class="keyword">return</span> Response.status(<span class="number">200</span>).build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li><strong>RESTful API设计最佳实践</strong>：<ul>
@@ -670,113 +334,22 @@
 <h2 id="七、WebService实践案例"><a href="#七、WebService实践案例" class="headerlink" title="七、WebService实践案例"></a>七、WebService实践案例</h2><h3 id="（一）Java实现WebService"><a href="#（一）Java实现WebService" class="headerlink" title="（一）Java实现WebService"></a>（一）Java实现WebService</h3><ol>
 <li><strong>JAX-WS实现SOAP服务</strong>：</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 定义服务接口</span>
-<span class="token annotation punctuation">@WebService</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CalculatorService</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@WebMethod</span>
-    <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-    <span class="token annotation punctuation">@WebMethod</span>
-    <span class="token keyword">int</span> <span class="token function">subtract</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 实现服务</span>
-<span class="token annotation punctuation">@WebService</span><span class="token punctuation">(</span>endpointInterface <span class="token operator">=</span> <span class="token string">"com.example.CalculatorService"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CalculatorServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">CalculatorService</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">subtract</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token comment">// 发布服务</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CalculatorPublisher</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Endpoint</span><span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8080/calculator"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CalculatorServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义服务接口</span></span><br><span class="line"><span class="meta">@WebService</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CalculatorService</span> &#123;</span><br><span class="line">    <span class="meta">@WebMethod</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@WebMethod</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">subtract</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现服务</span></span><br><span class="line"><span class="meta">@WebService(endpointInterface = &quot;com.example.CalculatorService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalculatorServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">CalculatorService</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subtract</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a - b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布服务</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalculatorPublisher</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Endpoint.publish(<span class="string">&quot;http://localhost:8080/calculator&quot;</span>, <span class="keyword">new</span> <span class="title class_">CalculatorServiceImpl</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><strong>Spring Boot实现RESTful服务</strong>：</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/api/products"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProductController</span> <span class="token punctuation">&#123;</span>
-    
-    <span class="token annotation punctuation">@Autowired</span>
-    <span class="token keyword">private</span> <span class="token class-name">ProductService</span> productService<span class="token punctuation">;</span>
-    
-    <span class="token annotation punctuation">@GetMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> <span class="token function">getAllProducts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> productService<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/&#123;id&#125;"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> <span class="token function">getProductById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathParam</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token class-name">Long</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Product</span> product <span class="token operator">=</span> productService<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>product <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token class-name">ResponseEntity</span><span class="token punctuation">.</span><span class="token function">notFound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResponseEntity</span><span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@PostMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> <span class="token function">createProduct</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">Product</span> product<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">Product</span> savedProduct <span class="token operator">=</span> productService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token class-name">ResponseEntity</span><span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token class-name">HttpStatus</span><span class="token punctuation">.</span><span class="token constant">CREATED</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span>savedProduct<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api/products&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductController</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ProductService productService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Product&gt; <span class="title function_">getAllProducts</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> productService.findAll();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;Product&gt; <span class="title function_">getProductById</span><span class="params">(<span class="meta">@PathParam(&quot;id&quot;)</span> Long id)</span> &#123;</span><br><span class="line">        <span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> productService.findById(id);</span><br><span class="line">        <span class="keyword">if</span> (product == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.notFound().build();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(product);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@PostMapping</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;Product&gt; <span class="title function_">createProduct</span><span class="params">(<span class="meta">@RequestBody</span> Product product)</span> &#123;</span><br><span class="line">        <span class="type">Product</span> <span class="variable">savedProduct</span> <span class="operator">=</span> productService.save(product);</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="（二）客户端调用WebService"><a href="#（二）客户端调用WebService" class="headerlink" title="（二）客户端调用WebService"></a>（二）客户端调用WebService</h3><ol>
 <li><strong>SOAP客户端</strong>：</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 使用JAX-WS生成的客户端代码</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CalculatorClient</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">CalculatorService_Service</span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CalculatorService_Service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">CalculatorService</span> calculator <span class="token operator">=</span> service<span class="token punctuation">.</span><span class="token function">getCalculatorServiceImplPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3 + 2 = "</span> <span class="token operator">+</span> calculator<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3 - 2 = "</span> <span class="token operator">+</span> calculator<span class="token punctuation">.</span><span class="token function">subtract</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用JAX-WS生成的客户端代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalculatorClient</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">CalculatorService_Service</span> <span class="variable">service</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CalculatorService_Service</span>();</span><br><span class="line">        <span class="type">CalculatorService</span> <span class="variable">calculator</span> <span class="operator">=</span> service.getCalculatorServiceImplPort();</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;3 + 2 = &quot;</span> + calculator.add(<span class="number">3</span>, <span class="number">2</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;3 - 2 = &quot;</span> + calculator.subtract(<span class="number">3</span>, <span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><strong>REST客户端</strong>（使用Spring RestTemplate）：</li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ProductClient</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">RestTemplate</span> restTemplate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
-        <span class="token comment">// 获取所有产品</span>
-        <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span><span class="token punctuation">></span></span> response <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">exchange</span><span class="token punctuation">(</span>
-            <span class="token string">"http://localhost:8080/api/products"</span><span class="token punctuation">,</span>
-            <span class="token class-name">HttpMethod</span><span class="token punctuation">.</span><span class="token constant">GET</span><span class="token punctuation">,</span>
-            <span class="token keyword">null</span><span class="token punctuation">,</span>
-            <span class="token keyword">new</span> <span class="token class-name">ParameterizedTypeReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> products <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
-        <span class="token comment">// 获取单个产品</span>
-        <span class="token class-name">Product</span> product <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">getForObject</span><span class="token punctuation">(</span>
-            <span class="token string">"http://localhost:8080/api/products/1"</span><span class="token punctuation">,</span> 
-            <span class="token class-name">Product</span><span class="token punctuation">.</span><span class="token keyword">class</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-        
-        <span class="token comment">// 创建新产品</span>
-        <span class="token class-name">Product</span> newProduct <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token string">"New Product"</span><span class="token punctuation">,</span> <span class="token number">29.99</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Product</span> created <span class="token operator">=</span> restTemplate<span class="token punctuation">.</span><span class="token function">postForObject</span><span class="token punctuation">(</span>
-            <span class="token string">"http://localhost:8080/api/products"</span><span class="token punctuation">,</span>
-            newProduct<span class="token punctuation">,</span>
-            <span class="token class-name">Product</span><span class="token punctuation">.</span><span class="token keyword">class</span>
-        <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductClient</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">RestTemplate</span> <span class="variable">restTemplate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 获取所有产品</span></span><br><span class="line">        ResponseEntity&lt;List&lt;Product&gt;&gt; response = restTemplate.exchange(</span><br><span class="line">            <span class="string">&quot;http://localhost:8080/api/products&quot;</span>,</span><br><span class="line">            HttpMethod.GET,</span><br><span class="line">            <span class="literal">null</span>,</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">ParameterizedTypeReference</span>&lt;List&lt;Product&gt;&gt;() &#123;&#125;</span><br><span class="line">        );</span><br><span class="line">        List&lt;Product&gt; products = response.getBody();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 获取单个产品</span></span><br><span class="line">        <span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> restTemplate.getForObject(</span><br><span class="line">            <span class="string">&quot;http://localhost:8080/api/products/1&quot;</span>, </span><br><span class="line">            Product.class</span><br><span class="line">        );</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建新产品</span></span><br><span class="line">        <span class="type">Product</span> <span class="variable">newProduct</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>(<span class="string">&quot;New Product&quot;</span>, <span class="number">29.99</span>);</span><br><span class="line">        <span class="type">Product</span> <span class="variable">created</span> <span class="operator">=</span> restTemplate.postForObject(</span><br><span class="line">            <span class="string">&quot;http://localhost:8080/api/products&quot;</span>,</span><br><span class="line">            newProduct,</span><br><span class="line">            Product.class</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="八、常见问题与解决方案"><a href="#八、常见问题与解决方案" class="headerlink" title="八、常见问题与解决方案"></a>八、常见问题与解决方案</h2><h3 id="（一）跨域问题"><a href="#（一）跨域问题" class="headerlink" title="（一）跨域问题"></a>（一）跨域问题</h3><ol>
 <li><strong>问题描述</strong>：浏览器的同源策略限制了从一个域调用另一个域的API</li>
@@ -787,17 +360,7 @@
 </ul>
 </li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Spring Boot中启用CORS</span>
-<span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addCorsMappings</span><span class="token punctuation">(</span><span class="token class-name">CorsRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        registry<span class="token punctuation">.</span><span class="token function">addMapping</span><span class="token punctuation">(</span><span class="token string">"/api/**"</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">allowedOrigins</span><span class="token punctuation">(</span><span class="token string">"http://example.com"</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">allowedMethods</span><span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span> <span class="token string">"POST"</span><span class="token punctuation">,</span> <span class="token string">"PUT"</span><span class="token punctuation">,</span> <span class="token string">"DELETE"</span><span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">allowCredentials</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring Boot中启用CORS</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> &#123;</span><br><span class="line">        registry.addMapping(<span class="string">&quot;/api/**&quot;</span>)</span><br><span class="line">            .allowedOrigins(<span class="string">&quot;http://example.com&quot;</span>)</span><br><span class="line">            .allowedMethods(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;POST&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;DELETE&quot;</span>)</span><br><span class="line">            .allowCredentials(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="（二）版本管理"><a href="#（二）版本管理" class="headerlink" title="（二）版本管理"></a>（二）版本管理</h3><ol>
 <li><strong>问题描述</strong>：API升级可能破坏现有客户端</li>
@@ -818,22 +381,7 @@
 </ul>
 </li>
 </ol>
-<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Spring Boot全局异常处理</span>
-<span class="token annotation punctuation">@ControllerAdvice</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GlobalExceptionHandler</span> <span class="token punctuation">&#123;</span>
-    
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">ResourceNotFoundException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ErrorResponse</span><span class="token punctuation">></span></span> <span class="token function">handleResourceNotFound</span><span class="token punctuation">(</span><span class="token class-name">ResourceNotFoundException</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">ErrorResponse</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ErrorResponse</span><span class="token punctuation">(</span><span class="token string">"NOT_FOUND"</span><span class="token punctuation">,</span> ex<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token class-name">HttpStatus</span><span class="token punctuation">.</span><span class="token constant">NOT_FOUND</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token annotation punctuation">@ExceptionHandler</span><span class="token punctuation">(</span><span class="token class-name">Exception</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ErrorResponse</span><span class="token punctuation">></span></span> <span class="token function">handleGenericException</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token class-name">ErrorResponse</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ErrorResponse</span><span class="token punctuation">(</span><span class="token string">"INTERNAL_ERROR"</span><span class="token punctuation">,</span> <span class="token string">"An unexpected error occurred"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ResponseEntity</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token class-name">HttpStatus</span><span class="token punctuation">.</span><span class="token constant">INTERNAL_SERVER_ERROR</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Spring Boot全局异常处理</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GlobalExceptionHandler</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ExceptionHandler(ResourceNotFoundException.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;ErrorResponse&gt; <span class="title function_">handleResourceNotFound</span><span class="params">(ResourceNotFoundException ex)</span> &#123;</span><br><span class="line">        <span class="type">ErrorResponse</span> <span class="variable">error</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ErrorResponse</span>(<span class="string">&quot;NOT_FOUND&quot;</span>, ex.getMessage());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(error, HttpStatus.NOT_FOUND);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ExceptionHandler(Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;ErrorResponse&gt; <span class="title function_">handleGenericException</span><span class="params">(Exception ex)</span> &#123;</span><br><span class="line">        <span class="type">ErrorResponse</span> <span class="variable">error</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ErrorResponse</span>(<span class="string">&quot;INTERNAL_ERROR&quot;</span>, <span class="string">&quot;An unexpected error occurred&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(error, HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="九、WebService发展趋势"><a href="#九、WebService发展趋势" class="headerlink" title="九、WebService发展趋势"></a>九、WebService发展趋势</h2><h3 id="（一）微服务架构"><a href="#（一）微服务架构" class="headerlink" title="（一）微服务架构"></a>（一）微服务架构</h3><p>WebService正逐渐向微服务架构演进，特点包括：</p>
 <ol>
@@ -868,369 +416,4 @@
 <h2 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h2><p>WebService作为一种跨平台、跨语言的分布式应用集成技术，在企业应用集成中扮演着重要角色。从传统的SOAP WebService到轻量级的RESTful API，再到新兴的GraphQL，WebService技术在不断演进。</p>
 <p>在实际应用中，应根据具体需求选择合适的WebService实现方式：对于企业级应用集成，需要严格的契约和安全性，可以选择SOAP；对于面向互联网的应用，追求简单高效，可以选择REST；对于复杂的数据查询需求，可以考虑GraphQL。</p>
 <p>随着微服务架构、容器化和云原生技术的发展，WebService的实现和管理方式也在不断演进。服务网格、API网关等技术的出现，使得WebService的治理更加智能和高效。未来，WebService将继续在分布式系统集成中发挥重要作用，并与新兴技术不断融合创新。 </p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
-      
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" class="print-no-link">#分布式</a>
-      
-        <a href="/tags/%E6%8E%A5%E5%8F%A3/" class="print-no-link">#接口</a>
-      
-    </div>
-  
-</div>
-
-
-              
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】SOAP接口详解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【接口】SOAP接口详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】REST接口详解">
-                        <span class="hidden-mobile">【接口】REST接口详解</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-
-  
-
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  
-<script src="/js/custom.js"></script>
-<script src="/js/ai-assistant.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://uwakeme.top">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/">https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://uwakeme.top" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a><a class="post-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><a class="post-meta__tags" href="/tags/%E6%8E%A5%E5%8F%A3/">接口</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】SOAP接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【接口】SOAP接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，与WSDL（Web服务描述语言）和UDDI（通用描述、发现与集成）一起构成了传统Web服务的基础。 （二）SOAP的主要特点 平台独立性：SOAP可以在任何支持XML和HTTP的平台上运行，实现跨平台通信 语言独立性：支持各种编程语言，如Java、C#、Python等 基于标准：建立在XML、HTTP等广泛接受的标准之上 可扩展性：通过WS-*规范族支持各种高级功能 严格的类型系统：支持复杂数据类型的传输和验证 内置错误处理：提供标准化的错误处理机制 传输协议灵活性：虽然通常使用HTTP，但也可以使用SMTP、TCP等协议  （三）SOAP与Web服务SOAP是实现Web服务的主要协议之...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】REST接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【接口】REST接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端服务抽象为资源（Resources），通过统一接口对这些资源进行操作。每个资源都有一个唯一的标识符（URI），客户端通过HTTP协议与这些资源进行交互，实现数据的传输和状态的转移。 （二）REST的六大约束REST架构风格由六个关键约束定义：  客户端-服务器（Client-Server）：关注点分离原则，客户端和服务器各自独立演化。 无状态（Stateless）：服务器不保存客户端状态，每个请求必须包含理解请求所需的全部信息。 缓存（Cache）：响应必须明确标记是否可缓存，以提高网络效率。 统一接口（Uniform Interface）：简化整体系统架构，提高交互的可见性。 分层系统...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88%E4%B8%8E%E5%AF%B9%E6%AF%94/" title="【接口】接口类型总览与对比"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【接口】接口类型总览与对比</div></div><div class="info-2"><div class="info-item-1">【接口】接口类型总览与对比一、接口技术概述（一）什么是接口接口是不同软件系统之间进行通信和数据交换的桥梁，它定义了系统间交互的规则和标准。在现代软件架构中，接口技术的选择直接影响系统的性能、可扩展性和维护性。随着分布式系统、微服务架构和物联网的发展，各种接口技术也在不断演进，以满足不同场景的需求。 （二）接口技术的重要性 系统集成：接口使不同系统能够协同工作，实现功能互补 数据共享：通过接口可以在不同系统间安全地共享数据 业务拓展：良好的接口设计使系统能够快速适应业务变化 技术解耦：接口将系统间的依赖关系降至最低，提高系统弹性  （三）接口技术选择考虑因素 性能需求：消息吞吐量、延迟要求 可靠性：消息传递保证、错误处理机制 安全性：认证、授权、数据加密 跨平台能力：支持的编程语言和操作系统 扩展性：能否支持系统规模扩大 开发复杂度：学习曲线、开发和维护成本  二、主要接口类型概览（一）REST（表述性状态转移）REST是一种基于HTTP协议的架构风格，它利用HTTP方法（GET、POST、PUT、DELETE等）对资源进行操作。REST接口以其简单性和广泛的支持成为当今最流行的A...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="【分布式】部署微服务系统步骤与最佳实践"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【分布式】部署微服务系统步骤与最佳实践</div></div><div class="info-2"><div class="info-item-1">部署微服务系统步骤与最佳实践一、前言随着业务复杂度的增加，单体应用架构已经无法满足大型系统的需求，微服务架构因其灵活性、可扩展性和可维护性成为主流选择。然而，部署和管理分布式微服务系统比传统单体应用更为复杂，需要系统性的规划和执行。本文将详细介绍微服务系统的部署步骤和最佳实践，以若依微服务框架为例进行说明。 二、微服务部署前的准备工作（一）环境规划在部署微服务系统前，需要对环境进行合理规划：  服务器资源评估  根据业务量和服务数量估算所需服务器资源 区分开发、测试、预发布和生产环境 规划每个服务的CPU、内存和存储需求   网络规划  设计内部服务网络结构 规划服务间通信策略 确定对外服务的网络策略和安全措施   中间件选型  注册中心：Nacos、Eureka、Consul等 配置中心：Nacos、Apollo、Spring Cloud Config等 消息队列：RabbitMQ、Kafka、RocketMQ等 网关：Spring Cloud Gateway、Zuul等 分布式事务：Seata等    （二）基础设施准备 容器化环境搭建  Docker环境安装与配置 Kube...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91GraphQL%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】GraphQL接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【接口】GraphQL接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】GraphQL接口详解前言随着API经济的兴起，如何高效、灵活地构建和使用API成为了开发者关注的焦点。传统的RESTful API在某些场景下暴露出了一些问题，例如数据冗余（over-fetching）和数据不足（under-fetching）。为了解决这些问题，Facebook于2012年内部开发并于2015年公开发布了GraphQL。GraphQL是一种用于API的查询语言，也是一个满足你数据查询的运行时。它为客户端提供了一种更强大、更灵活的方式来描述其数据需求，从而使得客户端能够精确地获取所需的数据，不多也不少。 一、GraphQL概述（一）GraphQL的定义GraphQL 是一种为你的 API 而生的查询语言，它提供了一种更高效、强大和灵活的数据获取方式。它允许客户端明确指定其需要哪些数据，服务器则根据这些规范返回相应的数据。与 REST 不同，GraphQL 通常只需要一个端点，客户端通过向该端点发送查询请求来获取或修改数据。 （二）GraphQL的特点 精确获取数据：客户端可以精确指定需要哪些字段，避免了数据冗余和不足的问题。 单一请求多资源：可以通过一次...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】REST接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【接口】REST接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端服务抽象为资源（Resources），通过统一接口对这些资源进行操作。每个资源都有一个唯一的标识符（URI），客户端通过HTTP协议与这些资源进行交互，实现数据的传输和状态的转移。 （二）REST的六大约束REST架构风格由六个关键约束定义：  客户端-服务器（Client-Server）：关注点分离原则，客户端和服务器各自独立演化。 无状态（Stateless）：服务器不保存客户端状态，每个请求必须包含理解请求所需的全部信息。 缓存（Cache）：响应必须明确标记是否可缓存，以提高网络效率。 统一接口（Uniform Interface）：简化整体系统架构，提高交互的可见性。 分层系统...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】SOAP接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【接口】SOAP接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，与WSDL（Web服务描述语言）和UDDI（通用描述、发现与集成）一起构成了传统Web服务的基础。 （二）SOAP的主要特点 平台独立性：SOAP可以在任何支持XML和HTTP的平台上运行，实现跨平台通信 语言独立性：支持各种编程语言，如Java、C#、Python等 基于标准：建立在XML、HTTP等广泛接受的标准之上 可扩展性：通过WS-*规范族支持各种高级功能 严格的类型系统：支持复杂数据类型的传输和验证 内置错误处理：提供标准化的错误处理机制 传输协议灵活性：虽然通常使用HTTP，但也可以使用SMTP、TCP等协议  （三）SOAP与Web服务SOAP是实现Web服务的主要协议之...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】gRPC接口详解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【接口】gRPC接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】gRPC接口详解前言在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP&#x2F;2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRPC的核心概念、工作原理、优势、适用场景以及与RESTful API的对比。 一、gRPC概述gRPC是一个现代化的RPC框架，旨在连接各种环境中的服务。它允许开发者像调用本地方法一样调用远程服务，简化了分布式应用的开发。 （一）核心特性 高性能：基于HTTP&#x2F;2，支持多路复用、头部压缩、服务器推送等特性，显著降低延迟，提高吞吐量。 **Protocol Buffers (ProtoBuf)**：使用ProtoBuf作为接口定义语言和消息序列化格式。ProtoBuf是一种语言无关、平台无关、可扩展的序列化结构化数据的方法，比JSON或XML更小、更快、更简单。 强类型：通过Pro...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">【接口】WebService接口详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81WebService%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">一、WebService概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89WebService%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">（一）WebService的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89WebService%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.2.</span> <span class="toc-text">（二）WebService的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89WebService%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.1.3.</span> <span class="toc-text">（三）WebService的应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81WebService%E7%9A%84%E4%B8%BB%E8%A6%81%E6%8A%80%E6%9C%AF%E6%A0%87%E5%87%86"><span class="toc-number">1.2.</span> <span class="toc-text">二、WebService的主要技术标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89SOAP%EF%BC%88%E7%AE%80%E5%8D%95%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">（一）SOAP（简单对象访问协议）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89WSDL%EF%BC%88Web%E6%9C%8D%E5%8A%A1%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">（二）WSDL（Web服务描述语言）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89UDDI%EF%BC%88%E7%BB%9F%E4%B8%80%E6%8F%8F%E8%BF%B0%E3%80%81%E5%8F%91%E7%8E%B0%E5%92%8C%E9%9B%86%E6%88%90%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">（三）UDDI（统一描述、发现和集成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81WebService%E7%9A%84%E4%B8%BB%E8%A6%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">三、WebService的主要实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89SOAP-WebService"><span class="toc-number">1.3.1.</span> <span class="toc-text">（一）SOAP WebService</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89RESTful-WebService"><span class="toc-number">1.3.2.</span> <span class="toc-text">（二）RESTful WebService</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81SOAP%E4%B8%8EREST%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">1.4.</span> <span class="toc-text">四、SOAP与REST的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89SOAP%E4%BC%98%E5%8A%BF"><span class="toc-number">1.4.1.</span> <span class="toc-text">（一）SOAP优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89REST%E4%BC%98%E5%8A%BF"><span class="toc-number">1.4.2.</span> <span class="toc-text">（二）REST优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.4.3.</span> <span class="toc-text">（三）选择建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81WebService%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">1.5.</span> <span class="toc-text">五、WebService安全性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83"><span class="toc-number">1.5.1.</span> <span class="toc-text">（一）认证与授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%89%E5%85%A8"><span class="toc-number">1.5.2.</span> <span class="toc-text">（二）传输层安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%B6%88%E6%81%AF%E5%B1%82%E5%AE%89%E5%85%A8"><span class="toc-number">1.5.3.</span> <span class="toc-text">（三）消息层安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.5.4.</span> <span class="toc-text">（四）安全最佳实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81WebService%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">1.6.</span> <span class="toc-text">六、WebService性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%AE%BE%E8%AE%A1%E5%B1%82%E9%9D%A2%E4%BC%98%E5%8C%96"><span class="toc-number">1.6.1.</span> <span class="toc-text">（一）设计层面优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%AE%9E%E7%8E%B0%E5%B1%82%E9%9D%A2%E4%BC%98%E5%8C%96"><span class="toc-number">1.6.2.</span> <span class="toc-text">（二）实现层面优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.3.</span> <span class="toc-text">（三）监控与测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81WebService%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B"><span class="toc-number">1.7.</span> <span class="toc-text">七、WebService实践案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89Java%E5%AE%9E%E7%8E%B0WebService"><span class="toc-number">1.7.1.</span> <span class="toc-text">（一）Java实现WebService</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B0%83%E7%94%A8WebService"><span class="toc-number">1.7.2.</span> <span class="toc-text">（二）客户端调用WebService</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.8.</span> <span class="toc-text">八、常见问题与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-number">1.8.1.</span> <span class="toc-text">（一）跨域问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">1.8.2.</span> <span class="toc-text">（二）版本管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.8.3.</span> <span class="toc-text">（三）错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81WebService%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF"><span class="toc-number">1.9.</span> <span class="toc-text">九、WebService发展趋势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="toc-number">1.9.1.</span> <span class="toc-text">（一）微服务架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89API%E7%BD%91%E5%85%B3"><span class="toc-number">1.9.2.</span> <span class="toc-text">（二）API网关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89GraphQL"><span class="toc-number">1.9.3.</span> <span class="toc-text">（三）GraphQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%EF%BC%88Service-Mesh%EF%BC%89"><span class="toc-number">1.9.4.</span> <span class="toc-text">（四）服务网格（Service Mesh）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.10.</span> <span class="toc-text">十、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C语言从零到大神：系统编程的必经之路"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">【学习路线】C语言从零到大神：系统编程的必经之路</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C#企业级开发之路：从基础语法到云原生应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用">【学习路线】C#企业级开发之路：从基础语法到云原生应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

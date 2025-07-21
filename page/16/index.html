@@ -1,1144 +1,238 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Wake">
-  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-  
-    <meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Uwakeme - 一起学习，一起进步</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Uwakeme">
 <meta property="og:url" content="https://uwakeme.top/page/16/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uwakeme.top/img/butterfly-icon.png">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>Uwakeme</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
-<link rel="stylesheet" href="/css/custom.css">
-<link rel="stylesheet" href="/css/ai-assistant.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uwakeme.top/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/page/16/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
-  
-    <!-- Baidu Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
       }
-    </script>
+    }
   
-
-  
-
-  
-
-  
-
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 80vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Wake 的博客</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives" target="_self">
-                <i class="iconfont icon-books"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories" target="_self">
-                <i class="iconfont icon-th-large"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-book"></i>
-                <span>文档</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
-                    
-                    <span>主题博客</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
-                    
-                    <span>配置指南</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
-                    
-                    <span>图标用法</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="一起学习，一起进步,分享技术，记录生活,Stay Hungry, Stay Foolish"></span>
-          
-        </div>
-
-        
-      </div>
-
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Spring%20Boot%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7Java%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" target="_self">
-          【后端】Spring Boot详解：企业级Java开发框架
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Spring%20Boot%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7Java%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" target="_self">
-        <div>
-          深入解析Spring Boot框架，包括核心概念、自动配置、起步依赖、微服务开发、数据访问、安全认证等企业级Java开发的核心技术
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 00:00" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/Spring-Boot/">#Spring Boot</a>
-            
-              <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/06/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Nacos%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" target="_self">
-          【学习】Nacos详解：微服务注册中心与配置中心实战指南
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Nacos%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" target="_self">
-        <div>
-          深入解析Nacos的核心功能、架构原理和实际应用，包括服务注册发现、配置管理、集群部署等关键特性的详细介绍
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-06-26 00:00" pubdate>
-              2025-06-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">#分布式系统</a>
-            
-              <a href="/tags/Nacos/">#Nacos</a>
-            
-              <a href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">#注册中心</a>
-            
-              <a href="/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">#配置中心</a>
-            
-              <a href="/tags/Spring-Cloud/">#Spring Cloud</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/07/%E3%80%90MYSQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" target="_self">
-          【MYSQL】关联查询问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/07/%E3%80%90MYSQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" target="_self">
-        <div>
-          数据库关联查询的字段类型不一致问题问题描述在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。 错误示例以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系： SELECT      lct.id as task_id,     rtwm.id as report_id,
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-07 00:00" pubdate>
-              2025-05-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/MYSQL/" class="category-chain-item">MYSQL</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MYSQL/">#MYSQL</a>
-            
-              <a href="/tags/SQL%E4%BC%98%E5%8C%96/">#SQL优化</a>
-            
-              <a href="/tags/BUG%E8%A7%A3%E5%86%B3/">#BUG解决</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" target="_self">
-          【前端】VUE中的watch监听
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" target="_self">
-        <div>
-          一、watch概述（一）什么是watch？ watch是Vue中的一个特性，用于监听数据的变化并执行相应的操作。 当被监听的数据发生变化时，会触发一个回调函数，我们可以在这个回调函数中执行一些逻辑操作。 watch适用于需要在数据变化时执行异步或开销较大的操作的场景。  （二）基本语法1. 选项式API（Options API）中的watchexport default &#123;   data
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-22 00:00" pubdate>
-              2025-04-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/VUE/">#VUE</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" target="_self">
-          【LINUX】在Ubuntu服务器部署网页系统
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" target="_self">
-        <div>
-          【LINUX】在Ubuntu服务器部署网页系统前言本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-10 00:00" pubdate>
-              2025-04-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
-            
-              <a href="/tags/LINUX/">#LINUX</a>
-            
-              <a href="/tags/UBUNTU/">#UBUNTU</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/09/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%BF%9D%E6%8A%A4/" target="_self">
-          【前端】前端导出Excel设置工作区保护
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/09/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%BF%9D%E6%8A%A4/" target="_self">
-        <div>
-          设置导出的文件不可更改 前端可以通过配置来设置导出的excel无法修改数据，或者设置密码来保护文档内容。import ExcelJS from 'exceljs';  // 创建 Workbook 和 Worksheet const workbook = new ExcelJS.Workbook(); const worksheet = workbook.addWorksheet('Sheet1'
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-09 00:00" pubdate>
-              2025-04-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/VUE/">#VUE</a>
-            
-              <a href="/tags/JS/">#JS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/07/%E3%80%90BUG%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/" target="_self">
-          【BUG】Maven打包失败
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/07/%E3%80%90BUG%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/" target="_self">
-        <div>
-          Maven打包常见问题及解决方案Maven是Java项目中最常用的构建工具之一，但在使用过程中可能会遇到各种打包失败的问题。本文记录了几个常见的Maven打包问题及解决方案。 一、插件版本不一致问题问题现象在使用Maven打包项目时，报错如下： [INFO] hussar-cloud-module ................................ SUCCESS [  0.010
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-07 00:00" pubdate>
-              2025-04-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/BUG/" class="category-chain-item">BUG</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%89%93%E5%8C%85/">#打包</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/MAVEN/">#MAVEN</a>
-            
-              <a href="/tags/BUG/">#BUG</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" target="_self">
-          【LINUX】MySQL服务器的安全配置
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" target="_self">
-        <div>
-          如果MySQL正常启动，本地可以正常登录连接，但是其他电脑连接不上的话，大概率就是MySQL服务器的安全配置导致不允许来自指定IP地址的连接  报错信息1130 - Host &#39;连接电脑IP&#39; is not allowed to connect to this MySQL server  解决步骤 通过本地服务器登录MySQLmysql -u root -p 查看当前主机权限，如
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-03-20 00:00" pubdate>
-              2025-03-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/LINUX/" class="category-chain-item">LINUX</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
-            
-              <a href="/tags/CentOS/">#CentOS</a>
-            
-              <a href="/tags/LINUX/">#LINUX</a>
-            
-              <a href="/tags/MYSQL/">#MYSQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/01/15/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91C#%E5%92%8C.NET%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/" target="_self">
-          【后端】C#和.NET生态系统详解：企业级开发平台
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/01/15/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91C#%E5%92%8C.NET%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/" target="_self">
-        <div>
-          全面解析C#和.NET生态系统，包括.NET Core、ASP.NET Core、微服务架构、企业级开发最佳实践，为开发者提供完整的.NET技术栈指南
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-15 00:00" pubdate>
-              2025-01-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/C/">#C#</a>
-            
-              <a href="/tags/NET/">#.NET</a>
-            
-              <a href="/tags/ASP-NET-Core/">#ASP.NET Core</a>
-            
-              <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91/">#企业级开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/20/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90%E4%B8%8E%E5%AF%B9%E6%AF%94/" target="_self">
-          【博客】Hexo博客主题推荐与对比
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/20/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90%E4%B8%8E%E5%AF%B9%E6%AF%94/" target="_self">
-        <div>
-          Hexo博客主题推荐与对比Hexo作为一款流行的静态博客框架，拥有丰富多样的主题可供选择。本文将详细介绍几款优秀的Hexo主题，帮助您为自己的博客选择最适合的主题风格。 为什么主题很重要？博客主题不仅决定了网站的外观，还影响用户体验、功能特性以及SEO表现。一个好的主题应该具备：  美观的设计风格 响应式布局（适配各种设备） 良好的阅读体验 丰富的自定义选项 优秀的性能和加载速度 SEO友好的代码
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-20 15:30" pubdate>
-              2024-12-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="category-chain-item">博客</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/%E5%8D%9A%E5%AE%A2/">#博客</a>
-            
-              <a href="/tags/Hexo/">#Hexo</a>
-            
-              <a href="/tags/%E4%B8%BB%E9%A2%98/">#主题</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/15/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/#board">14</a><a class="page-number" href="/page/15/#board">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/17/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-
-  
-
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
       }
-      var text = subtitle.getAttribute('data-typed-text');
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
       
-        typing(text);
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
       
-    })(window, document);
-  </script>
-
-
-
-
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-    <script  src="/js/img-lazyload.js" ></script>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Uwakeme',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Uwakeme</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Spring%20Boot%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7Java%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="【后端】Spring Boot详解：企业级Java开发框架"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【后端】Spring Boot详解：企业级Java开发框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Spring%20Boot%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7Java%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="【后端】Spring Boot详解：企业级Java开发框架">【后端】Spring Boot详解：企业级Java开发框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-04T16:00:00.000Z" title="发表于 2025-07-05 00:00:00">2025-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="content">引言Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化Spring应用的初始搭建以及开发过程。它基于Spring框架，通过约定优于配置的理念，大大简化了Spring应用的配置工作，让开发者能够快速构建独立的、生产级别的Spring应用程序。 一、Spring Boot核心概念（一）设计理念1. 约定优于配置（Convention over Configuration） 默认配置：提供合理的默认配置，减少配置工作 标准化结构：统一的项目结构和命名规范 自动装配：基于类路径自动配置Bean  2. 开箱即用（Out of the Box） 内嵌服务器：无需外部容器，直接运行 起步依赖：简化依赖管理 生产就绪：内置监控、健康检查等功能  3. 微服务友好 轻量级：快速启动，资源占用少 独立部署：每个服务独立运行 云原生：支持容器化和云部署  （二）核心特性1. 自动配置（Auto Configuration）12345678910111213141516171819202122232425// Spring Boot自动配置示例@SpringBootApp...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/06/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Nacos%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" title="【学习】Nacos详解：微服务注册中心与配置中心实战指南"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习】Nacos详解：微服务注册中心与配置中心实战指南"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/06/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Nacos%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" title="【学习】Nacos详解：微服务注册中心与配置中心实战指南">【学习】Nacos详解：微服务注册中心与配置中心实战指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-25T16:00:00.000Z" title="发表于 2025-06-26 00:00:00">2025-06-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="content">前言在微服务架构日益普及的今天，服务注册发现和配置管理成为了分布式系统的核心基础设施。Nacos（Naming and Configuration Service）作为阿里巴巴开源的服务发现、配置管理和服务管理平台，为微服务架构提供了一站式解决方案。本文将深入探讨Nacos的核心功能、架构原理和实际应用。 什么是Nacos基本概念Nacos致力于帮助您发现、配置和管理微服务 2。它提供了一组简单易用的特性集，帮助您快速实现动态服务发现、服务配置、服务元数据及流量管理 3。 核心特性Nacos主要提供以下四大功能 3：  服务发现与服务健康检查  使服务更容易注册 通过DNS或HTTP接口发现其他服务 提供服务的实时健康检查 防止向不健康的主机或服务实例发送请求   动态配置管理  在所有环境中以集中和动态的方式管理所有服务的配置 消除了在更新配置时重新部署应用程序的需要 使配置的更改更加高效和灵活   动态DNS服务  提供基于DNS协议的服务发现能力 支持异构语言的服务发现 将注册在Nacos上的服务以域名的方式暴露端点   服务和元数据管理  管理数据中心的所有服务及元数据 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/05/07/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" title="【MySQL】关联查询问题"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【MySQL】关联查询问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/05/07/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/" title="【MySQL】关联查询问题">【MySQL】关联查询问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-06T16:00:00.000Z" title="发表于 2025-05-07 00:00:00">2025-05-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/MySQL/">MySQL</a></span></div><div class="content">数据库关联查询的字段类型不一致问题问题描述在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。 错误示例以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系： 12345678SELECT     lct.id as task_id,    rtwm.id as report_id,    rtwm.task_id as related_task_id FROM     lb_core_task lct LEFT JOIN     report_to_work_main rtwm ON rtwm.task_id = lct.id  执行后发现查询结果与预期不符，明显看出task_id和related_task_id并不是正确的关联关系。  注意：如果看不到图片，请确保在博客对应目录下有正确的图片文件，或使用以下描述代替： 查询结果显示：task_id是数字类型的值如”123”，而related_task_id是字符串类型的值如”123ABC”，明显不匹配。 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/04/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" title="【前端】VUE中的watch监听"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【前端】VUE中的watch监听"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" title="【前端】VUE中的watch监听">【前端】VUE中的watch监听</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-21T16:00:00.000Z" title="发表于 2025-04-22 00:00:00">2025-04-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">一、watch概述（一）什么是watch？ watch是Vue中的一个特性，用于监听数据的变化并执行相应的操作。 当被监听的数据发生变化时，会触发一个回调函数，我们可以在这个回调函数中执行一些逻辑操作。 watch适用于需要在数据变化时执行异步或开销较大的操作的场景。  （二）基本语法1. 选项式API（Options API）中的watch12345678910111213export default &#123;  data() &#123;    return &#123;      message: &#x27;Hello&#x27;    &#125;  &#125;,  watch: &#123;    // 监听message属性的变化    message(newValue, oldValue) &#123;      console.log(&#x27;message变化了&#x27;, newValue, oldValue)    &#125;  &#125;&#125;  2. 组合式API（Composition API）中的watch12345678im...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" title="【LINUX】在Ubuntu服务器部署网页系统"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【LINUX】在Ubuntu服务器部署网页系统"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/10/%E3%80%90LINUX%E3%80%91%E5%9C%A8Ubantu%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" title="【LINUX】在Ubuntu服务器部署网页系统">【LINUX】在Ubuntu服务器部署网页系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-09T16:00:00.000Z" title="发表于 2025-04-10 00:00:00">2025-04-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LINUX/">LINUX</a></span></div><div class="content">【LINUX】在Ubuntu服务器部署网页系统前言本文档旨在详细介绍如何在Ubuntu服务器上部署一个典型的网页系统。部署过程涵盖了从环境准备、所需软件（如MySQL、Nginx、JDK、MongoDB、Redis等）的安装与配置，到前端和后端应用的打包、部署及最终的调试验证。笔者将以第一人称视角，结合实际操作经验，提供清晰、可执行的步骤指导，希望能帮助读者顺利完成部署任务。无论是初次接触服务器部署的新手，还是有一定经验的开发者，都可以从本文中获取有价值的信息。 一、准备环境 查看服务器信息 1234uname -a          # 查看系统内核信息lsb_release -a    # 如果是 Linux 系统，查看发行版本df -h             # 查看磁盘空间free -m           # 查看内存使用情况  检查软件安装状态： 123mysql --version    # 检查 MySQL 是否已安装nginx -v           # 检查 Nginx 是否已安装java -version      # 检查 Java 是否已安装  二、...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/04/09/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%BF%9D%E6%8A%A4/" title="【前端】前端导出Excel设置工作区保护"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【前端】前端导出Excel设置工作区保护"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/09/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E4%BF%9D%E6%8A%A4/" title="【前端】前端导出Excel设置工作区保护">【前端】前端导出Excel设置工作区保护</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-08T16:00:00.000Z" title="发表于 2025-04-09 00:00:00">2025-04-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">设置导出的文件不可更改 前端可以通过配置来设置导出的excel无法修改数据，或者设置密码来保护文档内容。1234567891011121314151617181920import ExcelJS from &#x27;exceljs&#x27;;// 创建 Workbook 和 Worksheetconst workbook = new ExcelJS.Workbook();const worksheet = workbook.addWorksheet(&#x27;Sheet1&#x27;);// 设置工作表保护（密码可选）worksheet.protect(&#x27;yourPassword&#x27;, &#123;  selectLockedCells: false,   // 禁止选中锁定单元格  selectUnlockedCells: false, // 禁止选中未锁定单元格  formatCells: false,         // 禁止格式化  insertRows: false,          // 禁止插入行  deleteRows: false  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/04/07/%E3%80%90BUG%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/" title="【BUG】Maven打包失败"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【BUG】Maven打包失败"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/07/%E3%80%90BUG%E3%80%91Maven%E6%89%93%E5%8C%85%E5%A4%B1%E8%B4%A5/" title="【BUG】Maven打包失败">【BUG】Maven打包失败</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-06T16:00:00.000Z" title="发表于 2025-04-07 00:00:00">2025-04-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/BUG/">BUG</a></span></div><div class="content">Maven打包常见问题及解决方案Maven是Java项目中最常用的构建工具之一，但在使用过程中可能会遇到各种打包失败的问题。本文记录了几个常见的Maven打包问题及解决方案。 一、插件版本不一致问题问题现象在使用Maven打包项目时，报错如下： 123456789101112131415161718192021[INFO] hussar-cloud-module ................................ SUCCESS [  0.010 s][INFO] hussar-cloud-module-example-api .................... SUCCESS [  5.644 s][INFO] hussar-cloud-module-example-feign .................. SUCCESS [  1.507 s][INFO] hussar-cloud-module-example-server ................. SUCCESS [  1.842 s][INFO] hussar-cloud-modul...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" title="【LINUX】MySQL服务器的安全配置"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【LINUX】MySQL服务器的安全配置"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/03/20/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" title="【LINUX】MySQL服务器的安全配置">【LINUX】MySQL服务器的安全配置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-03-19T16:00:00.000Z" title="发表于 2025-03-20 00:00:00">2025-03-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LINUX/">LINUX</a></span></div><div class="content"> 如果MySQL正常启动，本地可以正常登录连接，但是其他电脑连接不上的话，大概率就是MySQL服务器的安全配置导致不允许来自指定IP地址的连接  报错信息11130 - Host &#x27;连接电脑IP&#x27; is not allowed to connect to this MySQL server  解决步骤 通过本地服务器登录MySQL1mysql -u root -p 查看当前主机权限，如果是localhost，说明MySQL只允许本地连接1SELECT host, user FROM mysql.user WHERE user = &#x27;your_username&#x27;; 更新主机权限12// 设置为所有ip都可以连接UPDATE mysql.user SET host = &#x27;%&#x27; WHERE user = &#x27;your_username&#x27;; 刷新权限1FLUSH PRIVILEGES;  </div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/01/21/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%A4%A7%E5%B8%88%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E5%88%B0%E7%8B%AC%E7%AB%8B%E6%B8%B8%E6%88%8F%E5%88%B6%E4%BD%9C/" title="【学习路线】游戏开发大师之路：从编程基础到独立游戏制作"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】游戏开发大师之路：从编程基础到独立游戏制作"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/21/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%A4%A7%E5%B8%88%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E5%88%B0%E7%8B%AC%E7%AB%8B%E6%B8%B8%E6%88%8F%E5%88%B6%E4%BD%9C/" title="【学习路线】游戏开发大师之路：从编程基础到独立游戏制作">【学习路线】游戏开发大师之路：从编程基础到独立游戏制作</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-20T16:00:00.000Z" title="发表于 2025-01-21 00:00:00">2025-01-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">前言游戏开发是一个充满创意和技术挑战的领域，它融合了编程、美术、音效、设计等多个学科。随着游戏产业的蓬勃发展，游戏开发已成为最具吸引力的技术职业之一。本文将为您提供一条从零基础到游戏开发大师的完整学习路线，涵盖编程基础、游戏引擎、项目实战等各个方面。 无论您是想成为独立游戏开发者，还是希望加入大型游戏公司，这份学习指南都将为您指明方向。游戏开发不仅仅是写代码，更是将创意转化为现实的艺术。让我们一起踏上这段充满挑战和乐趣的游戏开发之旅。  相关学习路线导航：  C++现代编程之旅：从基础语法到高性能应用开发 C#企业级开发之路：从基础语法到云原生应用 AI开发工程师成长指南：从机器学习基础到大模型应用   一、游戏开发基础认知（1个月）（一）游戏开发概述 游戏开发流程  概念设计：游戏创意、核心玩法设计 原型开发：快速验证游戏概念 制作阶段：美术、程序、音效制作 测试优化：Bug修复、性能优化 发布运营：平台发布、后续更新   游戏开发团队  游戏策划：玩法设计、关卡设计、数值策划 程序开发：客户端、服务器、工具开发 美术设计：概念美术、3D建模、UI设计 音效设计：背景音乐、音效...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/01/15/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91C#%E5%92%8C.NET%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/" title="【后端】C#和.NET生态系统详解：企业级开发平台"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【后端】C#和.NET生态系统详解：企业级开发平台"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/15/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91C#%E5%92%8C.NET%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/" title="【后端】C#和.NET生态系统详解：企业级开发平台">【后端】C#和.NET生态系统详解：企业级开发平台</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-14T16:00:00.000Z" title="发表于 2025-01-15 00:00:00">2025-01-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="content">前言C#和.NET生态系统作为微软公司推出的企业级开发平台，经历了从传统的Windows专属框架到现代跨平台开源框架的重大转变。随着.NET Core的推出和.NET 5&#x2F;6&#x2F;7&#x2F;8的持续演进，.NET已经成为构建现代云原生应用、微服务架构和高性能Web应用的重要选择。 本文将全面解析C#和.NET生态系统的核心特性、技术架构、开发实践和应用场景，帮助开发者深入理解这个强大的企业级开发平台。  相关文章导航：  后端框架全景图：现代服务端开发技术栈详解 Spring Boot详解：企业级Java开发框架 Node.js深度解析：构建高性能的后端服务   本文内容概览 .NET平台发展历程：从.NET Framework到.NET Core的演进 核心技术架构：CLR、BCL、语言特性深度解析 ASP.NET Core详解：现代Web开发框架 微服务架构实践：.NET微服务生态系统 企业级开发特性：安全、性能、可扩展性 开发工具生态：Visual Studio、开发体验 实际应用案例：企业级项目实战  一、.NET平台发展历程（一）技术演进阶段1. ....</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/15/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#content-inner">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/#content-inner">17</a><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/17/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C语言从零到大神：系统编程的必经之路"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">【学习路线】C语言从零到大神：系统编程的必经之路</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C#企业级开发之路：从基础语法到云原生应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用">【学习路线】C#企业级开发之路：从基础语法到云原生应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/BUG/"><span class="card-category-list-name">BUG</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LINUX/"><span class="card-category-list-name">LINUX</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/" style="font-size: 1.1em; color: #999">拦截器</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 1.17em; color: #999c9f">最短路径</a> <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" style="font-size: 1.1em; color: #999">开源项目</a> <a href="/tags/exceljs/" style="font-size: 1.1em; color: #999">exceljs</a> <a href="/tags/token/" style="font-size: 1.1em; color: #999">token</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/" style="font-size: 1.1em; color: #999">容器编排</a> <a href="/tags/BST/" style="font-size: 1.1em; color: #999">BST</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.17em; color: #999c9f">前端,</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" style="font-size: 1.1em; color: #999">自动化运维</a> <a href="/tags/AI%E7%BC%96%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">AI编程</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 1.1em; color: #999">区块链</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 1.37em; color: #99a4b2">接口</a> <a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.1em; color: #999">密码学</a> <a href="/tags/%E6%8A%A5%E8%A1%A8/" style="font-size: 1.1em; color: #999">报表</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 1.37em; color: #99a4b2">工作流</a> <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" style="font-size: 1.23em; color: #999ea6">效率工具</a> <a href="/tags/Vue3/" style="font-size: 1.1em; color: #999">Vue3</a> <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" style="font-size: 1.17em; color: #999c9f">故障排查</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.17em; color: #999c9f">网络</a> <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/" style="font-size: 1.17em; color: #999c9f">实时通信</a> <a href="/tags/UX%E8%AE%BE%E8%AE%A1/" style="font-size: 1.1em; color: #999">UX设计</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" style="font-size: 1.1em; color: #999">测试用例</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/" style="font-size: 1.1em; color: #999">数据完整性</a> <a href="/tags/%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" style="font-size: 1.1em; color: #999">微软技术栈</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.1em; color: #999">链表</a> <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" style="font-size: 1.5em; color: #99a9bf">《算法图解》</a> <a href="/tags/JimuReport/" style="font-size: 1.1em; color: #999">JimuReport</a> <a href="/tags/Android/" style="font-size: 1.1em; color: #999">Android</a> <a href="/tags/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/" style="font-size: 1.17em; color: #999c9f">团队协作</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">代理</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 1.43em; color: #99a6b9">微服务</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">加密算法</a> <a href="/tags/Vite/" style="font-size: 1.1em; color: #999">Vite</a> <a href="/tags/TypeScript/" style="font-size: 1.17em; color: #999c9f">TypeScript,</a> <a href="/tags/SaaS/" style="font-size: 1.1em; color: #999">SaaS</a> <a href="/tags/%E5%85%83%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">元编程</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.3em; color: #99a1ac">性能优化</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.17em; color: #999c9f">树</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
   
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  
-<script src="/js/custom.js"></script>
-<script src="/js/ai-assistant.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">151</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-07-21T10:27:12.660Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

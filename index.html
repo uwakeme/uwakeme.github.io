@@ -1,1176 +1,243 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Wake">
-  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-  
-    <meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Uwakeme - 一起学习，一起进步</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Uwakeme">
 <meta property="og:url" content="https://uwakeme.top/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uwakeme.top/img/butterfly-icon.png">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>Uwakeme</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
-<link rel="stylesheet" href="/css/custom.css">
-<link rel="stylesheet" href="/css/ai-assistant.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uwakeme.top/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Uwakeme",
+  "url": "https://uwakeme.top/"
+}</script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
-  
-    <!-- Baidu Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
       }
-    </script>
+    }
   
-
-  
-
-  
-
-  
-
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 80vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Wake 的博客</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives" target="_self">
-                <i class="iconfont icon-books"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories" target="_self">
-                <i class="iconfont icon-th-large"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-book"></i>
-                <span>文档</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
-                    
-                    <span>主题博客</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
-                    
-                    <span>配置指南</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
-                    
-                    <span>图标用法</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="一起学习，一起进步,分享技术，记录生活,Stay Hungry, Stay Foolish"></span>
-          
-        </div>
-
-        
-      </div>
-
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" target="_self">
-          【数据库】Redis从入门到精通
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" target="_self">
-        <div>
-          前言Redis (Remote Dictionary Server) 是一个开源的、使用C语言编写的、支持网络、可基于内存亦可持久化的日志型、Key-Value（键值对）存储数据库，并提供多种语言的API。它通常被称为数据结构服务器，因为值（value）可以是字符串(String)、哈希(Hash)、列表(List)、集合(Set)、有序集合(Sorted Set)等多种复杂的数据结构。凭借其超高
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-21 10:15" pubdate>
-              2025-07-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
-            
-              <a href="/tags/NoSQL/">#NoSQL</a>
-            
-              <a href="/tags/Redis/">#Redis</a>
-            
-              <a href="/tags/%E7%BC%93%E5%AD%98/">#缓存</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">#分布式锁</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" target="_self">
-          【微信小程序】微信小程序开发指南：从零开始的完整实践
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" target="_self">
-        <div>
-          前言微信小程序作为腾讯推出的轻量级应用平台，自2017年正式发布以来，已经成为移动互联网生态中不可或缺的一部分。小程序具有”用完即走”的特点，无需下载安装，通过微信即可使用，为用户提供了便捷的服务体验，也为开发者提供了新的应用分发渠道。 本文将从零开始，详细介绍微信小程序的开发流程，包括环境搭建、基础语法、核心功能实现、发布上线等各个环节，帮助初学者快速掌握小程序开发技能。 一、微信小程序概述（一
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-21 10:15" pubdate>
-              2025-07-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="category-chain-item">微信小程序</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">#前端开发</a>
-            
-              <a href="/tags/JavaScript/">#JavaScript</a>
-            
-              <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">#移动开发</a>
-            
-              <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">#微信小程序</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" target="_self">
-          【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" target="_self">
-        <div>
-          一、AI开发基础准备（2-3个月）（一）数学基础强化 线性代数  向量与矩阵：向量运算、矩阵乘法、特征值分解 线性变换：旋转、缩放、投影变换 主成分分析：PCA降维、协方差矩阵 奇异值分解：SVD、矩阵分解应用 实际应用：神经网络权重、图像处理、推荐系统   概率统计  概率论基础：条件概率、贝叶斯定理、概率分布 统计推断：假设检验、置信区间、参数估计 随机变量：期望、方差、协方差、相关性 常见分
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
-            
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/">#数据科学</a>
-            
-              <a href="/tags/AI%E5%BC%80%E5%8F%91/">#AI开发</a>
-            
-              <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">#大模型</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C++%E7%8E%B0%E4%BB%A3%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" target="_self">
-          【学习路线】C++现代编程之旅：从基础语法到高性能应用开发
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C++%E7%8E%B0%E4%BB%A3%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" target="_self">
-        <div>
-          一、C++基础入门（2-3个月）（一）环境搭建与工具链 编译器选择  GCC：GNU编译器集合，跨平台支持 Clang：LLVM项目编译器，现代化设计 MSVC：Microsoft Visual C++，Windows平台 Intel C++：高性能优化编译器   开发环境  Visual Studio：Windows平台首选IDE CLion：JetBrains专业C++ IDE Qt Crea
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-              <a href="/tags/C/">#C++</a>
-            
-              <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">#系统编程</a>
-            
-              <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97/">#高性能计算</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" target="_self">
-          【学习路线】C#企业级开发之路：从基础语法到云原生应用
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" target="_self">
-        <div>
-          一、C#基础入门（1-2个月）（一）开发环境搭建 Visual Studio安装配置  Visual Studio Community：免费版本，功能完整 Visual Studio Code：轻量级，跨平台支持 JetBrains Rider：专业IDE，强大功能 .NET SDK：运行时和开发工具包 NuGet包管理器：第三方库管理   .NET生态系统了解  .NET Framework：W
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Web%E5%BC%80%E5%8F%91/">#Web开发</a>
-            
-              <a href="/tags/C/">#C#</a>
-            
-              <a href="/tags/NET/">#.NET</a>
-            
-              <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91/">#企业级开发</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-              <a href="/tags/%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E6%A0%88/">#微软技术栈</a>
-            
-              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">#云原生</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" target="_self">
-          【学习路线】C语言从零到大神：系统编程的必经之路
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" target="_self">
-        <div>
-          一、C语言基础入门（1-2个月）（一）开发环境搭建 编译器选择  GCC：GNU编译器集合，跨平台支持 Clang：LLVM项目编译器，错误信息友好 MSVC：Microsoft Visual C++编译器 MinGW：Windows下的GCC移植版本   集成开发环境  Code::Blocks：轻量级，适合初学者 Dev-C++：简单易用的Windows IDE Visual Studio：功
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-              <a href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">#系统编程</a>
-            
-              <a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>
-            
-              <a href="/tags/%E5%BA%95%E5%B1%82%E5%BC%80%E5%8F%91/">#底层开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/" target="_self">
-          【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/" target="_self">
-        <div>
-          一、JavaScript基础入门（1-2个月）（一）环境准备与工具 浏览器开发者工具  Chrome DevTools：调试、性能分析、网络监控 Firefox Developer Tools：CSS Grid调试、响应式设计 Safari Web Inspector：移动端调试 Edge DevTools：兼容性测试   代码编辑器  Visual Studio Code（推荐）：丰富的插件生态
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Web%E5%BC%80%E5%8F%91/">#Web开发</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">#前端开发</a>
-            
-              <a href="/tags/JavaScript/">#JavaScript</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Go%E8%AF%AD%E8%A8%80%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%AE%80%E6%B4%81%E8%AF%AD%E6%B3%95%E5%88%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" target="_self">
-          【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Go%E8%AF%AD%E8%A8%80%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%AE%80%E6%B4%81%E8%AF%AD%E6%B3%95%E5%88%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" target="_self">
-        <div>
-          一、Go语言基础入门（1-2个月）（一）环境搭建与工具链 Go环境安装  官方安装：从golang.org下载安装包 版本管理：g、gvm等Go版本管理工具 环境变量：GOROOT、GOPATH、GOPROXY配置 Go Modules：现代依赖管理，go.mod文件 工作区设置：项目结构、包管理   开发工具选择  VS Code：轻量级，Go插件丰富 GoLand：JetBrains专业Go
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">#后端开发</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">#并发编程</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-              <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">#云原生</a>
-            
-              <a href="/tags/Go%E8%AF%AD%E8%A8%80/">#Go语言</a>
-            
-              <a href="/tags/Golang/">#Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Java%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%B0%8F%E7%99%BD%E5%88%B0%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/" target="_self">
-          【学习路线】Java工程师成长之路：从小白到架构师的进阶指南
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Java%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%B0%8F%E7%99%BD%E5%88%B0%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/" target="_self">
-        <div>
-          一、Java基础入门阶段（1-2个月）（一）开发环境搭建 JDK安装与配置  下载并安装JDK（推荐JDK 8&#x2F;11&#x2F;17 LTS版本） 配置JAVA_HOME环境变量 配置PATH环境变量 验证安装：java -version 和 javac -version   IDE选择与配置  IntelliJ IDEA（推荐）：功能强大，智能提示 Eclipse：免费开源，插件丰富
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">#后端开发</a>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91%E9%B8%BF%E8%92%99%E5%BC%80%E5%8F%91%E8%80%85%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%88%B0%E7%94%9F%E6%80%81%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" target="_self">
-          【学习路线】鸿蒙开发者成长指南：从零基础到生态应用开发
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91%E9%B8%BF%E8%92%99%E5%BC%80%E5%8F%91%E8%80%85%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%88%B0%E7%94%9F%E6%80%81%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" target="_self">
-        <div>
-          一、鸿蒙生态认知与基础准备（1个月）（一）鸿蒙生态全景了解 鸿蒙系统架构  HarmonyOS 4.0架构：内核层、系统服务层、框架层、应用层 分布式软总线：设备间无缝连接的核心技术 方舟编译器：统一编译运行时，支持多语言 图形栈：GPU渲染管线，高性能图形处理 安全子系统：端到端安全保障机制   鸿蒙设备生态  手机：华为、荣耀等品牌手机 平板：MatePad系列平板电脑 智能手表：华为Watc
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-19 00:00" pubdate>
-              2025-07-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">#学习路线</a>
-            
-              <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">#移动开发</a>
-            
-              <a href="/tags/%E9%B8%BF%E8%92%99/">#鸿蒙</a>
-            
-              <a href="/tags/HarmonyOS/">#HarmonyOS</a>
-            
-              <a href="/tags/%E5%8D%8E%E4%B8%BA/">#华为</a>
-            
-              <a href="/tags/%E4%B8%87%E7%89%A9%E4%BA%92%E8%81%94/">#万物互联</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-
-  
-
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
       }
-      var text = subtitle.getAttribute('data-typed-text');
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
       
-        typing(text);
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
       
-    })(window, document);
-  </script>
-
-
-
-
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-    <script  src="/js/img-lazyload.js" ></script>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Uwakeme',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Uwakeme</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="content">前言Redis (Remote Dictionary Server) 是一个开源的、使用C语言编写的、支持网络、可基于内存亦可持久化的日志型、Key-Value（键值对）存储数据库，并提供多种语言的API。它通常被称为数据结构服务器，因为值（value）可以是字符串(String)、哈希(Hash)、列表(List)、集合(Set)、有序集合(Sorted Set)等多种复杂的数据结构。凭借其超高的性能、丰富的数据类型以及灵活的应用场景，Redis已成为现代应用架构中不可或缺的组件，广泛应用于缓存、消息队列、排行榜、分布式锁等场景。本笔记旨在帮助读者系统地学习Redis的核心概念、主要特性和典型应用。 一、Redis核心概念（一）键值存储 (Key-Value Store)Redis的核心是一个键值存储系统。每个键都是一个字符串，而值可以是多种数据类型。这种简单的模型使得Redis非常易于理解和使用。 （二）数据结构服务器与传统的关系型数据库不同，Redis的值不仅限于简单的字符串或数字，它可以是复杂的数据结构，如列表、集合、哈希表等。这使得开发者可以直接在数据库层面操作这些数据...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a></span></div><div class="content">前言微信小程序作为腾讯推出的轻量级应用平台，自2017年正式发布以来，已经成为移动互联网生态中不可或缺的一部分。小程序具有”用完即走”的特点，无需下载安装，通过微信即可使用，为用户提供了便捷的服务体验，也为开发者提供了新的应用分发渠道。 本文将从零开始，详细介绍微信小程序的开发流程，包括环境搭建、基础语法、核心功能实现、发布上线等各个环节，帮助初学者快速掌握小程序开发技能。 一、微信小程序概述（一）什么是微信小程序微信小程序是一种不需要下载安装即可使用的应用，它实现了应用”触手可及”的梦想，用户扫一扫或者搜一下即可打开应用。小程序具有以下特点：  无需安装：通过微信直接使用，不占用手机存储空间 即用即走：用完即可关闭，不会在后台持续运行 功能丰富：支持多种API，可实现复杂的业务逻辑 跨平台：一次开发，同时支持iOS和Android 生态完善：与微信生态深度融合，支持分享、支付等功能  （二）小程序的技术架构微信小程序采用双线程架构：  逻辑层（App Service）：运行JavaScript代码，处理业务逻辑 视图层（View）：由WXML和WXSS组成，负责页面渲染  两个...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、AI开发基础准备（2-3个月）（一）数学基础强化 线性代数  向量与矩阵：向量运算、矩阵乘法、特征值分解 线性变换：旋转、缩放、投影变换 主成分分析：PCA降维、协方差矩阵 奇异值分解：SVD、矩阵分解应用 实际应用：神经网络权重、图像处理、推荐系统   概率统计  概率论基础：条件概率、贝叶斯定理、概率分布 统计推断：假设检验、置信区间、参数估计 随机变量：期望、方差、协方差、相关性 常见分布：正态分布、伯努利分布、泊松分布 贝叶斯统计：先验概率、后验概率、贝叶斯网络   微积分与优化  导数与梯度：偏导数、梯度向量、方向导数 多元函数优化：梯度下降、牛顿法、拟牛顿法 约束优化：拉格朗日乘数法、KKT条件 凸优化：凸函数、凸集、全局最优解 数值优化：Adam、RMSprop、AdaGrad优化器    （二）编程基础与工具 Python编程精通  核心语法：数据结构、函数、类、模块 科学计算：NumPy数组操作、广播机制 数据处理：Pandas数据分析、数据清洗 可视化：Matplotlib、Seaborn、Plotly绘图 异步编程：async&#x2F;await、并发...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C语言从零到大神：系统编程的必经之路"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">【学习路线】C语言从零到大神：系统编程的必经之路</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、C语言基础入门（1-2个月）（一）开发环境搭建 编译器选择  GCC：GNU编译器集合，跨平台支持 Clang：LLVM项目编译器，错误信息友好 MSVC：Microsoft Visual C++编译器 MinGW：Windows下的GCC移植版本   集成开发环境  Code::Blocks：轻量级，适合初学者 Dev-C++：简单易用的Windows IDE Visual Studio：功能强大的Windows IDE CLion：JetBrains出品的专业C&#x2F;C++ IDE VS Code：轻量级编辑器，配置灵活   命令行工具  编译命令：gcc、clang基本用法 调试工具：gdb调试器使用 构建工具：make、CMake入门 版本控制：Git基础操作    （二）C语言基础语法 程序结构  Hello World程序：第一个C程序 预处理指令：#include、#define、#ifdef main函数：程序入口点 注释：单行注释&#x2F;&#x2F;、多行注释&#x2F;* *&#x2F; 代码风格：缩进、命名规范   数据类型与变量  基本数据类...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C#企业级开发之路：从基础语法到云原生应用"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用">【学习路线】C#企业级开发之路：从基础语法到云原生应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、C#基础入门（1-2个月）（一）开发环境搭建 Visual Studio安装配置  Visual Studio Community：免费版本，功能完整 Visual Studio Code：轻量级，跨平台支持 JetBrains Rider：专业IDE，强大功能 .NET SDK：运行时和开发工具包 NuGet包管理器：第三方库管理   .NET生态系统了解  .NET Framework：Windows平台传统框架 .NET Core&#x2F;.NET 5+：跨平台现代框架 .NET Standard：API标准规范 运行时：CLR、CoreCLR执行环境 编译过程：C# → IL → JIT → 机器码   项目结构与配置  解决方案(.sln)：多项目管理 项目文件(.csproj)：项目配置 程序集(.dll&#x2F;.exe)：编译输出 配置文件：appsettings.json、web.config 包引用：PackageReference、项目引用    （二）C#语言基础 基本语法  命名空间：namespace组织代码 类和对象：class定义、对象实例...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Go%E8%AF%AD%E8%A8%80%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%AE%80%E6%B4%81%E8%AF%AD%E6%B3%95%E5%88%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Go%E8%AF%AD%E8%A8%80%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%AE%80%E6%B4%81%E8%AF%AD%E6%B3%95%E5%88%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构">【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、Go语言基础入门（1-2个月）（一）环境搭建与工具链 Go环境安装  官方安装：从golang.org下载安装包 版本管理：g、gvm等Go版本管理工具 环境变量：GOROOT、GOPATH、GOPROXY配置 Go Modules：现代依赖管理，go.mod文件 工作区设置：项目结构、包管理   开发工具选择  VS Code：轻量级，Go插件丰富 GoLand：JetBrains专业Go IDE Vim&#x2F;Neovim：vim-go插件，高效编辑 Sublime Text：Go插件支持 命令行工具：go build、go run、go test   Go工具链  go fmt：代码格式化工具 go vet：静态分析工具 go doc：文档生成工具 go test：测试框架 go mod：模块管理工具 golint：代码规范检查 goimports：导入包管理    （二）Go语言基础语法 基本语法特性  包声明：package关键字，main包 导入语句：import单个包、多个包 变量声明：var、短变量声明:&#x3D; 常量定义：const、iota枚举器 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C++%E7%8E%B0%E4%BB%A3%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" title="【学习路线】C++现代编程之旅：从基础语法到高性能应用开发"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C++现代编程之旅：从基础语法到高性能应用开发"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C++%E7%8E%B0%E4%BB%A3%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" title="【学习路线】C++现代编程之旅：从基础语法到高性能应用开发">【学习路线】C++现代编程之旅：从基础语法到高性能应用开发</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、C++基础入门（2-3个月）（一）环境搭建与工具链 编译器选择  GCC：GNU编译器集合，跨平台支持 Clang：LLVM项目编译器，现代化设计 MSVC：Microsoft Visual C++，Windows平台 Intel C++：高性能优化编译器   开发环境  Visual Studio：Windows平台首选IDE CLion：JetBrains专业C++ IDE Qt Creator：跨平台C++ IDE VS Code：轻量级编辑器，插件丰富 Dev-C++：适合初学者的简单IDE   构建工具  CMake：跨平台构建系统 Make：传统构建工具 Ninja：高速构建系统 vcpkg：C++包管理器 Conan：现代C++包管理器    （二）C++基础语法 从C到C++的过渡  C++对C的扩展：命名空间、引用、函数重载 输入输出流：iostream库的使用 内存管理：new&#x2F;delete操作符 类型安全：强类型检查 编译时计算：const、constexpr   基本语法特性  变量声明：auto关键字、类型推导 引用类型：左值引用、右值引用...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/" title="【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/" title="【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程">【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、JavaScript基础入门（1-2个月）（一）环境准备与工具 浏览器开发者工具  Chrome DevTools：调试、性能分析、网络监控 Firefox Developer Tools：CSS Grid调试、响应式设计 Safari Web Inspector：移动端调试 Edge DevTools：兼容性测试   代码编辑器  Visual Studio Code（推荐）：丰富的插件生态 WebStorm：强大的JavaScript IDE Sublime Text：轻量级编辑器 Atom：GitHub开源编辑器   运行环境  Node.js：服务端JavaScript运行时 npm&#x2F;yarn：包管理工具 在线编码平台：CodePen、JSFiddle、CodeSandbox    （二）JavaScript语法基础 变量与数据类型  变量声明：var、let、const的区别 基本数据类型：Number、String、Boolean、undefined、null、Symbol、BigInt 引用数据类型：Object、Array、Function 类型检测...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Java%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%B0%8F%E7%99%BD%E5%88%B0%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/" title="【学习路线】Java工程师成长之路：从小白到架构师的进阶指南"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】Java工程师成长之路：从小白到架构师的进阶指南"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Java%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%B0%8F%E7%99%BD%E5%88%B0%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%BF%9B%E9%98%B6%E6%8C%87%E5%8D%97/" title="【学习路线】Java工程师成长之路：从小白到架构师的进阶指南">【学习路线】Java工程师成长之路：从小白到架构师的进阶指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、Java基础入门阶段（1-2个月）（一）开发环境搭建 JDK安装与配置  下载并安装JDK（推荐JDK 8&#x2F;11&#x2F;17 LTS版本） 配置JAVA_HOME环境变量 配置PATH环境变量 验证安装：java -version 和 javac -version   IDE选择与配置  IntelliJ IDEA（推荐）：功能强大，智能提示 Eclipse：免费开源，插件丰富 VS Code：轻量级，适合初学者   构建工具  Maven：项目管理和构建工具 Gradle：现代化构建工具 了解项目结构和依赖管理    （二）Java语法基础 基本语法  变量声明与命名规范 数据类型：基本类型（int、double、boolean等）和引用类型 运算符：算术、关系、逻辑、位运算符 类型转换：自动转换和强制转换   控制结构  条件语句：if-else、switch-case 循环语句：for、while、do-while 跳转语句：break、continue、return   数组与字符串  一维数组和多维数组 数组的创建、初始化和遍历 String类的常用方...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Rust%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%B8%88%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" title="【学习路线】Rust系统编程大师之路：从内存安全到高性能系统开发"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】Rust系统编程大师之路：从内存安全到高性能系统开发"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Rust%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%A4%A7%E5%B8%88%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" title="【学习路线】Rust系统编程大师之路：从内存安全到高性能系统开发">【学习路线】Rust系统编程大师之路：从内存安全到高性能系统开发</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="content">一、Rust基础入门（2-3个月）（一）环境搭建与工具链 Rust安装配置  rustup：Rust工具链管理器，版本管理 Rust版本：stable、beta、nightly版本选择 目标平台：交叉编译、多平台支持 环境变量：PATH配置、RUST_LOG设置 卸载重装：rustup self uninstall   开发工具选择  VS Code：rust-analyzer插件，语法高亮 IntelliJ IDEA：Rust插件，智能提示 Vim&#x2F;Neovim：rust.vim、coc-rust-analyzer Emacs：rust-mode、lsp-mode CLion：JetBrains Rust插件支持   Cargo包管理器  项目创建：cargo new、cargo init 依赖管理：Cargo.toml、版本指定 构建运行：cargo build、cargo run 测试：cargo test、单元测试 文档：cargo doc、文档生成 发布：cargo publish、crates.io    （二）Rust基础语法 变量与数据类型  变量绑定：...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C语言从零到大神：系统编程的必经之路"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">【学习路线】C语言从零到大神：系统编程的必经之路</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C#企业级开发之路：从基础语法到云原生应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用">【学习路线】C#企业级开发之路：从基础语法到云原生应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/BUG/"><span class="card-category-list-name">BUG</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LINUX/"><span class="card-category-list-name">LINUX</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/" style="font-size: 1.1em; color: #999">拦截器</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 1.17em; color: #999c9f">最短路径</a> <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" style="font-size: 1.1em; color: #999">开源项目</a> <a href="/tags/exceljs/" style="font-size: 1.1em; color: #999">exceljs</a> <a href="/tags/token/" style="font-size: 1.1em; color: #999">token</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/" style="font-size: 1.1em; color: #999">容器编排</a> <a href="/tags/BST/" style="font-size: 1.1em; color: #999">BST</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.17em; color: #999c9f">前端,</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" style="font-size: 1.1em; color: #999">自动化运维</a> <a href="/tags/AI%E7%BC%96%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">AI编程</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 1.1em; color: #999">区块链</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 1.37em; color: #99a4b2">接口</a> <a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.1em; color: #999">密码学</a> <a href="/tags/%E6%8A%A5%E8%A1%A8/" style="font-size: 1.1em; color: #999">报表</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 1.37em; color: #99a4b2">工作流</a> <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" style="font-size: 1.23em; color: #999ea6">效率工具</a> <a href="/tags/Vue3/" style="font-size: 1.1em; color: #999">Vue3</a> <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" style="font-size: 1.17em; color: #999c9f">故障排查</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.17em; color: #999c9f">网络</a> <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/" style="font-size: 1.17em; color: #999c9f">实时通信</a> <a href="/tags/UX%E8%AE%BE%E8%AE%A1/" style="font-size: 1.1em; color: #999">UX设计</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" style="font-size: 1.1em; color: #999">测试用例</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/" style="font-size: 1.1em; color: #999">数据完整性</a> <a href="/tags/%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" style="font-size: 1.1em; color: #999">微软技术栈</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.1em; color: #999">链表</a> <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" style="font-size: 1.5em; color: #99a9bf">《算法图解》</a> <a href="/tags/JimuReport/" style="font-size: 1.1em; color: #999">JimuReport</a> <a href="/tags/Android/" style="font-size: 1.1em; color: #999">Android</a> <a href="/tags/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/" style="font-size: 1.17em; color: #999c9f">团队协作</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">代理</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 1.43em; color: #99a6b9">微服务</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">加密算法</a> <a href="/tags/Vite/" style="font-size: 1.1em; color: #999">Vite</a> <a href="/tags/TypeScript/" style="font-size: 1.17em; color: #999c9f">TypeScript,</a> <a href="/tags/SaaS/" style="font-size: 1.1em; color: #999">SaaS</a> <a href="/tags/%E5%85%83%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">元编程</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.3em; color: #99a1ac">性能优化</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.17em; color: #999c9f">树</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
   
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  
-<script src="/js/custom.js"></script>
-<script src="/js/ai-assistant.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">151</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-07-21T10:27:12.660Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

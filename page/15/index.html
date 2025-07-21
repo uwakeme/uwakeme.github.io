@@ -1,1176 +1,238 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Wake">
-  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-  
-    <meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Uwakeme - 一起学习，一起进步</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Uwakeme">
 <meta property="og:url" content="https://uwakeme.top/page/15/index.html">
 <meta property="og:site_name" content="Uwakeme">
 <meta property="og:description" content="Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://uwakeme.top/img/butterfly-icon.png">
 <meta property="article:author" content="Wake">
 <meta property="article:tag" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  
-  <title>Uwakeme</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
-<link rel="stylesheet" href="/css/custom.css">
-<link rel="stylesheet" href="/css/ai-assistant.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uwakeme.top/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/page/15/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
     }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
 
-  
-    <!-- Baidu Analytics -->
-    <script async>
-      if (!Fluid.ctx.dnt) {
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
       }
-    </script>
+    }
   
-
-  
-
-  
-
-  
-
-  
-
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 80vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Wake 的博客</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives" target="_self">
-                <i class="iconfont icon-books"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories" target="_self">
-                <i class="iconfont icon-th-large"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-book"></i>
-                <span>文档</span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
-                    
-                    <span>主题博客</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
-                    
-                    <span>配置指南</span>
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
-                    
-                    <span>图标用法</span>
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="一起学习，一起进步,分享技术，记录生活,Stay Hungry, Stay Foolish"></span>
-          
-        </div>
-
-        
-      </div>
-
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2AI%E5%8A%A9%E6%89%8B%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" target="_self">
-          【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2AI%E5%8A%A9%E6%89%8B%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" target="_self">
-        <div>
-          一、前言在AI技术快速发展的时代，为个人博客添加智能助手功能已成为提升用户体验的重要手段。本文详细介绍如何在Hexo博客中实现一个美观实用的AI助手，支持多种AI模型接入（智谱GLM-4、DeepSeek等），并提供完整的代码实现。 特别值得一提的是，智谱AI推出的GLM-4模型目前提供了免费版本（glm-4-flash），可以零成本为你的博客增添智能交互能力。 二、功能特点实现后的AI助手功能将
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%8D%9A%E5%AE%A2/" class="category-chain-item">博客</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/AI/">#AI</a>
-            
-              <a href="/tags/CSS/">#CSS</a>
-            
-              <a href="/tags/JavaScript/">#JavaScript</a>
-            
-              <a href="/tags/Hexo/">#Hexo</a>
-            
-              <a href="/tags/%E6%99%BA%E8%B0%B1AI/">#智谱AI</a>
-            
-              <a href="/tags/GLM-4/">#GLM-4</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90MySQL%E3%80%91MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/" target="_self">
-          【MySQL】MySQL性能优化全面指南
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90MySQL%E3%80%91MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/" target="_self">
-        <div>
-          MySQL性能优化全面指南MySQL作为当前最流行的关系型数据库之一，其性能优化对于系统的整体表现至关重要。本文将从多个维度详细介绍MySQL的优化方法，帮助开发者和数据库管理员提升数据库性能。 一、SQL语句优化（一）避免全表扫描 使用EXPLAIN分析SQL执行计划，避免全表扫描操作 确保查询语句使用了适当的索引 避免在WHERE子句中使用函数操作，如WHERE YEAR(create_tim
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 00:00" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/SQL%E4%BC%98%E5%8C%96/">#SQL优化</a>
-            
-              <a href="/tags/MySQL/">#MySQL</a>
-            
-              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">#性能优化</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96/">#数据库优化</a>
-            
-              <a href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">#索引优化</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" target="_self">
-          【分布式】部署微服务系统步骤与最佳实践
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" target="_self">
-        <div>
-          部署微服务系统步骤与最佳实践一、前言随着业务复杂度的增加，单体应用架构已经无法满足大型系统的需求，微服务架构因其灵活性、可扩展性和可维护性成为主流选择。然而，部署和管理分布式微服务系统比传统单体应用更为复杂，需要系统性的规划和执行。本文将详细介绍微服务系统的部署步骤和最佳实践，以若依微服务框架为例进行说明。 二、微服务部署前的准备工作（一）环境规划在部署微服务系统前，需要对环境进行合理规划：  服
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 00:00" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" class="category-chain-item">分布式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E9%83%A8%E7%BD%B2/">#部署</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/DevOps/">#DevOps</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91doT.js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-          【学习】doT.js模板引擎详解与实践
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91doT.js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-        <div>
-          doT.js模板引擎详解与实践一、前言在前端开发中，模板引擎是一种将数据与HTML模板结合生成最终页面的工具。随着前端应用复杂度的提高，高效的模板引擎变得越来越重要。doT.js作为一款轻量级、高性能的JavaScript模板引擎，因其简洁的语法和卓越的性能表现，受到了众多开发者的青睐。本文将详细介绍doT.js的使用方法、特性以及实践技巧。 二、doT.js简介（一）什么是doT.jsdoT.j
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 00:00" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
-            
-              <a href="/tags/JavaScript/">#JavaScript</a>
-            
-              <a href="/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">#模板引擎</a>
-            
-              <a href="/tags/doT-js/">#doT.js</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94PDManer/" target="_self">
-          【工具】后端开发辅助工具——PDManer
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94PDManer/" target="_self">
-        <div>
-          后端开发辅助工具——PDManer一、前言在后端开发过程中，数据库设计是一个至关重要的环节。一个良好的数据库结构设计不仅能够提高系统的性能和可维护性，还能为后续的开发工作打下坚实的基础。PDManer作为一款专业的数据库建模工具，为开发者提供了强大的功能支持，帮助简化数据库设计流程，提高开发效率。本文将详细介绍PDManer的功能特点、使用方法以及实际应用场景。 二、PDManer概述（一）什么是
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 00:00" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
-            
-              <a href="/tags/%E5%B7%A5%E5%85%B7/">#工具</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/">#数据建模</a>
-            
-              <a href="/tags/PDManer/">#PDManer</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/10/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%912024%E5%B9%B4%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%BB%BC%E5%90%88%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
-          【编程语言】2025年中国编程语言市场分析与发展趋势
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/10/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%912024%E5%B9%B4%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%BB%BC%E5%90%88%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" target="_self">
-        <div>
-          深度解析2025年中国编程语言市场现状，涵盖各语言的技术特点、应用场景、薪资水平和发展前景，为中国开发者职业规划提供全面参考
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-10 00:00" pubdate>
-              2025-07-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
-            
-              <a href="/tags/%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95/">#职业发展</a>
-            
-              <a href="/tags/%E8%96%AA%E8%B5%84%E8%B0%83%E6%9F%A5/">#薪资调查</a>
-            
-              <a href="/tags/%E6%8A%80%E6%9C%AF%E8%B6%8B%E5%8A%BF/">#技术趋势</a>
-            
-              <a href="/tags/%E4%B8%AD%E5%9B%BD%E5%B8%82%E5%9C%BA/">#中国市场</a>
-            
-              <a href="/tags/%E8%A1%8C%E4%B8%9A%E5%88%86%E6%9E%90/">#行业分析</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/06/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" target="_self">
-          【前端】Vue2详解：经典的渐进式前端框架
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/06/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" target="_self">
-        <div>
-          深入解析Vue 2框架的核心概念、特性和最佳实践，包括响应式系统、组件化开发、状态管理等内容
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-06 00:00" pubdate>
-              2025-07-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Web%E5%BC%80%E5%8F%91/">#Web开发</a>
-            
-              <a href="/tags/JavaScript/">#JavaScript</a>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">#前端框架</a>
-            
-              <a href="/tags/Vue/">#Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91FastAPI%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3Python%E5%BC%82%E6%AD%A5Web%E6%A1%86%E6%9E%B6/" target="_self">
-          FastAPI详解：现代Python异步Web框架
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91FastAPI%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3Python%E5%BC%82%E6%AD%A5Web%E6%A1%86%E6%9E%B6/" target="_self">
-        <div>
-          全面深入解析FastAPI现代Python异步Web框架，从基础概念到高级特性，涵盖异步编程模式、RESTful API设计、数据验证与序列化、用户认证授权、数据库集成、WebSocket实时通信、性能优化、安全防护、测试策略、容器化部署等核心技术，助力开发者构建高性能、可扩展的现代Web应用和微服务架构
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 00:00" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">#异步编程</a>
-            
-              <a href="/tags/FastAPI/">#FastAPI</a>
-            
-              <a href="/tags/REST-API/">#REST API</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Django%E8%AF%A6%E8%A7%A3%EF%BC%9APython%20Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" target="_self">
-          【后端】Django详解：Python Web开发框架
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Django%E8%AF%A6%E8%A7%A3%EF%BC%9APython%20Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" target="_self">
-        <div>
-          全面深入解析Django框架，涵盖MTV架构模式、ORM数据库操作、模板引擎系统、表单处理机制、用户认证授权、REST API开发、中间件应用、缓存优化、安全防护等Python Web开发的核心技术与最佳实践
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 00:00" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/Web%E5%BC%80%E5%8F%91/">#Web开发</a>
-            
-              <a href="/tags/REST-API/">#REST API</a>
-            
-              <a href="/tags/Django/">#Django</a>
-            
-              <a href="/tags/ORM/">#ORM</a>
-            
-              <a href="/tags/MTV%E6%9E%B6%E6%9E%84/">#MTV架构</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/" target="_self">
-          【后端】后端框架全景图：现代服务端开发技术栈详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          全面介绍现代后端开发中的主要框架和技术栈，包括Spring Boot、Django、Express.js、Laravel等主流框架的特点、适用场景和生态系统，为开发者提供技术选型指南
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-05 00:00" pubdate>
-              2025-07-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/%E6%A1%86%E6%9E%B6/">#框架</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
-            
-              <a href="/tags/Node-js/">#Node.js</a>
-            
-              <a href="/tags/C/">#C#</a>
-            
-              <a href="/tags/PHP/">#PHP</a>
-            
-              <a href="/tags/Go/">#Go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/14/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><a class="extend next" rel="next" href="/page/16/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-    <div class="statistics">
-  
-  
-
-  
-    
-      <span id="busuanzi_container_site_pv" style="display: none">
-        总访问量 
-        <span id="busuanzi_value_site_pv"></span>
-         次
-      </span>
-    
-    
-      <span id="busuanzi_container_site_uv" style="display: none">
-        总访客数 
-        <span id="busuanzi_value_site_uv"></span>
-         人
-      </span>
-    
-    
-
-  
-
-</div>
-
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
       }
-      var text = subtitle.getAttribute('data-typed-text');
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
       
-        typing(text);
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
       
-    })(window, document);
-  </script>
-
-
-
-
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-    <script  src="/js/img-lazyload.js" ></script>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Uwakeme',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Uwakeme</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/14/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2AI%E5%8A%A9%E6%89%8B%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/14/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2AI%E5%8A%A9%E6%89%8B%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）">【博客】Hexo博客AI助手功能实现指南（集成DeepSeek/智谱GLM-4）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-14T08:45:04.459Z" title="发表于 2025-07-14 16:45:04">2025-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="content">一、前言在AI技术快速发展的时代，为个人博客添加智能助手功能已成为提升用户体验的重要手段。本文详细介绍如何在Hexo博客中实现一个美观实用的AI助手，支持多种AI模型接入（智谱GLM-4、DeepSeek等），并提供完整的代码实现。 特别值得一提的是，智谱AI推出的GLM-4模型目前提供了免费版本（glm-4-flash），可以零成本为你的博客增添智能交互能力。 二、功能特点实现后的AI助手功能将具备以下特点：  美观的浮动聊天窗口：支持深色&#x2F;浅色模式自动适配 多种模型支持：可接入智谱GLM-4、DeepSeek等多种AI模型 两种实现版本：完整版（API调用）和基础版（预设问答，无需API） 流畅的用户体验：打字动画、加载提示、Markdown渲染支持 响应式设计：完美适配移动端和桌面端 本地记忆功能：保存聊天历史，提供连续对话体验  三、实现步骤（一）准备工作1. 所需资源 已搭建的Hexo博客 智谱AI平台账号（使用GLM-4时需要）或DeepSeek账号 基本的JavaScript和CSS知识  2. 注册智谱AI账号（可选）如果选择使用智谱GLM-4模型：  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/14/%E3%80%90MySQL%E3%80%91MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/" title="【MySQL】MySQL性能优化全面指南"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【MySQL】MySQL性能优化全面指南"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/14/%E3%80%90MySQL%E3%80%91MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/" title="【MySQL】MySQL性能优化全面指南">【MySQL】MySQL性能优化全面指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-13T16:00:00.000Z" title="发表于 2025-07-14 00:00:00">2025-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/MySQL/">MySQL</a></span></div><div class="content">MySQL性能优化全面指南MySQL作为当前最流行的关系型数据库之一，其性能优化对于系统的整体表现至关重要。本文将从多个维度详细介绍MySQL的优化方法，帮助开发者和数据库管理员提升数据库性能。 一、SQL语句优化（一）避免全表扫描 使用EXPLAIN分析SQL执行计划，避免全表扫描操作 确保查询语句使用了适当的索引 避免在WHERE子句中使用函数操作，如WHERE YEAR(create_time) = 2023  （二）优化SELECT查询 只查询必要的列，避免使用SELECT * 使用LIMIT限制结果集大小 避免使用SELECT DISTINCT，可以通过其他方式实现去重 使用覆盖索引减少回表操作  （三）优化JOIN操作 小表驱动大表，将小结果集的表放在JOIN操作符的左边 使用JOIN代替子查询，减少临时表的创建 确保JOIN条件字段上有适当的索引 避免过多的JOIN操作，必要时拆分复杂查询  （四）合理使用子查询 尽可能使用JOIN代替子查询 避免在WHERE子句中使用IN包含子查询，可以改用JOIN 使用EXISTS代替IN进行关联查询  （五）批量操作优化 使用...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/14/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="【分布式】部署微服务系统步骤与最佳实践"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【分布式】部署微服务系统步骤与最佳实践"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/14/%E3%80%90%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%91%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="【分布式】部署微服务系统步骤与最佳实践">【分布式】部署微服务系统步骤与最佳实践</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-13T16:00:00.000Z" title="发表于 2025-07-14 00:00:00">2025-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></span></div><div class="content">部署微服务系统步骤与最佳实践一、前言随着业务复杂度的增加，单体应用架构已经无法满足大型系统的需求，微服务架构因其灵活性、可扩展性和可维护性成为主流选择。然而，部署和管理分布式微服务系统比传统单体应用更为复杂，需要系统性的规划和执行。本文将详细介绍微服务系统的部署步骤和最佳实践，以若依微服务框架为例进行说明。 二、微服务部署前的准备工作（一）环境规划在部署微服务系统前，需要对环境进行合理规划：  服务器资源评估  根据业务量和服务数量估算所需服务器资源 区分开发、测试、预发布和生产环境 规划每个服务的CPU、内存和存储需求   网络规划  设计内部服务网络结构 规划服务间通信策略 确定对外服务的网络策略和安全措施   中间件选型  注册中心：Nacos、Eureka、Consul等 配置中心：Nacos、Apollo、Spring Cloud Config等 消息队列：RabbitMQ、Kafka、RocketMQ等 网关：Spring Cloud Gateway、Zuul等 分布式事务：Seata等    （二）基础设施准备 容器化环境搭建  Docker环境安装与配置 Kube...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91doT.js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="【学习】doT.js模板引擎详解与实践"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习】doT.js模板引擎详解与实践"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91doT.js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="【学习】doT.js模板引擎详解与实践">【学习】doT.js模板引擎详解与实践</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-13T16:00:00.000Z" title="发表于 2025-07-14 00:00:00">2025-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="content">doT.js模板引擎详解与实践一、前言在前端开发中，模板引擎是一种将数据与HTML模板结合生成最终页面的工具。随着前端应用复杂度的提高，高效的模板引擎变得越来越重要。doT.js作为一款轻量级、高性能的JavaScript模板引擎，因其简洁的语法和卓越的性能表现，受到了众多开发者的青睐。本文将详细介绍doT.js的使用方法、特性以及实践技巧。 二、doT.js简介（一）什么是doT.jsdoT.js是一个快速、小巧的JavaScript模板引擎，由Laura Doktorova开发，遵循MIT许可证开源。它的设计理念是”最快、最小的JavaScript模板引擎，适用于Node.js和浏览器”。doT.js的核心特点是使用了预编译技术，将模板编译成JavaScript函数，从而实现了极高的渲染性能。 （二）doT.js的优势 性能卓越：在各种JavaScript模板引擎的性能测试中，doT.js通常名列前茅，渲染速度远超Handlebars、Mustache等传统模板引擎。  体积小巧：压缩后仅约2KB，非常适合对资源要求严格的项目。  语法简洁：采用简单易学的标记语法，学习成本低...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/14/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94PDManer/" title="【工具】后端开发辅助工具——PDManer"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【工具】后端开发辅助工具——PDManer"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/14/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94PDManer/" title="【工具】后端开发辅助工具——PDManer">【工具】后端开发辅助工具——PDManer</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-13T16:00:00.000Z" title="发表于 2025-07-14 00:00:00">2025-07-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="content">后端开发辅助工具——PDManer一、前言在后端开发过程中，数据库设计是一个至关重要的环节。一个良好的数据库结构设计不仅能够提高系统的性能和可维护性，还能为后续的开发工作打下坚实的基础。PDManer作为一款专业的数据库建模工具，为开发者提供了强大的功能支持，帮助简化数据库设计流程，提高开发效率。本文将详细介绍PDManer的功能特点、使用方法以及实际应用场景。 二、PDManer概述（一）什么是PDManerPDManer（Physical Data Modeler）是一款开源的数据库建模工具，专注于物理数据模型设计。它由国内开发团队开发维护，基于Electron和React技术栈构建，支持Windows、macOS和Linux等多种操作系统。PDManer提供了直观的图形界面，使开发者能够轻松创建、编辑和管理数据库模型，并支持多种主流数据库系统。 （二）主要特点 开源免费：PDManer是一款完全开源的工具，遵循MIT许可证，可以免费使用。  跨平台支持：支持Windows、macOS和Linux等多种操作系统。  多数据库支持：兼容MySQL、Oracle、SQL Serv...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/10/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%912024%E5%B9%B4%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%BB%BC%E5%90%88%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" title="【编程语言】2025年中国编程语言市场分析与发展趋势"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【编程语言】2025年中国编程语言市场分析与发展趋势"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/10/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%912024%E5%B9%B4%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%BB%BC%E5%90%88%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" title="【编程语言】2025年中国编程语言市场分析与发展趋势">【编程语言】2025年中国编程语言市场分析与发展趋势</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-09T16:00:00.000Z" title="发表于 2025-07-10 00:00:00">2025-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span></div><div class="content">2025年中国编程语言市场分析与发展趋势引言在数字经济蓬勃发展的今天，编程语言的选择往往决定了开发者的职业轨迹和薪资水平。本文基于国内权威机构的最新调查数据，包括CSDN开发者调查、拉勾网薪资报告、智联招聘职位分析等，为您呈现2025年7月中国编程语言市场的全景图，帮助开发者做出更明智的职业选择。 一、中国编程语言流行度排行榜1.1 中国开发者使用率排行榜（2025年7月）根据CSDN发布的《2025年中国开发者生态调查报告》显示：    排名 编程语言 使用率 年度变化    1 Python 26.8% +5.2%   2 Java 23.5% -1.3%   3 JavaScript&#x2F;TypeScript 21.7% +2.4%   4 C++ 15.2% +0.8%   5 C 12.6% -1.5%   6 Go 10.3% +3.7%   7 C# 7.5% -0.2%   8 Rust 5.8% +2.6%   9 PHP 4.9% -2.1%   10 Kotlin 4.2% +1.1%   重要发现：  Python在国内开发者中的使用率持续攀升，尤其...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/06/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="【前端】Vue2详解：经典的渐进式前端框架"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【前端】Vue2详解：经典的渐进式前端框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/06/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/" title="【前端】Vue2详解：经典的渐进式前端框架">【前端】Vue2详解：经典的渐进式前端框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-05T16:00:00.000Z" title="发表于 2025-07-06 00:00:00">2025-07-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">前言Vue 2是一个渐进式的JavaScript前端框架，以其简洁的API设计、优秀的性能表现和丰富的生态系统而广受开发者喜爱。本文将深入探讨Vue 2的核心概念、特性和最佳实践，帮助开发者全面掌握这个经典的前端框架。 一、Vue 2基础概念（一）Vue实例1234567891011121314151617181920212223242526272829303132333435363738394041424344// 创建Vue实例var vm = new Vue(&#123;    // 挂载点    el: &#x27;#app&#x27;,        // 数据    data: &#123;        message: &#x27;Hello Vue 2!&#x27;,        count: 0,        user: &#123;            name: &#x27;John&#x27;,            age: 30        &#125;    &#125;,        // 计算属性    computed: &#123...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Django%E8%AF%A6%E8%A7%A3%EF%BC%9APython%20Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="【后端】Django详解：Python Web开发框架"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【后端】Django详解：Python Web开发框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91Django%E8%AF%A6%E8%A7%A3%EF%BC%9APython%20Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="【后端】Django详解：Python Web开发框架">【后端】Django详解：Python Web开发框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-04T16:00:00.000Z" title="发表于 2025-07-05 00:00:00">2025-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="content">前言Django是一个高级的Python Web框架，由Lawrence Journal-World的开发团队于2005年创建并开源。它以”快速开发、干净设计”为核心理念，遵循DRY（Don’t Repeat Yourself）原则，为开发者提供了一个功能完整、开箱即用的Web开发解决方案。 为什么选择Django？ 完整的框架：内置ORM、模板引擎、表单处理、用户认证、管理后台等功能 安全性优先：内置多种安全防护机制，如CSRF保护、SQL注入防护、XSS防护等 可扩展性强：支持大规模应用开发，Instagram、Pinterest等知名网站都在使用 丰富的生态：拥有庞大的第三方包生态系统和活跃的社区支持 文档完善：官方文档详细全面，学习曲线相对平缓  本文内容概览本文将全面介绍Django框架的核心概念和实践应用，包括：  MTV架构模式：理解Django的设计哲学和架构思想 ORM系统详解：掌握数据库操作和模型设计的最佳实践 模板引擎系统：学习Django模板语言和前端集成 表单处理机制：实现数据验证和用户交互 用户认证授权：构建安全的用户管理系统 REST API开发：使...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91FastAPI%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3Python%E5%BC%82%E6%AD%A5Web%E6%A1%86%E6%9E%B6/" title="FastAPI详解：现代Python异步Web框架"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FastAPI详解：现代Python异步Web框架"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91FastAPI%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3Python%E5%BC%82%E6%AD%A5Web%E6%A1%86%E6%9E%B6/" title="FastAPI详解：现代Python异步Web框架">FastAPI详解：现代Python异步Web框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-04T16:00:00.000Z" title="发表于 2025-07-05 00:00:00">2025-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="content">前言FastAPI是由Sebastian Ramirez于2018年创建的现代Python Web框架，专为构建高性能API而设计。作为新一代的Python Web框架，FastAPI结合了现代Python特性（如类型提示、异步编程）和最佳实践，为开发者提供了一个既强大又易用的API开发解决方案。 为什么选择FastAPI？ 卓越性能：基于Starlette和Pydantic构建，性能可媲美NodeJS和Go语言 开发效率：通过类型提示和自动化功能，减少约40%的开发错误 现代化设计：原生支持Python 3.6+的异步编程特性 标准兼容：完全兼容OpenAPI（Swagger）和JSON Schema标准 自动文档：零配置自动生成交互式API文档 类型安全：基于Python类型提示，提供完整的IDE支持和代码补全 生产就绪：内置数据验证、序列化、认证等企业级功能  核心技术优势 异步优先：原生支持async&#x2F;await，充分利用Python异步编程能力 数据验证：集成Pydantic，提供强大的数据验证和序列化功能 自动文档生成：基于代码自动生成Swagger UI和...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/" title="【后端】后端框架全景图：现代服务端开发技术栈详解"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【后端】后端框架全景图：现代服务端开发技术栈详解"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/05/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/" title="【后端】后端框架全景图：现代服务端开发技术栈详解">【后端】后端框架全景图：现代服务端开发技术栈详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-04T16:00:00.000Z" title="发表于 2025-07-05 00:00:00">2025-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></span></div><div class="content">前言在当今快速发展的软件开发领域，后端技术作为整个应用系统的核心支撑，承担着业务逻辑处理、数据存储管理、API服务提供、安全认证等关键职责。从早期的CGI脚本到现在的云原生微服务架构，后端技术经历了翻天覆地的变化，涌现出了众多优秀的框架和技术栈。 本文将为您全面梳理现代后端开发的技术全景图，深入分析主流框架的特点、优势和适用场景，帮助开发者在技术选型时做出明智的决策。无论您是初入后端开发的新手，还是寻求技术升级的资深开发者，都能从中获得有价值的参考。 本文内容概览 技术发展历程：从CGI到微服务的演进之路 框架分类体系：按语言、架构、场景的全面分类 主流技术栈详解：Java、Python、Node.js等生态深度解析 架构演进趋势：云原生、边缘计算等前沿技术 最佳实践指南：架构设计、性能优化、安全实践 学习路径规划：从初学者到专家的成长指南  一、后端框架发展历程（一）发展阶段1. CGI时代（1990-2000） 特点：通用网关接口，简单的请求-响应模式 代表技术：Perl CGI、C CGI 优势：简单直接，易于理解 劣势：性能差，每次请求都要启动新进程  2. 应用服务器时...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/14/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/#content-inner">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#content-inner">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/16/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">171</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">452</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:your-email@example.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C语言从零到大神：系统编程的必经之路"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">【学习路线】C语言从零到大神：系统编程的必经之路</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】C#企业级开发之路：从基础语法到云原生应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" title="【学习路线】C#企业级开发之路：从基础语法到云原生应用">【学习路线】C#企业级开发之路：从基础语法到云原生应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/BUG/"><span class="card-category-list-name">BUG</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LINUX/"><span class="card-category-list-name">LINUX</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/MySQL/"><span class="card-category-list-name">MySQL</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows/"><span class="card-category-list-name">Windows</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/" style="font-size: 1.1em; color: #999">拦截器</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 1.17em; color: #999c9f">最短路径</a> <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" style="font-size: 1.1em; color: #999">开源项目</a> <a href="/tags/exceljs/" style="font-size: 1.1em; color: #999">exceljs</a> <a href="/tags/token/" style="font-size: 1.1em; color: #999">token</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/" style="font-size: 1.1em; color: #999">容器编排</a> <a href="/tags/BST/" style="font-size: 1.1em; color: #999">BST</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.17em; color: #999c9f">前端,</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" style="font-size: 1.1em; color: #999">自动化运维</a> <a href="/tags/AI%E7%BC%96%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">AI编程</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 1.1em; color: #999">区块链</a> <a href="/tags/%E6%8E%A5%E5%8F%A3/" style="font-size: 1.37em; color: #99a4b2">接口</a> <a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.1em; color: #999">密码学</a> <a href="/tags/%E6%8A%A5%E8%A1%A8/" style="font-size: 1.1em; color: #999">报表</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 1.37em; color: #99a4b2">工作流</a> <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" style="font-size: 1.23em; color: #999ea6">效率工具</a> <a href="/tags/Vue3/" style="font-size: 1.1em; color: #999">Vue3</a> <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/" style="font-size: 1.17em; color: #999c9f">故障排查</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.17em; color: #999c9f">网络</a> <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/" style="font-size: 1.17em; color: #999c9f">实时通信</a> <a href="/tags/UX%E8%AE%BE%E8%AE%A1/" style="font-size: 1.1em; color: #999">UX设计</a> <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" style="font-size: 1.1em; color: #999">测试用例</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/" style="font-size: 1.1em; color: #999">数据完整性</a> <a href="/tags/%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" style="font-size: 1.1em; color: #999">微软技术栈</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 1.1em; color: #999">链表</a> <a href="/tags/%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B/" style="font-size: 1.5em; color: #99a9bf">《算法图解》</a> <a href="/tags/JimuReport/" style="font-size: 1.1em; color: #999">JimuReport</a> <a href="/tags/Android/" style="font-size: 1.1em; color: #999">Android</a> <a href="/tags/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/" style="font-size: 1.17em; color: #999c9f">团队协作</a> <a href="/tags/%E4%BB%A3%E7%90%86/" style="font-size: 1.1em; color: #999">代理</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 1.43em; color: #99a6b9">微服务</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">加密算法</a> <a href="/tags/Vite/" style="font-size: 1.1em; color: #999">Vite</a> <a href="/tags/TypeScript/" style="font-size: 1.17em; color: #999c9f">TypeScript,</a> <a href="/tags/SaaS/" style="font-size: 1.1em; color: #999">SaaS</a> <a href="/tags/%E5%85%83%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">元编程</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 1.3em; color: #99a1ac">性能优化</a> <a href="/tags/%E6%A0%91/" style="font-size: 1.17em; color: #999c9f">树</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
   
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  
-<script src="/js/custom.js"></script>
-<script src="/js/ai-assistant.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">151</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">171</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-07-21T10:27:12.660Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
