@@ -26,7 +26,7 @@ nohup java -Dfile.encoding=UTF-8 -jar web.jar --spring.config.location=file:./co
 
 # 数据库常用命令
 
-## 导出/备份MYSQL数据库
+## 导出/备份MySQL数据库
 
 - 先cd到要存储备份文件的文件夹
 - 然后执行备份命令
@@ -102,7 +102,7 @@ mysqldump -u [用户名] -p --events [数据库名] > [导出文件名].sql
 mysqldump -u [用户名] -p --routines --triggers --events [数据库名] > [导出文件名]_full.sql
 ```
 
-## 恢复/导入MYSQL数据库
+## 恢复/导入MySQL数据库
 
 - 先cd到备份文件的目录
 

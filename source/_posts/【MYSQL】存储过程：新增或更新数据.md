@@ -1,14 +1,10 @@
 ---
-<<<<<<<< HEAD:source/_posts/【MYSQL】新增或更新数据.md
-title: 【MYSQL】新增或更新数据
-========
-title: 【MYSQL】存储过程：新增或更新数据
->>>>>>>> cc35f37cc284c91c71518f04622495c76d272a15:source/_posts/【MYSQL】存储过程：新增或更新数据.md
+title: 【MySQL】存储过程：新增或更新数据
 tags:
-  - MYSQL
+  - MySQL
   - 存储过程
   - DBEAVER
-categories: MYSQL
+categories: MySQL
 date: 2024-11-11 17:43:42
 ---
 

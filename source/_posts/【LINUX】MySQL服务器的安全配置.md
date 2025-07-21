@@ -4,7 +4,7 @@ tags:
   - 部署
   - CentOS
   - LINUX
-  - MYSQL
+  - MySQL
 categories: LINUX
 date: 2025-03-20 00:00:00
 ---

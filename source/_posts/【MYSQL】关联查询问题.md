@@ -1,8 +1,8 @@
 ---
-title: 【MYSQL】关联查询问题
-categories: MYSQL
+title: 【MySQL】关联查询问题
+categories: MySQL
 tags:
-  - MYSQL
+  - MySQL
   - SQL优化
   - BUG解决
 date: 2025-05-07
