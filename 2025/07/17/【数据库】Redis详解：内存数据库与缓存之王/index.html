@@ -1,0 +1,1162 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="什么是Redis？Redis（Remote Dictionary Server）是一个开源的、基于内存的数据结构存储系统，可以用作数据库、缓存和消息代理。它支持多种数据结构，如字符串、哈希、列表、集合、有序集合等，具有极高的性能和丰富的功能。 核心特性1. 内存存储 数据主要存储在内存中，读写速度极快 支持持久化到磁盘，保证数据安全 支持数据过期自动删除  2. 丰富的数据结构 String：字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库】Redis详解：内存数据库与缓存之王">
+<meta property="og:url" content="https://uwakeme.top/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E7%BC%93%E5%AD%98%E4%B9%8B%E7%8E%8B/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="什么是Redis？Redis（Remote Dictionary Server）是一个开源的、基于内存的数据结构存储系统，可以用作数据库、缓存和消息代理。它支持多种数据结构，如字符串、哈希、列表、集合、有序集合等，具有极高的性能和丰富的功能。 核心特性1. 内存存储 数据主要存储在内存中，读写速度极快 支持持久化到磁盘，保证数据安全 支持数据过期自动删除  2. 丰富的数据结构 String：字符">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-17T07:30:00.000Z">
+<meta property="article:modified_time" content="2025-07-17T08:05:44.084Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="后端开发">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="缓存">
+<meta property="article:tag" content="内存数据库">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【数据库】Redis详解：内存数据库与缓存之王 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【数据库】Redis详解：内存数据库与缓存之王"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-17 15:30" pubdate>
+          2025-07-17 15:30
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【数据库】Redis详解：内存数据库与缓存之王</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是Redis？"><a href="#什么是Redis？" class="headerlink" title="什么是Redis？"></a>什么是Redis？</h2><p>Redis（Remote Dictionary Server）是一个开源的、基于内存的数据结构存储系统，可以用作数据库、缓存和消息代理。它支持多种数据结构，如字符串、哈希、列表、集合、有序集合等，具有极高的性能和丰富的功能。</p>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><h3 id="1-内存存储"><a href="#1-内存存储" class="headerlink" title="1. 内存存储"></a>1. 内存存储</h3><ul>
+<li>数据主要存储在内存中，读写速度极快</li>
+<li>支持持久化到磁盘，保证数据安全</li>
+<li>支持数据过期自动删除</li>
+</ul>
+<h3 id="2-丰富的数据结构"><a href="#2-丰富的数据结构" class="headerlink" title="2. 丰富的数据结构"></a>2. 丰富的数据结构</h3><ul>
+<li><strong>String</strong>：字符串</li>
+<li><strong>Hash</strong>：哈希表</li>
+<li><strong>List</strong>：列表</li>
+<li><strong>Set</strong>：集合</li>
+<li><strong>Sorted Set</strong>：有序集合</li>
+<li><strong>Bitmap</strong>：位图</li>
+<li><strong>HyperLogLog</strong>：基数统计</li>
+<li><strong>Stream</strong>：流数据</li>
+</ul>
+<h3 id="3-高性能"><a href="#3-高性能" class="headerlink" title="3. 高性能"></a>3. 高性能</h3><ul>
+<li>单线程模型，避免上下文切换</li>
+<li>基于内存操作，读写性能极高</li>
+<li>支持管道（pipeline）批量操作</li>
+</ul>
+<h3 id="4-高可用"><a href="#4-高可用" class="headerlink" title="4. 高可用"></a>4. 高可用</h3><ul>
+<li>主从复制</li>
+<li>Redis Sentinel（哨兵）</li>
+<li>Redis Cluster（集群）</li>
+</ul>
+<h2 id="数据结构与操作"><a href="#数据结构与操作" class="headerlink" title="数据结构与操作"></a>数据结构与操作</h2><h3 id="1-字符串（String）"><a href="#1-字符串（String）" class="headerlink" title="1. 字符串（String）"></a>1. 字符串（String）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置值</span>
+SET key <span class="token string">"value"</span>
+
+<span class="token comment"># 获取值</span>
+GET key
+
+<span class="token comment"># 设置带过期时间</span>
+SETEX key <span class="token number">60</span> <span class="token string">"value"</span>
+
+<span class="token comment"># 数值操作</span>
+INCR counter
+DECR counter
+INCRBY counter <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-哈希（Hash）"><a href="#2-哈希（Hash）" class="headerlink" title="2. 哈希（Hash）"></a>2. 哈希（Hash）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置哈希字段</span>
+HSET user:1000 name <span class="token string">"John"</span>
+HSET user:1000 email <span class="token string">"john@example.com"</span>
+HMSET user:1000 name <span class="token string">"John"</span> email <span class="token string">"john@example.com"</span> age <span class="token number">30</span>
+
+<span class="token comment"># 获取哈希字段</span>
+HGET user:1000 name
+HGETALL user:1000
+HMGET user:1000 name email
+
+<span class="token comment"># 哈希操作</span>
+HINCRBY user:1000 age <span class="token number">1</span>
+HLEN user:1000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-列表（List）"><a href="#3-列表（List）" class="headerlink" title="3. 列表（List）"></a>3. 列表（List）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 从左侧插入</span>
+LPUSH mylist <span class="token string">"a"</span>
+LPUSH mylist <span class="token string">"b"</span>
+
+<span class="token comment"># 从右侧插入</span>
+RPUSH mylist <span class="token string">"c"</span>
+
+<span class="token comment"># 获取列表</span>
+LRANGE mylist <span class="token number">0</span> <span class="token parameter variable">-1</span>
+
+<span class="token comment"># 弹出元素</span>
+LPOP mylist
+RPOP mylist
+
+<span class="token comment"># 列表长度</span>
+LLEN mylist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="4-集合（Set）"><a href="#4-集合（Set）" class="headerlink" title="4. 集合（Set）"></a>4. 集合（Set）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加元素</span>
+SADD myset <span class="token string">"a"</span> <span class="token string">"b"</span> <span class="token string">"c"</span>
+
+<span class="token comment"># 获取所有元素</span>
+SMEMBERS myset
+
+<span class="token comment"># 检查元素是否存在</span>
+SISMEMBER myset <span class="token string">"a"</span>
+
+<span class="token comment"># 获取集合大小</span>
+SCARD myset
+
+<span class="token comment"># 随机弹出元素</span>
+SPOP myset<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="5-有序集合（Sorted-Set）"><a href="#5-有序集合（Sorted-Set）" class="headerlink" title="5. 有序集合（Sorted Set）"></a>5. 有序集合（Sorted Set）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加元素</span>
+ZADD leaderboard <span class="token number">100</span> <span class="token string">"Alice"</span> <span class="token number">200</span> <span class="token string">"Bob"</span> <span class="token number">150</span> <span class="token string">"Charlie"</span>
+
+<span class="token comment"># 获取排名</span>
+ZRANGE leaderboard <span class="token number">0</span> <span class="token parameter variable">-1</span>
+ZREVRANGE leaderboard <span class="token number">0</span> <span class="token parameter variable">-1</span>
+
+<span class="token comment"># 获取分数</span>
+ZSCORE leaderboard <span class="token string">"Alice"</span>
+
+<span class="token comment"># 按分数范围获取</span>
+ZRANGEBYSCORE leaderboard <span class="token number">100</span> <span class="token number">200</span>
+
+<span class="token comment"># 获取排名</span>
+ZRANK leaderboard <span class="token string">"Alice"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="高级数据结构"><a href="#高级数据结构" class="headerlink" title="高级数据结构"></a>高级数据结构</h2><h3 id="1-位图（Bitmap）"><a href="#1-位图（Bitmap）" class="headerlink" title="1. 位图（Bitmap）"></a>1. 位图（Bitmap）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置位</span>
+SETBIT mybitmap <span class="token number">0</span> <span class="token number">1</span>
+SETBIT mybitmap <span class="token number">1</span> <span class="token number">0</span>
+
+<span class="token comment"># 获取位</span>
+GETBIT mybitmap <span class="token number">0</span>
+
+<span class="token comment"># 统计位数</span>
+BITCOUNT mybitmap<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-HyperLogLog"><a href="#2-HyperLogLog" class="headerlink" title="2. HyperLogLog"></a>2. HyperLogLog</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加元素</span>
+PFADD visitors <span class="token string">"user1"</span> <span class="token string">"user2"</span> <span class="token string">"user3"</span>
+
+<span class="token comment"># 获取基数</span>
+PFCOUNT visitors
+
+<span class="token comment"># 合并</span>
+PFMERGE all_visitors visitors1 visitors2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-地理空间（Geo）"><a href="#3-地理空间（Geo）" class="headerlink" title="3. 地理空间（Geo）"></a>3. 地理空间（Geo）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加地理位置</span>
+GEOADD locations <span class="token number">13.361389</span> <span class="token number">38.115556</span> <span class="token string">"Palermo"</span> <span class="token number">15.087269</span> <span class="token number">37.502669</span> <span class="token string">"Catania"</span>
+
+<span class="token comment"># 计算距离</span>
+GEODIST locations <span class="token string">"Palermo"</span> <span class="token string">"Catania"</span>
+
+<span class="token comment"># 获取位置</span>
+GEOPOS locations <span class="token string">"Palermo"</span>
+
+<span class="token comment"># 半径查询</span>
+GEORADIUS locations <span class="token number">15</span> <span class="token number">37</span> <span class="token number">100</span> km<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="基本事务"><a href="#基本事务" class="headerlink" title="基本事务"></a>基本事务</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开始事务</span>
+MULTI
+
+<span class="token comment"># 命令入队</span>
+SET key1 <span class="token string">"value1"</span>
+SET key2 <span class="token string">"value2"</span>
+INCR counter
+
+<span class="token comment"># 执行事务</span>
+EXEC
+
+<span class="token comment"># 取消事务</span>
+DISCARD<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="乐观锁（WATCH）"><a href="#乐观锁（WATCH）" class="headerlink" title="乐观锁（WATCH）"></a>乐观锁（WATCH）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 监视键</span>
+WATCH mykey
+
+<span class="token comment"># 检查并执行</span>
+MULTI
+SET mykey <span class="token string">"newvalue"</span>
+EXEC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h2><h3 id="发布者"><a href="#发布者" class="headerlink" title="发布者"></a>发布者</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 发布消息</span>
+PUBLISH news <span class="token string">"Hello subscribers!"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 订阅频道</span>
+SUBSCRIBE news
+
+<span class="token comment"># 订阅多个频道</span>
+SUBSCRIBE news sports
+
+<span class="token comment"># 模式订阅</span>
+PSUBSCRIBE news.*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><h3 id="1-RDB（快照）"><a href="#1-RDB（快照）" class="headerlink" title="1. RDB（快照）"></a>1. RDB（快照）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置文件</span>
+save <span class="token number">900</span> <span class="token number">1</span>      <span class="token comment"># 900秒内至少1个键被修改</span>
+save <span class="token number">300</span> <span class="token number">10</span>     <span class="token comment"># 300秒内至少10个键被修改</span>
+save <span class="token number">60</span> <span class="token number">10000</span>   <span class="token comment"># 60秒内至少10000个键被修改</span>
+
+<span class="token comment"># 手动保存</span>
+SAVE      <span class="token comment"># 同步保存</span>
+BGSAVE    <span class="token comment"># 异步保存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-AOF（追加文件）"><a href="#2-AOF（追加文件）" class="headerlink" title="2. AOF（追加文件）"></a>2. AOF（追加文件）</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置AOF</span>
+appendonly <span class="token function">yes</span>
+appendfsync everysec    <span class="token comment"># 每秒同步一次</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><h3 id="配置主服务器"><a href="#配置主服务器" class="headerlink" title="配置主服务器"></a>配置主服务器</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 主服务器配置</span>
+port <span class="token number">6379</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="配置从服务器"><a href="#配置从服务器" class="headerlink" title="配置从服务器"></a>配置从服务器</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 从服务器配置</span>
+port <span class="token number">6380</span>
+slaveof <span class="token number">127.0</span>.0.1 <span class="token number">6379</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="查看复制状态"><a href="#查看复制状态" class="headerlink" title="查看复制状态"></a>查看复制状态</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在主服务器上</span>
+INFO replication
+
+<span class="token comment"># 在从服务器上</span>
+INFO replication<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="Redis-Sentinel（哨兵）"><a href="#Redis-Sentinel（哨兵）" class="headerlink" title="Redis Sentinel（哨兵）"></a>Redis Sentinel（哨兵）</h2><h3 id="配置哨兵"><a href="#配置哨兵" class="headerlink" title="配置哨兵"></a>配置哨兵</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># sentinel.conf</span>
+sentinel monitor mymaster <span class="token number">127.0</span>.0.1 <span class="token number">6379</span> <span class="token number">2</span>
+sentinel down-after-milliseconds mymaster <span class="token number">5000</span>
+sentinel failover-timeout mymaster <span class="token number">60000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="启动哨兵"><a href="#启动哨兵" class="headerlink" title="启动哨兵"></a>启动哨兵</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">redis-sentinel sentinel.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h2 id="Redis-Cluster（集群）"><a href="#Redis-Cluster（集群）" class="headerlink" title="Redis Cluster（集群）"></a>Redis Cluster（集群）</h2><h3 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建集群</span>
+redis-cli <span class="token parameter variable">--cluster</span> create <span class="token number">127.0</span>.0.1:7000 <span class="token number">127.0</span>.0.1:7001 <span class="token punctuation">\</span>
+<span class="token number">127.0</span>.0.1:7002 <span class="token number">127.0</span>.0.1:7003 <span class="token number">127.0</span>.0.1:7004 <span class="token number">127.0</span>.0.1:7005 <span class="token punctuation">\</span>
+--cluster-replicas <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="集群操作"><a href="#集群操作" class="headerlink" title="集群操作"></a>集群操作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看集群信息</span>
+CLUSTER INFO
+
+<span class="token comment"># 查看节点信息</span>
+CLUSTER NODES
+
+<span class="token comment"># 添加节点</span>
+redis-cli <span class="token parameter variable">--cluster</span> add-node <span class="token number">127.0</span>.0.1:7006 <span class="token number">127.0</span>.0.1:7000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="1-内存优化"><a href="#1-内存优化" class="headerlink" title="1. 内存优化"></a>1. 内存优化</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置最大内存</span>
+maxmemory 2gb
+
+<span class="token comment"># 内存淘汰策略</span>
+maxmemory-policy allkeys-lru<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-连接优化"><a href="#2-连接优化" class="headerlink" title="2. 连接优化"></a>2. 连接优化</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 最大连接数</span>
+maxclients <span class="token number">10000</span>
+
+<span class="token comment"># TCP backlog</span>
+tcp-backlog <span class="token number">511</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-慢查询日志"><a href="#3-慢查询日志" class="headerlink" title="3. 慢查询日志"></a>3. 慢查询日志</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 启用慢查询</span>
+slowlog-log-slower-than <span class="token number">10000</span>
+slowlog-max-len <span class="token number">128</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="缓存应用"><a href="#缓存应用" class="headerlink" title="缓存应用"></a>缓存应用</h2><h3 id="1-缓存穿透"><a href="#1-缓存穿透" class="headerlink" title="1. 缓存穿透"></a>1. 缓存穿透</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 使用布隆过滤器</span>
+<span class="token keyword">import</span> redis
+r <span class="token operator">=</span> redis<span class="token punctuation">.</span>Redis<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">get_user</span><span class="token punctuation">(</span>user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 先检查布隆过滤器</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> r<span class="token punctuation">.</span>exists<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"user:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_id<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token boolean">None</span>
+    
+    <span class="token comment"># 从缓存获取</span>
+    user <span class="token operator">=</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"user:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_id<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    
+    <span class="token comment"># 从数据库获取</span>
+    user <span class="token operator">=</span> db<span class="token punctuation">.</span>get_user<span class="token punctuation">(</span>user_id<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> user<span class="token punctuation">:</span>
+        r<span class="token punctuation">.</span>setex<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"user:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_id<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token number">3600</span><span class="token punctuation">,</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token comment"># 缓存空值，防止穿透</span>
+        r<span class="token punctuation">.</span>setex<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"user:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_id<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">,</span> <span class="token string">"null"</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> user<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-缓存雪崩"><a href="#2-缓存雪崩" class="headerlink" title="2. 缓存雪崩"></a>2. 缓存雪崩</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 随机过期时间</span>
+<span class="token keyword">def</span> <span class="token function">set_cache</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> base_expire<span class="token operator">=</span><span class="token number">3600</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 添加随机偏移，避免同时过期</span>
+    expire <span class="token operator">=</span> base_expire <span class="token operator">+</span> random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">600</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span>setex<span class="token punctuation">(</span>key<span class="token punctuation">,</span> expire<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-缓存击穿"><a href="#3-缓存击穿" class="headerlink" title="3. 缓存击穿"></a>3. 缓存击穿</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 使用互斥锁</span>
+<span class="token keyword">def</span> <span class="token function">get_hot_data</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    value <span class="token operator">=</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> value<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> value
+    
+    <span class="token comment"># 获取锁</span>
+    lock_key <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"lock:</span><span class="token interpolation"><span class="token punctuation">&#123;</span>key<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+    <span class="token keyword">if</span> r<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span>lock_key<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> nx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ex<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token comment"># 从数据库获取数据</span>
+            value <span class="token operator">=</span> db<span class="token punctuation">.</span>get_data<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+            r<span class="token punctuation">.</span>setex<span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token number">3600</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> value
+        <span class="token keyword">finally</span><span class="token punctuation">:</span>
+            r<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>lock_key<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token comment"># 等待并重试</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="与Python集成"><a href="#与Python集成" class="headerlink" title="与Python集成"></a>与Python集成</h2><h3 id="使用redis-py"><a href="#使用redis-py" class="headerlink" title="使用redis-py"></a>使用redis-py</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> redis
+<span class="token keyword">import</span> json
+
+<span class="token comment"># 连接Redis</span>
+r <span class="token operator">=</span> redis<span class="token punctuation">.</span>Redis<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">'localhost'</span><span class="token punctuation">,</span> port<span class="token operator">=</span><span class="token number">6379</span><span class="token punctuation">,</span> db<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 字符串操作</span>
+r<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'Alice'</span><span class="token punctuation">)</span>
+name <span class="token operator">=</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 哈希操作</span>
+r<span class="token punctuation">.</span>hset<span class="token punctuation">(</span><span class="token string">'user:1000'</span><span class="token punctuation">,</span> mapping<span class="token operator">=</span><span class="token punctuation">&#123;</span>
+    <span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'John'</span><span class="token punctuation">,</span>
+    <span class="token string">'email'</span><span class="token punctuation">:</span> <span class="token string">'john@example.com'</span><span class="token punctuation">,</span>
+    <span class="token string">'age'</span><span class="token punctuation">:</span> <span class="token number">30</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+user <span class="token operator">=</span> r<span class="token punctuation">.</span>hgetall<span class="token punctuation">(</span><span class="token string">'user:1000'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 列表操作</span>
+r<span class="token punctuation">.</span>lpush<span class="token punctuation">(</span><span class="token string">'tasks'</span><span class="token punctuation">,</span> <span class="token string">'task1'</span><span class="token punctuation">,</span> <span class="token string">'task2'</span><span class="token punctuation">)</span>
+tasks <span class="token operator">=</span> r<span class="token punctuation">.</span>lrange<span class="token punctuation">(</span><span class="token string">'tasks'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 集合操作</span>
+r<span class="token punctuation">.</span>sadd<span class="token punctuation">(</span><span class="token string">'tags'</span><span class="token punctuation">,</span> <span class="token string">'python'</span><span class="token punctuation">,</span> <span class="token string">'redis'</span><span class="token punctuation">,</span> <span class="token string">'database'</span><span class="token punctuation">)</span>
+tags <span class="token operator">=</span> r<span class="token punctuation">.</span>smembers<span class="token punctuation">(</span><span class="token string">'tags'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 有序集合</span>
+r<span class="token punctuation">.</span>zadd<span class="token punctuation">(</span><span class="token string">'scores'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">'Alice'</span><span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+top_scores <span class="token operator">=</span> r<span class="token punctuation">.</span>zrevrange<span class="token punctuation">(</span><span class="token string">'scores'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> withscores<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="使用Redis作为缓存"><a href="#使用Redis作为缓存" class="headerlink" title="使用Redis作为缓存"></a>使用Redis作为缓存</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> redis
+<span class="token keyword">from</span> functools <span class="token keyword">import</span> wraps
+
+r <span class="token operator">=</span> redis<span class="token punctuation">.</span>Redis<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">cache_decorator</span><span class="token punctuation">(</span>expire_time<span class="token operator">=</span><span class="token number">3600</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">decorator</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token decorator annotation punctuation">@wraps</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span>
+        <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            cache_key <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>func<span class="token punctuation">.</span>__name__<span class="token punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">str</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">str</span><span class="token punctuation">(</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+            cached <span class="token operator">=</span> r<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cache_key<span class="token punctuation">)</span>
+            
+            <span class="token keyword">if</span> cached<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>cached<span class="token punctuation">)</span>
+            
+            result <span class="token operator">=</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+            r<span class="token punctuation">.</span>setex<span class="token punctuation">(</span>cache_key<span class="token punctuation">,</span> expire_time<span class="token punctuation">,</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> result
+        <span class="token keyword">return</span> wrapper
+    <span class="token keyword">return</span> decorator
+
+<span class="token decorator annotation punctuation">@cache_decorator</span><span class="token punctuation">(</span>expire_time<span class="token operator">=</span><span class="token number">1800</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">get_user_profile</span><span class="token punctuation">(</span>user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 模拟数据库查询</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"id"</span><span class="token punctuation">:</span> user_id<span class="token punctuation">,</span> <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token string">"email"</span><span class="token punctuation">:</span> <span class="token string">"john@example.com"</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h2><h3 id="1-缓存系统"><a href="#1-缓存系统" class="headerlink" title="1. 缓存系统"></a>1. 缓存系统</h3><ul>
+<li>页面缓存</li>
+<li>数据缓存</li>
+<li>会话缓存</li>
+</ul>
+<h3 id="2-计数器"><a href="#2-计数器" class="headerlink" title="2. 计数器"></a>2. 计数器</h3><ul>
+<li>网站访问量</li>
+<li>点赞数</li>
+<li>库存管理</li>
+</ul>
+<h3 id="3-消息队列"><a href="#3-消息队列" class="headerlink" title="3. 消息队列"></a>3. 消息队列</h3><ul>
+<li>任务队列</li>
+<li>发布订阅</li>
+<li>实时消息</li>
+</ul>
+<h3 id="4-排行榜"><a href="#4-排行榜" class="headerlink" title="4. 排行榜"></a>4. 排行榜</h3><ul>
+<li>游戏排行榜</li>
+<li>热门文章</li>
+<li>用户积分</li>
+</ul>
+<h3 id="5-实时系统"><a href="#5-实时系统" class="headerlink" title="5. 实时系统"></a>5. 实时系统</h3><ul>
+<li>在线用户</li>
+<li>实时统计</li>
+<li>地理位置</li>
+</ul>
+<h2 id="监控与管理"><a href="#监控与管理" class="headerlink" title="监控与管理"></a>监控与管理</h2><h3 id="1-查看统计信息"><a href="#1-查看统计信息" class="headerlink" title="1. 查看统计信息"></a>1. 查看统计信息</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看服务器信息</span>
+INFO server
+
+<span class="token comment"># 查看内存使用</span>
+INFO memory
+
+<span class="token comment"># 查看客户端连接</span>
+INFO clients
+
+<span class="token comment"># 查看统计信息</span>
+INFO stats<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-慢查询分析"><a href="#2-慢查询分析" class="headerlink" title="2. 慢查询分析"></a>2. 慢查询分析</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看慢查询</span>
+SLOWLOG GET <span class="token number">10</span>
+
+<span class="token comment"># 清空慢查询日志</span>
+SLOWLOG RESET<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-内存分析"><a href="#3-内存分析" class="headerlink" title="3. 内存分析"></a>3. 内存分析</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看内存使用</span>
+MEMORY USAGE key
+
+<span class="token comment"># 查看键的编码</span>
+OBJECT ENCODING key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>极高的性能</li>
+<li>丰富的数据结构</li>
+<li>支持持久化</li>
+<li>高可用性</li>
+<li>易于扩展</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>内存消耗大</li>
+<li>单线程模型</li>
+<li>不支持复杂查询</li>
+<li>数据一致性较弱</li>
+</ul>
+<h2 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a>学习资源推荐</h2><ul>
+<li><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://redis.io/documentation">https://redis.io/documentation</a></li>
+<li><strong>在线教程</strong>：Redis Tutorial</li>
+<li><strong>书籍</strong>：《Redis设计与实现》、《Redis实战》</li>
+<li><strong>实践项目</strong>：缓存系统、实时排行榜、消息队列</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Redis作为内存数据库的王者，凭借其极高的性能和丰富的数据结构，在现代应用架构中扮演着重要角色。无论是作为缓存、消息队列还是实时数据处理系统，Redis都能提供出色的性能表现。对于需要高性能、低延迟的应用场景，Redis是不可或缺的技术选择。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="print-no-link">#后端开发</a>
+      
+        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
+      
+        <a href="/tags/%E7%BC%93%E5%AD%98/" class="print-no-link">#缓存</a>
+      
+        <a href="/tags/%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#内存数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91PostgreSQL%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" title="【数据库】PostgreSQL详解：企业级关系型数据库">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【数据库】PostgreSQL详解：企业级关系型数据库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MongoDB%E8%AF%A6%E8%A7%A3%EF%BC%9ANoSQL%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%A2%86%E5%AF%BC%E8%80%85/" title="【数据库】MongoDB详解：NoSQL文档数据库的领导者">
+                        <span class="hidden-mobile">【数据库】MongoDB详解：NoSQL文档数据库的领导者</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

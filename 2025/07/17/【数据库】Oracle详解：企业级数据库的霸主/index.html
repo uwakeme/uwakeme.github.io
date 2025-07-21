@@ -1,0 +1,1165 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="什么是Oracle？Oracle Database是由Oracle公司开发的关系型数据库管理系统（RDBMS），是目前世界上最流行的企业级数据库之一。它以其强大的功能、高可用性、安全性和可扩展性著称，广泛应用于金融、电信、政府、制造等关键业务领域。 核心特性1. 企业级特性 高可用性：RAC（Real Application Clusters）、Data Guard 可扩展性：支持大规模并发用户和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库】Oracle详解：企业级数据库的霸主">
+<meta property="og:url" content="https://uwakeme.top/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Oracle%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9C%B8%E4%B8%BB/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="什么是Oracle？Oracle Database是由Oracle公司开发的关系型数据库管理系统（RDBMS），是目前世界上最流行的企业级数据库之一。它以其强大的功能、高可用性、安全性和可扩展性著称，广泛应用于金融、电信、政府、制造等关键业务领域。 核心特性1. 企业级特性 高可用性：RAC（Real Application Clusters）、Data Guard 可扩展性：支持大规模并发用户和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-17T07:55:00.000Z">
+<meta property="article:modified_time" content="2025-07-17T08:05:38.867Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="后端开发">
+<meta property="article:tag" content="Oracle">
+<meta property="article:tag" content="企业级数据库">
+<meta property="article:tag" content="PL&#x2F;SQL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【数据库】Oracle详解：企业级数据库的霸主 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【数据库】Oracle详解：企业级数据库的霸主"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-17 15:55" pubdate>
+          2025-07-17 15:55
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【数据库】Oracle详解：企业级数据库的霸主</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是Oracle？"><a href="#什么是Oracle？" class="headerlink" title="什么是Oracle？"></a>什么是Oracle？</h2><p>Oracle Database是由Oracle公司开发的关系型数据库管理系统（RDBMS），是目前世界上最流行的企业级数据库之一。它以其强大的功能、高可用性、安全性和可扩展性著称，广泛应用于金融、电信、政府、制造等关键业务领域。</p>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><h3 id="1-企业级特性"><a href="#1-企业级特性" class="headerlink" title="1. 企业级特性"></a>1. 企业级特性</h3><ul>
+<li><strong>高可用性</strong>：RAC（Real Application Clusters）、Data Guard</li>
+<li><strong>可扩展性</strong>：支持大规模并发用户和海量数据</li>
+<li><strong>安全性</strong>：细粒度访问控制、透明数据加密</li>
+<li><strong>性能</strong>：高级优化器、并行处理、分区技术</li>
+</ul>
+<h3 id="2-数据完整性"><a href="#2-数据完整性" class="headerlink" title="2. 数据完整性"></a>2. 数据完整性</h3><ul>
+<li>支持ACID事务</li>
+<li>参照完整性约束</li>
+<li>触发器和存储过程</li>
+<li>多版本并发控制（MVCC）</li>
+</ul>
+<h3 id="3-高级功能"><a href="#3-高级功能" class="headerlink" title="3. 高级功能"></a>3. 高级功能</h3><ul>
+<li>分区表和索引</li>
+<li>物化视图</li>
+<li>高级压缩</li>
+<li>内存数据库（TimesTen）</li>
+</ul>
+<h2 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h2><h3 id="1-物理结构"><a href="#1-物理结构" class="headerlink" title="1. 物理结构"></a>1. 物理结构</h3><figure><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">Oracle实例
+├── 内存结构
+│   ├── SGA（System Global Area）
+│   │   ├── 数据库缓冲区缓存
+│   │   ├── 重做日志缓冲区
+│   │   └── 共享池
+│   └── PGA（Program Global Area）
+└── 后台进程
+    ├── DBWn（数据库写入器）
+    ├── LGWR（日志写入器）
+    ├── CKPT（检查点）
+    └── SMON（系统监视器）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-逻辑结构"><a href="#2-逻辑结构" class="headerlink" title="2. 逻辑结构"></a>2. 逻辑结构</h3><ul>
+<li><strong>表空间（Tablespace）</strong>：数据存储的逻辑单元</li>
+<li><strong>段（Segment）</strong>：表、索引等对象的存储空间</li>
+<li><strong>区（Extent）</strong>：段的存储单元</li>
+<li><strong>数据块（Block）</strong>：最小的I&#x2F;O单元</li>
+</ul>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="1-数据库连接"><a href="#1-数据库连接" class="headerlink" title="1. 数据库连接"></a>1. 数据库连接</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 使用SQL*Plus连接</span>
+sqlplus username<span class="token operator">/</span>password<span class="token variable">@database_service</span>
+
+<span class="token comment">-- 使用SQL Developer连接</span>
+<span class="token comment">-- 配置连接信息：主机、端口、服务名、用户名、密码</span>
+
+<span class="token comment">-- 使用JDBC连接</span>
+<span class="token comment">-- jdbc:oracle:thin:@//host:port/service_name</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-用户管理"><a href="#2-用户管理" class="headerlink" title="2. 用户管理"></a>2. 用户管理</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建用户</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">USER</span> test_user IDENTIFIED <span class="token keyword">BY</span> password
+<span class="token keyword">DEFAULT</span> <span class="token keyword">TABLESPACE</span> users
+<span class="token keyword">TEMPORARY</span> <span class="token keyword">TABLESPACE</span> <span class="token keyword">temp</span>
+QUOTA UNLIMITED <span class="token keyword">ON</span> users<span class="token punctuation">;</span>
+
+<span class="token comment">-- 授权</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">CONNECT</span><span class="token punctuation">,</span> RESOURCE <span class="token keyword">TO</span> test_user<span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">CREATE</span> <span class="token keyword">SESSION</span> <span class="token keyword">TO</span> test_user<span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">TO</span> test_user<span class="token punctuation">;</span>
+
+<span class="token comment">-- 修改用户</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">USER</span> test_user IDENTIFIED <span class="token keyword">BY</span> new_password<span class="token punctuation">;</span>
+
+<span class="token comment">-- 删除用户</span>
+<span class="token keyword">DROP</span> <span class="token keyword">USER</span> test_user <span class="token keyword">CASCADE</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-表空间管理"><a href="#3-表空间管理" class="headerlink" title="3. 表空间管理"></a>3. 表空间管理</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建表空间</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLESPACE</span> test_ts
+DATAFILE <span class="token string">'/u01/app/oracle/oradata/ORCL/test_ts01.dbf'</span>
+SIZE <span class="token number">100</span>M AUTOEXTEND <span class="token keyword">ON</span> <span class="token keyword">NEXT</span> <span class="token number">10</span>M MAXSIZE <span class="token number">2</span>G<span class="token punctuation">;</span>
+
+<span class="token comment">-- 修改表空间</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLESPACE</span> test_ts <span class="token keyword">ADD</span> DATAFILE 
+<span class="token string">'/u01/app/oracle/oradata/ORCL/test_ts02.dbf'</span> SIZE <span class="token number">50</span>M<span class="token punctuation">;</span>
+
+<span class="token comment">-- 删除表空间</span>
+<span class="token keyword">DROP</span> <span class="token keyword">TABLESPACE</span> test_ts INCLUDING CONTENTS <span class="token operator">AND</span> DATAFILES<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="表和索引操作"><a href="#表和索引操作" class="headerlink" title="表和索引操作"></a>表和索引操作</h2><h3 id="1-创建表"><a href="#1-创建表" class="headerlink" title="1. 创建表"></a>1. 创建表</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建基本表</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> employees <span class="token punctuation">(</span>
+    employee_id NUMBER <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    first_name VARCHAR2<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    last_name VARCHAR2<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    email VARCHAR2<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token keyword">UNIQUE</span><span class="token punctuation">,</span>
+    hire_date <span class="token keyword">DATE</span> <span class="token keyword">DEFAULT</span> SYSDATE<span class="token punctuation">,</span>
+    salary NUMBER<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">CHECK</span> <span class="token punctuation">(</span>salary <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    department_id NUMBER<span class="token punctuation">,</span>
+    <span class="token keyword">CONSTRAINT</span> fk_department 
+        <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>department_id<span class="token punctuation">)</span> 
+        <span class="token keyword">REFERENCES</span> departments<span class="token punctuation">(</span>department_id<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建带分区的表</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> sales <span class="token punctuation">(</span>
+    sale_id NUMBER<span class="token punctuation">,</span>
+    sale_date <span class="token keyword">DATE</span><span class="token punctuation">,</span>
+    amount NUMBER<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    region VARCHAR2<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> RANGE <span class="token punctuation">(</span>sale_date<span class="token punctuation">)</span> <span class="token punctuation">(</span>
+    <span class="token keyword">PARTITION</span> sales_q1 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2024-04-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PARTITION</span> sales_q2 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2024-07-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PARTITION</span> sales_q3 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2024-10-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PARTITION</span> sales_q4 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2025-01-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-索引操作"><a href="#2-索引操作" class="headerlink" title="2. 索引操作"></a>2. 索引操作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建B树索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_employees_last_name <span class="token keyword">ON</span> employees<span class="token punctuation">(</span>last_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建唯一索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">UNIQUE</span> <span class="token keyword">INDEX</span> idx_employees_email <span class="token keyword">ON</span> employees<span class="token punctuation">(</span>email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建位图索引（适用于低基数列）</span>
+<span class="token keyword">CREATE</span> BITMAP <span class="token keyword">INDEX</span> idx_employees_dept <span class="token keyword">ON</span> employees<span class="token punctuation">(</span>department_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建函数索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_employees_upper_name <span class="token keyword">ON</span> employees<span class="token punctuation">(</span>UPPER<span class="token punctuation">(</span>first_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建分区索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_sales_date <span class="token keyword">ON</span> sales<span class="token punctuation">(</span>sale_date<span class="token punctuation">)</span> <span class="token keyword">LOCAL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="PL-SQL编程"><a href="#PL-SQL编程" class="headerlink" title="PL&#x2F;SQL编程"></a>PL&#x2F;SQL编程</h2><h3 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1. 基本语法"></a>1. 基本语法</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建存储过程</span>
+<span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">PROCEDURE</span> update_salary<span class="token punctuation">(</span>
+    p_emp_id <span class="token operator">IN</span> NUMBER<span class="token punctuation">,</span>
+    p_increase_pct <span class="token operator">IN</span> NUMBER
+<span class="token punctuation">)</span> <span class="token keyword">AS</span>
+    v_current_salary NUMBER<span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+    <span class="token keyword">SELECT</span> salary <span class="token keyword">INTO</span> v_current_salary
+    <span class="token keyword">FROM</span> employees
+    <span class="token keyword">WHERE</span> employee_id <span class="token operator">=</span> p_emp_id<span class="token punctuation">;</span>
+    
+    <span class="token keyword">UPDATE</span> employees
+    <span class="token keyword">SET</span> salary <span class="token operator">=</span> salary <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">+</span> p_increase_pct<span class="token operator">/</span><span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">WHERE</span> employee_id <span class="token operator">=</span> p_emp_id<span class="token punctuation">;</span>
+    
+    <span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+    
+    DBMS_OUTPUT<span class="token punctuation">.</span>PUT_LINE<span class="token punctuation">(</span><span class="token string">'Salary updated successfully'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+EXCEPTION
+    <span class="token keyword">WHEN</span> NO_DATA_FOUND <span class="token keyword">THEN</span>
+        DBMS_OUTPUT<span class="token punctuation">.</span>PUT_LINE<span class="token punctuation">(</span><span class="token string">'Employee not found'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">WHEN</span> OTHERS <span class="token keyword">THEN</span>
+        DBMS_OUTPUT<span class="token punctuation">.</span>PUT_LINE<span class="token punctuation">(</span><span class="token string">'Error: '</span> <span class="token operator">||</span> SQLERRM<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">ROLLBACK</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span>
+
+<span class="token comment">-- 调用存储过程</span>
+<span class="token keyword">EXEC</span> update_salary<span class="token punctuation">(</span><span class="token number">1001</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2. 函数"></a>2. 函数</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建函数</span>
+<span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">FUNCTION</span> get_employee_name<span class="token punctuation">(</span>
+    p_emp_id <span class="token operator">IN</span> NUMBER
+<span class="token punctuation">)</span> <span class="token keyword">RETURN</span> VARCHAR2 <span class="token operator">IS</span>
+    v_full_name VARCHAR2<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+    <span class="token keyword">SELECT</span> first_name <span class="token operator">||</span> <span class="token string">' '</span> <span class="token operator">||</span> last_name
+    <span class="token keyword">INTO</span> v_full_name
+    <span class="token keyword">FROM</span> employees
+    <span class="token keyword">WHERE</span> employee_id <span class="token operator">=</span> p_emp_id<span class="token punctuation">;</span>
+    
+    <span class="token keyword">RETURN</span> v_full_name<span class="token punctuation">;</span>
+EXCEPTION
+    <span class="token keyword">WHEN</span> NO_DATA_FOUND <span class="token keyword">THEN</span>
+        <span class="token keyword">RETURN</span> <span class="token string">'Employee not found'</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span>
+
+<span class="token comment">-- 使用函数</span>
+<span class="token keyword">SELECT</span> get_employee_name<span class="token punctuation">(</span><span class="token number">1001</span><span class="token punctuation">)</span> <span class="token keyword">FROM</span> dual<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-触发器"><a href="#3-触发器" class="headerlink" title="3. 触发器"></a>3. 触发器</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建触发器</span>
+<span class="token keyword">CREATE</span> <span class="token operator">OR</span> <span class="token keyword">REPLACE</span> <span class="token keyword">TRIGGER</span> trg_employees_audit
+    <span class="token keyword">AFTER</span> <span class="token keyword">INSERT</span> <span class="token operator">OR</span> <span class="token keyword">UPDATE</span> <span class="token operator">OR</span> <span class="token keyword">DELETE</span> <span class="token keyword">ON</span> employees
+    <span class="token keyword">FOR EACH ROW</span>
+<span class="token keyword">DECLARE</span>
+    v_action VARCHAR2<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+    <span class="token keyword">IF</span> INSERTING <span class="token keyword">THEN</span>
+        v_action :<span class="token operator">=</span> <span class="token string">'INSERT'</span><span class="token punctuation">;</span>
+    ELSIF UPDATING <span class="token keyword">THEN</span>
+        v_action :<span class="token operator">=</span> <span class="token string">'UPDATE'</span><span class="token punctuation">;</span>
+    ELSIF DELETING <span class="token keyword">THEN</span>
+        v_action :<span class="token operator">=</span> <span class="token string">'DELETE'</span><span class="token punctuation">;</span>
+    <span class="token keyword">END</span> <span class="token keyword">IF</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> employees_audit <span class="token punctuation">(</span>
+        employee_id<span class="token punctuation">,</span> <span class="token keyword">action</span><span class="token punctuation">,</span> action_date<span class="token punctuation">,</span> old_salary<span class="token punctuation">,</span> new_salary
+    <span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span>
+        :OLD<span class="token punctuation">.</span>employee_id<span class="token punctuation">,</span> v_action<span class="token punctuation">,</span> SYSDATE<span class="token punctuation">,</span> :OLD<span class="token punctuation">.</span>salary<span class="token punctuation">,</span> :NEW<span class="token punctuation">.</span>salary
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="高级查询"><a href="#高级查询" class="headerlink" title="高级查询"></a>高级查询</h2><h3 id="1-分析函数"><a href="#1-分析函数" class="headerlink" title="1. 分析函数"></a>1. 分析函数</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 排名函数</span>
+<span class="token keyword">SELECT</span> employee_id<span class="token punctuation">,</span> first_name<span class="token punctuation">,</span> salary<span class="token punctuation">,</span>
+       RANK<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> salary <span class="token keyword">DESC</span><span class="token punctuation">)</span> <span class="token keyword">as</span> salary_rank<span class="token punctuation">,</span>
+       DENSE_RANK<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> salary <span class="token keyword">DESC</span><span class="token punctuation">)</span> <span class="token keyword">as</span> dense_rank<span class="token punctuation">,</span>
+       ROW_NUMBER<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> salary <span class="token keyword">DESC</span><span class="token punctuation">)</span> <span class="token keyword">as</span> row_num
+<span class="token keyword">FROM</span> employees<span class="token punctuation">;</span>
+
+<span class="token comment">-- 分区分析</span>
+<span class="token keyword">SELECT</span> department_id<span class="token punctuation">,</span> employee_id<span class="token punctuation">,</span> first_name<span class="token punctuation">,</span> salary<span class="token punctuation">,</span>
+       RANK<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> department_id <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> salary <span class="token keyword">DESC</span><span class="token punctuation">)</span> <span class="token keyword">as</span> dept_rank<span class="token punctuation">,</span>
+       <span class="token function">SUM</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> department_id<span class="token punctuation">)</span> <span class="token keyword">as</span> dept_total_salary
+<span class="token keyword">FROM</span> employees<span class="token punctuation">;</span>
+
+<span class="token comment">-- 移动平均</span>
+<span class="token keyword">SELECT</span> employee_id<span class="token punctuation">,</span> hire_date<span class="token punctuation">,</span> salary<span class="token punctuation">,</span>
+       <span class="token function">AVG</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">ORDER</span> <span class="token keyword">BY</span> hire_date <span class="token keyword">ROWS</span> <span class="token operator">BETWEEN</span> <span class="token number">2</span> <span class="token keyword">PRECEDING</span> <span class="token operator">AND</span> <span class="token number">2</span> <span class="token keyword">FOLLOWING</span><span class="token punctuation">)</span> <span class="token keyword">as</span> moving_avg
+<span class="token keyword">FROM</span> employees<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-子查询和集合操作"><a href="#2-子查询和集合操作" class="headerlink" title="2. 子查询和集合操作"></a>2. 子查询和集合操作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 相关子查询</span>
+<span class="token keyword">SELECT</span> e<span class="token punctuation">.</span>employee_id<span class="token punctuation">,</span> e<span class="token punctuation">.</span>first_name<span class="token punctuation">,</span> e<span class="token punctuation">.</span>salary
+<span class="token keyword">FROM</span> employees e
+<span class="token keyword">WHERE</span> e<span class="token punctuation">.</span>salary <span class="token operator">></span> <span class="token punctuation">(</span>
+    <span class="token keyword">SELECT</span> <span class="token function">AVG</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span>
+    <span class="token keyword">FROM</span> employees
+    <span class="token keyword">WHERE</span> department_id <span class="token operator">=</span> e<span class="token punctuation">.</span>department_id
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 集合操作</span>
+<span class="token keyword">SELECT</span> employee_id <span class="token keyword">FROM</span> employees
+<span class="token keyword">UNION</span>
+<span class="token keyword">SELECT</span> manager_id <span class="token keyword">FROM</span> departments<span class="token punctuation">;</span>
+
+<span class="token keyword">SELECT</span> employee_id <span class="token keyword">FROM</span> employees
+<span class="token keyword">INTERSECT</span>
+<span class="token keyword">SELECT</span> manager_id <span class="token keyword">FROM</span> departments<span class="token punctuation">;</span>
+
+<span class="token keyword">SELECT</span> employee_id <span class="token keyword">FROM</span> employees
+MINUS
+<span class="token keyword">SELECT</span> manager_id <span class="token keyword">FROM</span> departments<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="1-执行计划分析"><a href="#1-执行计划分析" class="headerlink" title="1. 执行计划分析"></a>1. 执行计划分析</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 查看执行计划</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">PLAN</span> <span class="token keyword">FOR</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> employees e<span class="token punctuation">,</span> departments d
+<span class="token keyword">WHERE</span> e<span class="token punctuation">.</span>department_id <span class="token operator">=</span> d<span class="token punctuation">.</span>department_id
+<span class="token operator">AND</span> e<span class="token punctuation">.</span>salary <span class="token operator">></span> <span class="token number">5000</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 显示执行计划</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">TABLE</span><span class="token punctuation">(</span>DBMS_XPLAN<span class="token punctuation">.</span>DISPLAY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 使用AUTOTRACE</span>
+<span class="token keyword">SET</span> AUTOTRACE <span class="token keyword">ON</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> employees <span class="token keyword">WHERE</span> department_id <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-索引优化"><a href="#2-索引优化" class="headerlink" title="2. 索引优化"></a>2. 索引优化</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建复合索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_emp_dept_salary <span class="token keyword">ON</span> employees<span class="token punctuation">(</span>department_id<span class="token punctuation">,</span> salary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 索引提示</span>
+<span class="token keyword">SELECT</span> <span class="token comment">/*+ INDEX(employees idx_emp_dept_salary) */</span> <span class="token operator">*</span>
+<span class="token keyword">FROM</span> employees
+<span class="token keyword">WHERE</span> department_id <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 收集统计信息</span>
+<span class="token keyword">BEGIN</span>
+    DBMS_STATS<span class="token punctuation">.</span>GATHER_TABLE_STATS<span class="token punctuation">(</span><span class="token string">'HR'</span><span class="token punctuation">,</span> <span class="token string">'EMPLOYEES'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    DBMS_STATS<span class="token punctuation">.</span>GATHER_INDEX_STATS<span class="token punctuation">(</span><span class="token string">'HR'</span><span class="token punctuation">,</span> <span class="token string">'IDX_EMP_DEPT_SALARY'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-分区优化"><a href="#3-分区优化" class="headerlink" title="3. 分区优化"></a>3. 分区优化</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建分区表</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> sales_range <span class="token punctuation">(</span>
+    sale_id NUMBER<span class="token punctuation">,</span>
+    sale_date <span class="token keyword">DATE</span><span class="token punctuation">,</span>
+    amount NUMBER<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> RANGE <span class="token punctuation">(</span>sale_date<span class="token punctuation">)</span> <span class="token punctuation">(</span>
+    <span class="token keyword">PARTITION</span> p2023 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2024-01-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PARTITION</span> p2024 <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>TO_DATE<span class="token punctuation">(</span><span class="token string">'2025-01-01'</span><span class="token punctuation">,</span> <span class="token string">'YYYY-MM-DD'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">PARTITION</span> pmax <span class="token keyword">VALUES</span> LESS THAN <span class="token punctuation">(</span>MAXVALUE<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 分区查询优化</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> sales_range <span class="token keyword">PARTITION</span> <span class="token punctuation">(</span>p2024<span class="token punctuation">)</span>
+<span class="token keyword">WHERE</span> sale_date <span class="token operator">BETWEEN</span> <span class="token string">'2024-01-01'</span> <span class="token operator">AND</span> <span class="token string">'2024-12-31'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="高可用性"><a href="#高可用性" class="headerlink" title="高可用性"></a>高可用性</h2><h3 id="1-Data-Guard"><a href="#1-Data-Guard" class="headerlink" title="1. Data Guard"></a>1. Data Guard</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 主库配置</span>
+<span class="token keyword">ALTER</span> SYSTEM <span class="token keyword">SET</span> LOG_ARCHIVE_DEST_1<span class="token operator">=</span><span class="token string">'LOCATION=/u01/app/oracle/oradata/ORCL/arch'</span><span class="token punctuation">;</span>
+<span class="token keyword">ALTER</span> SYSTEM <span class="token keyword">SET</span> LOG_ARCHIVE_DEST_2<span class="token operator">=</span><span class="token string">'SERVICE=standby_db LGWR ASYNC'</span><span class="token punctuation">;</span>
+<span class="token keyword">ALTER</span> SYSTEM <span class="token keyword">SET</span> LOG_ARCHIVE_DEST_STATE_2<span class="token operator">=</span><span class="token keyword">ENABLE</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建备用库</span>
+RMAN<span class="token operator">></span> <span class="token keyword">DUPLICATE</span> TARGET <span class="token keyword">DATABASE</span> <span class="token keyword">FOR</span> STANDBY <span class="token keyword">FROM</span> ACTIVE <span class="token keyword">DATABASE</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-RAC配置"><a href="#2-RAC配置" class="headerlink" title="2. RAC配置"></a>2. RAC配置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装Grid Infrastructure</span>
+<span class="token comment"># 配置共享存储</span>
+<span class="token comment"># 创建集群数据库</span>
+srvctl <span class="token function">add</span> database <span class="token parameter variable">-d</span> orcl <span class="token parameter variable">-o</span> /u01/app/oracle/product/19c/dbhome_1
+srvctl start database <span class="token parameter variable">-d</span> orcl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="安全管理"><a href="#安全管理" class="headerlink" title="安全管理"></a>安全管理</h2><h3 id="1-权限管理"><a href="#1-权限管理" class="headerlink" title="1. 权限管理"></a>1. 权限管理</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建角色</span>
+<span class="token keyword">CREATE</span> ROLE hr_manager<span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">SELECT</span><span class="token punctuation">,</span> <span class="token keyword">INSERT</span><span class="token punctuation">,</span> <span class="token keyword">UPDATE</span><span class="token punctuation">,</span> <span class="token keyword">DELETE</span> <span class="token keyword">ON</span> employees <span class="token keyword">TO</span> hr_manager<span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">SELECT</span> <span class="token keyword">ON</span> departments <span class="token keyword">TO</span> hr_manager<span class="token punctuation">;</span>
+
+<span class="token comment">-- 授予角色给用户</span>
+<span class="token keyword">GRANT</span> hr_manager <span class="token keyword">TO</span> john_doe<span class="token punctuation">;</span>
+
+<span class="token comment">-- 细粒度访问控制</span>
+<span class="token keyword">BEGIN</span>
+    DBMS_RLS<span class="token punctuation">.</span>ADD_POLICY<span class="token punctuation">(</span>
+        object_schema <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'HR'</span><span class="token punctuation">,</span>
+        object_name <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'EMPLOYEES'</span><span class="token punctuation">,</span>
+        policy_name <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'EMP_DEPT_POLICY'</span><span class="token punctuation">,</span>
+        function_schema <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'HR'</span><span class="token punctuation">,</span>
+        policy_function <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'EMP_DEPT_FUNCTION'</span><span class="token punctuation">,</span>
+        statement_types <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'SELECT, UPDATE, DELETE'</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">END</span><span class="token punctuation">;</span>
+<span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-数据加密"><a href="#2-数据加密" class="headerlink" title="2. 数据加密"></a>2. 数据加密</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 透明数据加密</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> employees <span class="token keyword">MODIFY</span> <span class="token punctuation">(</span>salary ENCRYPT <span class="token keyword">USING</span> <span class="token string">'AES256'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 创建加密列</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> sensitive_data <span class="token punctuation">(</span>
+    id NUMBER <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+    credit_card VARCHAR2<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span> ENCRYPT<span class="token punctuation">,</span>
+    ssn VARCHAR2<span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> ENCRYPT
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="备份与恢复"><a href="#备份与恢复" class="headerlink" title="备份与恢复"></a>备份与恢复</h2><h3 id="1-RMAN备份"><a href="#1-RMAN备份" class="headerlink" title="1. RMAN备份"></a>1. RMAN备份</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 连接到RMAN</span>
+rman target /
+
+<span class="token comment"># 全库备份</span>
+RMAN<span class="token operator">></span> BACKUP DATABASE PLUS ARCHIVELOG<span class="token punctuation">;</span>
+
+<span class="token comment"># 增量备份</span>
+RMAN<span class="token operator">></span> BACKUP INCREMENTAL LEVEL <span class="token number">1</span> DATABASE<span class="token punctuation">;</span>
+
+<span class="token comment"># 表空间备份</span>
+RMAN<span class="token operator">></span> BACKUP TABLESPACE <span class="token function">users</span><span class="token punctuation">;</span>
+
+<span class="token comment"># 恢复数据库</span>
+RMAN<span class="token operator">></span> RESTORE DATABASE<span class="token punctuation">;</span>
+RMAN<span class="token operator">></span> RECOVER DATABASE<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-逻辑备份"><a href="#2-逻辑备份" class="headerlink" title="2. 逻辑备份"></a>2. 逻辑备份</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用Data Pump导出</span>
+expdp hr/hr@orcl <span class="token assign-left variable">schemas</span><span class="token operator">=</span>hr <span class="token assign-left variable">directory</span><span class="token operator">=</span>DATA_PUMP_DIR <span class="token assign-left variable">dumpfile</span><span class="token operator">=</span>hr_backup.dmp <span class="token assign-left variable">logfile</span><span class="token operator">=</span>hr_export.log
+
+<span class="token comment"># 使用Data Pump导入</span>
+impdp hr/hr@orcl <span class="token assign-left variable">schemas</span><span class="token operator">=</span>hr <span class="token assign-left variable">directory</span><span class="token operator">=</span>DATA_PUMP_DIR <span class="token assign-left variable">dumpfile</span><span class="token operator">=</span>hr_backup.dmp <span class="token assign-left variable">logfile</span><span class="token operator">=</span>hr_import.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="与Java集成"><a href="#与Java集成" class="headerlink" title="与Java集成"></a>与Java集成</h2><h3 id="1-JDBC连接"><a href="#1-JDBC连接" class="headerlink" title="1. JDBC连接"></a>1. JDBC连接</h3><figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OracleConnection</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span> url <span class="token operator">=</span> <span class="token string">"jdbc:oracle:thin:@//localhost:1521/orcl"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> user <span class="token operator">=</span> <span class="token string">"hr"</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> password <span class="token operator">=</span> <span class="token string">"hr"</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token class-name">Connection</span> conn <span class="token operator">=</span> <span class="token class-name">DriverManager</span><span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">String</span> sql <span class="token operator">=</span> <span class="token string">"SELECT employee_id, first_name, salary FROM employees WHERE ROWNUM &lt;= 10"</span><span class="token punctuation">;</span>
+            
+            <span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token class-name">PreparedStatement</span> stmt <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">prepareStatement</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 <span class="token class-name">ResultSet</span> rs <span class="token operator">=</span> stmt<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                
+                <span class="token keyword">while</span> <span class="token punctuation">(</span>rs<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ID: "</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span><span class="token string">"employee_id"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                                     <span class="token string">", Name: "</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span><span class="token string">"first_name"</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                                     <span class="token string">", Salary: "</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span><span class="token function">getBigDecimal</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">SQLException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-连接池配置"><a href="#2-连接池配置" class="headerlink" title="2. 连接池配置"></a>2. 连接池配置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- context.xml --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Resource</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>jdbc/oracle<span class="token punctuation">"</span></span>
+          <span class="token attr-name">auth</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Container<span class="token punctuation">"</span></span>
+          <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>javax.sql.DataSource<span class="token punctuation">"</span></span>
+          <span class="token attr-name">driverClassName</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oracle.jdbc.OracleDriver<span class="token punctuation">"</span></span>
+          <span class="token attr-name">url</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>jdbc:oracle:thin:@//localhost:1521/orcl<span class="token punctuation">"</span></span>
+          <span class="token attr-name">username</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hr<span class="token punctuation">"</span></span>
+          <span class="token attr-name">password</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hr<span class="token punctuation">"</span></span>
+          <span class="token attr-name">maxActive</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>20<span class="token punctuation">"</span></span>
+          <span class="token attr-name">maxIdle</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>10<span class="token punctuation">"</span></span>
+          <span class="token attr-name">maxWait</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>-1<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h2><ol>
+<li><strong>金融行业</strong>：银行核心系统、证券交易系统</li>
+<li><strong>电信行业</strong>：计费系统、客户关系管理</li>
+<li><strong>政府系统</strong>：人口管理、税务系统</li>
+<li><strong>制造业</strong>：ERP系统、供应链管理</li>
+<li><strong>医疗行业</strong>：电子病历、医院信息系统</li>
+</ol>
+<h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>功能最完整的企业级数据库</li>
+<li>极高的可靠性和稳定性</li>
+<li>强大的PL&#x2F;SQL编程能力</li>
+<li>完善的高可用解决方案</li>
+<li>优秀的性能优化工具</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>商业授权费用昂贵</li>
+<li>系统资源消耗大</li>
+<li>管理复杂度高</li>
+<li>学习曲线陡峭</li>
+</ul>
+<h2 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a>学习资源推荐</h2><ul>
+<li><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/database/">https://docs.oracle.com/en/database/</a></li>
+<li><strong>认证考试</strong>：Oracle OCP认证</li>
+<li><strong>书籍</strong>：《Oracle Database 19c完全参考手册》、《Oracle性能优化艺术》</li>
+<li><strong>实践项目</strong>：企业级ERP系统、金融交易平台</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Oracle作为企业级数据库的霸主，凭借其无与伦比的功能完整性、可靠性和性能，成为大型企业和关键业务系统的首选。虽然成本较高，但对于需要处理海量数据、高并发访问和复杂业务逻辑的企业级应用，Oracle仍然是最佳选择。掌握Oracle对于数据库管理员和企业级开发者来说是必备技能。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="print-no-link">#后端开发</a>
+      
+        <a href="/tags/Oracle/" class="print-no-link">#Oracle</a>
+      
+        <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#企业级数据库</a>
+      
+        <a href="/tags/PL-SQL/" class="print-no-link">#PL/SQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E8%BE%BE%E6%A2%A6%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%9B%BD%E4%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%A2%86%E5%86%9B%E8%80%85/" title="【数据库】达梦数据库详解：国产数据库的领军者">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【数据库】达梦数据库详解：国产数据库的领军者</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91PostgreSQL%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" title="【数据库】PostgreSQL详解：企业级关系型数据库">
+                        <span class="hidden-mobile">【数据库】PostgreSQL详解：企业级关系型数据库</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

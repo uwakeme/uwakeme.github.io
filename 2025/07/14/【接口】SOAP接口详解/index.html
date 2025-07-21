@@ -1,0 +1,1401 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】SOAP接口详解">
+<meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-14T08:45:04.518Z">
+<meta property="article:modified_time" content="2025-07-14T08:45:04.518Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="接口">
+<meta property="article:tag" content="SOAP">
+<meta property="article:tag" content="Web服务">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【接口】SOAP接口详解 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【接口】SOAP接口详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-14 16:45" pubdate>
+          2025-07-14 16:45
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【接口】SOAP接口详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="【接口】SOAP接口详解"><a href="#【接口】SOAP接口详解" class="headerlink" title="【接口】SOAP接口详解"></a>【接口】SOAP接口详解</h1><h2 id="一、SOAP概述"><a href="#一、SOAP概述" class="headerlink" title="一、SOAP概述"></a>一、SOAP概述</h2><h3 id="（一）SOAP的定义"><a href="#（一）SOAP的定义" class="headerlink" title="（一）SOAP的定义"></a>（一）SOAP的定义</h3><p>SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。</p>
+<p>SOAP是Web服务技术栈的核心组件之一，与WSDL（Web服务描述语言）和UDDI（通用描述、发现与集成）一起构成了传统Web服务的基础。</p>
+<h3 id="（二）SOAP的主要特点"><a href="#（二）SOAP的主要特点" class="headerlink" title="（二）SOAP的主要特点"></a>（二）SOAP的主要特点</h3><ol>
+<li><strong>平台独立性</strong>：SOAP可以在任何支持XML和HTTP的平台上运行，实现跨平台通信</li>
+<li><strong>语言独立性</strong>：支持各种编程语言，如Java、C#、Python等</li>
+<li><strong>基于标准</strong>：建立在XML、HTTP等广泛接受的标准之上</li>
+<li><strong>可扩展性</strong>：通过WS-*规范族支持各种高级功能</li>
+<li><strong>严格的类型系统</strong>：支持复杂数据类型的传输和验证</li>
+<li><strong>内置错误处理</strong>：提供标准化的错误处理机制</li>
+<li><strong>传输协议灵活性</strong>：虽然通常使用HTTP，但也可以使用SMTP、TCP等协议</li>
+</ol>
+<h3 id="（三）SOAP与Web服务"><a href="#（三）SOAP与Web服务" class="headerlink" title="（三）SOAP与Web服务"></a>（三）SOAP与Web服务</h3><p>SOAP是实现Web服务的主要协议之一。Web服务是一种软件系统，设计用来支持不同机器之间通过网络的互操作性交互。在SOAP Web服务架构中：</p>
+<ol>
+<li><strong>服务提供者</strong>：实现并发布Web服务</li>
+<li><strong>服务注册中心</strong>：提供Web服务的注册和发现功能（通常使用UDDI）</li>
+<li><strong>服务请求者</strong>：调用Web服务的客户端应用</li>
+</ol>
+<p>SOAP Web服务的工作流程：</p>
+<ol>
+<li>服务提供者使用WSDL描述Web服务</li>
+<li>服务提供者将服务注册到服务注册中心（可选）</li>
+<li>服务请求者发现Web服务</li>
+<li>服务请求者和提供者通过SOAP消息交换数据</li>
+</ol>
+<h2 id="二、SOAP消息结构"><a href="#二、SOAP消息结构" class="headerlink" title="二、SOAP消息结构"></a>二、SOAP消息结构</h2><h3 id="（一）SOAP消息基本结构"><a href="#（一）SOAP消息基本结构" class="headerlink" title="（一）SOAP消息基本结构"></a>（一）SOAP消息基本结构</h3><p>SOAP消息是一个XML文档，由以下部分组成：</p>
+<ol>
+<li><strong>SOAP信封（Envelope）</strong>：必需，定义XML文档为SOAP消息</li>
+<li><strong>SOAP头部（Header）</strong>：可选，包含应用特定信息（如认证、事务等）</li>
+<li><strong>SOAP主体（Body）</strong>：必需，包含要交换的实际消息内容</li>
+<li><strong>SOAP故障（Fault）</strong>：可选，提供错误信息</li>
+</ol>
+<p>基本结构示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Envelope</span> 
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>soap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2003/05/soap-envelope<span class="token punctuation">"</span></span> 
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 头部信息 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 消息内容 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Envelope</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）SOAP信封（Envelope）"><a href="#（二）SOAP信封（Envelope）" class="headerlink" title="（二）SOAP信封（Envelope）"></a>（二）SOAP信封（Envelope）</h3><p>SOAP信封是SOAP消息的根元素，定义了XML命名空间和编码规则：</p>
+<ol>
+<li><p><strong>必须使用正确的命名空间</strong>：</p>
+<ul>
+<li>SOAP 1.1：<code>http://schemas.xmlsoap.org/soap/envelope/</code></li>
+<li>SOAP 1.2：<code>http://www.w3.org/2003/05/soap-envelope</code></li>
+</ul>
+</li>
+<li><p><strong>不能包含DTD引用</strong></p>
+</li>
+<li><p><strong>必须包含Body元素</strong></p>
+</li>
+</ol>
+<h3 id="（三）SOAP头部（Header）"><a href="#（三）SOAP头部（Header）" class="headerlink" title="（三）SOAP头部（Header）"></a>（三）SOAP头部（Header）</h3><p>SOAP头部包含辅助应用处理SOAP消息的信息，如安全凭证、事务ID等：</p>
+<ol>
+<li><p><strong>可选元素</strong>：头部不是必需的，但如果存在，必须是Envelope的第一个子元素</p>
+</li>
+<li><p><strong>常见头部属性</strong>：</p>
+<ul>
+<li><code>soap:mustUnderstand</code>：接收方必须理解并处理该头部</li>
+<li><code>soap:actor/role</code>：指定头部的目标接收者</li>
+<li><code>soap:encodingStyle</code>：定义消息中使用的数据类型编码规则</li>
+</ul>
+</li>
+</ol>
+<p>示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">auth:</span>Credentials</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>auth</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.org/auth<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">auth:</span>Username</span><span class="token punctuation">></span></span>john<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">auth:</span>Username</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">auth:</span>Password</span><span class="token punctuation">></span></span>password123<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">auth:</span>Password</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">auth:</span>Token</span> <span class="token attr-name"><span class="token namespace">soap:</span>mustUnderstand</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>ABC123XYZ<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">auth:</span>Token</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">auth:</span>Credentials</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）SOAP主体（Body）"><a href="#（四）SOAP主体（Body）" class="headerlink" title="（四）SOAP主体（Body）"></a>（四）SOAP主体（Body）</h3><p>SOAP主体包含实际要交换的消息内容，可以是请求、响应或错误信息：</p>
+<ol>
+<li><p><strong>必需元素</strong>：每个SOAP消息必须包含Body元素</p>
+</li>
+<li><p><strong>包含实际数据</strong>：业务数据、方法调用、返回值等</p>
+</li>
+<li><p><strong>可以包含Fault元素</strong>：用于错误报告</p>
+</li>
+</ol>
+<p>示例（方法调用）：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>GetStockPrice</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>m</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.org/stock<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>StockName</span><span class="token punctuation">></span></span>IBM<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>StockName</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>GetStockPrice</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>示例（方法响应）：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>GetStockPriceResponse</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>m</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.org/stock<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">m:</span>Price</span><span class="token punctuation">></span></span>134.75<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>Price</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">m:</span>GetStockPriceResponse</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（五）SOAP故障（Fault）"><a href="#（五）SOAP故障（Fault）" class="headerlink" title="（五）SOAP故障（Fault）"></a>（五）SOAP故障（Fault）</h3><p>SOAP故障用于传输错误信息，只能出现在Body元素中，且一个Body中最多只能有一个Fault元素：</p>
+<ol>
+<li><p><strong>SOAP 1.1 Fault结构</strong>：</p>
+<ul>
+<li><code>faultcode</code>：错误代码（如Client、Server）</li>
+<li><code>faultstring</code>：人类可读的错误描述</li>
+<li><code>faultactor</code>：指示错误发生位置（可选）</li>
+<li><code>detail</code>：应用特定错误信息（可选）</li>
+</ul>
+</li>
+<li><p><strong>SOAP 1.2 Fault结构</strong>：</p>
+<ul>
+<li><code>Code</code>：包含错误代码</li>
+<li><code>Reason</code>：人类可读的错误描述</li>
+<li><code>Node</code>：指示错误发生位置（可选）</li>
+<li><code>Role</code>：指示错误发生时的角色（可选）</li>
+<li><code>Detail</code>：应用特定错误信息（可选）</li>
+</ul>
+</li>
+</ol>
+<p>SOAP 1.2故障示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Fault</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Code</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Value</span><span class="token punctuation">></span></span>soap:Sender<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Value</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Subcode</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Value</span><span class="token punctuation">></span></span>rpc:BadArguments<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Value</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Subcode</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Code</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Reason</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Text</span> <span class="token attr-name"><span class="token namespace">xml:</span>lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Processing error<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Text</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Reason</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Detail</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">e:</span>myError</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>e</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.org/faults<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">e:</span>message</span><span class="token punctuation">></span></span>Invalid stock name specified<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">e:</span>message</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">e:</span>errorcode</span><span class="token punctuation">></span></span>999<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">e:</span>errorcode</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">e:</span>myError</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Detail</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Fault</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="三、WSDL（Web服务描述语言）"><a href="#三、WSDL（Web服务描述语言）" class="headerlink" title="三、WSDL（Web服务描述语言）"></a>三、WSDL（Web服务描述语言）</h2><h3 id="（一）WSDL概述"><a href="#（一）WSDL概述" class="headerlink" title="（一）WSDL概述"></a>（一）WSDL概述</h3><p>WSDL（Web Services Description Language）是一种XML格式，用于描述Web服务的功能及其调用方式。它作为SOAP Web服务的”接口契约”，定义了服务提供的操作、消息格式、数据类型和通信协议细节。</p>
+<p>WSDL文档使客户端能够自动生成调用Web服务所需的代码，简化了服务集成过程。</p>
+<h3 id="（二）WSDL文档结构"><a href="#（二）WSDL文档结构" class="headerlink" title="（二）WSDL文档结构"></a>（二）WSDL文档结构</h3><p>WSDL 1.1（最常用版本）文档包含以下主要元素：</p>
+<ol>
+<li><p><strong>定义（definitions）</strong>：根元素，包含命名空间声明和其他所有元素</p>
+</li>
+<li><p><strong>类型（types）</strong>：定义消息中使用的数据类型，通常使用XML Schema</p>
+</li>
+<li><p><strong>消息（message）</strong>：定义交换的数据，包括请求和响应消息</p>
+</li>
+<li><p><strong>端口类型（portType）</strong>：定义Web服务提供的操作（类似于接口）</p>
+</li>
+<li><p><strong>绑定（binding）</strong>：指定操作的具体协议和数据格式</p>
+</li>
+<li><p><strong>服务（service）</strong>：指定服务的位置（端点地址）</p>
+</li>
+</ol>
+<p>WSDL示例（简化版）：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>definitions</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuote<span class="token punctuation">"</span></span>
+             <span class="token attr-name">targetNamespace</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote.wsdl<span class="token punctuation">"</span></span>
+             <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/wsdl/<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>soap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/wsdl/soap/<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>tns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote.wsdl<span class="token punctuation">"</span></span>
+             <span class="token attr-name"><span class="token namespace">xmlns:</span>xsd</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 数据类型定义 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>types</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>schema</span> <span class="token attr-name">targetNamespace</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>element</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>TradePriceRequest<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>complexType</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>all</span><span class="token punctuation">></span></span>
+                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>element</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tickerSymbol<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xsd:string<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>all</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>complexType</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>element</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>element</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>TradePrice<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>complexType</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>all</span><span class="token punctuation">></span></span>
+                        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xsd:</span>element</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>price<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xsd:float<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>all</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>complexType</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>element</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xsd:</span>schema</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>types</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 消息定义 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>message</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetLastTradePriceInput<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>part</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>body<span class="token punctuation">"</span></span> <span class="token attr-name">element</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:TradePriceRequest<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>message</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>message</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetLastTradePriceOutput<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>part</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>body<span class="token punctuation">"</span></span> <span class="token attr-name">element</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:TradePrice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>message</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 端口类型定义 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>portType</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuotePortType<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>operation</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetLastTradePrice<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">message</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:GetLastTradePriceInput<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>output</span> <span class="token attr-name">message</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:GetLastTradePriceOutput<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>operation</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>portType</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 绑定定义 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>binding</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuoteSoapBinding<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:StockQuotePortType<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>binding</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css">document</span><span class="token punctuation">"</span></span></span> <span class="token attr-name">transport</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/soap/http<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>operation</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>GetLastTradePrice<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>operation</span> <span class="token attr-name">soapAction</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/GetLastTradePrice<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>body</span> <span class="token attr-name">use</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>literal<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>input</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>output</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>body</span> <span class="token attr-name">use</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>literal<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>output</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>operation</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>binding</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 服务定义 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>service</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuoteService<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>documentation</span><span class="token punctuation">></span></span>My first service<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>documentation</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>port</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>StockQuotePort<span class="token punctuation">"</span></span> <span class="token attr-name">binding</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tns:StockQuoteSoapBinding<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>address</span> <span class="token attr-name">location</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://example.com/stockquote<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>port</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>service</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>definitions</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）WSDL绑定样式"><a href="#（三）WSDL绑定样式" class="headerlink" title="（三）WSDL绑定样式"></a>（三）WSDL绑定样式</h3><p>WSDL定义了两种主要的绑定样式：</p>
+<ol>
+<li><p><strong>RPC样式（Remote Procedure Call）</strong>：</p>
+<ul>
+<li>强调方法调用</li>
+<li>操作名称成为SOAP Body的子元素</li>
+<li>参数作为该元素的子元素</li>
+<li>通常与编码使用（encoded）结合</li>
+</ul>
+</li>
+<li><p><strong>文档样式（Document）</strong>：</p>
+<ul>
+<li>强调消息交换</li>
+<li>SOAP Body直接包含XML文档</li>
+<li>更灵活，允许任意XML内容</li>
+<li>通常与文字使用（literal）结合</li>
+</ul>
+</li>
+</ol>
+<p>绑定样式和使用的常见组合：</p>
+<ul>
+<li><strong>Document&#x2F;Literal</strong>：最常用，WS-I推荐</li>
+<li><strong>RPC&#x2F;Encoded</strong>：早期常用，现已不推荐</li>
+<li><strong>Document&#x2F;Literal Wrapped</strong>：Document&#x2F;Literal的变体，结合RPC和Document的优点</li>
+</ul>
+<h2 id="四、SOAP-Web服务实现"><a href="#四、SOAP-Web服务实现" class="headerlink" title="四、SOAP Web服务实现"></a>四、SOAP Web服务实现</h2><h3 id="（一）服务器端实现"><a href="#（一）服务器端实现" class="headerlink" title="（一）服务器端实现"></a>（一）服务器端实现</h3><p>不同平台和语言实现SOAP Web服务的方法：</p>
+<ol>
+<li><p><strong>Java平台</strong>：</p>
+<ul>
+<li>JAX-WS（Java API for XML Web Services）</li>
+<li>Apache Axis2</li>
+<li>Spring WS</li>
+</ul>
+</li>
+<li><p><strong>.NET平台</strong>：</p>
+<ul>
+<li>WCF（Windows Communication Foundation）</li>
+<li>ASP.NET Web Services</li>
+<li>.NET Core gRPC-Web</li>
+</ul>
+</li>
+<li><p><strong>PHP</strong>：</p>
+<ul>
+<li>PHP SOAP扩展</li>
+<li>NuSOAP库</li>
+</ul>
+</li>
+</ol>
+<p>Java JAX-WS示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 定义Web服务接口</span>
+<span class="token annotation punctuation">@WebService</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">StockQuoteService</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@WebMethod</span>
+    <span class="token keyword">double</span> <span class="token function">getLastTradePrice</span><span class="token punctuation">(</span><span class="token annotation punctuation">@WebParam</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tickerSymbol"</span><span class="token punctuation">)</span> <span class="token class-name">String</span> symbol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 实现Web服务</span>
+<span class="token annotation punctuation">@WebService</span><span class="token punctuation">(</span>endpointInterface <span class="token operator">=</span> <span class="token string">"com.example.StockQuoteService"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StockQuoteServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">StockQuoteService</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">double</span> <span class="token function">getLastTradePrice</span><span class="token punctuation">(</span><span class="token class-name">String</span> symbol<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 实际业务逻辑</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">"IBM"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>symbol<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token number">134.75</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 发布Web服务</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StockQuotePublisher</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Endpoint</span><span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8080/stockquote"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">StockQuoteServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Service started at http://localhost:8080/stockquote"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）客户端实现"><a href="#（二）客户端实现" class="headerlink" title="（二）客户端实现"></a>（二）客户端实现</h3><p>调用SOAP Web服务的方法：</p>
+<ol>
+<li><p><strong>使用生成的客户端代码</strong>：</p>
+<ul>
+<li>从WSDL自动生成客户端代码</li>
+<li>最常用、最简单的方法</li>
+</ul>
+</li>
+<li><p><strong>动态调用</strong>：</p>
+<ul>
+<li>在运行时构建SOAP消息</li>
+<li>适用于需要灵活性的场景</li>
+</ul>
+</li>
+<li><p><strong>HTTP客户端</strong>：</p>
+<ul>
+<li>手动构建SOAP消息并使用HTTP客户端发送</li>
+<li>适用于简单场景或不支持SOAP的平台</li>
+</ul>
+</li>
+</ol>
+<p>Java JAX-WS客户端示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 使用wsimport工具从WSDL生成客户端代码后</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StockQuoteClient</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 创建服务</span>
+        <span class="token class-name">StockQuoteService_Service</span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StockQuoteService_Service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// 获取端口</span>
+        <span class="token class-name">StockQuoteService</span> port <span class="token operator">=</span> service<span class="token punctuation">.</span><span class="token function">getStockQuoteServicePort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// 调用服务</span>
+        <span class="token class-name">String</span> symbol <span class="token operator">=</span> <span class="token string">"IBM"</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> price <span class="token operator">=</span> port<span class="token punctuation">.</span><span class="token function">getLastTradePrice</span><span class="token punctuation">(</span>symbol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Price for "</span> <span class="token operator">+</span> symbol <span class="token operator">+</span> <span class="token string">": "</span> <span class="token operator">+</span> price<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）SOAP-Web服务安全"><a href="#（三）SOAP-Web服务安全" class="headerlink" title="（三）SOAP Web服务安全"></a>（三）SOAP Web服务安全</h3><p>SOAP提供了多种安全机制，主要通过WS-Security规范族实现：</p>
+<ol>
+<li><p><strong>消息级安全</strong>：</p>
+<ul>
+<li>XML签名：确保消息完整性和认证</li>
+<li>XML加密：保护敏感数据</li>
+<li>安全令牌：提供身份验证</li>
+</ul>
+</li>
+<li><p><strong>传输级安全</strong>：</p>
+<ul>
+<li>HTTPS：提供点对点加密</li>
+<li>HTTP认证：基本认证或摘要认证</li>
+</ul>
+</li>
+<li><p><strong>WS-Security扩展</strong>：</p>
+<ul>
+<li>WS-Trust：安全令牌交换</li>
+<li>WS-SecureConversation：建立安全会话</li>
+<li>WS-Policy：定义安全策略</li>
+</ul>
+</li>
+</ol>
+<p>WS-Security示例：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Envelope</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>soap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://schemas.xmlsoap.org/soap/envelope/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsse:</span>Security</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>wsse</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token comment">&lt;!-- 用户名令牌 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsse:</span>UsernameToken</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsse:</span>Username</span><span class="token punctuation">></span></span>john<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsse:</span>Username</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsse:</span>Password</span> <span class="token attr-name">Type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsse:</span>Password</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsse:</span>UsernameToken</span><span class="token punctuation">></span></span>
+            
+            <span class="token comment">&lt;!-- 时间戳 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsu:</span>Timestamp</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>wsu</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsu:</span>Created</span><span class="token punctuation">></span></span>2023-06-15T09:30:10Z<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsu:</span>Created</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">wsu:</span>Expires</span><span class="token punctuation">></span></span>2023-06-15T09:35:10Z<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsu:</span>Expires</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsu:</span>Timestamp</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">wsse:</span>Security</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Header</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- 消息内容 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">soap:</span>Envelope</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="五、SOAP高级特性"><a href="#五、SOAP高级特性" class="headerlink" title="五、SOAP高级特性"></a>五、SOAP高级特性</h2><h3 id="（一）WS-规范族"><a href="#（一）WS-规范族" class="headerlink" title="（一）WS-*规范族"></a>（一）WS-*规范族</h3><p>SOAP Web服务有一系列扩展规范，统称为WS-*规范族，提供了各种高级功能：</p>
+<ol>
+<li><p><strong>WS-Addressing</strong>：</p>
+<ul>
+<li>提供端到端消息寻址能力</li>
+<li>支持异步消息传递</li>
+<li>与传输协议无关的消息路由</li>
+</ul>
+</li>
+<li><p><strong>WS-ReliableMessaging</strong>：</p>
+<ul>
+<li>确保消息可靠传递</li>
+<li>支持消息排序</li>
+<li>消息传递保证（至少一次、最多一次、恰好一次）</li>
+</ul>
+</li>
+<li><p><strong>WS-Coordination和WS-AtomicTransaction</strong>：</p>
+<ul>
+<li>支持分布式事务</li>
+<li>两阶段提交协议</li>
+<li>跨服务的事务一致性</li>
+</ul>
+</li>
+<li><p><strong>WS-Policy</strong>：</p>
+<ul>
+<li>定义Web服务的策略和要求</li>
+<li>与WSDL结合使用</li>
+<li>描述安全、可靠性等非功能性需求</li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）SOAP与RESTful服务的对比"><a href="#（二）SOAP与RESTful服务的对比" class="headerlink" title="（二）SOAP与RESTful服务的对比"></a>（二）SOAP与RESTful服务的对比</h3><p>SOAP和REST是两种主要的Web服务实现方法，各有优缺点：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>SOAP</th>
+<th>REST</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>可以使用多种协议（通常是HTTP）</td>
+<td>基于HTTP</td>
+</tr>
+<tr>
+<td>消息格式</td>
+<td>仅XML</td>
+<td>多种格式（通常是JSON）</td>
+</tr>
+<tr>
+<td>带宽使用</td>
+<td>较重，需要更多带宽</td>
+<td>轻量级，较少带宽</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>难以缓存</td>
+<td>可缓存</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>内置安全标准（WS-Security）</td>
+<td>依赖HTTPS和认证机制</td>
+</tr>
+<tr>
+<td>事务支持</td>
+<td>支持（WS-AtomicTransaction）</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>支持有状态和无状态操作</td>
+<td>无状态</td>
+</tr>
+<tr>
+<td>学习曲线</td>
+<td>较为复杂</td>
+<td>相对简单</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>企业集成、需要高安全性的场景</td>
+<td>公共API、移动应用、Web应用</td>
+</tr>
+</tbody></table>
+<h3 id="（三）SOAP的优缺点"><a href="#（三）SOAP的优缺点" class="headerlink" title="（三）SOAP的优缺点"></a>（三）SOAP的优缺点</h3><p><strong>优点：</strong></p>
+<ol>
+<li><strong>强类型系统</strong>：严格的数据类型定义，减少错误</li>
+<li><strong>语言和平台无关</strong>：支持多种编程语言和平台</li>
+<li><strong>内置错误处理</strong>：标准化的错误报告机制</li>
+<li><strong>企业级功能</strong>：事务、安全、可靠消息传递等</li>
+<li><strong>成熟的工具支持</strong>：自动代码生成、测试工具等</li>
+<li><strong>严格的标准</strong>：W3C标准，确保互操作性</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li><strong>复杂性</strong>：学习曲线陡峭，实现和维护成本高</li>
+<li><strong>性能开销</strong>：XML解析和处理开销大</li>
+<li><strong>带宽使用</strong>：消息体积较大，消耗更多网络资源</li>
+<li><strong>不适合移动应用</strong>：对资源受限设备不友好</li>
+<li><strong>开发效率低</strong>：需要更多代码和配置</li>
+<li><strong>缺乏灵活性</strong>：变更接口需要更新WSDL和客户端代码</li>
+</ol>
+<h2 id="六、SOAP实践案例"><a href="#六、SOAP实践案例" class="headerlink" title="六、SOAP实践案例"></a>六、SOAP实践案例</h2><h3 id="（一）企业应用集成"><a href="#（一）企业应用集成" class="headerlink" title="（一）企业应用集成"></a>（一）企业应用集成</h3><p>SOAP在企业应用集成（EAI）中的应用：</p>
+<ol>
+<li><p><strong>案例背景</strong>：</p>
+<ul>
+<li>大型企业需要集成多个内部系统</li>
+<li>系统使用不同技术栈和平台</li>
+<li>需要安全、可靠的通信</li>
+</ul>
+</li>
+<li><p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用SOAP Web服务作为系统间通信标准</li>
+<li>利用WS-Security确保消息安全</li>
+<li>使用WS-ReliableMessaging确保消息可靠传递</li>
+<li>利用WS-AtomicTransaction支持跨系统事务</li>
+</ul>
+</li>
+<li><p><strong>实现架构</strong>：</p>
+<ul>
+<li>企业服务总线（ESB）作为中心枢纽</li>
+<li>各系统发布SOAP Web服务</li>
+<li>ESB负责消息路由、转换和编排</li>
+</ul>
+</li>
+<li><p><strong>成果</strong>：</p>
+<ul>
+<li>系统间实现松耦合集成</li>
+<li>确保数据一致性和安全性</li>
+<li>简化系统维护和升级</li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）金融服务行业应用"><a href="#（二）金融服务行业应用" class="headerlink" title="（二）金融服务行业应用"></a>（二）金融服务行业应用</h3><p>SOAP在金融服务行业的应用：</p>
+<ol>
+<li><p><strong>案例背景</strong>：</p>
+<ul>
+<li>银行需要与支付处理系统、信用卡网络等外部系统集成</li>
+<li>需要高度安全和可靠的通信</li>
+<li>需要支持事务处理</li>
+</ul>
+</li>
+<li><p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用SOAP Web服务实现系统间通信</li>
+<li>采用WS-Security进行消息加密和认证</li>
+<li>利用WS-AtomicTransaction确保事务一致性</li>
+<li>使用WSDL明确定义服务契约</li>
+</ul>
+</li>
+<li><p><strong>关键功能</strong>：</p>
+<ul>
+<li>资金转账</li>
+<li>账户查询</li>
+<li>支付处理</li>
+<li>报表生成</li>
+</ul>
+</li>
+<li><p><strong>成果</strong>：</p>
+<ul>
+<li>提高系统安全性</li>
+<li>确保交易的完整性和一致性</li>
+<li>符合行业监管要求</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）遗留系统现代化"><a href="#（三）遗留系统现代化" class="headerlink" title="（三）遗留系统现代化"></a>（三）遗留系统现代化</h3><p>SOAP在遗留系统现代化中的应用：</p>
+<ol>
+<li><p><strong>案例背景</strong>：</p>
+<ul>
+<li>企业拥有关键的大型机遗留系统</li>
+<li>需要将功能暴露给现代应用</li>
+<li>不能完全重写遗留系统</li>
+</ul>
+</li>
+<li><p><strong>解决方案</strong>：</p>
+<ul>
+<li>使用SOAP Web服务包装遗留系统功能</li>
+<li>创建服务层作为遗留系统与现代应用的桥梁</li>
+<li>利用适配器模式转换数据格式</li>
+</ul>
+</li>
+<li><p><strong>实现步骤</strong>：</p>
+<ul>
+<li>识别需要暴露的核心功能</li>
+<li>开发SOAP Web服务接口</li>
+<li>实现适配器连接遗留系统</li>
+<li>生成WSDL供现代应用使用</li>
+</ul>
+</li>
+<li><p><strong>成果</strong>：</p>
+<ul>
+<li>延长遗留系统生命周期</li>
+<li>实现渐进式现代化</li>
+<li>保护原有投资</li>
+</ul>
+</li>
+</ol>
+<h2 id="七、SOAP的未来发展"><a href="#七、SOAP的未来发展" class="headerlink" title="七、SOAP的未来发展"></a>七、SOAP的未来发展</h2><h3 id="（一）SOAP的现状"><a href="#（一）SOAP的现状" class="headerlink" title="（一）SOAP的现状"></a>（一）SOAP的现状</h3><p>尽管REST和GraphQL等新技术获得了更多关注，但SOAP在某些领域仍然广泛使用：</p>
+<ol>
+<li><strong>企业内部系统</strong>：大型企业的核心系统</li>
+<li><strong>金融和电信行业</strong>：需要高安全性和事务支持的场景</li>
+<li><strong>遗留系统集成</strong>：与老旧系统对接</li>
+<li><strong>B2B集成</strong>：企业间业务流程集成</li>
+</ol>
+<h3 id="（二）SOAP与现代架构的结合"><a href="#（二）SOAP与现代架构的结合" class="headerlink" title="（二）SOAP与现代架构的结合"></a>（二）SOAP与现代架构的结合</h3><p>SOAP正在与现代架构模式结合：</p>
+<ol>
+<li><p><strong>微服务架构中的SOAP</strong>：</p>
+<ul>
+<li>作为特定微服务的通信协议</li>
+<li>与API网关结合使用</li>
+<li>处理需要高安全性和事务支持的服务</li>
+</ul>
+</li>
+<li><p><strong>混合API策略</strong>：</p>
+<ul>
+<li>对外提供RESTful或GraphQL API</li>
+<li>内部系统使用SOAP Web服务</li>
+<li>API网关负责协议转换</li>
+</ul>
+</li>
+<li><p><strong>云原生适配</strong>：</p>
+<ul>
+<li>容器化SOAP Web服务</li>
+<li>与服务网格集成</li>
+<li>使用云原生监控和管理工具</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）SOAP的演进方向"><a href="#（三）SOAP的演进方向" class="headerlink" title="（三）SOAP的演进方向"></a>（三）SOAP的演进方向</h3><p>SOAP技术栈的演进趋势：</p>
+<ol>
+<li><p><strong>简化和轻量化</strong>：</p>
+<ul>
+<li>减少XML复杂性</li>
+<li>简化WS-*规范的使用</li>
+<li>提供更简单的开发工具</li>
+</ul>
+</li>
+<li><p><strong>与新技术融合</strong>：</p>
+<ul>
+<li>与JSON和RESTful服务共存</li>
+<li>支持现代认证机制（如OAuth、JWT）</li>
+<li>与事件驱动架构集成</li>
+</ul>
+</li>
+<li><p><strong>性能优化</strong>：</p>
+<ul>
+<li>改进XML解析效率</li>
+<li>减少消息大小</li>
+<li>优化网络传输</li>
+</ul>
+</li>
+</ol>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>SOAP是一种成熟的、功能丰富的Web服务协议，特别适合需要严格契约、高安全性和事务支持的企业级应用。它提供了完整的消息格式规范和一系列扩展标准，使不同平台和语言的系统能够可靠地进行通信。</p>
+<p>虽然在公共API和移动应用领域，REST和GraphQL等更轻量级的技术已经成为主流，但SOAP在企业内部系统集成、金融服务、电信和遗留系统现代化等领域仍然发挥着重要作用。</p>
+<p>选择SOAP还是其他API技术，应根据具体需求和场景进行评估。对于需要严格数据类型检查、复杂业务规则、高安全性和事务支持的场景，SOAP可能是更合适的选择。而对于需要简单、轻量级和灵活性的场景，REST或GraphQL可能更为适合。</p>
+<p>随着技术的发展，SOAP也在不断演进，与现代架构模式和技术融合，继续在特定领域发挥其独特价值。了解SOAP的原理、特点和最佳实践，对于构建复杂、可靠的企业级系统仍然具有重要意义。 </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
+      
+        <a href="/tags/%E6%8E%A5%E5%8F%A3/" class="print-no-link">#接口</a>
+      
+        <a href="/tags/SOAP/" class="print-no-link">#SOAP</a>
+      
+        <a href="/tags/Web%E6%9C%8D%E5%8A%A1/" class="print-no-link">#Web服务</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】WebService接口详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【接口】WebService接口详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】REST接口详解">
+                        <span class="hidden-mobile">【接口】REST接口详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

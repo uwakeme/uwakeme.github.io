@@ -1,0 +1,1149 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="【接口】WebSocket接口详解前言在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】WebSocket接口详解">
+<meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】WebSocket接口详解前言在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-14T08:45:04.519Z">
+<meta property="article:modified_time" content="2025-07-14T08:45:04.519Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="WebSocket">
+<meta property="article:tag" content="实时通信">
+<meta property="article:tag" content="网络协议">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【接口】WebSocket接口详解 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【接口】WebSocket接口详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-14 16:45" pubdate>
+          2025-07-14 16:45
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【接口】WebSocket接口详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="【接口】WebSocket接口详解"><a href="#【接口】WebSocket接口详解" class="headerlink" title="【接口】WebSocket接口详解"></a>【接口】WebSocket接口详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例。</p>
+<h2 id="一、WebSocket是什么？"><a href="#一、WebSocket是什么？" class="headerlink" title="一、WebSocket是什么？"></a>一、WebSocket是什么？</h2><h3 id="（一）定义与背景"><a href="#（一）定义与背景" class="headerlink" title="（一）定义与背景"></a>（一）定义与背景</h3><p>WebSocket是一种在单个TCP连接上进行全双工通信的协议。它允许服务器主动向客户端推送信息，也允许客户端随时向服务器发送信息，实现了真正意义上的双向平等对话。WebSocket协议由IETF标准化为RFC 6455，其API在Web IDL中由W3C进行了标准化。</p>
+<p>传统的HTTP协议在处理实时通信时存在一些固有的缺陷：</p>
+<ol>
+<li><strong>无状态性</strong>：每次请求都是独立的，服务器无法主动联系客户端。</li>
+<li><strong>请求-响应模式</strong>：客户端必须先发起请求，服务器才能响应，对于服务器主动推送消息的场景效率低下。</li>
+<li><strong>头部开销大</strong>：每次HTTP请求都包含冗余的头部信息，浪费带宽。</li>
+</ol>
+<p>为了克服这些问题，开发者们曾采用过一些变通方案，如轮询（Polling）、长轮询（Long Polling）和服务器发送事件（SSE）。但这些方案或多或少都存在一些不足，而WebSocket则提供了一个更优雅、更高效的解决方案。</p>
+<h3 id="（二）与HTTP的关系"><a href="#（二）与HTTP的关系" class="headerlink" title="（二）与HTTP的关系"></a>（二）与HTTP的关系</h3><p>WebSocket协议的握手过程是基于HTTP的。客户端通过发送一个特殊的HTTP请求（包含<code>Upgrade: websocket</code>头部）给服务器，请求将连接从HTTP升级到WebSocket。如果服务器支持WebSocket，它会响应一个特定的HTTP状态码（101 Switching Protocols），之后这条TCP连接就转为WebSocket协议进行通信，不再使用HTTP协议。</p>
+<p>这种设计使得WebSocket可以利用现有的HTTP基础设施（如代理服务器、防火墙等），并且可以运行在标准的HTTP端口（80和443）上，从而更容易穿透防火墙。</p>
+<h2 id="二、WebSocket的核心概念"><a href="#二、WebSocket的核心概念" class="headerlink" title="二、WebSocket的核心概念"></a>二、WebSocket的核心概念</h2><h3 id="（一）握手过程-Handshake"><a href="#（一）握手过程-Handshake" class="headerlink" title="（一）握手过程 (Handshake)"></a>（一）握手过程 (Handshake)</h3><p>WebSocket连接的建立始于一个HTTP兼容的握手过程。这个过程确保了客户端和服务器都同意切换到WebSocket协议。</p>
+<ol>
+<li><p><strong>客户端请求</strong>：<br>客户端向服务器发送一个HTTP GET请求，其中包含一些特殊的头部字段：</p>
+<ul>
+<li><code>Upgrade: websocket</code>：表明客户端希望将连接升级到WebSocket。</li>
+<li><code>Connection: Upgrade</code>：表明这是一个升级请求。</li>
+<li><code>Sec-WebSocket-Key</code>：一个Base64编码的随机生成的16字节值，用于服务器验证客户端的请求。</li>
+<li><code>Sec-WebSocket-Version</code>：指定了客户端期望使用的WebSocket协议版本（通常是13）。</li>
+<li><code>Origin</code> (可选)：用于防止跨站WebSocket劫持。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/chat</span> <span class="token http-version property">HTTP/1.1</span></span>
+<span class="token header"><span class="token header-name keyword">Host</span><span class="token punctuation">:</span> <span class="token header-value">server.example.com</span></span>
+<span class="token header"><span class="token header-name keyword">Upgrade</span><span class="token punctuation">:</span> <span class="token header-value">websocket</span></span>
+<span class="token header"><span class="token header-name keyword">Connection</span><span class="token punctuation">:</span> <span class="token header-value">Upgrade</span></span>
+<span class="token header"><span class="token header-name keyword">Sec-WebSocket-Key</span><span class="token punctuation">:</span> <span class="token header-value">dGhlIHNhbXBsZSBub25jZQ==</span></span>
+<span class="token header"><span class="token header-name keyword">Origin</span><span class="token punctuation">:</span> <span class="token header-value">http://example.com</span></span>
+<span class="token header"><span class="token header-name keyword">Sec-WebSocket-Protocol</span><span class="token punctuation">:</span> <span class="token header-value">chat, superchat</span></span>
+<span class="token header"><span class="token header-name keyword">Sec-WebSocket-Version</span><span class="token punctuation">:</span> <span class="token header-value">13</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>服务器响应</strong>：<br>如果服务器接受升级请求，它会返回一个HTTP 101 Switching Protocols响应：</p>
+<ul>
+<li><code>Upgrade: websocket</code></li>
+<li><code>Connection: Upgrade</code></li>
+<li><code>Sec-WebSocket-Accept</code>：服务器根据客户端发送的<code>Sec-WebSocket-Key</code>和一个固定的UUID（<code>258EAFA5-E914-47DA-95CA-C5AB0DC85B11</code>）计算得出的值，用于客户端验证服务器的响应。</li>
+</ul>
+<figure><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token response-status"><span class="token http-version property">HTTP/1.1</span> <span class="token status-code number">101</span> <span class="token reason-phrase string">Switching Protocols</span></span>
+<span class="token header"><span class="token header-name keyword">Upgrade</span><span class="token punctuation">:</span> <span class="token header-value">websocket</span></span>
+<span class="token header"><span class="token header-name keyword">Connection</span><span class="token punctuation">:</span> <span class="token header-value">Upgrade</span></span>
+<span class="token header"><span class="token header-name keyword">Sec-WebSocket-Accept</span><span class="token punctuation">:</span> <span class="token header-value">s3pPLMBiTxaQ9kYGzzhZRbK+xOo=</span></span>
+<span class="token header"><span class="token header-name keyword">Sec-WebSocket-Protocol</span><span class="token punctuation">:</span> <span class="token header-value">chat</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<p>握手成功后，底层的TCP连接就转为WebSocket协议进行数据传输。</p>
+<h3 id="（二）帧-Frame"><a href="#（二）帧-Frame" class="headerlink" title="（二）帧 (Frame)"></a>（二）帧 (Frame)</h3><p>WebSocket通信是基于帧（Frame）的。一旦连接建立，客户端和服务器之间交换的数据单元就是帧。WebSocket定义了多种类型的帧，用于传输不同类型的数据或控制信息。</p>
+<p>一个WebSocket帧的基本结构包括：</p>
+<ul>
+<li>**FIN位 (1 bit)**：表示这是否是消息的最后一个分片。如果为1，表示是最后一个分片或独立消息；如果为0，表示消息还有后续分片。</li>
+<li>**RSV1, RSV2, RSV3 (各1 bit)**：保留位，必须为0，除非协商了扩展。</li>
+<li>**Opcode (4 bits)**：操作码，定义了帧的类型，例如：<ul>
+<li><code>0x0</code>：Continuation Frame (连续帧)</li>
+<li><code>0x1</code>：Text Frame (文本帧，UTF-8编码)</li>
+<li><code>0x2</code>：Binary Frame (二进制帧)</li>
+<li><code>0x8</code>：Connection Close Frame (连接关闭帧)</li>
+<li><code>0x9</code>：Ping Frame (Ping帧)</li>
+<li><code>0xA</code>：Pong Frame (Pong帧)</li>
+</ul>
+</li>
+<li>**Mask位 (1 bit)**：表示Payload data是否被掩码（异或加密）。所有从客户端发送到服务器的帧，此位必须为1，并且Payload data必须使用一个32位的掩码密钥进行掩码。从服务器发送到客户端的帧，此位必须为0，且Payload data不能被掩码。</li>
+<li>**Payload length (7 bits, 7+16 bits, or 7+64 bits)**：Payload data的长度。</li>
+<li>**Masking-key (0 or 4 bytes)**：如果Mask位为1，则包含32位的掩码密钥。</li>
+<li>**Payload data (x bytes)**：实际传输的数据。如果是文本数据，必须是UTF-8编码。</li>
+</ul>
+<p>这种基于帧的传输机制允许发送大消息时进行分片，也支持混合传输文本和二进制数据。</p>
+<h3 id="（三）双向通信-Full-duplex"><a href="#（三）双向通信-Full-duplex" class="headerlink" title="（三）双向通信 (Full-duplex)"></a>（三）双向通信 (Full-duplex)</h3><p>WebSocket提供了全双工通信能力，这意味着客户端和服务器可以在建立连接后，同时、独立地向对方发送数据，而不需要等待对方的响应。这与HTTP的半双工（请求-响应）模式形成鲜明对比，极大地提高了实时通信的效率和响应速度。</p>
+<h2 id="三、WebSocket的工作原理"><a href="#三、WebSocket的工作原理" class="headerlink" title="三、WebSocket的工作原理"></a>三、WebSocket的工作原理</h2><h3 id="（一）连接建立"><a href="#（一）连接建立" class="headerlink" title="（一）连接建立"></a>（一）连接建立</h3><p>如前所述，WebSocket连接的建立通过一个HTTP升级握手过程完成。这个过程确保了双方都理解并同意使用WebSocket协议进行后续通信。</p>
+<h3 id="（二）数据传输"><a href="#（二）数据传输" class="headerlink" title="（二）数据传输"></a>（二）数据传输</h3><p>握手成功后，数据以WebSocket帧的形式在客户端和服务器之间双向传输。客户端发送的帧必须进行掩码处理，以防止缓存代理服务器（如反向代理）对WebSocket流量的误解或攻击。服务器发送的帧则不需要掩码。</p>
+<p>WebSocket支持文本和二进制两种数据类型的传输：</p>
+<ul>
+<li><strong>文本数据</strong>：使用Opcode <code>0x1</code>，内容必须是UTF-8编码的字符串。</li>
+<li><strong>二进制数据</strong>：使用Opcode <code>0x2</code>，内容可以是任意的二进制数据，如图片、音频、视频流等。</li>
+</ul>
+<h3 id="（三）连接关闭"><a href="#（三）连接关闭" class="headerlink" title="（三）连接关闭"></a>（三）连接关闭</h3><p>WebSocket连接可以通过任何一方发起关闭。关闭过程也有一个握手步骤：</p>
+<ol>
+<li><strong>发起方发送Close帧</strong>：一方（客户端或服务器）决定关闭连接时，会发送一个Opcode为<code>0x8</code>的Close帧。这个帧可以包含一个可选的状态码和关闭原因的描述。</li>
+<li><strong>接收方响应Close帧</strong>：另一方收到Close帧后，通常会立即发送一个Close帧作为响应（如果它还没有发送过Close帧的话）。</li>
+<li><strong>TCP连接关闭</strong>：在双方都发送并确认了Close帧后，底层的TCP连接会被关闭。</li>
+</ol>
+<p>WebSocket定义了一系列状态码（类似于HTTP状态码）来表示关闭的原因，例如：</p>
+<ul>
+<li><code>1000</code>：Normal Closure (正常关闭)</li>
+<li><code>1001</code>：Going Away (例如服务器关闭或浏览器导航到其他页面)</li>
+<li><code>1002</code>：Protocol Error (协议错误)</li>
+<li><code>1003</code>：Unsupported Data (接收到无法处理的数据类型)</li>
+</ul>
+<h2 id="四、WebSocket与HTTP长轮询-SSE的对比"><a href="#四、WebSocket与HTTP长轮询-SSE的对比" class="headerlink" title="四、WebSocket与HTTP长轮询&#x2F;SSE的对比"></a>四、WebSocket与HTTP长轮询&#x2F;SSE的对比</h2><p>在WebSocket出现之前，为了实现类似实时的效果，开发者们采用了一些基于HTTP的变通方案。</p>
+<h3 id="（一）HTTP长轮询-Long-Polling"><a href="#（一）HTTP长轮询-Long-Polling" class="headerlink" title="（一）HTTP长轮询 (Long Polling)"></a>（一）HTTP长轮询 (Long Polling)</h3><p>客户端向服务器发送一个HTTP请求，服务器保持该连接打开，直到有新数据需要发送给客户端，或者连接超时。一旦服务器发送了数据或连接超时，客户端会立即再次发起一个新的长轮询请求。</p>
+<ul>
+<li><strong>优点</strong>：兼容性好，几乎所有浏览器都支持。</li>
+<li><strong>缺点</strong>：<ul>
+<li>服务器需要维护大量打开的连接，消耗资源。</li>
+<li>每次数据推送后都需要重新建立连接，有延迟和开销。</li>
+<li>仍然是客户端拉取模式的变种，不是真正的服务器推送。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（二）服务器发送事件-SSE-Server-Sent-Events"><a href="#（二）服务器发送事件-SSE-Server-Sent-Events" class="headerlink" title="（二）服务器发送事件 (SSE - Server-Sent Events)"></a>（二）服务器发送事件 (SSE - Server-Sent Events)</h3><p>SSE是一种允许服务器单向向客户端推送事件流的技术。客户端通过JavaScript的<code>EventSource</code> API与服务器建立一个持久的HTTP连接，服务器可以通过这个连接持续不断地发送数据给客户端。</p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>基于HTTP，实现简单，API友好。</li>
+<li>支持自动重连。</li>
+<li>文本协议，易于调试。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li><strong>单向通信</strong>：只能服务器向客户端发送数据，客户端不能通过此连接向服务器发送数据（需要另外的HTTP请求）。</li>
+<li>数据格式限制为UTF-8文本。</li>
+<li>部分老旧浏览器（如IE）不支持。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（三）对比总结"><a href="#（三）对比总结" class="headerlink" title="（三）对比总结"></a>（三）对比总结</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>WebSocket</th>
+<th>HTTP长轮询</th>
+<th>服务器发送事件 (SSE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通信方式</td>
+<td>全双工 (双向)</td>
+<td>模拟双向 (本质是客户端拉取)</td>
+<td>单向 (服务器到客户端)</td>
+</tr>
+<tr>
+<td>连接持久性</td>
+<td>持久连接</td>
+<td>短暂连接 (数据发送后关闭再重连)</td>
+<td>持久连接</td>
+</tr>
+<tr>
+<td>头部开销</td>
+<td>握手时有HTTP头部，后续数据帧头部小</td>
+<td>每次请求都有完整的HTTP头部</td>
+<td>握手时有HTTP头部，后续数据流头部小</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>低</td>
+<td>相对较高</td>
+<td>较低 (但不如WebSocket)</td>
+</tr>
+<tr>
+<td>服务器资源</td>
+<td>相对较少 (每个连接一个TCP)</td>
+<td>较高 (频繁建立和维护连接)</td>
+<td>适中</td>
+</tr>
+<tr>
+<td>客户端API</td>
+<td><code>WebSocket</code> API</td>
+<td><code>XMLHttpRequest</code> &#x2F; <code>fetch</code></td>
+<td><code>EventSource</code> API</td>
+</tr>
+<tr>
+<td>数据类型</td>
+<td>文本、二进制</td>
+<td>文本、二进制 (通过HTTP)</td>
+<td>文本 (UTF-8)</td>
+</tr>
+<tr>
+<td>浏览器支持</td>
+<td>现代浏览器广泛支持</td>
+<td>所有浏览器支持</td>
+<td>现代浏览器支持 (IE不支持)</td>
+</tr>
+</tbody></table>
+<p>总的来说，对于需要真正实时、低延迟、双向通信的场景，WebSocket是目前最优的选择。</p>
+<h2 id="五、WebSocket的优势"><a href="#五、WebSocket的优势" class="headerlink" title="五、WebSocket的优势"></a>五、WebSocket的优势</h2><ol>
+<li><strong>真正的双向通信</strong>：服务器和客户端可以随时互相发送消息，无需等待对方响应。</li>
+<li><strong>低延迟</strong>：一旦连接建立，数据传输几乎没有额外的协议开销，延迟非常低。</li>
+<li><strong>减少头部开销</strong>：与HTTP相比，WebSocket数据帧的头部非常小，节省了带宽。</li>
+<li><strong>保持连接状态</strong>：单个TCP连接保持打开状态，避免了HTTP频繁建立和关闭连接的开销。</li>
+<li><strong>更好的资源利用</strong>：相比长轮询，WebSocket对服务器资源的消耗更少。</li>
+<li><strong>标准化协议</strong>：有明确的RFC规范和W3C API标准，跨浏览器和平台兼容性好。</li>
+<li><strong>支持二进制数据</strong>：可以直接传输二进制数据，适合多媒体等应用。</li>
+</ol>
+<h2 id="六、WebSocket的适用场景"><a href="#六、WebSocket的适用场景" class="headerlink" title="六、WebSocket的适用场景"></a>六、WebSocket的适用场景</h2><p>WebSocket因其低延迟和双向通信的特性，非常适合以下类型的应用：</p>
+<ol>
+<li><strong>实时聊天应用</strong>：如微信网页版、Slack等，消息可以即时送达。</li>
+<li><strong>在线多人游戏</strong>：玩家动作和游戏状态需要快速同步。</li>
+<li><strong>实时数据推送</strong>：股票行情、体育比分、新闻更新等。</li>
+<li><strong>协同编辑工具</strong>：如Google Docs，多人同时编辑文档，内容实时同步。</li>
+<li><strong>在线教育和直播</strong>：实时互动、弹幕、问答等。</li>
+<li>**物联网 (IoT)**：设备与服务器之间的实时数据交换和控制。</li>
+<li><strong>位置共享应用</strong>：实时更新地理位置信息。</li>
+</ol>
+<h2 id="七、WebSocket代码示例"><a href="#七、WebSocket代码示例" class="headerlink" title="七、WebSocket代码示例"></a>七、WebSocket代码示例</h2><h3 id="（一）JavaScript客户端示例"><a href="#（一）JavaScript客户端示例" class="headerlink" title="（一）JavaScript客户端示例"></a>（一）JavaScript客户端示例</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 创建WebSocket连接，'ws://'表示普通WebSocket，'wss://'表示安全的WebSocket</span>
+<span class="token keyword">const</span> socket <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocket</span><span class="token punctuation">(</span><span class="token string">'ws://localhost:8080/my-websocket-endpoint'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 连接成功建立时触发</span>
+socket<span class="token punctuation">.</span><span class="token function-variable function">onopen</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'WebSocket连接已打开:'</span><span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 发送一条消息到服务器</span>
+  socket<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'你好，服务器！我是客户端。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 接收到服务器消息时触发</span>
+socket<span class="token punctuation">.</span><span class="token function-variable function">onmessage</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'从服务器接收到消息:'</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 如果收到特定消息，可以关闭连接</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>data <span class="token operator">===</span> <span class="token string">'再见'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    socket<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">,</span> <span class="token string">'客户端主动关闭'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 连接发生错误时触发</span>
+socket<span class="token punctuation">.</span><span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'WebSocket错误:'</span><span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 连接关闭时触发</span>
+socket<span class="token punctuation">.</span><span class="token function-variable function">onclose</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'WebSocket连接已关闭:'</span><span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'关闭代码:'</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>code<span class="token punctuation">,</span> <span class="token string">'关闭原因:'</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>reason<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 主动关闭连接</span>
+<span class="token comment">// socket.close(1000, '客户端完成通信');</span>
+
+<span class="token comment">// 检查WebSocket连接状态</span>
+<span class="token comment">// socket.readyState 可以是：</span>
+<span class="token comment">// WebSocket.CONNECTING (0): 连接尚未建立</span>
+<span class="token comment">// WebSocket.OPEN (1): 连接已建立，可以进行通信</span>
+<span class="token comment">// WebSocket.CLOSING (2): 连接正在关闭</span>
+<span class="token comment">// WebSocket.CLOSED (3): 连接已关闭或无法打开</span>
+<span class="token keyword">function</span> <span class="token function">checkSocketState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>socket<span class="token punctuation">.</span>readyState <span class="token operator">===</span> WebSocket<span class="token punctuation">.</span><span class="token constant">OPEN</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'WebSocket连接处于打开状态。'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'WebSocket连接状态:'</span><span class="token punctuation">,</span> socket<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）Node-js-ws库-服务端示例"><a href="#（二）Node-js-ws库-服务端示例" class="headerlink" title="（二）Node.js (ws库) 服务端示例"></a>（二）Node.js (ws库) 服务端示例</h3><p>首先，需要安装<code>ws</code>库：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> ws
+<span class="token comment"># 或者</span>
+<span class="token function">yarn</span> <span class="token function">add</span> ws<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>然后创建服务端代码：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// server.js</span>
+<span class="token keyword">const</span> WebSocket <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'ws'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 创建WebSocket服务器，监听指定端口</span>
+<span class="token keyword">const</span> wss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocket<span class="token punctuation">.</span>Server</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">port</span><span class="token operator">:</span> <span class="token number">8080</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'WebSocket服务器已启动，监听端口 8080'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 当有新的客户端连接时触发</span>
+wss<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'connection'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token function">connection</span><span class="token punctuation">(</span><span class="token parameter">ws<span class="token punctuation">,</span> req</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> clientIp <span class="token operator">=</span> req<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>remoteAddress<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">客户端 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>clientIp<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 已连接</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 向新连接的客户端发送欢迎消息</span>
+  ws<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'欢迎连接到WebSocket服务器！'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 当接收到客户端消息时触发</span>
+  ws<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'message'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token function">incoming</span><span class="token punctuation">(</span><span class="token parameter">message</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">从客户端 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>clientIp<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 接收到消息: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>message<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 将收到的消息广播给所有连接的客户端 (除了发送者自身，如果需要)</span>
+    wss<span class="token punctuation">.</span>clients<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">each</span><span class="token punctuation">(</span><span class="token parameter">client</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// client !== ws: 不发送给消息来源客户端</span>
+      <span class="token comment">// client.readyState === WebSocket.OPEN: 只发送给处于打开状态的客户端</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>client <span class="token operator">!==</span> ws <span class="token operator">&amp;&amp;</span> client<span class="token punctuation">.</span>readyState <span class="token operator">===</span> WebSocket<span class="token punctuation">.</span><span class="token constant">OPEN</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        client<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">来自 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>clientIp<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 的消息: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>message<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 或者简单地回显消息给发送者</span>
+    <span class="token comment">// ws.send(`服务器已收到您的消息: $&#123;message&#125;`);</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 当客户端连接关闭时触发</span>
+  ws<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">code<span class="token punctuation">,</span> reason</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">客户端 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>clientIp<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 已断开连接。关闭代码: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>code<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">, 原因: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>reason<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 当连接发生错误时触发</span>
+  ws<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">客户端 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>clientIp<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 连接发生错误:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 监听服务器错误事件</span>
+wss<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">error</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'WebSocket服务器错误:'</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）Java-Spring-Boot-服务端示例"><a href="#（三）Java-Spring-Boot-服务端示例" class="headerlink" title="（三）Java (Spring Boot) 服务端示例"></a>（三）Java (Spring Boot) 服务端示例</h3><p>Spring Boot 提供了对 WebSocket 的良好支持，通常通过 <code>spring-boot-starter-websocket</code> 实现。</p>
+<ol>
+<li><strong>添加依赖 (pom.xml for Maven)</strong>:</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-websocket<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="2">
+<li><strong>创建WebSocket处理器 (Handler)</strong>:</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocketdemo</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span></span><span class="token class-name">CloseStatus</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span></span><span class="token class-name">TextMessage</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span></span><span class="token class-name">WebSocketSession</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>handler<span class="token punctuation">.</span></span><span class="token class-name">TextWebSocketHandler</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">IOException</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">CopyOnWriteArrayList</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyWebSocketHandler</span> <span class="token keyword">extends</span> <span class="token class-name">TextWebSocketHandler</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">CopyOnWriteArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">WebSocketSession</span><span class="token punctuation">></span></span> sessions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CopyOnWriteArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnectionEstablished</span><span class="token punctuation">(</span><span class="token class-name">WebSocketSession</span> session<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        sessions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"新连接建立: "</span> <span class="token operator">+</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        session<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TextMessage</span><span class="token punctuation">(</span><span class="token string">"欢迎连接到Spring Boot WebSocket服务器!"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">handleTextMessage</span><span class="token punctuation">(</span><span class="token class-name">WebSocketSession</span> session<span class="token punctuation">,</span> <span class="token class-name">TextMessage</span> message<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span> payload <span class="token operator">=</span> message<span class="token punctuation">.</span><span class="token function">getPayload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收到来自 "</span> <span class="token operator">+</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 的消息: "</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// 广播消息给所有会话</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">WebSocketSession</span> webSocketSession <span class="token operator">:</span> sessions<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>webSocketSession<span class="token punctuation">.</span><span class="token function">isOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>webSocketSession<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                webSocketSession<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TextMessage</span><span class="token punctuation">(</span><span class="token string">"用户 "</span> <span class="token operator">+</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" 说: "</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 回显给发送者</span>
+        session<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TextMessage</span><span class="token punctuation">(</span><span class="token string">"服务器已收到您的消息: "</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnectionClosed</span><span class="token punctuation">(</span><span class="token class-name">WebSocketSession</span> session<span class="token punctuation">,</span> <span class="token class-name">CloseStatus</span> status<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        sessions<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接关闭: "</span> <span class="token operator">+</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", 状态: "</span> <span class="token operator">+</span> status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleTransportError</span><span class="token punctuation">(</span><span class="token class-name">WebSocketSession</span> session<span class="token punctuation">,</span> <span class="token class-name">Throwable</span> exception<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"WebSocket传输错误: "</span> <span class="token operator">+</span> session<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", 异常: "</span> <span class="token operator">+</span> exception<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>session<span class="token punctuation">.</span><span class="token function">isOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token class-name">CloseStatus</span><span class="token punctuation">.</span><span class="token constant">SERVER_ERROR</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        sessions<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ol start="3">
+<li><strong>配置WebSocket端点 (Endpoint)</strong>:</li>
+</ol>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocketdemo</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Configuration</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">EnableWebSocket</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">WebSocketConfigurer</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">WebSocketHandlerRegistry</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSocket</span> <span class="token comment">// 开启WebSocket支持</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebSocketConfigurer</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">MyWebSocketHandler</span> myWebSocketHandler<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">WebSocketConfig</span><span class="token punctuation">(</span><span class="token class-name">MyWebSocketHandler</span> myWebSocketHandler<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>myWebSocketHandler <span class="token operator">=</span> myWebSocketHandler<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerWebSocketHandlers</span><span class="token punctuation">(</span><span class="token class-name">WebSocketHandlerRegistry</span> registry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 注册处理器，并指定端点路径，允许所有来源连接</span>
+        registry<span class="token punctuation">.</span><span class="token function">addHandler</span><span class="token punctuation">(</span>myWebSocketHandler<span class="token punctuation">,</span> <span class="token string">"/my-websocket-endpoint"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAllowedOrigins</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<p>客户端JavaScript代码中的WebSocket URL应指向 <code>ws://&lt;your-spring-boot-server-address&gt;:&lt;port&gt;/my-websocket-endpoint</code>。</p>
+<h2 id="八、常见问题-FAQ"><a href="#八、常见问题-FAQ" class="headerlink" title="八、常见问题 (FAQ)"></a>八、常见问题 (FAQ)</h2><ol>
+<li><p><strong>WebSocket安全吗？</strong><br>WebSocket本身不包含加密机制，但可以通过<code>wss://</code>（WebSocket Secure）协议运行在TLS&#x2F;SSL之上，从而实现加密通信，与HTTPS类似。建议始终使用<code>wss://</code>来保护数据安全。</p>
+</li>
+<li><p><strong>WebSocket连接会一直保持吗？</strong><br>理论上，WebSocket连接一旦建立就会保持，直到显式关闭或网络中断。为了维持连接的活性，WebSocket协议定义了Ping&#x2F;Pong帧，客户端和服务器可以周期性地发送Ping帧，对方响应Pong帧，以检测连接是否仍然存活，并防止中间网络设备（如NAT、防火墙）因空闲超时而关闭连接。</p>
+</li>
+<li><p><strong>WebSocket的浏览器兼容性如何？</strong><br>所有现代主流浏览器（Chrome, Firefox, Safari, Edge, Opera）都已良好支持WebSocket。IE浏览器从版本10开始支持。</p>
+</li>
+<li><p><strong>如何处理WebSocket的错误和重连？</strong><br>客户端代码应该监听<code>onerror</code>和<code>onclose</code>事件。当连接意外断开时，可以实现自动重连逻辑，例如使用指数退避算法（exponential backoff）来避免频繁重试。</p>
+</li>
+<li><p><strong>WebSocket与HTTP&#x2F;2有什么关系？</strong><br>HTTP&#x2F;2通过多路复用技术，允许在单个TCP连接上并行处理多个请求和响应，显著提升了HTTP性能。虽然HTTP&#x2F;2也支持服务器推送（Server Push），但其设计目标与WebSocket不同。HTTP&#x2F;2的服务器推送是单向的，主要用于优化资源加载。而WebSocket提供的是全双工、低延迟的通信通道。在某些场景下，它们可以互补，但WebSocket仍然是实时双向通信的首选。</p>
+</li>
+</ol>
+<h2 id="九、总结"><a href="#九、总结" class="headerlink" title="九、总结"></a>九、总结</h2><p>WebSocket协议为Web应用带来了革命性的实时双向通信能力。它通过一个持久化的TCP连接，以低延迟、低开销的方式在客户端和服务器之间传输数据帧。相比传统的HTTP轮询等技术，WebSocket在性能、效率和实时性方面都有显著优势。</p>
+<p>理解WebSocket的握手过程、帧结构、工作原理以及其与HTTP的关系，对于开发需要实时交互功能的应用至关重要。无论是构建在线聊天室、多人游戏，还是实时数据监控系统，WebSocket都是一个强大而可靠的技术选择。随着Web技术的不断发展，WebSocket的应用场景也将越来越广泛。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/WebSocket/" class="print-no-link">#WebSocket</a>
+      
+        <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/" class="print-no-link">#实时通信</a>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" class="print-no-link">#网络协议</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88%E4%B8%8E%E5%AF%B9%E6%AF%94/" title="【接口】接口类型总览与对比">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【接口】接口类型总览与对比</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】gRPC接口详解">
+                        <span class="hidden-mobile">【接口】gRPC接口详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

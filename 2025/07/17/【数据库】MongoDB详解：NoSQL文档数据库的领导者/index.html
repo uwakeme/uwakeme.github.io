@@ -1,0 +1,1131 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="什么是MongoDB？MongoDB是一个基于分布式文件存储的NoSQL数据库，由C++语言编写。它采用文档存储模型，将数据存储为类似JSON的BSON格式，具有高性能、高可用性和易扩展的特点。 核心概念1. 文档（Document） MongoDB的基本数据单元 类似JSON的BSON格式 支持嵌套文档和数组 动态模式，无需预定义结构  2. 集合（Collection） 文档的容器 类似关系型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库】MongoDB详解：NoSQL文档数据库的领导者">
+<meta property="og:url" content="https://uwakeme.top/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MongoDB%E8%AF%A6%E8%A7%A3%EF%BC%9ANoSQL%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%A2%86%E5%AF%BC%E8%80%85/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="什么是MongoDB？MongoDB是一个基于分布式文件存储的NoSQL数据库，由C++语言编写。它采用文档存储模型，将数据存储为类似JSON的BSON格式，具有高性能、高可用性和易扩展的特点。 核心概念1. 文档（Document） MongoDB的基本数据单元 类似JSON的BSON格式 支持嵌套文档和数组 动态模式，无需预定义结构  2. 集合（Collection） 文档的容器 类似关系型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-17T07:25:00.000Z">
+<meta property="article:modified_time" content="2025-07-17T08:05:26.905Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="后端开发">
+<meta property="article:tag" content="NoSQL">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="文档数据库">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【数据库】MongoDB详解：NoSQL文档数据库的领导者 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【数据库】MongoDB详解：NoSQL文档数据库的领导者"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-17 15:25" pubdate>
+          2025-07-17 15:25
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【数据库】MongoDB详解：NoSQL文档数据库的领导者</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是MongoDB？"><a href="#什么是MongoDB？" class="headerlink" title="什么是MongoDB？"></a>什么是MongoDB？</h2><p>MongoDB是一个基于分布式文件存储的NoSQL数据库，由C++语言编写。它采用文档存储模型，将数据存储为类似JSON的BSON格式，具有高性能、高可用性和易扩展的特点。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="1-文档（Document）"><a href="#1-文档（Document）" class="headerlink" title="1. 文档（Document）"></a>1. 文档（Document）</h3><ul>
+<li>MongoDB的基本数据单元</li>
+<li>类似JSON的BSON格式</li>
+<li>支持嵌套文档和数组</li>
+<li>动态模式，无需预定义结构</li>
+</ul>
+<h3 id="2-集合（Collection）"><a href="#2-集合（Collection）" class="headerlink" title="2. 集合（Collection）"></a>2. 集合（Collection）</h3><ul>
+<li>文档的容器</li>
+<li>类似关系型数据库中的表</li>
+<li>不需要预定义模式</li>
+<li>可以存储不同结构的文档</li>
+</ul>
+<h3 id="3-数据库（Database）"><a href="#3-数据库（Database）" class="headerlink" title="3. 数据库（Database）"></a>3. 数据库（Database）</h3><ul>
+<li>集合的容器</li>
+<li>一个MongoDB实例可以包含多个数据库</li>
+</ul>
+<h2 id="数据模型示例"><a href="#数据模型示例" class="headerlink" title="数据模型示例"></a>数据模型示例</h2><h3 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h3><figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"_id"</span><span class="token operator">:</span> ObjectId(<span class="token string">"507f1f77bcf86cd799439011"</span>)<span class="token punctuation">,</span>
+  <span class="token property">"username"</span><span class="token operator">:</span> <span class="token string">"john_doe"</span><span class="token punctuation">,</span>
+  <span class="token property">"email"</span><span class="token operator">:</span> <span class="token string">"john@example.com"</span><span class="token punctuation">,</span>
+  <span class="token property">"profile"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"firstName"</span><span class="token operator">:</span> <span class="token string">"John"</span><span class="token punctuation">,</span>
+    <span class="token property">"lastName"</span><span class="token operator">:</span> <span class="token string">"Doe"</span><span class="token punctuation">,</span>
+    <span class="token property">"age"</span><span class="token operator">:</span> <span class="token number">30</span><span class="token punctuation">,</span>
+    <span class="token property">"address"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"street"</span><span class="token operator">:</span> <span class="token string">"123 Main St"</span><span class="token punctuation">,</span>
+      <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"New York"</span><span class="token punctuation">,</span>
+      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"NY"</span><span class="token punctuation">,</span>
+      <span class="token property">"zipcode"</span><span class="token operator">:</span> <span class="token string">"10001"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"tags"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"developer"</span><span class="token punctuation">,</span> <span class="token string">"mongodb"</span><span class="token punctuation">,</span> <span class="token string">"nodejs"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"createdAt"</span><span class="token operator">:</span> ISODate(<span class="token string">"2024-01-15T10:00:00Z"</span>)<span class="token punctuation">,</span>
+  <span class="token property">"updatedAt"</span><span class="token operator">:</span> ISODate(<span class="token string">"2024-01-15T10:00:00Z"</span>)
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 使用MongoDB Shell</span>
+mongo mongodb<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">27017</span><span class="token operator">/</span>mydb
+
+<span class="token comment">// 使用Node.js</span>
+<span class="token keyword">const</span> MongoClient <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mongodb'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>MongoClient<span class="token punctuation">;</span>
+<span class="token keyword">const</span> uri <span class="token operator">=</span> <span class="token string">"mongodb://localhost:27017"</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MongoClient</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 创建/切换数据库</span>
+use mydb
+
+<span class="token comment">// 查看所有数据库</span>
+show dbs
+
+<span class="token comment">// 查看当前数据库</span>
+db
+
+<span class="token comment">// 删除数据库</span>
+db<span class="token punctuation">.</span><span class="token function">dropDatabase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 创建集合</span>
+db<span class="token punctuation">.</span><span class="token function">createCollection</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 查看所有集合</span>
+show collections
+
+<span class="token comment">// 删除集合</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">drop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="文档操作（CRUD）"><a href="#文档操作（CRUD）" class="headerlink" title="文档操作（CRUD）"></a>文档操作（CRUD）</h3><h4 id="创建（Create）"><a href="#创建（Create）" class="headerlink" title="创建（Create）"></a>创建（Create）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 插入单个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">insertOne</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"alice"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">"alice@example.com"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">createdAt</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 插入多个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">insertMany</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"bob"</span><span class="token punctuation">,</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">"bob@example.com"</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">30</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"charlie"</span><span class="token punctuation">,</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">"charlie@example.com"</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">35</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="读取（Read）"><a href="#读取（Read）" class="headerlink" title="读取（Read）"></a>读取（Read）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 查询所有文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 条件查询</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gt</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 投影查询（只返回指定字段）</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 排序</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 分页</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">skip</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 计数</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">countDocuments</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gte</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="更新（Update）"><a href="#更新（Update）" class="headerlink" title="更新（Update）"></a>更新（Update）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 更新单个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">updateOne</span><span class="token punctuation">(</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"alice"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">$set</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">26</span><span class="token punctuation">,</span> <span class="token literal-property property">updatedAt</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 更新多个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">updateMany</span><span class="token punctuation">(</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$lt</span><span class="token operator">:</span> <span class="token number">30</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">$set</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">"young"</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 使用upsert（如果不存在则创建）</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">updateOne</span><span class="token punctuation">(</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"david"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">$set</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">"david@example.com"</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">28</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> <span class="token literal-property property">upsert</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h4 id="删除（Delete）"><a href="#删除（Delete）" class="headerlink" title="删除（Delete）"></a>删除（Delete）</h4><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 删除单个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">deleteOne</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"alice"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 删除多个文档</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">deleteMany</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$lt</span><span class="token operator">:</span> <span class="token number">18</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="查询操作符"><a href="#查询操作符" class="headerlink" title="查询操作符"></a>查询操作符</h2><h3 id="比较操作符"><a href="#比较操作符" class="headerlink" title="比较操作符"></a>比较操作符</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 等于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 不等于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$ne</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 大于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gt</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 大于等于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gte</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 小于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$lt</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 小于等于</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$lte</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 在范围内</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> $<span class="token keyword">in</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 不在范围内</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$nin</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// AND条件</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gte</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">"active"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// OR条件</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">$or</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$lt</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">"premium"</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// NOT条件</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$not</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$gt</span><span class="token operator">:</span> <span class="token number">25</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="数组操作符"><a href="#数组操作符" class="headerlink" title="数组操作符"></a>数组操作符</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 包含特定元素</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">tags</span><span class="token operator">:</span> <span class="token string">"developer"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 包含所有指定元素</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">tags</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$all</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"developer"</span><span class="token punctuation">,</span> <span class="token string">"mongodb"</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 数组大小</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">tags</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$size</span><span class="token operator">:</span> <span class="token number">3</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 数组切片</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">tags</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$slice</span><span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 单字段索引</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 复合索引</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 唯一索引</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">unique</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 文本索引</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">createIndex</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">"text"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 查看索引</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">getIndexes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
+<li><strong>单字段索引</strong>：单个字段的索引</li>
+<li><strong>复合索引</strong>：多个字段的组合索引</li>
+<li><strong>多键索引</strong>：数组字段的索引</li>
+<li><strong>文本索引</strong>：全文搜索索引</li>
+<li><strong>地理空间索引</strong>：地理位置数据索引</li>
+</ul>
+<h2 id="聚合管道"><a href="#聚合管道" class="headerlink" title="聚合管道"></a>聚合管道</h2><h3 id="基本聚合"><a href="#基本聚合" class="headerlink" title="基本聚合"></a>基本聚合</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 统计每个年龄段的用户数量</span>
+db<span class="token punctuation">.</span>users<span class="token punctuation">.</span><span class="token function">aggregate</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$group</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token string">"$age"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$sum</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$sort</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="复杂聚合"><a href="#复杂聚合" class="headerlink" title="复杂聚合"></a>复杂聚合</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 计算用户的平均订单金额</span>
+db<span class="token punctuation">.</span>orders<span class="token punctuation">.</span><span class="token function">aggregate</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$lookup</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">from</span><span class="token operator">:</span> <span class="token string">"users"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">localField</span><span class="token operator">:</span> <span class="token string">"userId"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">foreignField</span><span class="token operator">:</span> <span class="token string">"_id"</span><span class="token punctuation">,</span>
+      <span class="token keyword">as</span><span class="token operator">:</span> <span class="token string">"user"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$unwind</span><span class="token operator">:</span> <span class="token string">"$user"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$group</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token string">"$user.username"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">avgOrderAmount</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$avg</span><span class="token operator">:</span> <span class="token string">"$amount"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">totalOrders</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">$sum</span><span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$sort</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">avgOrderAmount</span><span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="数据验证"><a href="#数据验证" class="headerlink" title="数据验证"></a>数据验证</h2><h3 id="模式验证"><a href="#模式验证" class="headerlink" title="模式验证"></a>模式验证</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 创建带验证的集合</span>
+db<span class="token punctuation">.</span><span class="token function">createCollection</span><span class="token punctuation">(</span><span class="token string">"users"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">validator</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">$jsonSchema</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">bsonType</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">,</span> <span class="token string">"email"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">properties</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">bsonType</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">"必须是字符串"</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">bsonType</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">pattern</span><span class="token operator">:</span> <span class="token string">"^.+@.+$"</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">"必须是有效的邮箱格式"</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">bsonType</span><span class="token operator">:</span> <span class="token string">"int"</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">minimum</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">maximum</span><span class="token operator">:</span> <span class="token number">150</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">"必须是0-150之间的整数"</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="复制集（Replica-Set）"><a href="#复制集（Replica-Set）" class="headerlink" title="复制集（Replica Set）"></a>复制集（Replica Set）</h2><h3 id="配置复制集"><a href="#配置复制集" class="headerlink" title="配置复制集"></a>配置复制集</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 启动三个mongod实例</span>
+mongod <span class="token operator">--</span>replSet rs0 <span class="token operator">--</span>port <span class="token number">27017</span> <span class="token operator">--</span>dbpath <span class="token operator">/</span>data<span class="token operator">/</span>db1
+mongod <span class="token operator">--</span>replSet rs0 <span class="token operator">--</span>port <span class="token number">27018</span> <span class="token operator">--</span>dbpath <span class="token operator">/</span>data<span class="token operator">/</span>db2
+mongod <span class="token operator">--</span>replSet rs0 <span class="token operator">--</span>port <span class="token number">27019</span> <span class="token operator">--</span>dbpath <span class="token operator">/</span>data<span class="token operator">/</span>db3
+
+<span class="token comment">// 初始化复制集</span>
+rs<span class="token punctuation">.</span><span class="token function">initiate</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token string">"rs0"</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">members</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">"localhost:27017"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">"localhost:27018"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span> <span class="token literal-property property">_id</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">host</span><span class="token operator">:</span> <span class="token string">"localhost:27019"</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="分片（Sharding）"><a href="#分片（Sharding）" class="headerlink" title="分片（Sharding）"></a>分片（Sharding）</h2><h3 id="分片集群架构"><a href="#分片集群架构" class="headerlink" title="分片集群架构"></a>分片集群架构</h3><ul>
+<li><strong>mongos</strong>：查询路由器</li>
+<li><strong>config servers</strong>：配置服务器</li>
+<li><strong>shards</strong>：分片服务器</li>
+</ul>
+<h3 id="启用分片"><a href="#启用分片" class="headerlink" title="启用分片"></a>启用分片</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 连接到mongos</span>
+mongos <span class="token operator">--</span>configdb configReplSet<span class="token operator">/</span>cfg1<span class="token punctuation">.</span>example<span class="token punctuation">.</span>net<span class="token operator">:</span><span class="token number">27019</span><span class="token punctuation">,</span>cfg2<span class="token punctuation">.</span>example<span class="token punctuation">.</span>net<span class="token operator">:</span><span class="token number">27019</span><span class="token punctuation">,</span>cfg3<span class="token punctuation">.</span>example<span class="token punctuation">.</span>net<span class="token operator">:</span><span class="token number">27019</span>
+
+<span class="token comment">// 添加分片</span>
+sh<span class="token punctuation">.</span><span class="token function">addShard</span><span class="token punctuation">(</span><span class="token string">"shard1.example.net:27018"</span><span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span><span class="token function">addShard</span><span class="token punctuation">(</span><span class="token string">"shard2.example.net:27018"</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 对数据库启用分片</span>
+sh<span class="token punctuation">.</span><span class="token function">enableSharding</span><span class="token punctuation">(</span><span class="token string">"mydb"</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 对集合分片</span>
+sh<span class="token punctuation">.</span><span class="token function">shardCollection</span><span class="token punctuation">(</span><span class="token string">"mydb.users"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">"hashed"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="1-索引优化"><a href="#1-索引优化" class="headerlink" title="1. 索引优化"></a>1. 索引优化</h3><ul>
+<li>为查询频繁的字段创建索引</li>
+<li>使用复合索引优化多字段查询</li>
+<li>避免索引选择性低的字段</li>
+</ul>
+<h3 id="2-查询优化"><a href="#2-查询优化" class="headerlink" title="2. 查询优化"></a>2. 查询优化</h3><ul>
+<li>使用投影减少返回字段</li>
+<li>使用limit限制结果集</li>
+<li>避免全表扫描</li>
+</ul>
+<h3 id="3-连接优化"><a href="#3-连接优化" class="headerlink" title="3. 连接优化"></a>3. 连接优化</h3><ul>
+<li>使用连接池</li>
+<li>合理设置连接超时时间</li>
+<li>监控连接数</li>
+</ul>
+<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h2><h3 id="1-MongoDB-Compass"><a href="#1-MongoDB-Compass" class="headerlink" title="1. MongoDB Compass"></a>1. MongoDB Compass</h3><ul>
+<li>官方GUI管理工具</li>
+<li>可视化查询和索引管理</li>
+</ul>
+<h3 id="2-Robo-3T"><a href="#2-Robo-3T" class="headerlink" title="2. Robo 3T"></a>2. Robo 3T</h3><ul>
+<li>轻量级MongoDB管理工具</li>
+<li>支持Shell命令</li>
+</ul>
+<h3 id="3-命令行工具"><a href="#3-命令行工具" class="headerlink" title="3. 命令行工具"></a>3. 命令行工具</h3><ul>
+<li><strong>mongo</strong>：交互式Shell</li>
+<li><strong>mongodump</strong>：备份工具</li>
+<li><strong>mongorestore</strong>：恢复工具</li>
+</ul>
+<h2 id="与Node-js集成"><a href="#与Node-js集成" class="headerlink" title="与Node.js集成"></a>与Node.js集成</h2><h3 id="使用Mongoose"><a href="#使用Mongoose" class="headerlink" title="使用Mongoose"></a>使用Mongoose</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> mongoose <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mongoose'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 连接数据库</span>
+mongoose<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token string">'mongodb://localhost:27017/mydb'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 定义模式</span>
+<span class="token keyword">const</span> userSchema <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">mongoose<span class="token punctuation">.</span>Schema</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">type</span><span class="token operator">:</span> String<span class="token punctuation">,</span> <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">unique</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">type</span><span class="token operator">:</span> String<span class="token punctuation">,</span> <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">unique</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">type</span><span class="token operator">:</span> Number<span class="token punctuation">,</span> <span class="token literal-property property">min</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token literal-property property">max</span><span class="token operator">:</span> <span class="token number">150</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">createdAt</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">type</span><span class="token operator">:</span> Date<span class="token punctuation">,</span> <span class="token keyword">default</span><span class="token operator">:</span> Date<span class="token punctuation">.</span>now <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 创建模型</span>
+<span class="token keyword">const</span> User <span class="token operator">=</span> mongoose<span class="token punctuation">.</span><span class="token function">model</span><span class="token punctuation">(</span><span class="token string">'User'</span><span class="token punctuation">,</span> userSchema<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 使用模型</span>
+<span class="token keyword">const</span> newUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">username</span><span class="token operator">:</span> <span class="token string">'testuser'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">email</span><span class="token operator">:</span> <span class="token string">'test@example.com'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">25</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+newUser<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">user</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'User saved:'</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">err</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h2><ol>
+<li><strong>内容管理系统</strong>：文章、评论、用户管理</li>
+<li><strong>实时分析</strong>：日志收集、用户行为分析</li>
+<li><strong>物联网</strong>：设备数据存储、传感器数据</li>
+<li><strong>移动应用</strong>：用户数据、消息推送</li>
+<li><strong>电商平台</strong>：商品目录、订单管理</li>
+</ol>
+<h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>灵活的文档模型</li>
+<li>高性能和可扩展性</li>
+<li>丰富的查询语言</li>
+<li>自动分片和复制</li>
+<li>活跃的开源社区</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>不支持复杂事务</li>
+<li>内存占用较高</li>
+<li>缺乏成熟的DBA工具</li>
+<li>数据一致性较弱</li>
+</ul>
+<h2 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a>学习资源推荐</h2><ul>
+<li><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/">https://docs.mongodb.com/</a></li>
+<li><strong>在线课程</strong>：MongoDB University</li>
+<li><strong>书籍</strong>：《MongoDB权威指南》、《MongoDB实战》</li>
+<li><strong>实践项目</strong>：构建博客系统、实时聊天应用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MongoDB作为NoSQL数据库的领导者，凭借其灵活的文档模型、高性能和易扩展性，在现代Web开发中占据重要地位。特别适合处理非结构化数据和需要快速迭代的应用场景。对于需要处理大量数据和高并发访问的现代应用，MongoDB是一个值得考虑的选择。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+        <a href="/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="print-no-link">#后端开发</a>
+      
+        <a href="/tags/NoSQL/" class="print-no-link">#NoSQL</a>
+      
+        <a href="/tags/MongoDB/" class="print-no-link">#MongoDB</a>
+      
+        <a href="/tags/%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#文档数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E7%BC%93%E5%AD%98%E4%B9%8B%E7%8E%8B/" title="【数据库】Redis详解：内存数据库与缓存之王">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【数据库】Redis详解：内存数据库与缓存之王</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%8E%8B%E8%80%85/" title="【数据库】MySQL详解：关系型数据库的王者">
+                        <span class="hidden-mobile">【数据库】MySQL详解：关系型数据库的王者</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

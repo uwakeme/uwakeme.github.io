@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、索引基础概念（一）什么是索引索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构。索引的作用就相当于书的目录，通过索引可以快速定位到需要的数据，而不需要全表扫描，从而显著提高查询效率。 在MySQL中，索引是存储引擎层面实现的，不同的存储引擎对索引的实现方式可能会有所不同。但无论是哪种存储引擎，索引的目的都是提高数据检索的效率，降低数据库的IO成本。 （二）索引的优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MySQL】MySQL索引详解：原理、类型与优化策略">
+<meta property="og:url" content="https://uwakeme.top/2025/07/16/%E3%80%90MySQL%E3%80%91MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E7%B1%BB%E5%9E%8B%E4%B8%8E%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、索引基础概念（一）什么是索引索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构。索引的作用就相当于书的目录，通过索引可以快速定位到需要的数据，而不需要全表扫描，从而显著提高查询效率。 在MySQL中，索引是存储引擎层面实现的，不同的存储引擎对索引的实现方式可能会有所不同。但无论是哪种存储引擎，索引的目的都是提高数据检索的效率，降低数据库的IO成本。 （二）索引的优">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-16T01:52:00.131Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="索引">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【MySQL】MySQL索引详解：原理、类型与优化策略 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【MySQL】MySQL索引详解：原理、类型与优化策略"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-16 00:00" pubdate>
+          2025-07-16 00:00
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【MySQL】MySQL索引详解：原理、类型与优化策略</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、索引基础概念"><a href="#一、索引基础概念" class="headerlink" title="一、索引基础概念"></a>一、索引基础概念</h1><h2 id="（一）什么是索引"><a href="#（一）什么是索引" class="headerlink" title="（一）什么是索引"></a>（一）什么是索引</h2><p>索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构。索引的作用就相当于书的目录，通过索引可以快速定位到需要的数据，而不需要全表扫描，从而显著提高查询效率。</p>
+<p>在MySQL中，索引是存储引擎层面实现的，不同的存储引擎对索引的实现方式可能会有所不同。但无论是哪种存储引擎，索引的目的都是提高数据检索的效率，降低数据库的IO成本。</p>
+<h2 id="（二）索引的优缺点"><a href="#（二）索引的优缺点" class="headerlink" title="（二）索引的优缺点"></a>（二）索引的优缺点</h2><h3 id="1-索引的优点"><a href="#1-索引的优点" class="headerlink" title="1. 索引的优点"></a>1. 索引的优点</h3><ul>
+<li><strong>提高查询速度</strong>：通过索引，数据库可以大幅减少需要扫描的数据量，直接定位到符合条件的记录，从而显著加快数据检索速度，减少磁盘I&#x2F;O次数。</li>
+<li><strong>保证数据唯一性</strong>：通过创建唯一索引，可以确保表中的某一列（或几列组合）的值是独一无二的，比如用户ID、邮箱等。主键本身就是一种唯一索引。</li>
+<li><strong>加速排序和分组</strong>：如果查询中的ORDER BY或GROUP BY子句涉及的列建有索引，数据库往往可以直接利用索引已经排好序的特性，避免额外的排序操作。</li>
+</ul>
+<h3 id="2-索引的缺点"><a href="#2-索引的缺点" class="headerlink" title="2. 索引的缺点"></a>2. 索引的缺点</h3><ul>
+<li><strong>创建和维护耗时</strong>：创建索引本身需要时间，特别是对大表操作时。更重要的是，当对表中的数据进行增、删、改(DML操作)时，不仅要操作数据本身，相关的索引也必须动态更新和维护，这会降低这些DML操作的执行效率。</li>
+<li><strong>占用存储空间</strong>：索引本质上也是一种数据结构，需要以物理文件（或内存结构）的形式存储，因此会额外占用一定的磁盘空间。索引越多、越大，占用的空间也就越多。</li>
+<li><strong>可能被误用或失效</strong>：如果索引设计不当，或者查询语句写得不好，数据库优化器可能不会选择使用索引（或者选错索引），反而导致性能下降。</li>
+</ul>
+<h2 id="（三）索引适用场景"><a href="#（三）索引适用场景" class="headerlink" title="（三）索引适用场景"></a>（三）索引适用场景</h2><p>索引并非在所有场景下都能提高查询性能，以下是一些适合使用索引的场景：</p>
+<ul>
+<li><strong>数据量大的表</strong>：当表中的数据量较大时，全表扫描的成本很高，此时使用索引可以显著提高查询效率。</li>
+<li><strong>经常需要排序或分组的列</strong>：如果某些列经常出现在ORDER BY或GROUP BY子句中，为这些列建立索引可以避免额外的排序操作。</li>
+<li><strong>经常在WHERE子句中出现的列</strong>：为经常用于查询条件的列建立索引，可以加速查询。</li>
+<li><strong>经常需要连接的列</strong>：如果某些列经常用于表连接操作，为这些列建立索引可以提高连接操作的效率。</li>
+</ul>
+<p>以下场景则不适合使用索引：</p>
+<ul>
+<li><strong>数据量小的表</strong>：如果表里的数据非常少（比如就几百条），全表扫描可能比通过索引查找更快，因为走索引本身也有开销。</li>
+<li><strong>查询结果集占比过大</strong>：如果要查询的数据占了整张表的大部分（比如超过20%-30%），优化器可能会认为全表扫描更划算。</li>
+<li><strong>频繁更新的列</strong>：如果某列的数据频繁变动，那么索引也需要频繁更新，可能会影响性能。</li>
+<li><strong>区分度低的列</strong>：如性别、状态等只有少数几个不同值的列，索引的效果不明显。</li>
+</ul>
+<h1 id="二、索引底层原理"><a href="#二、索引底层原理" class="headerlink" title="二、索引底层原理"></a>二、索引底层原理</h1><h2 id="（一）索引数据结构"><a href="#（一）索引数据结构" class="headerlink" title="（一）索引数据结构"></a>（一）索引数据结构</h2><p>MySQL中常用的索引数据结构包括B+树、哈希表等，不同的存储引擎可能使用不同的数据结构实现索引。</p>
+<h3 id="1-B-树索引"><a href="#1-B-树索引" class="headerlink" title="1. B+树索引"></a>1. B+树索引</h3><p>B+树是MySQL中最常用的索引数据结构，特别是在InnoDB和MyISAM存储引擎中。B+树是B树的一种变种，它具有以下特点：</p>
+<ul>
+<li>所有数据都存储在叶子节点，非叶子节点只存储键值和指针。</li>
+<li>所有叶子节点之间通过指针连接，形成一个有序链表，方便范围查询。</li>
+<li>B+树的高度一般在2-4层，即使存储大量数据，检索也只需要2-4次磁盘I&#x2F;O。</li>
+<li>B+树的每个节点可以存储多个键值，这样可以减少树的高度，减少磁盘I&#x2F;O次数。</li>
+</ul>
+<p>相比于其他数据结构，B+树具有以下优势：</p>
+<ul>
+<li>相比于二叉树，B+树的高度更低，可以减少磁盘I&#x2F;O次数。</li>
+<li>相比于B树，B+树的所有数据都存储在叶子节点，非叶子节点只存储键值，可以在相同的磁盘页中存储更多的键值，进一步降低树的高度。</li>
+<li>叶子节点之间通过指针连接，形成有序链表，方便范围查询和排序操作。</li>
+</ul>
+<h3 id="2-哈希索引"><a href="#2-哈希索引" class="headerlink" title="2. 哈希索引"></a>2. 哈希索引</h3><p>哈希索引基于哈希表实现，通过哈希函数将键值转换为哈希值，然后根据哈希值快速定位到数据。哈希索引具有以下特点：</p>
+<ul>
+<li>等值查询非常快，时间复杂度接近O(1)。</li>
+<li>不支持范围查询和排序操作。</li>
+<li>不支持部分索引列匹配查找。</li>
+</ul>
+<p>在MySQL中，Memory存储引擎支持显式创建哈希索引，而InnoDB存储引擎则提供了一种自适应哈希索引（Adaptive Hash Index）的特性，可以在运行时根据访问模式自动构建哈希索引。</p>
+<h2 id="（二）索引的物理存储"><a href="#（二）索引的物理存储" class="headerlink" title="（二）索引的物理存储"></a>（二）索引的物理存储</h2><p>在MySQL中，索引通常以文件的形式存储在磁盘上。具体的存储方式取决于存储引擎：</p>
+<ul>
+<li><strong>InnoDB</strong>：索引和数据存储在同一个文件中（.ibd文件）。</li>
+<li><strong>MyISAM</strong>：索引存储在.MYI文件中，数据存储在.MYD文件中。</li>
+</ul>
+<p>索引文件通常按照B+树的结构组织，每个节点对应一个磁盘页（通常为16KB），这样可以最大限度地减少磁盘I&#x2F;O次数。</p>
+<h2 id="（三）索引的工作原理"><a href="#（三）索引的工作原理" class="headerlink" title="（三）索引的工作原理"></a>（三）索引的工作原理</h2><p>以InnoDB的B+树索引为例，当执行一个查询时，索引的工作原理如下：</p>
+<ol>
+<li>从B+树的根节点开始，根据键值比较，确定下一步要访问的子节点。</li>
+<li>沿着B+树逐层向下查找，直到找到叶子节点。</li>
+<li>在叶子节点中，如果是主键索引（聚集索引），直接返回对应的行数据；如果是辅助索引（非聚集索引），则获取到主键值，再通过主键索引查找对应的行数据（这个过程称为”回表”）。</li>
+</ol>
+<h1 id="三、MySQL索引类型"><a href="#三、MySQL索引类型" class="headerlink" title="三、MySQL索引类型"></a>三、MySQL索引类型</h1><h2 id="（一）按数据结构分类"><a href="#（一）按数据结构分类" class="headerlink" title="（一）按数据结构分类"></a>（一）按数据结构分类</h2><h3 id="1-B-树索引-1"><a href="#1-B-树索引-1" class="headerlink" title="1. B+树索引"></a>1. B+树索引</h3><p>B+树索引是MySQL中最常用的索引类型，适用于大多数查询场景，特别是范围查询和排序操作。InnoDB和MyISAM存储引擎都使用B+树作为索引结构。</p>
+<h3 id="2-哈希索引-1"><a href="#2-哈希索引-1" class="headerlink" title="2. 哈希索引"></a>2. 哈希索引</h3><p>哈希索引主要用于等值查询，不支持范围查询和排序操作。在MySQL中，Memory存储引擎支持显式创建哈希索引，而InnoDB则提供了自适应哈希索引功能。</p>
+<h3 id="3-全文索引"><a href="#3-全文索引" class="headerlink" title="3. 全文索引"></a>3. 全文索引</h3><p>全文索引（FULLTEXT）用于全文搜索，可以在CHAR、VARCHAR和TEXT类型的列上创建。MyISAM和InnoDB（从MySQL 5.6开始）都支持全文索引。</p>
+<h3 id="4-空间索引"><a href="#4-空间索引" class="headerlink" title="4. 空间索引"></a>4. 空间索引</h3><p>空间索引（SPATIAL）用于地理空间数据类型，如POINT、LINESTRING等。MyISAM和InnoDB（从MySQL 5.7开始）都支持空间索引。</p>
+<h2 id="（二）按物理存储分类"><a href="#（二）按物理存储分类" class="headerlink" title="（二）按物理存储分类"></a>（二）按物理存储分类</h2><h3 id="1-聚集索引（Clustered-Index）"><a href="#1-聚集索引（Clustered-Index）" class="headerlink" title="1. 聚集索引（Clustered Index）"></a>1. 聚集索引（Clustered Index）</h3><p>聚集索引决定了表中数据的物理存储顺序。在InnoDB中，表数据按照主键顺序存储，因此主键索引就是聚集索引。聚集索引的叶子节点存储的是整行数据。</p>
+<p>特点：</p>
+<ul>
+<li>一个表只能有一个聚集索引。</li>
+<li>如果表定义了主键，则主键就是聚集索引。</li>
+<li>如果表没有定义主键，则使用第一个UNIQUE且NOT NULL的索引作为聚集索引。</li>
+<li>如果表既没有主键，也没有合适的UNIQUE索引，则InnoDB会自动生成一个隐藏的主键（称为ROW_ID），并使用它作为聚集索引。</li>
+</ul>
+<h3 id="2-非聚集索引（Secondary-Index）"><a href="#2-非聚集索引（Secondary-Index）" class="headerlink" title="2. 非聚集索引（Secondary Index）"></a>2. 非聚集索引（Secondary Index）</h3><p>非聚集索引也称为辅助索引，它的叶子节点存储的是主键值，而不是整行数据。当使用非聚集索引查询时，如果需要获取索引列以外的数据，则需要通过主键值再次查询聚集索引，这个过程称为”回表”。</p>
+<p>特点：</p>
+<ul>
+<li>一个表可以有多个非聚集索引。</li>
+<li>非聚集索引的叶子节点存储的是主键值，而不是整行数据。</li>
+<li>使用非聚集索引查询时，如果需要获取索引列以外的数据，则需要回表。</li>
+</ul>
+<h2 id="（三）按逻辑分类"><a href="#（三）按逻辑分类" class="headerlink" title="（三）按逻辑分类"></a>（三）按逻辑分类</h2><h3 id="1-主键索引"><a href="#1-主键索引" class="headerlink" title="1. 主键索引"></a>1. 主键索引</h3><p>主键索引是一种特殊的唯一索引，用于唯一标识表中的每一行数据。主键列不允许有NULL值，一个表只能有一个主键索引。在InnoDB中，主键索引就是聚集索引。</p>
+<h3 id="2-唯一索引"><a href="#2-唯一索引" class="headerlink" title="2. 唯一索引"></a>2. 唯一索引</h3><p>唯一索引（UNIQUE）用于确保索引列的值唯一，但允许有NULL值（NULL不等于NULL）。一个表可以有多个唯一索引。</p>
+<h3 id="3-普通索引"><a href="#3-普通索引" class="headerlink" title="3. 普通索引"></a>3. 普通索引</h3><p>普通索引（INDEX）是最基本的索引类型，没有唯一性限制，允许有重复值和NULL值。</p>
+<h3 id="4-联合索引"><a href="#4-联合索引" class="headerlink" title="4. 联合索引"></a>4. 联合索引</h3><p>联合索引（Composite Index）是在多个列上创建的索引。联合索引的使用遵循”最左前缀原则”，即查询条件必须从索引的最左列开始，不能跳过中间的列。</p>
+<p>例如，如果创建了(a, b, c)的联合索引，那么可以使用a、(a,b)、(a,b,c)作为查询条件，但不能直接使用b、c、(b,c)作为查询条件。</p>
+<h1 id="四、索引使用策略与优化"><a href="#四、索引使用策略与优化" class="headerlink" title="四、索引使用策略与优化"></a>四、索引使用策略与优化</h1><h2 id="（一）索引设计原则"><a href="#（一）索引设计原则" class="headerlink" title="（一）索引设计原则"></a>（一）索引设计原则</h2><h3 id="1-选择合适的列建立索引"><a href="#1-选择合适的列建立索引" class="headerlink" title="1. 选择合适的列建立索引"></a>1. 选择合适的列建立索引</h3><ul>
+<li><strong>选择区分度高的列</strong>：区分度越高，索引的效果越好。可以通过计算列的基数（Cardinality）与表的总行数的比值来评估区分度。</li>
+<li><strong>选择经常用于查询条件的列</strong>：为经常出现在WHERE子句、JOIN子句、ORDER BY子句和GROUP BY子句中的列建立索引。</li>
+<li><strong>避免对频繁更新的列建立索引</strong>：索引需要维护，如果列的值经常变动，会增加维护成本。</li>
+</ul>
+<h3 id="2-合理使用联合索引"><a href="#2-合理使用联合索引" class="headerlink" title="2. 合理使用联合索引"></a>2. 合理使用联合索引</h3><ul>
+<li><strong>遵循最左前缀原则</strong>：在创建联合索引时，把最常用的列放在最左边。</li>
+<li><strong>考虑查询的选择性</strong>：在联合索引中，将选择性高的列放在前面，可以更快地缩小查询范围。</li>
+<li><strong>覆盖索引</strong>：尽量使用联合索引覆盖查询所需的所有列，避免回表操作。</li>
+</ul>
+<h3 id="3-控制索引数量"><a href="#3-控制索引数量" class="headerlink" title="3. 控制索引数量"></a>3. 控制索引数量</h3><ul>
+<li><strong>避免创建冗余索引</strong>：如果已经有(a, b)的联合索引，就不需要再单独创建a的索引。</li>
+<li><strong>避免创建重复索引</strong>：不要在同一列上创建多个索引。</li>
+<li><strong>定期检查和优化索引</strong>：使用SHOW INDEX命令查看索引使用情况，删除不必要的索引。</li>
+</ul>
+<h2 id="（二）索引优化技巧"><a href="#（二）索引优化技巧" class="headerlink" title="（二）索引优化技巧"></a>（二）索引优化技巧</h2><h3 id="1-覆盖索引"><a href="#1-覆盖索引" class="headerlink" title="1. 覆盖索引"></a>1. 覆盖索引</h3><p>覆盖索引（Covering Index）是指查询的所有列都包含在索引中，这样就不需要回表查询，可以直接从索引中获取所需的数据。</p>
+<p>例如，如果有一个(name, age)的联合索引，那么执行<code>SELECT name, age FROM users WHERE name = &#39;Tom&#39;</code>时，就可以直接从索引中获取结果，而不需要回表。</p>
+<h3 id="2-索引下推"><a href="#2-索引下推" class="headerlink" title="2. 索引下推"></a>2. 索引下推</h3><p>索引下推（Index Condition Pushdown, ICP）是MySQL 5.6引入的一种优化技术。在没有ICP之前，存储引擎通过索引检索到数据，然后返回给MySQL服务器，由服务器再判断数据是否符合条件。有了ICP之后，如果存在某些被索引的列的判断条件，MySQL服务器将这些条件”下推”给存储引擎，由存储引擎判断，这样可以减少回表次数和数据传输量。</p>
+<p>例如，如果有一个(name, age)的联合索引，执行<code>SELECT * FROM users WHERE name LIKE &#39;To%&#39; AND age &gt; 20</code>时，在没有ICP的情况下，存储引擎只会使用name列的索引，然后回表获取完整的行数据，再由MySQL服务器判断age是否大于20。而有了ICP之后，存储引擎会在索引内部判断age是否大于20，只有满足条件的记录才会被回表查询。</p>
+<h3 id="3-前缀索引"><a href="#3-前缀索引" class="headerlink" title="3. 前缀索引"></a>3. 前缀索引</h3><p>对于CHAR、VARCHAR和TEXT等字符串类型的列，如果列的长度很大，可以只索引列值的前缀部分，这样可以减少索引的大小，提高索引的效率。</p>
+<p>例如，可以使用<code>CREATE INDEX idx_name ON users(name(10))</code>只索引name列的前10个字符。但需要注意的是，前缀索引可能会降低索引的选择性，需要根据实际情况权衡。</p>
+<h3 id="4-强制索引"><a href="#4-强制索引" class="headerlink" title="4. 强制索引"></a>4. 强制索引</h3><p>如果MySQL的查询优化器没有选择最优的索引，可以使用FORCE INDEX子句强制使用指定的索引。</p>
+<p>例如：<code>SELECT * FROM users FORCE INDEX(idx_name) WHERE name = &#39;Tom&#39;</code>。</p>
+<h2 id="（三）索引失效场景"><a href="#（三）索引失效场景" class="headerlink" title="（三）索引失效场景"></a>（三）索引失效场景</h2><p>以下是一些常见的索引失效场景，了解这些场景可以帮助我们避免索引失效，提高查询效率：</p>
+<h3 id="1-索引列运算"><a href="#1-索引列运算" class="headerlink" title="1. 索引列运算"></a>1. 索引列运算</h3><p>当在WHERE子句中对索引列进行函数运算或表达式计算时，索引会失效。</p>
+<p>例如：<code>SELECT * FROM users WHERE YEAR(birth_date) = 1990</code>会导致索引失效，可以改写为<code>SELECT * FROM users WHERE birth_date BETWEEN &#39;1990-01-01&#39; AND &#39;1990-12-31&#39;</code>。</p>
+<h3 id="2-隐式类型转换"><a href="#2-隐式类型转换" class="headerlink" title="2. 隐式类型转换"></a>2. 隐式类型转换</h3><p>当索引列的类型与查询条件的类型不一致时，可能会发生隐式类型转换，导致索引失效。</p>
+<p>例如，如果phone列是VARCHAR类型，执行<code>SELECT * FROM users WHERE phone = 13800138000</code>（没有引号）会导致索引失效，应该改为<code>SELECT * FROM users WHERE phone = &#39;13800138000&#39;</code>。</p>
+<h3 id="3-前导通配符查询"><a href="#3-前导通配符查询" class="headerlink" title="3. 前导通配符查询"></a>3. 前导通配符查询</h3><p>在LIKE查询中使用前导通配符（%或_开头）会导致索引失效。</p>
+<p>例如：<code>SELECT * FROM users WHERE name LIKE &#39;%Tom%&#39;</code>会导致索引失效，而<code>SELECT * FROM users WHERE name LIKE &#39;Tom%&#39;</code>则可以使用索引。</p>
+<h3 id="4-OR连接条件"><a href="#4-OR连接条件" class="headerlink" title="4. OR连接条件"></a>4. OR连接条件</h3><p>当使用OR连接多个条件，且其中有条件的列没有索引时，所有的索引都会失效。</p>
+<p>例如：<code>SELECT * FROM users WHERE name = &#39;Tom&#39; OR age = 20</code>，如果age列没有索引，则name列的索引也会失效。</p>
+<h3 id="5-最左前缀原则违反"><a href="#5-最左前缀原则违反" class="headerlink" title="5. 最左前缀原则违反"></a>5. 最左前缀原则违反</h3><p>对于联合索引，如果查询条件不符合最左前缀原则，索引会部分或完全失效。</p>
+<p>例如，如果有一个(name, age, gender)的联合索引，那么<code>SELECT * FROM users WHERE age = 20 AND gender = &#39;M&#39;</code>会导致索引失效，因为没有使用最左边的name列。</p>
+<h3 id="6-范围查询右侧列失效"><a href="#6-范围查询右侧列失效" class="headerlink" title="6. 范围查询右侧列失效"></a>6. 范围查询右侧列失效</h3><p>在联合索引中，如果对某一列进行范围查询（如&gt;、&lt;、BETWEEN等），则该列右侧的所有列都无法使用索引。</p>
+<p>例如，如果有一个(name, age, gender)的联合索引，执行<code>SELECT * FROM users WHERE name = &#39;Tom&#39; AND age &gt; 20 AND gender = &#39;M&#39;</code>时，gender列的索引会失效，因为age列进行了范围查询。</p>
+<h2 id="（四）执行计划分析"><a href="#（四）执行计划分析" class="headerlink" title="（四）执行计划分析"></a>（四）执行计划分析</h2><p>MySQL提供了EXPLAIN命令，可以帮助我们分析SQL语句的执行计划，了解索引的使用情况。</p>
+<h3 id="1-EXPLAIN命令基本用法"><a href="#1-EXPLAIN命令基本用法" class="headerlink" title="1. EXPLAIN命令基本用法"></a>1. EXPLAIN命令基本用法</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'Tom'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<p>EXPLAIN命令会返回一个结果集，包含以下重要字段：</p>
+<ul>
+<li><strong>id</strong>：SELECT查询的序号，表示查询中执行SELECT子句或操作表的顺序。</li>
+<li><strong>select_type</strong>：SELECT查询的类型。</li>
+<li><strong>table</strong>：查询的表名。</li>
+<li><strong>partitions</strong>：匹配的分区。</li>
+<li><strong>type</strong>：访问类型，表示MySQL如何查找表中的行。常见的类型有system、const、eq_ref、ref、range、index、ALL等，从左到右，性能依次降低。</li>
+<li><strong>possible_keys</strong>：可能使用的索引。</li>
+<li><strong>key</strong>：实际使用的索引。</li>
+<li><strong>key_len</strong>：使用的索引的长度。</li>
+<li><strong>ref</strong>：与索引比较的列或常量。</li>
+<li><strong>rows</strong>：预计要检查的行数。</li>
+<li><strong>filtered</strong>：按表条件过滤的行百分比。</li>
+<li><strong>Extra</strong>：额外信息。</li>
+</ul>
+<h3 id="2-常见的访问类型"><a href="#2-常见的访问类型" class="headerlink" title="2. 常见的访问类型"></a>2. 常见的访问类型</h3><ul>
+<li><strong>system</strong>：表只有一行记录，这是const类型的特例。</li>
+<li><strong>const</strong>：通过索引一次就找到了，const用于比较主键或唯一索引。</li>
+<li><strong>eq_ref</strong>：唯一性索引扫描，对于每个索引键，表中只有一条记录与之匹配。常见于主键或唯一索引扫描。</li>
+<li><strong>ref</strong>：非唯一性索引扫描，返回匹配某个单独值的所有行。</li>
+<li><strong>range</strong>：只检索给定范围的行，使用一个索引来选择行。</li>
+<li><strong>index</strong>：全索引扫描，遍历整个索引树。</li>
+<li><strong>ALL</strong>：全表扫描，从头到尾扫描表中的每一行。</li>
+</ul>
+<h3 id="3-执行计划优化"><a href="#3-执行计划优化" class="headerlink" title="3. 执行计划优化"></a>3. 执行计划优化</h3><p>通过分析执行计划，我们可以发现以下问题并进行优化：</p>
+<ul>
+<li><strong>type为ALL</strong>：表示全表扫描，性能较差，应考虑添加适当的索引。</li>
+<li><strong>key为NULL</strong>：表示没有使用索引，应检查索引设计或查询条件。</li>
+<li><strong>rows值很大</strong>：表示需要检查的行数很多，应考虑优化索引或查询条件。</li>
+<li><strong>Extra中包含Using filesort或Using temporary</strong>：表示需要额外的排序或临时表操作，可能影响性能。</li>
+</ul>
+<h1 id="五、MySQL索引实践案例"><a href="#五、MySQL索引实践案例" class="headerlink" title="五、MySQL索引实践案例"></a>五、MySQL索引实践案例</h1><h2 id="（一）基本索引操作"><a href="#（一）基本索引操作" class="headerlink" title="（一）基本索引操作"></a>（一）基本索引操作</h2><h3 id="1-创建索引"><a href="#1-创建索引" class="headerlink" title="1. 创建索引"></a>1. 创建索引</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建表时指定索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> users <span class="token punctuation">(</span>
+    id <span class="token keyword">INT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+    name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    email <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    age <span class="token keyword">INT</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">UNIQUE</span> <span class="token keyword">INDEX</span> idx_email <span class="token punctuation">(</span>email<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">INDEX</span> idx_name <span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">INDEX</span> idx_name_age <span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 在已有表上创建索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_age <span class="token keyword">ON</span> users<span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> users <span class="token keyword">ADD</span> <span class="token keyword">INDEX</span> idx_name_email <span class="token punctuation">(</span>name<span class="token punctuation">,</span> email<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-查看索引"><a href="#2-查看索引" class="headerlink" title="2. 查看索引"></a>2. 查看索引</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">INDEX</span> <span class="token keyword">FROM</span> users<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="3-删除索引"><a href="#3-删除索引" class="headerlink" title="3. 删除索引"></a>3. 删除索引</h3><figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">INDEX</span> idx_age <span class="token keyword">ON</span> users<span class="token punctuation">;</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> users <span class="token keyword">DROP</span> <span class="token keyword">INDEX</span> idx_name_email<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）常见索引优化案例"><a href="#（二）常见索引优化案例" class="headerlink" title="（二）常见索引优化案例"></a>（二）常见索引优化案例</h2><h3 id="1-优化ORDER-BY和GROUP-BY"><a href="#1-优化ORDER-BY和GROUP-BY" class="headerlink" title="1. 优化ORDER BY和GROUP BY"></a>1. 优化ORDER BY和GROUP BY</h3><p>如果ORDER BY或GROUP BY子句中的列有索引，可以避免额外的排序操作。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_age_name <span class="token keyword">ON</span> users<span class="token punctuation">(</span>age<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化前</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> age<span class="token punctuation">,</span> name<span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化后（使用索引排序）</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> age<span class="token punctuation">,</span> name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-优化JOIN操作"><a href="#2-优化JOIN操作" class="headerlink" title="2. 优化JOIN操作"></a>2. 优化JOIN操作</h3><p>在JOIN操作中，如果连接列有索引，可以提高连接效率。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_user_id <span class="token keyword">ON</span> orders<span class="token punctuation">(</span>user_id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化前</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users u <span class="token keyword">JOIN</span> orders o <span class="token keyword">ON</span> u<span class="token punctuation">.</span>id <span class="token operator">=</span> o<span class="token punctuation">.</span>user_id<span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化后（使用索引连接）</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users u <span class="token keyword">JOIN</span> orders o <span class="token keyword">ON</span> u<span class="token punctuation">.</span>id <span class="token operator">=</span> o<span class="token punctuation">.</span>user_id<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-使用覆盖索引避免回表"><a href="#3-使用覆盖索引避免回表" class="headerlink" title="3. 使用覆盖索引避免回表"></a>3. 使用覆盖索引避免回表</h3><p>通过使用覆盖索引，可以避免回表操作，提高查询效率。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_name_age_email <span class="token keyword">ON</span> users<span class="token punctuation">(</span>name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化前（需要回表）</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> users <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'Tom'</span> <span class="token operator">AND</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 优化后（使用覆盖索引，不需要回表）</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> email <span class="token keyword">FROM</span> users <span class="token keyword">WHERE</span> name <span class="token operator">=</span> <span class="token string">'Tom'</span> <span class="token operator">AND</span> age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="4-使用前缀索引优化字符串索引"><a href="#4-使用前缀索引优化字符串索引" class="headerlink" title="4. 使用前缀索引优化字符串索引"></a>4. 使用前缀索引优化字符串索引</h3><p>对于长字符串列，可以使用前缀索引减少索引大小。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 创建前缀索引</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> idx_content <span class="token keyword">ON</span> articles<span class="token punctuation">(</span>content<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">-- 使用前缀索引查询</span>
+<span class="token keyword">EXPLAIN</span> <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> articles <span class="token keyword">WHERE</span> content <span class="token operator">LIKE</span> <span class="token string">'MySQL%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）索引维护与监控"><a href="#（三）索引维护与监控" class="headerlink" title="（三）索引维护与监控"></a>（三）索引维护与监控</h2><h3 id="1-定期分析表"><a href="#1-定期分析表" class="headerlink" title="1. 定期分析表"></a>1. 定期分析表</h3><p>使用ANALYZE TABLE命令更新表的统计信息，帮助优化器做出更准确的决策。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ANALYZE</span> <span class="token keyword">TABLE</span> users<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h3 id="2-监控索引使用情况"><a href="#2-监控索引使用情况" class="headerlink" title="2. 监控索引使用情况"></a>2. 监控索引使用情况</h3><p>使用性能模式（Performance Schema）和information_schema来监控索引的使用情况。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 查看索引使用情况</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> performance_schema<span class="token punctuation">.</span>table_io_waits_summary_by_index_usage
+<span class="token keyword">WHERE</span> object_schema <span class="token operator">=</span> <span class="token string">'your_database'</span> <span class="token operator">AND</span> object_name <span class="token operator">=</span> <span class="token string">'users'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-优化索引结构"><a href="#3-优化索引结构" class="headerlink" title="3. 优化索引结构"></a>3. 优化索引结构</h3><p>使用OPTIMIZE TABLE命令重建表和索引，减少碎片。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">OPTIMIZE</span> <span class="token keyword">TABLE</span> users<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h1 id="六、总结与最佳实践"><a href="#六、总结与最佳实践" class="headerlink" title="六、总结与最佳实践"></a>六、总结与最佳实践</h1><h2 id="（一）索引设计总结"><a href="#（一）索引设计总结" class="headerlink" title="（一）索引设计总结"></a>（一）索引设计总结</h2><ul>
+<li><strong>选择合适的列</strong>：选择区分度高、经常用于查询条件的列建立索引。</li>
+<li><strong>控制索引数量</strong>：避免创建冗余索引和重复索引，定期检查和优化索引。</li>
+<li><strong>合理使用联合索引</strong>：遵循最左前缀原则，考虑查询的选择性。</li>
+<li><strong>注意索引的维护成本</strong>：索引会影响INSERT、UPDATE和DELETE操作的性能。</li>
+</ul>
+<h2 id="（二）索引使用最佳实践"><a href="#（二）索引使用最佳实践" class="headerlink" title="（二）索引使用最佳实践"></a>（二）索引使用最佳实践</h2><ul>
+<li><strong>避免索引失效</strong>：了解索引失效的场景，避免在查询中使用会导致索引失效的操作。</li>
+<li><strong>使用覆盖索引</strong>：尽量使用索引覆盖查询所需的所有列，避免回表操作。</li>
+<li><strong>合理使用索引提示</strong>：在必要时使用FORCE INDEX等索引提示。</li>
+<li><strong>定期维护索引</strong>：使用ANALYZE TABLE和OPTIMIZE TABLE命令维护索引。</li>
+</ul>
+<h2 id="（三）索引优化技巧总结"><a href="#（三）索引优化技巧总结" class="headerlink" title="（三）索引优化技巧总结"></a>（三）索引优化技巧总结</h2><ul>
+<li><strong>使用EXPLAIN分析查询</strong>：使用EXPLAIN命令分析SQL语句的执行计划，了解索引的使用情况。</li>
+<li><strong>优化查询语句</strong>：根据索引的特性优化查询语句，避免使用会导致索引失效的操作。</li>
+<li><strong>考虑数据分布</strong>：根据数据的分布情况选择合适的索引类型和策略。</li>
+<li><strong>平衡索引和表的大小</strong>：索引会占用额外的存储空间，需要在性能和空间之间做出平衡。</li>
+</ul>
+<p>通过合理设计和使用索引，我们可以显著提高MySQL数据库的查询性能，降低系统响应时间，提升用户体验。但同时也要注意索引的维护成本，避免过度索引对系统性能造成负面影响。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li>MySQL官方文档：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html">https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html</a></li>
+<li>《高性能MySQL》（第4版）- Baron Schwartz, Peter Zaitsev, Vadim Tkachenko</li>
+<li>《MySQL技术内幕：InnoDB存储引擎》- 姜承尧</li>
+<li>《数据库索引设计与优化》- Tapio Lahdenmaki, Michael Leach</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/MySQL/" class="category-chain-item">MySQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+        <a href="/tags/MySQL/" class="print-no-link">#MySQL</a>
+      
+        <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="print-no-link">#性能优化</a>
+      
+        <a href="/tags/%E7%B4%A2%E5%BC%95/" class="print-no-link">#索引</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Android%E5%BC%80%E5%8F%912025%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E9%AB%98%E7%BA%A7%E6%9E%B6%E6%9E%84%E5%B8%88/" title="【学习路线】Android开发2025：从入门到高级架构师">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习路线】Android开发2025：从入门到高级架构师</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/16/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Docker%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="【学习】Docker详解：容器技术的原理与实践">
+                        <span class="hidden-mobile">【学习】Docker详解：容器技术的原理与实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

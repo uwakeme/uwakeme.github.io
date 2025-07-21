@@ -1,0 +1,1290 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言在现代Web开发中，用户通过各种不同尺寸和能力的设备访问网页，从桌面显示器到平板电脑再到智能手机。为了确保在所有这些设备上都能提供优秀的用户体验，响应式网页设计（Responsive Web Design, RWD）应运而生。CSS媒体查询（Media Queries）是实现响应式设计的核心技术之一，它允许我们根据设备的特性（如视口宽度、屏幕方向、分辨率等）来应用特定的CSS样式。本文将详细介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【前端】CSS媒体查询详解与响应式设计实践">
+<meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91CSS%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言在现代Web开发中，用户通过各种不同尺寸和能力的设备访问网页，从桌面显示器到平板电脑再到智能手机。为了确保在所有这些设备上都能提供优秀的用户体验，响应式网页设计（Responsive Web Design, RWD）应运而生。CSS媒体查询（Media Queries）是实现响应式设计的核心技术之一，它允许我们根据设备的特性（如视口宽度、屏幕方向、分辨率等）来应用特定的CSS样式。本文将详细介">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-14T08:45:04.481Z">
+<meta property="article:modified_time" content="2025-07-14T08:45:04.482Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="Media Queries">
+<meta property="article:tag" content="响应式设计">
+<meta property="article:tag" content="Web开发">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【前端】CSS媒体查询详解与响应式设计实践 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【前端】CSS媒体查询详解与响应式设计实践"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-14 16:45" pubdate>
+          2025-07-14 16:45
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【前端】CSS媒体查询详解与响应式设计实践</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在现代Web开发中，用户通过各种不同尺寸和能力的设备访问网页，从桌面显示器到平板电脑再到智能手机。为了确保在所有这些设备上都能提供优秀的用户体验，响应式网页设计（Responsive Web Design, RWD）应运而生。CSS媒体查询（Media Queries）是实现响应式设计的核心技术之一，它允许我们根据设备的特性（如视口宽度、屏幕方向、分辨率等）来应用特定的CSS样式。本文将详细介绍CSS媒体查询的用法、重要概念以及如何在实践中应用它们来构建自适应的网页布局。</p>
+<h1 id="一、什么是媒体查询？"><a href="#一、什么是媒体查询？" class="headerlink" title="一、什么是媒体查询？"></a>一、什么是媒体查询？</h1><p>媒体查询是CSS3引入的一项重要功能，它允许内容的呈现根据用户设备的特定参数进行调整，例如屏幕分辨率、视口宽度、方向（横屏或竖屏）、色彩能力等。通过使用媒体查询，开发者可以为不同类型的设备和环境提供定制化的样式表，从而创建更加灵活和用户友好的界面。</p>
+<p>媒体查询主要由两部分组成：</p>
+<ol>
+<li><strong>媒体类型（Media Type）</strong>：指定样式适用的设备类型。</li>
+<li><strong>媒体特性（Media Feature）</strong>：描述设备的具体特征，可以是一个或多个表达式，这些表达式会被解析为真或假。</li>
+</ol>
+<p>当媒体类型与设备匹配，并且所有媒体特性表达式都为真时，媒体查询的结果才为真，其中定义的CSS规则就会被应用。</p>
+<h1 id="二、媒体查询的语法"><a href="#二、媒体查询的语法" class="headerlink" title="二、媒体查询的语法"></a>二、媒体查询的语法</h1><p>媒体查询可以直接在CSS文件中使用 <code>@media</code> 规则，也可以在HTML的 <code>&lt;link&gt;</code> 或 <code>&lt;style&gt;</code> 标签中使用 <code>media</code> 属性。</p>
+<h2 id="（一）基本语法"><a href="#（一）基本语法" class="headerlink" title="（一）基本语法"></a>（一）基本语法</h2><p>在CSS中，基本语法如下：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> [<span class="token keyword">not</span>|<span class="token keyword">only</span>] &lt;media-type> [<span class="token keyword">and</span> <span class="token punctuation">(</span>&lt;media-feature-expression><span class="token punctuation">)</span>]*</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* CSS 规则 */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><code>@media</code>：声明一个媒体查询块。</li>
+<li><code>not</code> &#x2F; <code>only</code>：逻辑操作符（可选）。<ul>
+<li><code>not</code>：用于排除某种媒体类型或条件。例如 <code>not print</code> 表示非打印设备。</li>
+<li><code>only</code>：用于指定某种特定的媒体类型，主要目的是为了让不支持媒体查询但支持媒体类型的老旧浏览器忽略这些规则。现代浏览器中通常可以省略。</li>
+</ul>
+</li>
+<li><code>&lt;media-type&gt;</code>：媒体类型（可选，如果省略，默认为 <code>all</code>）。</li>
+<li><code>and</code>：逻辑操作符，用于连接多个媒体特性表达式。</li>
+<li><code>(&lt;media-feature-expression&gt;)</code>：一个或多个媒体特性表达式，用于检测设备的具体属性。每个表达式必须用括号包裹。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 当屏幕宽度最大为 600px 时应用这些样式 */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> lightblue<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.sidebar</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token comment">/* 在小屏幕上隐藏侧边栏 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 当设备为打印机或打印预览模式时应用这些样式 */</span>
+<span class="token atrule"><span class="token rule">@media</span> print</span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> serif<span class="token punctuation">;</span>
+    <span class="token property">font-size</span><span class="token punctuation">:</span> 12pt<span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">a::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">" ("</span> <span class="token function">attr</span><span class="token punctuation">(</span>href<span class="token punctuation">)</span> <span class="token string">")"</span><span class="token punctuation">;</span> <span class="token comment">/* 打印时显示链接地址 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）在HTML中使用"><a href="#（二）在HTML中使用" class="headerlink" title="（二）在HTML中使用"></a>（二）在HTML中使用</h2><ol>
+<li><p><strong>通过 <code>&lt;link&gt;</code> 标签引入外部样式表：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 这个样式表只在屏幕宽度大于等于900px时应用 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">media</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>screen and (min-width: 900px)<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>desktop-styles.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- 这个样式表只在屏幕宽度小于等于600px时应用 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">media</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>screen and (max-width: 600px)<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mobile-styles.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- 这个样式表用于打印 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">media</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>print<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>print-styles.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+</li>
+<li><p><strong>通过 <code>&lt;style&gt;</code> 标签内嵌样式：</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">media</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>screen and (orientation: landscape)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+  <span class="token comment">/* 当屏幕方向为横向时应用的样式 */</span>
+  <span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ol>
+<p>虽然可以在HTML中通过 <code>&lt;link&gt;</code> 标签根据媒体查询加载不同的CSS文件，但这可能会增加HTTP请求次数。更常见的做法是将所有样式写在一个CSS文件中，并使用 <code>@media</code> 规则来组织不同条件下的样式。</p>
+<h1 id="三、媒体类型（Media-Types）"><a href="#三、媒体类型（Media-Types）" class="headerlink" title="三、媒体类型（Media Types）"></a>三、媒体类型（Media Types）</h1><p>媒体类型用于指定CSS规则所适用的设备类别。以下是一些常见的媒体类型：</p>
+<ul>
+<li><code>all</code>：适用于所有设备（默认值）。</li>
+<li><code>screen</code>：适用于彩色电脑屏幕、平板电脑、智能手机等。</li>
+<li><code>print</code>：适用于打印机和打印预览模式。</li>
+<li><code>speech</code>：适用于屏幕阅读器等语音合成设备。</li>
+</ul>
+<p>过去还有一些如 <code>handheld</code>, <code>tv</code>, <code>projection</code> 等媒体类型，但很多已被废弃或不被广泛支持，目前最常用的是 <code>all</code>, <code>screen</code>, 和 <code>print</code>。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> screen</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 只在屏幕上应用的样式 */</span>
+  <span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> Arial<span class="token punctuation">,</span> sans-serif<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token atrule"><span class="token rule">@media</span> print</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 只在打印时应用的样式 */</span>
+  <span class="token selector">header, footer, nav, .sidebar</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token comment">/* 打印时隐藏导航、页眉页脚和侧边栏 */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">article</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="四、媒体特性（Media-Features）"><a href="#四、媒体特性（Media-Features）" class="headerlink" title="四、媒体特性（Media Features）"></a>四、媒体特性（Media Features）</h1><p>媒体特性是媒体查询的核心，它们允许我们检测设备的具体特征。每个特性都可以有一个值，并且很多特性可以带有 <code>min-</code> 或 <code>max-</code> 前缀来表示范围。</p>
+<h2 id="（一）视口尺寸相关"><a href="#（一）视口尺寸相关" class="headerlink" title="（一）视口尺寸相关"></a>（一）视口尺寸相关</h2><p>这是响应式设计中最常用的特性。</p>
+<ol>
+<li><p><strong><code>width</code> &#x2F; <code>height</code></strong></p>
+<ul>
+<li>描述：视口（viewport）的宽度&#x2F;高度。</li>
+<li>可加前缀：<code>min-width</code>, <code>max-width</code>, <code>min-height</code>, <code>max-height</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 视口宽度小于等于 768px */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 768px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 视口宽度大于等于 1024px */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 1024px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 视口宽度在 600px 到 900px 之间 */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 900px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 视口高度大于等于 400px */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>device-width</code> &#x2F; <code>device-height</code> (已不推荐)</strong></p>
+<ul>
+<li>描述：设备屏幕的实际渲染宽度&#x2F;高度。与 <code>width</code>&#x2F;<code>height</code> 不同，后者指的是浏览器视口。</li>
+<li><strong>注意</strong>：这些特性已从 Media Queries Level 4 中移除，推荐使用 <code>width</code> 和 <code>height</code> 结合视口单位（vw, vh）。在早期的响应式设计中较为常见，但现在应避免使用。</li>
+</ul>
+</li>
+<li><p><strong><code>aspect-ratio</code></strong></p>
+<ul>
+<li>描述：视口的宽高比 (宽度&#x2F;高度)。</li>
+<li>可加前缀：<code>min-aspect-ratio</code>, <code>max-aspect-ratio</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 视口宽高比为 16/9 */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">aspect-ratio</span><span class="token punctuation">:</span> 16/9<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 视口宽高比最小为 4/3 */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-aspect-ratio</span><span class="token punctuation">:</span> 4/3<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>orientation</code></strong></p>
+<ul>
+<li>描述：设备的方向。</li>
+<li>值：<code>portrait</code> (高大于等于宽), <code>landscape</code> (宽大于高)。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> portrait<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 设备处于纵向模式时的样式 */</span>
+  <span class="token selector">.logo</span> <span class="token punctuation">&#123;</span> <span class="token property">max-width</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> landscape<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 设备处于横向模式时的样式 */</span>
+  <span class="token selector">nav ul</span> <span class="token punctuation">&#123;</span> <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="（二）显示质量相关"><a href="#（二）显示质量相关" class="headerlink" title="（二）显示质量相关"></a>（二）显示质量相关</h2><ol>
+<li><p><strong><code>resolution</code></strong></p>
+<ul>
+<li>描述：输出设备的分辨率（像素密度）。</li>
+<li>单位：<code>dpi</code> (dots per inch), <code>dpcm</code> (dots per centimeter), <code>dppx</code> (dots per pixel unit, 1dppx &#x3D; 96dpi)。</li>
+<li>可加前缀：<code>min-resolution</code>, <code>max-resolution</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 针对高分屏 (Retina) 设备 */</span>
+@media <span class="token punctuation">(</span><span class="token property">min-resolution</span><span class="token punctuation">:</span> 2dppx<span class="token punctuation">)</span><span class="token punctuation">,</span>
+       <span class="token punctuation">(</span><span class="token property">-webkit-min-device-pixel-ratio</span><span class="token punctuation">:</span> 2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">/* 兼容旧版 WebKit */</span>
+       <span class="token selector">(min-resolution: 192dpi)</span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.icon</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'icon@2x.png'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+    <span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><strong><code>-webkit-device-pixel-ratio</code></strong>: 这是一个早期的、非标准的WebKit内核特有的媒体特性，用于检测设备像素比。现在推荐使用标准的 <code>resolution</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>scan</code> (主要用于TV)</strong></p>
+<ul>
+<li>描述：电视等设备的扫描方式。</li>
+<li>值：<code>progressive</code> (逐行扫描), <code>interlace</code> (隔行扫描)。</li>
+</ul>
+</li>
+<li><p><strong><code>grid</code></strong></p>
+<ul>
+<li>描述：设备是否使用基于网格的屏幕（如TTY终端）。</li>
+<li>值：<code>0</code> (非网格), <code>1</code> (网格)。</li>
+</ul>
+</li>
+<li><p><strong><code>update</code> (Media Queries Level 4)</strong></p>
+<ul>
+<li>描述：设备更新屏幕内容的能力和频率。</li>
+<li>值：<code>none</code> (无法更新，如打印纸张), <code>slow</code> (更新慢，如电子墨水屏), <code>fast</code> (正常屏幕刷新率)。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">update</span><span class="token punctuation">:</span> slow<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 为电子墨水屏等慢刷新设备优化，减少动画 */</span>
+  <span class="token selector">.animated-element</span> <span class="token punctuation">&#123;</span> <span class="token property">animation</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>overflow-block</code> &#x2F; <code>overflow-inline</code> (Media Queries Level 4)</strong></p>
+<ul>
+<li>描述：内容溢出视口时，在块方向&#x2F;内联方向的处理方式。</li>
+<li>值：<code>none</code>, <code>scroll</code>, <code>optional-paged</code>, <code>paged</code>。</li>
+</ul>
+</li>
+</ol>
+<h2 id="（三）颜色相关"><a href="#（三）颜色相关" class="headerlink" title="（三）颜色相关"></a>（三）颜色相关</h2><ol>
+<li><p><strong><code>color</code></strong></p>
+<ul>
+<li>描述：设备颜色的位深度（每种颜色的比特数）。如果值为0，表示设备是灰度屏。</li>
+<li>可加前缀：<code>min-color</code>, <code>max-color</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span>color >= 8<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 至少支持8位颜色的设备 */</span>
+<span class="token punctuation">&#125;</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">color</span><span class="token punctuation">:</span> 0<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 灰度屏幕 */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>color-index</code></strong></p>
+<ul>
+<li>描述：设备颜色查询表中的条目数。如果设备不使用颜色查询表，则值为0。</li>
+<li>可加前缀：<code>min-color-index</code>, <code>max-color-index</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>monochrome</code></strong></p>
+<ul>
+<li>描述：单色设备中每像素的位数。值为0表示非单色设备。</li>
+<li>可加前缀：<code>min-monochrome</code>, <code>max-monochrome</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>color-gamut</code> (Media Queries Level 4)</strong></p>
+<ul>
+<li>描述：浏览器和输出设备支持的近似色域范围。</li>
+<li>值：<code>srgb</code>, <code>p3</code>, <code>rec2020</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">color-gamut</span><span class="token punctuation">:</span> p3<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 支持 Display P3 色域的设备，可以使用更鲜艳的颜色 */</span>
+  <span class="token selector">.highlight</span> <span class="token punctuation">&#123;</span> <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">color</span><span class="token punctuation">(</span>display-p3 1 0.5 0<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>dynamic-range</code> (Media Queries Level 5)</strong></p>
+<ul>
+<li>描述：视频平面支持的亮度、色深和对比度的组合。</li>
+<li>值： <code>standard</code>, <code>high</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>inverted-colors</code> (Media Queries Level 5)</strong></p>
+<ul>
+<li>描述：用户是否在系统或浏览器层面启用了颜色反转。</li>
+<li>值：<code>none</code>, <code>inverted</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">inverted-colors</span><span class="token punctuation">:</span> inverted<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">img, video</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">filter</span><span class="token punctuation">:</span> <span class="token function">invert</span><span class="token punctuation">(</span>100%<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 将图片和视频反转回来，避免显示异常 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="（四）交互相关-Media-Queries-Level-4-5"><a href="#（四）交互相关-Media-Queries-Level-4-5" class="headerlink" title="（四）交互相关 (Media Queries Level 4 &amp; 5)"></a>（四）交互相关 (Media Queries Level 4 &amp; 5)</h2><p>这些特性帮助检测用户的输入方式。</p>
+<ol>
+<li><p><strong><code>hover</code></strong></p>
+<ul>
+<li>描述：主要输入机制是否允许用户在元素上悬停。</li>
+<li>值：<code>none</code> (无法悬停，如触摸屏), <code>hover</code> (可以悬停，如鼠标)。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">hover</span><span class="token punctuation">:</span> hover<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.tooltip:hover .tooltip-text</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span> <span class="token comment">/* 鼠标用户悬停显示提示 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">hover</span><span class="token punctuation">:</span> none<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.tooltip .tooltip-text</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token comment">/* 触摸设备上默认不显示，可能需要点击触发 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>any-hover</code></strong></p>
+<ul>
+<li>描述：是否有任何可用的输入机制允许用户悬停。</li>
+</ul>
+</li>
+<li><p><strong><code>pointer</code></strong></p>
+<ul>
+<li>描述：主要输入机制的精确度。</li>
+<li>值：<code>none</code> (无指针), <code>coarse</code> (不精确，如手指触摸), <code>fine</code> (精确，如鼠标、触控笔)。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">pointer</span><span class="token punctuation">:</span> coarse<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* 触摸设备，增大按钮点击区域 */</span>
+  <span class="token selector">.button</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> 15px 25px<span class="token punctuation">;</span>
+    <span class="token property">font-size</span><span class="token punctuation">:</span> 1.2em<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>any-pointer</code></strong></p>
+<ul>
+<li>描述：是否有任何可用的输入机制是指针设备，及其精确度。</li>
+</ul>
+</li>
+</ol>
+<h2 id="（五）用户偏好相关-Media-Queries-Level-5"><a href="#（五）用户偏好相关-Media-Queries-Level-5" class="headerlink" title="（五）用户偏好相关 (Media Queries Level 5)"></a>（五）用户偏好相关 (Media Queries Level 5)</h2><p>这些特性允许网页响应用户的系统级辅助功能或偏好设置。</p>
+<ol>
+<li><p><strong><code>prefers-reduced-motion</code></strong></p>
+<ul>
+<li>描述：用户是否希望减少页面上的动画和过渡效果。</li>
+<li>值：<code>no-preference</code>, <code>reduce</code>。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-reduced-motion</span><span class="token punctuation">:</span> reduce<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">*, *::before, *::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">animation-duration</span><span class="token punctuation">:</span> 0.01ms <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token property">animation-iteration-count</span><span class="token punctuation">:</span> 1 <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token property">transition-duration</span><span class="token punctuation">:</span> 0.01ms <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token property">scroll-behavior</span><span class="token punctuation">:</span> auto <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>prefers-color-scheme</code></strong></p>
+<ul>
+<li>描述：用户偏好的颜色主题（亮色或暗色）。</li>
+<li>值：<code>no-preference</code>, <code>light</code>, <code>dark</code>。</li>
+<li>示例（实现暗黑模式）：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">--text-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token property">--background-color</span><span class="token punctuation">:</span> white<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-color-scheme</span><span class="token punctuation">:</span> dark<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">--text-color</span><span class="token punctuation">:</span> white<span class="token punctuation">;</span>
+    <span class="token property">--background-color</span><span class="token punctuation">:</span> #121212<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">body</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--text-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--background-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>prefers-contrast</code></strong></p>
+<ul>
+<li>描述：用户是否偏好更高或更低的对比度。</li>
+<li>值：<code>no-preference</code>, <code>high</code>, <code>low</code>, <code>forced</code> (Windows高对比度模式)。</li>
+</ul>
+</li>
+<li><p><strong><code>prefers-reduced-transparency</code></strong></p>
+<ul>
+<li>描述：用户是否希望减少透明效果。</li>
+<li>值： <code>no-preference</code>, <code>reduce</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>forced-colors</code></strong></p>
+<ul>
+<li>描述：浏览器是否强制使用用户选择的有限调色板。</li>
+<li>值： <code>none</code>, <code>active</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>prefers-reduced-data</code></strong></p>
+<ul>
+<li>描述：用户是否希望减少数据使用量。</li>
+<li>值： <code>no-preference</code>, <code>reduce</code>。<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">prefers-reduced-data</span><span class="token punctuation">:</span> reduce<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.hero-image</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'low-res-hero.jpg'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span> <span class="token comment">/* 加载低分辨率图片 */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">video</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">preload</span><span class="token punctuation">:</span> metadata<span class="token punctuation">;</span> <span class="token comment">/* 仅预加载元数据 */</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+</ol>
+<h1 id="五、逻辑操作符"><a href="#五、逻辑操作符" class="headerlink" title="五、逻辑操作符"></a>五、逻辑操作符</h1><p>媒体查询可以使用逻辑操作符来创建更复杂的条件。</p>
+<ol>
+<li><p><strong><code>and</code></strong></p>
+<ul>
+<li>用于组合多个媒体特性，所有特性都必须为真，整个查询才为真。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 屏幕宽度在400px到600px之间，并且是横屏 */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 400px<span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> landscape<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* ... */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>,</code> (逗号，相当于 <code>or</code>)</strong></p>
+<ul>
+<li>用于将多个媒体查询组合起来，只要其中任何一个查询为真，样式就会应用。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 屏幕宽度小于等于 600px，或者设备是打印机 */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span><span class="token punctuation">,</span> print</span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.main-content</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+</ul>
+</li>
+<li><p><strong><code>not</code></strong></p>
+<ul>
+<li>用于否定一个媒体查询。它会反转整个查询的真假值。</li>
+<li><strong>注意</strong>：<code>not</code> 操作符必须放在媒体查询的开头，并且如果使用 <code>not</code>，则必须指定媒体类型（如 <code>screen</code>, <code>print</code>）。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 不是彩色打印设备 */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token keyword">not</span> print <span class="token keyword">and</span> <span class="token punctuation">(</span>color<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* ... */</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 不是横屏的屏幕设备 */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token keyword">not</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> landscape<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* ... */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></li>
+<li><code>not</code> 也可以用于否定单个媒体特性（Media Queries Level 4规范的较新语法，但浏览器支持可能不一致，更安全的做法是否定整个查询或使用 <code>min-/max-</code> 组合）。</li>
+</ul>
+</li>
+<li><p><strong><code>only</code></strong></p>
+<ul>
+<li>用于向后兼容，确保不支持媒体查询完整语法的旧版浏览器不会错误地应用样式。现代浏览器会忽略 <code>only</code> 关键字。</li>
+<li>如果使用 <code>only</code>，也必须指定媒体类型。</li>
+<li>示例：<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@media</span> <span class="token keyword">only</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 768px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/* ... */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+这个查询对于不支持媒体查询的浏览器是不可见的。对于支持的浏览器，<code>only</code> 被忽略，查询等同于 <code>screen and (min-width: 768px)</code>。</li>
+</ul>
+</li>
+</ol>
+<h1 id="六、响应式设计中的断点-Breakpoints"><a href="#六、响应式设计中的断点-Breakpoints" class="headerlink" title="六、响应式设计中的断点 (Breakpoints)"></a>六、响应式设计中的断点 (Breakpoints)</h1><p>在响应式设计中，<strong>断点</strong>是指媒体查询中设定的特定视口尺寸值，当视口宽度达到这些值时，页面布局会发生改变以适应新的屏幕尺寸。</p>
+<h2 id="（一）如何选择断点？"><a href="#（一）如何选择断点？" class="headerlink" title="（一）如何选择断点？"></a>（一）如何选择断点？</h2><p>选择断点的最佳实践是：<strong>基于内容，而非特定设备</strong>。</p>
+<ul>
+<li><strong>内容驱动</strong>：不要盲目地为iPhone、iPad、各种Android设备设置固定的断点。设备种类繁多，尺寸各异，这种方法难以维护且不灵活。正确的做法是，在浏览器中调整窗口大小，观察你的内容在何时开始显得拥挤、拉伸过度或布局不佳，就在那个临界点设置断点。</li>
+<li>**从小屏幕开始 (Mobile First)**：推荐采用”移动优先”的策略。首先为小屏幕（如手机）设计基础布局和样式，然后通过 <code>min-width</code> 媒体查询逐渐为更大的屏幕增加复杂性和布局调整。这种方法通常能产生更简洁、性能更好的代码。</li>
+<li><strong>主要断点</strong>：通常，你可能只需要2-4个主要断点来覆盖从小屏幕到大屏幕的过渡。例如：<ul>
+<li>小屏幕 (手机): 默认样式，或 <code>max-width: 600px</code> 左右</li>
+<li>中等屏幕 (平板): <code>min-width: 601px</code> and <code>max-width: 900px</code> 左右</li>
+<li>大屏幕 (桌面): <code>min-width: 901px</code> 左右</li>
+<li>超大屏幕 (可选): <code>min-width: 1200px</code> 或 <code>1400px</code> 左右</li>
+</ul>
+</li>
+<li>**使用相对单位 (em&#x2F;rem)**：如果你的布局和字体大小使用相对单位（如 <code>em</code> 或 <code>rem</code>），那么在媒体查询中使用 <code>em</code> 单位可以使断点也响应用户的字体大小偏好设置，从而提供更好的可访问性。</li>
+</ul>
+<h2 id="（二）示例：移动优先的断点"><a href="#（二）示例：移动优先的断点" class="headerlink" title="（二）示例：移动优先的断点"></a>（二）示例：移动优先的断点</h2><figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 默认样式 (Mobile First - 适用于所有设备，尤其是小屏幕) */</span>
+<span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0 auto<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">nav ul li</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span> <span class="token comment">/* 手机上垂直排列导航项 */</span>
+  <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.main-content</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.sidebar</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> <span class="token comment">/* 手机上默认隐藏侧边栏 */</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 中等屏幕 (例如：平板电脑) */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">nav ul</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span> <span class="token comment">/* 平板上水平排列导航项 */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">nav ul li</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-right</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.sidebar</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span> <span class="token comment">/* 平板上显示侧边栏 */</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span> <span class="token comment">/* 或者使用 Flexbox/Grid */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.main-content</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 68%<span class="token punctuation">;</span> <span class="token comment">/* 调整主内容宽度 */</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 大屏幕 (例如：桌面显示器) */</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 992px<span class="token punctuation">)</span></span> <span class="token punctuation">&#123;</span>
+  <span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">max-width</span><span class="token punctuation">:</span> 960px<span class="token punctuation">;</span> <span class="token comment">/* 限制最大宽度 */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">nav</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/* 更复杂的导航样式 */</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.main-content</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.sidebar</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 28%<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="七、视口元标签-Viewport-Meta-Tag"><a href="#七、视口元标签-Viewport-Meta-Tag" class="headerlink" title="七、视口元标签 (Viewport Meta Tag)"></a>七、视口元标签 (Viewport Meta Tag)</h1><p>为了让媒体查询在移动设备上按预期工作，必须在HTML文档的 <code>&lt;head&gt;</code> 部分添加视口元标签。移动浏览器通常会尝试以桌面宽度（如980px）渲染页面，然后缩小以适应屏幕，这会导致媒体查询失效。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<ul>
+<li><code>width=device-width</code>：将视口的宽度设置为设备的实际宽度。</li>
+<li><code>initial-scale=1.0</code>：设置页面初始加载时的缩放级别为100%，不进行缩放。</li>
+</ul>
+<p>其他常用参数：</p>
+<ul>
+<li><code>minimum-scale=1.0</code>：允许用户缩小的最小比例。</li>
+<li><code>maximum-scale=1.0</code>：允许用户放大的最大比例。</li>
+<li><code>user-scalable=no</code>：禁止用户手动缩放（通常不推荐，影响可访问性）。</li>
+</ul>
+<h1 id="八、CSS媒体查询的最佳实践"><a href="#八、CSS媒体查询的最佳实践" class="headerlink" title="八、CSS媒体查询的最佳实践"></a>八、CSS媒体查询的最佳实践</h1><ol>
+<li>**移动优先 (Mobile First)**：从小屏幕开始设计，逐步增强到大屏幕。</li>
+<li><strong>内容驱动断点</strong>：根据内容和布局的自然断裂点来设置断点，而不是特定设备尺寸。</li>
+<li><strong>保持简洁</strong>：尽量减少断点的数量，避免过度复杂的媒体查询规则。</li>
+<li><strong>使用相对单位</strong>：在媒体查询中使用 <code>em</code> 单位，可以使断点响应用户的字体大小设置。</li>
+<li><strong>模块化和组件化</strong>：设计可复用的组件，并考虑它们在不同视口尺寸下的表现。</li>
+<li><strong>测试，测试，再测试</strong>：在多种设备和浏览器（或使用开发者工具的设备模拟功能）上彻底测试你的响应式设计。</li>
+<li><strong>性能考虑</strong>：<ul>
+<li>避免在 <code>&lt;link&gt;</code> 标签中通过媒体查询加载大量不同的CSS文件，这会增加HTTP请求。首选将所有样式放在一个文件中，用 <code>@media</code> 组织。</li>
+<li>对于背景图片，可以使用 <code>&lt;picture&gt;</code> 元素或 <code>image-set()</code> (CSS) 为不同分辨率和视口提供合适的图片资源。</li>
+</ul>
+</li>
+<li>**可访问性 (Accessibility)**：确保响应式变化不会损害可访问性。例如，不要仅仅为了适应小屏幕而隐藏重要内容，确保所有交互元素在触摸设备上都有足够大的点击区域。</li>
+<li><strong>不要过度依赖媒体查询</strong>：现代CSS布局技术如 Flexbox 和 Grid 自身就具备很多响应式能力，可以创建灵活的组件而无需媒体查询。优先考虑这些技术，媒体查询作为补充。</li>
+</ol>
+<h1 id="九、媒体查询与现代CSS布局"><a href="#九、媒体查询与现代CSS布局" class="headerlink" title="九、媒体查询与现代CSS布局"></a>九、媒体查询与现代CSS布局</h1><p>虽然媒体查询是响应式设计的基石，但现代CSS布局技术（如Flexbox和CSS Grid）提供了更强大的工具来创建本质上就具有响应性的组件。</p>
+<ul>
+<li><strong>Flexbox</strong>：非常适合一维布局（行或列），可以轻松实现项目间的空间分配、对齐和排序，这些特性在不同屏幕尺寸下非常有用。</li>
+<li><strong>CSS Grid</strong>：专为二维布局设计，可以创建复杂的网格结构。结合 <code>fr</code> 单位、<code>minmax()</code>、<code>auto-fit</code>、<code>auto-fill</code> 等特性，可以在不使用媒体查询的情况下实现很多响应式效果。</li>
+</ul>
+<p><strong>示例：使用CSS Grid实现响应式卡片布局，无需媒体查询</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card-container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Card 1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Card 2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Card 3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Card 4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Card 5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<figure><div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.card-container</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> grid<span class="token punctuation">;</span>
+  <span class="token property">grid-template-columns</span><span class="token punctuation">:</span> <span class="token function">repeat</span><span class="token punctuation">(</span>auto-fill<span class="token punctuation">,</span> <span class="token function">minmax</span><span class="token punctuation">(</span>250px<span class="token punctuation">,</span> 1fr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 核心 */</span>
+  <span class="token property">gap</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">.card</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #f0f0f0<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #ccc<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>在这个例子中，<code>grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));</code> 会自动根据容器宽度调整列数。每列的最小宽度是 <code>250px</code>，如果空间允许，它们会平均分配剩余空间（<code>1fr</code>）。当容器宽度变化时，卡片会自动换行和调整，实现了响应式效果。</p>
+<p>媒体查询仍然非常重要，尤其是在需要根据视口宽度对整体页面结构、组件显隐、或特定样式进行较大调整时。最佳策略通常是将现代CSS布局的内在灵活性与媒体查询的宏观控制结合起来。</p>
+<h1 id="十、总结"><a href="#十、总结" class="headerlink" title="十、总结"></a>十、总结</h1><p>CSS媒体查询是构建现代响应式网站不可或缺的工具。通过理解其语法、各种媒体特性和逻辑操作符，并遵循最佳实践（如移动优先和内容驱动的断点），开发者可以为各种设备和屏幕尺寸创建美观且功能完善的用户体验。结合Flexbox和CSS Grid等现代布局技术，媒体查询能帮助我们打造出真正自适应和面向未来的Web界面。</p>
+<h1 id="十一、参考资料"><a href="#十一、参考资料" class="headerlink" title="十一、参考资料"></a>十一、参考资料</h1><ul>
+<li>MDN Web Docs: CSS Media Queries (<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries&#x2F;Using_media_queries</a>)</li>
+<li>MDN Web Docs: Media query syntax (<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Syntax">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries&#x2F;Syntax</a>)</li>
+<li>CSS-Tricks: A Complete Guide to CSS Media Queries (<a target="_blank" rel="noopener" href="https://css-tricks.com/a-complete-guide-to-css-media-queries/">https://css-tricks.com/a-complete-guide-to-css-media-queries/</a>)</li>
+<li>W3C Recommendation: Media Queries Level 4 (<a target="_blank" rel="noopener" href="https://www.w3.org/TR/mediaqueries-4/">https://www.w3.org/TR/mediaqueries-4/</a>)</li>
+<li>Google Developers: Responsive Web Design Basics (<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/design-and-ux/responsive">https://developers.google.com/web/fundamentals/design-and-ux/responsive</a>)</li>
+</ul>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS/" class="print-no-link">#CSS</a>
+      
+        <a href="/tags/Media-Queries/" class="print-no-link">#Media Queries</a>
+      
+        <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1/" class="print-no-link">#响应式设计</a>
+      
+        <a href="/tags/Web%E5%BC%80%E5%8F%91/" class="print-no-link">#Web开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91JavaScript%E4%B8%AD%E7%9A%84%E6%A0%B8%E5%BF%83%EF%BC%9A%E7%90%86%E8%A7%A3%E5%92%8C%E4%BD%BF%E7%94%A8Document%E5%AF%B9%E8%B1%A1/" title="【前端】JavaScript中的核心：理解和使用Document对象">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【前端】JavaScript中的核心：理解和使用Document对象</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90MySQL%E3%80%91%E6%9F%A5%E8%AF%A2%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E5%AD%90%E7%BB%84%E7%BB%87/" title="【MySQL】查询组织结构表中所有子组织">
+                        <span class="hidden-mobile">【MySQL】查询组织结构表中所有子组织</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1633 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="全面介绍Python生态系统中的常用技术框架，涵盖Web开发、数据科学、机器学习、GUI、测试等多个领域的主流框架及其应用场景。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python】Python常用技术框架详解与应用指南">
+<meta property="og:url" content="https://uwakeme.top/2025/07/15/%E3%80%90Python%E3%80%91Python%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="全面介绍Python生态系统中的常用技术框架，涵盖Web开发、数据科学、机器学习、GUI、测试等多个领域的主流框架及其应用场景。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-15T06:38:35.063Z">
+<meta property="article:modified_time" content="2025-07-17T08:28:12.687Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="框架">
+<meta property="article:tag" content="Web开发">
+<meta property="article:tag" content="数据科学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Python】Python常用技术框架详解与应用指南 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Python】Python常用技术框架详解与应用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-15 14:38" pubdate>
+          2025-07-15 14:38
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【Python】Python常用技术框架详解与应用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Python作为一门简洁而强大的编程语言，其成功很大程度上归功于丰富的框架生态系统。这些框架为开发者提供了预构建的模块和工具，大大提高了开发效率。本文将系统介绍Python各个领域的常用技术框架，帮助开发者根据项目需求选择合适的框架。</p>
+<span id="more"></span>
+
+<h2 id="一、Web开发框架"><a href="#一、Web开发框架" class="headerlink" title="一、Web开发框架"></a>一、Web开发框架</h2><h3 id="（一）Django-全栈开发之王"><a href="#（一）Django-全栈开发之王" class="headerlink" title="（一）Django - 全栈开发之王"></a>（一）Django - 全栈开发之王</h3><p><strong>简介</strong>：Django是Python最受欢迎的全栈Web框架，采用”电池包含”的设计理念。 <mcreference link="https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024" index="1">1</mcreference></p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>内置ORM（对象关系映射）</li>
+<li>自动化管理后台</li>
+<li>用户认证系统</li>
+<li>表单处理</li>
+<li>国际化支持</li>
+<li>安全性保障（CSRF、XSS防护）</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>大型复杂Web应用</li>
+<li>内容管理系统</li>
+<li>电商平台</li>
+<li>企业级应用</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Django视图示例</span>
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>shortcuts <span class="token keyword">import</span> render
+<span class="token keyword">from</span> django<span class="token punctuation">.</span>http <span class="token keyword">import</span> HttpResponse
+<span class="token keyword">from</span> <span class="token punctuation">.</span>models <span class="token keyword">import</span> Article
+
+<span class="token keyword">def</span> <span class="token function">article_list</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    articles <span class="token operator">=</span> Article<span class="token punctuation">.</span>objects<span class="token punctuation">.</span><span class="token builtin">all</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'articles/list.html'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">'articles'</span><span class="token punctuation">:</span> articles<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">article_detail</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> article_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    article <span class="token operator">=</span> Article<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token builtin">id</span><span class="token operator">=</span>article_id<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> render<span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token string">'articles/detail.html'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">'article'</span><span class="token punctuation">:</span> article<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）Flask-轻量级冠军"><a href="#（二）Flask-轻量级冠军" class="headerlink" title="（二）Flask - 轻量级冠军"></a>（二）Flask - 轻量级冠军</h3><p><strong>简介</strong>：Flask是一个轻量级的微框架，以其简洁性和灵活性著称。 <mcreference link="https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024" index="1">1</mcreference></p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>最小化核心</li>
+<li>高度可扩展</li>
+<li>灵活的路由系统</li>
+<li>模板引擎（Jinja2）</li>
+<li>会话管理</li>
+<li>蓝图（Blueprint）支持</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>小型到中型Web应用</li>
+<li>微服务架构</li>
+<li>API开发</li>
+<li>原型开发</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># Flask应用示例</span>
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> render_template<span class="token punctuation">,</span> request<span class="token punctuation">,</span> jsonify
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">home</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> render_template<span class="token punctuation">(</span><span class="token string">'index.html'</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">'/api/users'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">,</span> <span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">users</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'GET'</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'users'</span><span class="token punctuation">:</span> get_all_users<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> request<span class="token punctuation">.</span>method <span class="token operator">==</span> <span class="token string">'POST'</span><span class="token punctuation">:</span>
+        user_data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span>create_user<span class="token punctuation">(</span>user_data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>debug<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）FastAPI-API开发新星"><a href="#（三）FastAPI-API开发新星" class="headerlink" title="（三）FastAPI - API开发新星"></a>（三）FastAPI - API开发新星</h3><p><strong>简介</strong>：FastAPI是一个现代、高性能的Web框架，专为构建API而设计。 <mcreference link="https://blog.jetbrains.com/pycharm/2025/02/django-flask-fastapi/" index="5">5</mcreference></p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>基于Python类型提示</li>
+<li>自动生成API文档（OpenAPI&#x2F;Swagger）</li>
+<li>异步支持</li>
+<li>高性能（基于Starlette和Pydantic）</li>
+<li>数据验证</li>
+<li>现代Python特性支持</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>RESTful API开发</li>
+<li>GraphQL端点</li>
+<li>高性能应用</li>
+<li>实时数据处理</li>
+<li>微服务架构</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># FastAPI应用示例</span>
+<span class="token keyword">from</span> fastapi <span class="token keyword">import</span> FastAPI<span class="token punctuation">,</span> HTTPException
+<span class="token keyword">from</span> pydantic <span class="token keyword">import</span> BaseModel
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List<span class="token punctuation">,</span> Optional
+
+app <span class="token operator">=</span> FastAPI<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token string">"用户管理API"</span><span class="token punctuation">,</span> version<span class="token operator">=</span><span class="token string">"1.0.0"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">id</span><span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    name<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    email<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    age<span class="token punctuation">:</span> <span class="token builtin">int</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>get</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> response_model<span class="token operator">=</span>List<span class="token punctuation">[</span>User<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">get_users</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> fetch_users_from_db<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>post</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> response_model<span class="token operator">=</span>User<span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">create_user</span><span class="token punctuation">(</span>user<span class="token punctuation">:</span> User<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token keyword">await</span> user_exists<span class="token punctuation">(</span>user<span class="token punctuation">.</span>email<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> HTTPException<span class="token punctuation">(</span>status_code<span class="token operator">=</span><span class="token number">400</span><span class="token punctuation">,</span> detail<span class="token operator">=</span><span class="token string">"用户已存在"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> save_user<span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>get</span><span class="token punctuation">(</span><span class="token string">"/users/&#123;user_id&#125;"</span><span class="token punctuation">,</span> response_model<span class="token operator">=</span>User<span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">get_user</span><span class="token punctuation">(</span>user_id<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    user <span class="token operator">=</span> <span class="token keyword">await</span> fetch_user_by_id<span class="token punctuation">(</span>user_id<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> user<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> HTTPException<span class="token punctuation">(</span>status_code<span class="token operator">=</span><span class="token number">404</span><span class="token punctuation">,</span> detail<span class="token operator">=</span><span class="token string">"用户未找到"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> user<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）其他Web框架"><a href="#（四）其他Web框架" class="headerlink" title="（四）其他Web框架"></a>（四）其他Web框架</h3><p><strong>Pyramid</strong>：</p>
+<ul>
+<li>高度灵活和模块化设计</li>
+<li>适合大型复杂项目</li>
+<li>企业和政府部门青睐 <mcreference link="https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024" index="1">1</mcreference></li>
+</ul>
+<p><strong>Tornado</strong>：</p>
+<ul>
+<li>专注于实时应用</li>
+<li>异步网络库</li>
+<li>适合WebSocket和长连接</li>
+</ul>
+<p><strong>Bottle</strong>：</p>
+<ul>
+<li>单文件微框架</li>
+<li>零依赖</li>
+<li>适合小型项目和学习</li>
+</ul>
+<h2 id="二、数据科学与分析框架"><a href="#二、数据科学与分析框架" class="headerlink" title="二、数据科学与分析框架"></a>二、数据科学与分析框架</h2><h3 id="（一）NumPy-科学计算基础"><a href="#（一）NumPy-科学计算基础" class="headerlink" title="（一）NumPy - 科学计算基础"></a>（一）NumPy - 科学计算基础</h3><p><strong>简介</strong>：NumPy是Python科学计算的基础库，提供多维数组对象和相关工具。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>高性能多维数组（ndarray）</li>
+<li>广播机制</li>
+<li>线性代数运算</li>
+<li>傅里叶变换</li>
+<li>随机数生成</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment"># 创建数组</span>
+arr <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"数组形状: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>arr<span class="token punctuation">.</span>shape<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"数组类型: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>arr<span class="token punctuation">.</span>dtype<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 数学运算</span>
+result <span class="token operator">=</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>arr<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"运算结果:\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>result<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 统计函数</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"平均值: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"标准差: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>np<span class="token punctuation">.</span>std<span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）Pandas-数据处理利器"><a href="#（二）Pandas-数据处理利器" class="headerlink" title="（二）Pandas - 数据处理利器"></a>（二）Pandas - 数据处理利器</h3><p><strong>简介</strong>：Pandas是强大的数据分析和操作库，提供数据结构和数据分析工具。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>DataFrame和Series数据结构</li>
+<li>数据清洗和转换</li>
+<li>数据合并和连接</li>
+<li>时间序列分析</li>
+<li>文件I&#x2F;O（CSV、Excel、JSON等）</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token comment"># 创建DataFrame</span>
+data <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'姓名'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'张三'</span><span class="token punctuation">,</span> <span class="token string">'李四'</span><span class="token punctuation">,</span> <span class="token string">'王五'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'年龄'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'城市'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'北京'</span><span class="token punctuation">,</span> <span class="token string">'上海'</span><span class="token punctuation">,</span> <span class="token string">'广州'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">'薪资'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">8000</span><span class="token punctuation">,</span> <span class="token number">12000</span><span class="token punctuation">,</span> <span class="token number">15000</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span>
+df <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+<span class="token comment"># 数据分析</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"平均年龄: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>df<span class="token punctuation">[</span><span class="token string">'年龄'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"薪资统计:\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>df<span class="token punctuation">[</span><span class="token string">'薪资'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>describe<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 数据筛选</span>
+high_salary <span class="token operator">=</span> df<span class="token punctuation">[</span>df<span class="token punctuation">[</span><span class="token string">'薪资'</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">10000</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"高薪员工:\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>high_salary<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 数据分组</span>
+city_stats <span class="token operator">=</span> df<span class="token punctuation">.</span>groupby<span class="token punctuation">(</span><span class="token string">'城市'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'薪资'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"各城市平均薪资:\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>city_stats<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）Matplotlib-数据可视化"><a href="#（三）Matplotlib-数据可视化" class="headerlink" title="（三）Matplotlib - 数据可视化"></a>（三）Matplotlib - 数据可视化</h3><p><strong>简介</strong>：Matplotlib是Python最基础的绘图库，提供类似MATLAB的绘图接口。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment"># 创建数据</span>
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+y1 <span class="token operator">=</span> np<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+y2 <span class="token operator">=</span> np<span class="token punctuation">.</span>cos<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+<span class="token comment"># 绘制图形</span>
+plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">'sin(x)'</span><span class="token punctuation">,</span> linewidth<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">'cos(x)'</span><span class="token punctuation">,</span> linewidth<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'X轴'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">'Y轴'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'三角函数图像'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>legend<span class="token punctuation">(</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>grid<span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（四）Seaborn-统计可视化"><a href="#（四）Seaborn-统计可视化" class="headerlink" title="（四）Seaborn - 统计可视化"></a>（四）Seaborn - 统计可视化</h3><p><strong>简介</strong>：基于Matplotlib的统计数据可视化库，提供更美观的默认样式。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token comment"># 加载示例数据</span>
+tips <span class="token operator">=</span> sns<span class="token punctuation">.</span>load_dataset<span class="token punctuation">(</span><span class="token string">'tips'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 创建多种图表</span>
+fig<span class="token punctuation">,</span> axes <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplots<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 散点图</span>
+sns<span class="token punctuation">.</span>scatterplot<span class="token punctuation">(</span>data<span class="token operator">=</span>tips<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'tip'</span><span class="token punctuation">,</span> hue<span class="token operator">=</span><span class="token string">'day'</span><span class="token punctuation">,</span> ax<span class="token operator">=</span>axes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+axes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>set_title<span class="token punctuation">(</span><span class="token string">'账单与小费关系'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 箱线图</span>
+sns<span class="token punctuation">.</span>boxplot<span class="token punctuation">(</span>data<span class="token operator">=</span>tips<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'day'</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> ax<span class="token operator">=</span>axes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+axes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>set_title<span class="token punctuation">(</span><span class="token string">'各天账单分布'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 热力图</span>
+corr_matrix <span class="token operator">=</span> tips<span class="token punctuation">.</span>select_dtypes<span class="token punctuation">(</span>include<span class="token operator">=</span><span class="token punctuation">[</span>np<span class="token punctuation">.</span>number<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sns<span class="token punctuation">.</span>heatmap<span class="token punctuation">(</span>corr_matrix<span class="token punctuation">,</span> annot<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ax<span class="token operator">=</span>axes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+axes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>set_title<span class="token punctuation">(</span><span class="token string">'相关性热力图'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 分布图</span>
+sns<span class="token punctuation">.</span>histplot<span class="token punctuation">(</span>data<span class="token operator">=</span>tips<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token string">'total_bill'</span><span class="token punctuation">,</span> hue<span class="token operator">=</span><span class="token string">'sex'</span><span class="token punctuation">,</span> ax<span class="token operator">=</span>axes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+axes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>set_title<span class="token punctuation">(</span><span class="token string">'账单分布（按性别）'</span><span class="token punctuation">)</span>
+
+plt<span class="token punctuation">.</span>tight_layout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="三、机器学习框架"><a href="#三、机器学习框架" class="headerlink" title="三、机器学习框架"></a>三、机器学习框架</h2><h3 id="（一）Scikit-learn-经典机器学习"><a href="#（一）Scikit-learn-经典机器学习" class="headerlink" title="（一）Scikit-learn - 经典机器学习"></a>（一）Scikit-learn - 经典机器学习</h3><p><strong>简介</strong>：Scikit-learn是Python最受欢迎的机器学习库，提供各种经典算法实现。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>分类、回归、聚类算法</li>
+<li>数据预处理工具</li>
+<li>模型选择和评估</li>
+<li>降维技术</li>
+<li>特征工程</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>datasets <span class="token keyword">import</span> load_iris
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>model_selection <span class="token keyword">import</span> train_test_split
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>ensemble <span class="token keyword">import</span> RandomForestClassifier
+<span class="token keyword">from</span> sklearn<span class="token punctuation">.</span>metrics <span class="token keyword">import</span> accuracy_score<span class="token punctuation">,</span> classification_report
+
+<span class="token comment"># 加载数据</span>
+iris <span class="token operator">=</span> load_iris<span class="token punctuation">(</span><span class="token punctuation">)</span>
+X<span class="token punctuation">,</span> y <span class="token operator">=</span> iris<span class="token punctuation">.</span>data<span class="token punctuation">,</span> iris<span class="token punctuation">.</span>target
+
+<span class="token comment"># 划分训练集和测试集</span>
+X_train<span class="token punctuation">,</span> X_test<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span> y_test <span class="token operator">=</span> train_test_split<span class="token punctuation">(</span>X<span class="token punctuation">,</span> y<span class="token punctuation">,</span> test_size<span class="token operator">=</span><span class="token number">0.2</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 训练模型</span>
+model <span class="token operator">=</span> RandomForestClassifier<span class="token punctuation">(</span>n_estimators<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">,</span> random_state<span class="token operator">=</span><span class="token number">42</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>X_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span>
+
+<span class="token comment"># 预测和评估</span>
+y_pred <span class="token operator">=</span> model<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>X_test<span class="token punctuation">)</span>
+accuracy <span class="token operator">=</span> accuracy_score<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_pred<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"准确率: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>accuracy<span class="token punctuation">:</span><span class="token format-spec">.3f</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"分类报告:\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>classification_report<span class="token punctuation">(</span>y_test<span class="token punctuation">,</span> y_pred<span class="token punctuation">,</span> target_names<span class="token operator">=</span>iris<span class="token punctuation">.</span>target_names<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 特征重要性</span>
+feature_importance <span class="token operator">=</span> model<span class="token punctuation">.</span>feature_importances_
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> importance <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>feature_importance<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>iris<span class="token punctuation">.</span>feature_names<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>importance<span class="token punctuation">:</span><span class="token format-spec">.3f</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）TensorFlow-深度学习平台"><a href="#（二）TensorFlow-深度学习平台" class="headerlink" title="（二）TensorFlow - 深度学习平台"></a>（二）TensorFlow - 深度学习平台</h3><p><strong>简介</strong>：Google开发的开源深度学习框架，支持从研究到生产的完整机器学习工作流。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>灵活的架构</li>
+<li>分布式训练</li>
+<li>移动和边缘部署</li>
+<li>TensorBoard可视化</li>
+<li>Keras高级API</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+<span class="token keyword">from</span> tensorflow <span class="token keyword">import</span> keras
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment"># 加载MNIST数据集</span>
+<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x_test<span class="token punctuation">,</span> y_test<span class="token punctuation">)</span> <span class="token operator">=</span> keras<span class="token punctuation">.</span>datasets<span class="token punctuation">.</span>mnist<span class="token punctuation">.</span>load_data<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 数据预处理</span>
+x_train <span class="token operator">=</span> x_train<span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">'float32'</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">255.0</span>
+x_test <span class="token operator">=</span> x_test<span class="token punctuation">.</span>astype<span class="token punctuation">(</span><span class="token string">'float32'</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">255.0</span>
+
+<span class="token comment"># 构建模型</span>
+model <span class="token operator">=</span> keras<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    keras<span class="token punctuation">.</span>layers<span class="token punctuation">.</span>Flatten<span class="token punctuation">(</span>input_shape<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    keras<span class="token punctuation">.</span>layers<span class="token punctuation">.</span>Dense<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">,</span> activation<span class="token operator">=</span><span class="token string">'relu'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    keras<span class="token punctuation">.</span>layers<span class="token punctuation">.</span>Dropout<span class="token punctuation">(</span><span class="token number">0.2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    keras<span class="token punctuation">.</span>layers<span class="token punctuation">.</span>Dense<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> activation<span class="token operator">=</span><span class="token string">'softmax'</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 编译模型</span>
+model<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>optimizer<span class="token operator">=</span><span class="token string">'adam'</span><span class="token punctuation">,</span>
+              loss<span class="token operator">=</span><span class="token string">'sparse_categorical_crossentropy'</span><span class="token punctuation">,</span>
+              metrics<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'accuracy'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 训练模型</span>
+history <span class="token operator">=</span> model<span class="token punctuation">.</span>fit<span class="token punctuation">(</span>x_train<span class="token punctuation">,</span> y_train<span class="token punctuation">,</span>
+                    epochs<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span>
+                    validation_split<span class="token operator">=</span><span class="token number">0.1</span><span class="token punctuation">,</span>
+                    verbose<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 评估模型</span>
+test_loss<span class="token punctuation">,</span> test_accuracy <span class="token operator">=</span> model<span class="token punctuation">.</span>evaluate<span class="token punctuation">(</span>x_test<span class="token punctuation">,</span> y_test<span class="token punctuation">,</span> verbose<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"测试准确率: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>test_accuracy<span class="token punctuation">:</span><span class="token format-spec">.3f</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）PyTorch-动态深度学习"><a href="#（三）PyTorch-动态深度学习" class="headerlink" title="（三）PyTorch - 动态深度学习"></a>（三）PyTorch - 动态深度学习</h3><p><strong>简介</strong>：Facebook开发的深度学习框架，以动态计算图和易用性著称。 <mcreference link="https://www.nvidia.com/en-us/glossary/pytorch/" index="1">1</mcreference></p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>动态计算图</li>
+<li>自动微分</li>
+<li>GPU加速</li>
+<li>丰富的预训练模型</li>
+<li>研究友好的设计</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>optim <span class="token keyword">as</span> optim
+<span class="token keyword">from</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data <span class="token keyword">import</span> DataLoader<span class="token punctuation">,</span> TensorDataset
+
+<span class="token comment"># 创建简单的神经网络</span>
+<span class="token keyword">class</span> <span class="token class-name">SimpleNet</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> input_size<span class="token punctuation">,</span> hidden_size<span class="token punctuation">,</span> output_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>SimpleNet<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>input_size<span class="token punctuation">,</span> hidden_size<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>relu <span class="token operator">=</span> nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>hidden_size<span class="token punctuation">,</span> output_size<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>dropout <span class="token operator">=</span> nn<span class="token punctuation">.</span>Dropout<span class="token punctuation">(</span><span class="token number">0.2</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>dropout<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> x
+
+<span class="token comment"># 创建模型实例</span>
+model <span class="token operator">=</span> SimpleNet<span class="token punctuation">(</span>input_size<span class="token operator">=</span><span class="token number">784</span><span class="token punctuation">,</span> hidden_size<span class="token operator">=</span><span class="token number">128</span><span class="token punctuation">,</span> output_size<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>CrossEntropyLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
+optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.001</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 训练循环示例</span>
+<span class="token keyword">def</span> <span class="token function">train_epoch</span><span class="token punctuation">(</span>model<span class="token punctuation">,</span> dataloader<span class="token punctuation">,</span> criterion<span class="token punctuation">,</span> optimizer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    model<span class="token punctuation">.</span>train<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    total_loss <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> batch_idx<span class="token punctuation">,</span> <span class="token punctuation">(</span>data<span class="token punctuation">,</span> target<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>dataloader<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        optimizer<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        output <span class="token operator">=</span> model<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+        loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>output<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
+        loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        optimizer<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        total_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> total_loss <span class="token operator">/</span> <span class="token builtin">len</span><span class="token punctuation">(</span>dataloader<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="四、GUI开发框架"><a href="#四、GUI开发框架" class="headerlink" title="四、GUI开发框架"></a>四、GUI开发框架</h2><h3 id="（一）Tkinter-内置GUI库"><a href="#（一）Tkinter-内置GUI库" class="headerlink" title="（一）Tkinter - 内置GUI库"></a>（一）Tkinter - 内置GUI库</h3><p><strong>简介</strong>：Python标准库中的GUI工具包，基于Tcl&#x2F;Tk。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> tkinter <span class="token keyword">as</span> tk
+<span class="token keyword">from</span> tkinter <span class="token keyword">import</span> ttk<span class="token punctuation">,</span> messagebox
+
+<span class="token keyword">class</span> <span class="token class-name">SimpleApp</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> root
+        self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">"简单应用"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>root<span class="token punctuation">.</span>geometry<span class="token punctuation">(</span><span class="token string">"400x300"</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 创建界面元素</span>
+        self<span class="token punctuation">.</span>create_widgets<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">create_widgets</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 标签</span>
+        label <span class="token operator">=</span> ttk<span class="token punctuation">.</span>Label<span class="token punctuation">(</span>self<span class="token punctuation">.</span>root<span class="token punctuation">,</span> text<span class="token operator">=</span><span class="token string">"请输入您的姓名:"</span><span class="token punctuation">)</span>
+        label<span class="token punctuation">.</span>pack<span class="token punctuation">(</span>pady<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 输入框</span>
+        self<span class="token punctuation">.</span>entry <span class="token operator">=</span> ttk<span class="token punctuation">.</span>Entry<span class="token punctuation">(</span>self<span class="token punctuation">.</span>root<span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>entry<span class="token punctuation">.</span>pack<span class="token punctuation">(</span>pady<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 按钮</span>
+        button <span class="token operator">=</span> ttk<span class="token punctuation">.</span>Button<span class="token punctuation">(</span>self<span class="token punctuation">.</span>root<span class="token punctuation">,</span> text<span class="token operator">=</span><span class="token string">"问候"</span><span class="token punctuation">,</span> command<span class="token operator">=</span>self<span class="token punctuation">.</span>greet<span class="token punctuation">)</span>
+        button<span class="token punctuation">.</span>pack<span class="token punctuation">(</span>pady<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 文本区域</span>
+        self<span class="token punctuation">.</span>text_area <span class="token operator">=</span> tk<span class="token punctuation">.</span>Text<span class="token punctuation">(</span>self<span class="token punctuation">.</span>root<span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token number">40</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>text_area<span class="token punctuation">.</span>pack<span class="token punctuation">(</span>pady<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">greet</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        name <span class="token operator">=</span> self<span class="token punctuation">.</span>entry<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> name<span class="token punctuation">:</span>
+            greeting <span class="token operator">=</span> <span class="token string-interpolation"><span class="token string">f"你好, </span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string">!\n"</span></span>
+            self<span class="token punctuation">.</span>text_area<span class="token punctuation">.</span>insert<span class="token punctuation">(</span>tk<span class="token punctuation">.</span>END<span class="token punctuation">,</span> greeting<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            messagebox<span class="token punctuation">.</span>showwarning<span class="token punctuation">(</span><span class="token string">"警告"</span><span class="token punctuation">,</span> <span class="token string">"请输入姓名"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    root <span class="token operator">=</span> tk<span class="token punctuation">.</span>Tk<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    app <span class="token operator">=</span> SimpleApp<span class="token punctuation">(</span>root<span class="token punctuation">)</span>
+    root<span class="token punctuation">.</span>mainloop<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）PyQt-PySide-专业GUI开发"><a href="#（二）PyQt-PySide-专业GUI开发" class="headerlink" title="（二）PyQt&#x2F;PySide - 专业GUI开发"></a>（二）PyQt&#x2F;PySide - 专业GUI开发</h3><p><strong>简介</strong>：基于Qt的Python绑定，提供专业级GUI开发能力。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> sys
+<span class="token keyword">from</span> PyQt5<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> QApplication<span class="token punctuation">,</span> QMainWindow<span class="token punctuation">,</span> QVBoxLayout<span class="token punctuation">,</span> QWidget<span class="token punctuation">,</span> QPushButton<span class="token punctuation">,</span> QLabel<span class="token punctuation">,</span> QLineEdit
+<span class="token keyword">from</span> PyQt5<span class="token punctuation">.</span>QtCore <span class="token keyword">import</span> Qt
+
+<span class="token keyword">class</span> <span class="token class-name">MainWindow</span><span class="token punctuation">(</span>QMainWindow<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">"PyQt示例"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setGeometry<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 创建中央部件</span>
+        central_widget <span class="token operator">=</span> QWidget<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setCentralWidget<span class="token punctuation">(</span>central_widget<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 创建布局</span>
+        layout <span class="token operator">=</span> QVBoxLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        central_widget<span class="token punctuation">.</span>setLayout<span class="token punctuation">(</span>layout<span class="token punctuation">)</span>
+        
+        <span class="token comment"># 添加控件</span>
+        self<span class="token punctuation">.</span>label <span class="token operator">=</span> QLabel<span class="token punctuation">(</span><span class="token string">"点击按钮开始"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>label<span class="token punctuation">.</span>setAlignment<span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>AlignCenter<span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>label<span class="token punctuation">)</span>
+        
+        self<span class="token punctuation">.</span>line_edit <span class="token operator">=</span> QLineEdit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>line_edit<span class="token punctuation">.</span>setPlaceholderText<span class="token punctuation">(</span><span class="token string">"输入文本..."</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>line_edit<span class="token punctuation">)</span>
+        
+        button <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">"更新标签"</span><span class="token punctuation">)</span>
+        button<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update_label<span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>button<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">update_label</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        text <span class="token operator">=</span> self<span class="token punctuation">.</span>line_edit<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> text<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>label<span class="token punctuation">.</span>setText<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"您输入了: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>text<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>label<span class="token punctuation">.</span>setText<span class="token punctuation">(</span><span class="token string">"请输入一些文本"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+    window <span class="token operator">=</span> MainWindow<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    window<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="五、网络爬虫框架"><a href="#五、网络爬虫框架" class="headerlink" title="五、网络爬虫框架"></a>五、网络爬虫框架</h2><h3 id="（一）Requests-HTTP库"><a href="#（一）Requests-HTTP库" class="headerlink" title="（一）Requests - HTTP库"></a>（一）Requests - HTTP库</h3><p><strong>简介</strong>：优雅简洁的HTTP库，是Python进行HTTP请求的首选。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> json
+<span class="token keyword">from</span> requests<span class="token punctuation">.</span>adapters <span class="token keyword">import</span> HTTPAdapter
+<span class="token keyword">from</span> urllib3<span class="token punctuation">.</span>util<span class="token punctuation">.</span>retry <span class="token keyword">import</span> Retry
+
+<span class="token comment"># 创建会话并配置重试策略</span>
+session <span class="token operator">=</span> requests<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span>
+retry_strategy <span class="token operator">=</span> Retry<span class="token punctuation">(</span>
+    total<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span>
+    backoff_factor<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+    status_forcelist<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">429</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">502</span><span class="token punctuation">,</span> <span class="token number">503</span><span class="token punctuation">,</span> <span class="token number">504</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>
+adapter <span class="token operator">=</span> HTTPAdapter<span class="token punctuation">(</span>max_retries<span class="token operator">=</span>retry_strategy<span class="token punctuation">)</span>
+session<span class="token punctuation">.</span>mount<span class="token punctuation">(</span><span class="token string">"http://"</span><span class="token punctuation">,</span> adapter<span class="token punctuation">)</span>
+session<span class="token punctuation">.</span>mount<span class="token punctuation">(</span><span class="token string">"https://"</span><span class="token punctuation">,</span> adapter<span class="token punctuation">)</span>
+
+<span class="token comment"># 发送GET请求</span>
+response <span class="token operator">=</span> session<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://api.github.com/users/octocat'</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> response<span class="token punctuation">.</span>status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span>
+    user_data <span class="token operator">=</span> response<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"用户名: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_data<span class="token punctuation">[</span><span class="token string">'login'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"公开仓库数: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>user_data<span class="token punctuation">[</span><span class="token string">'public_repos'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"请求失败: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>response<span class="token punctuation">.</span>status_code<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 发送POST请求</span>
+post_data <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'title'</span><span class="token punctuation">:</span> <span class="token string">'测试文章'</span><span class="token punctuation">,</span>
+    <span class="token string">'content'</span><span class="token punctuation">:</span> <span class="token string">'这是一篇测试文章的内容'</span>
+<span class="token punctuation">&#125;</span>
+headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'Content-Type'</span><span class="token punctuation">:</span> <span class="token string">'application/json'</span><span class="token punctuation">&#125;</span>
+response <span class="token operator">=</span> session<span class="token punctuation">.</span>post<span class="token punctuation">(</span><span class="token string">'https://httpbin.org/post'</span><span class="token punctuation">,</span> 
+                       data<span class="token operator">=</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>post_data<span class="token punctuation">)</span><span class="token punctuation">,</span> 
+                       headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"POST响应: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>response<span class="token punctuation">.</span>status_code<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）Scrapy-专业爬虫框架"><a href="#（二）Scrapy-专业爬虫框架" class="headerlink" title="（二）Scrapy - 专业爬虫框架"></a>（二）Scrapy - 专业爬虫框架</h3><p><strong>简介</strong>：强大的爬虫框架，提供完整的爬虫解决方案。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> scrapy
+<span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>crawler <span class="token keyword">import</span> CrawlerProcess
+
+<span class="token keyword">class</span> <span class="token class-name">QuotesSpider</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">'quotes'</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'http://quotes.toscrape.com'</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 提取引言</span>
+        quotes <span class="token operator">=</span> response<span class="token punctuation">.</span>css<span class="token punctuation">(</span><span class="token string">'div.quote'</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> quote <span class="token keyword">in</span> quotes<span class="token punctuation">:</span>
+            <span class="token keyword">yield</span> <span class="token punctuation">&#123;</span>
+                <span class="token string">'text'</span><span class="token punctuation">:</span> quote<span class="token punctuation">.</span>css<span class="token punctuation">(</span><span class="token string">'span.text::text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">'author'</span><span class="token punctuation">:</span> quote<span class="token punctuation">.</span>css<span class="token punctuation">(</span><span class="token string">'small.author::text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">'tags'</span><span class="token punctuation">:</span> quote<span class="token punctuation">.</span>css<span class="token punctuation">(</span><span class="token string">'div.tags a.tag::text'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#125;</span>
+        
+        <span class="token comment"># 跟踪下一页链接</span>
+        next_page <span class="token operator">=</span> response<span class="token punctuation">.</span>css<span class="token punctuation">(</span><span class="token string">'li.next a::attr(href)'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> next_page <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+            <span class="token keyword">yield</span> response<span class="token punctuation">.</span>follow<span class="token punctuation">(</span>next_page<span class="token punctuation">,</span> self<span class="token punctuation">.</span>parse<span class="token punctuation">)</span>
+
+<span class="token comment"># 运行爬虫</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    process <span class="token operator">=</span> CrawlerProcess<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token string">'USER_AGENT'</span><span class="token punctuation">:</span> <span class="token string">'quotes-spider'</span><span class="token punctuation">,</span>
+        <span class="token string">'FEEDS'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">'quotes.json'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">'format'</span><span class="token punctuation">:</span> <span class="token string">'json'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    process<span class="token punctuation">.</span>crawl<span class="token punctuation">(</span>QuotesSpider<span class="token punctuation">)</span>
+    process<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（三）BeautifulSoup-HTML解析"><a href="#（三）BeautifulSoup-HTML解析" class="headerlink" title="（三）BeautifulSoup - HTML解析"></a>（三）BeautifulSoup - HTML解析</h3><p><strong>简介</strong>：用于解析HTML和XML文档的库，提供简单的API。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">from</span> bs4 <span class="token keyword">import</span> BeautifulSoup
+<span class="token keyword">import</span> csv
+
+<span class="token keyword">def</span> <span class="token function">scrape_news</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""爬取新闻标题和链接"""</span>
+    headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">'User-Agent'</span><span class="token punctuation">:</span> <span class="token string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'</span>
+    <span class="token punctuation">&#125;</span>
+    
+    response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
+    soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>response<span class="token punctuation">.</span>content<span class="token punctuation">,</span> <span class="token string">'html.parser'</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 查找新闻条目</span>
+    news_items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    articles <span class="token operator">=</span> soup<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span><span class="token string">'article'</span><span class="token punctuation">,</span> class_<span class="token operator">=</span><span class="token string">'news-item'</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">for</span> article <span class="token keyword">in</span> articles<span class="token punctuation">:</span>
+        title_element <span class="token operator">=</span> article<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'h2'</span><span class="token punctuation">)</span>
+        link_element <span class="token operator">=</span> article<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">if</span> title_element <span class="token keyword">and</span> link_element<span class="token punctuation">:</span>
+            title <span class="token operator">=</span> title_element<span class="token punctuation">.</span>get_text<span class="token punctuation">(</span>strip<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+            link <span class="token operator">=</span> link_element<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'href'</span><span class="token punctuation">)</span>
+            
+            news_items<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                <span class="token string">'title'</span><span class="token punctuation">:</span> title<span class="token punctuation">,</span>
+                <span class="token string">'link'</span><span class="token punctuation">:</span> link
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> news_items
+
+<span class="token comment"># 保存到CSV文件</span>
+<span class="token keyword">def</span> <span class="token function">save_to_csv</span><span class="token punctuation">(</span>news_items<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">,</span> newline<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> csvfile<span class="token punctuation">:</span>
+        fieldnames <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'link'</span><span class="token punctuation">]</span>
+        writer <span class="token operator">=</span> csv<span class="token punctuation">.</span>DictWriter<span class="token punctuation">(</span>csvfile<span class="token punctuation">,</span> fieldnames<span class="token operator">=</span>fieldnames<span class="token punctuation">)</span>
+        
+        writer<span class="token punctuation">.</span>writeheader<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> item <span class="token keyword">in</span> news_items<span class="token punctuation">:</span>
+            writer<span class="token punctuation">.</span>writerow<span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+
+<span class="token comment"># 使用示例</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token string">"https://example-news-site.com"</span>
+    news <span class="token operator">=</span> scrape_news<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    save_to_csv<span class="token punctuation">(</span>news<span class="token punctuation">,</span> <span class="token string">'news.csv'</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"爬取了 </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>news<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> 条新闻"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="六、测试框架"><a href="#六、测试框架" class="headerlink" title="六、测试框架"></a>六、测试框架</h2><h3 id="（一）pytest-现代测试框架"><a href="#（一）pytest-现代测试框架" class="headerlink" title="（一）pytest - 现代测试框架"></a>（一）pytest - 现代测试框架</h3><p><strong>简介</strong>：功能丰富的测试框架，支持简单的单元测试到复杂的功能测试。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> pytest
+<span class="token keyword">from</span> unittest<span class="token punctuation">.</span>mock <span class="token keyword">import</span> Mock<span class="token punctuation">,</span> patch
+
+<span class="token comment"># 被测试的类</span>
+<span class="token keyword">class</span> <span class="token class-name">Calculator</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> a <span class="token operator">+</span> b
+    
+    <span class="token keyword">def</span> <span class="token function">divide</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> b <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string">"除数不能为零"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> a <span class="token operator">/</span> b
+    
+    <span class="token keyword">def</span> <span class="token function">get_data_from_api</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 模拟API调用</span>
+        <span class="token keyword">import</span> requests
+        response <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> response<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 测试类</span>
+<span class="token keyword">class</span> <span class="token class-name">TestCalculator</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">setup_method</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""每个测试方法前执行"""</span>
+        self<span class="token punctuation">.</span>calc <span class="token operator">=</span> Calculator<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_add_positive_numbers</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试正数相加"""</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token keyword">assert</span> result <span class="token operator">==</span> <span class="token number">5</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_add_negative_numbers</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试负数相加"""</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token keyword">assert</span> result <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">5</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_divide_normal</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试正常除法"""</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>divide<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">assert</span> result <span class="token operator">==</span> <span class="token number">5.0</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_divide_by_zero</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试除零异常"""</span>
+        <span class="token keyword">with</span> pytest<span class="token punctuation">.</span>raises<span class="token punctuation">(</span>ValueError<span class="token punctuation">,</span> <span class="token keyword">match</span><span class="token operator">=</span><span class="token string">"除数不能为零"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>divide<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    
+    <span class="token decorator annotation punctuation">@pytest<span class="token punctuation">.</span>mark<span class="token punctuation">.</span>parametrize</span><span class="token punctuation">(</span><span class="token string">"a,b,expected"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">test_add_parametrized</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> expected<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""参数化测试"""</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>add<span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+        <span class="token keyword">assert</span> result <span class="token operator">==</span> expected
+    
+    <span class="token decorator annotation punctuation">@patch</span><span class="token punctuation">(</span><span class="token string">'requests.get'</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">test_get_data_from_api</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> mock_get<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试API调用（使用Mock）"""</span>
+        <span class="token comment"># 设置Mock返回值</span>
+        mock_response <span class="token operator">=</span> Mock<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        mock_response<span class="token punctuation">.</span>json<span class="token punctuation">.</span>return_value <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'data'</span><span class="token punctuation">:</span> <span class="token string">'test'</span><span class="token punctuation">&#125;</span>
+        mock_get<span class="token punctuation">.</span>return_value <span class="token operator">=</span> mock_response
+        
+        <span class="token comment"># 执行测试</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>calc<span class="token punctuation">.</span>get_data_from_api<span class="token punctuation">(</span><span class="token string">'http://test.com'</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 验证结果</span>
+        <span class="token keyword">assert</span> result <span class="token operator">==</span> <span class="token punctuation">&#123;</span><span class="token string">'data'</span><span class="token punctuation">:</span> <span class="token string">'test'</span><span class="token punctuation">&#125;</span>
+        mock_get<span class="token punctuation">.</span>assert_called_once_with<span class="token punctuation">(</span><span class="token string">'http://test.com'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Fixture示例</span>
+<span class="token decorator annotation punctuation">@pytest<span class="token punctuation">.</span>fixture</span>
+<span class="token keyword">def</span> <span class="token function">sample_data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""提供测试数据"""</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">'users'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'张三'</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">:</span> <span class="token string">'李四'</span><span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token keyword">def</span> <span class="token function">test_user_data</span><span class="token punctuation">(</span>sample_data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""使用fixture的测试"""</span>
+    users <span class="token operator">=</span> sample_data<span class="token punctuation">[</span><span class="token string">'users'</span><span class="token punctuation">]</span>
+    <span class="token keyword">assert</span> <span class="token builtin">len</span><span class="token punctuation">(</span>users<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">2</span>
+    <span class="token keyword">assert</span> users<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'张三'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="（二）unittest-标准测试框架"><a href="#（二）unittest-标准测试框架" class="headerlink" title="（二）unittest - 标准测试框架"></a>（二）unittest - 标准测试框架</h3><p><strong>简介</strong>：Python标准库中的测试框架，基于xUnit架构。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> unittest
+<span class="token keyword">from</span> unittest<span class="token punctuation">.</span>mock <span class="token keyword">import</span> patch<span class="token punctuation">,</span> MagicMock
+
+<span class="token keyword">class</span> <span class="token class-name">TestStringMethods</span><span class="token punctuation">(</span>unittest<span class="token punctuation">.</span>TestCase<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token keyword">def</span> <span class="token function">setUp</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""每个测试方法前执行"""</span>
+        self<span class="token punctuation">.</span>test_string <span class="token operator">=</span> <span class="token string">"hello world"</span>
+    
+    <span class="token keyword">def</span> <span class="token function">tearDown</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""每个测试方法后执行"""</span>
+        <span class="token keyword">pass</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_upper</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试字符串大写"""</span>
+        self<span class="token punctuation">.</span>assertEqual<span class="token punctuation">(</span>self<span class="token punctuation">.</span>test_string<span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'HELLO WORLD'</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_isupper</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试是否为大写"""</span>
+        self<span class="token punctuation">.</span>assertFalse<span class="token punctuation">(</span>self<span class="token punctuation">.</span>test_string<span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>assertTrue<span class="token punctuation">(</span><span class="token string">'HELLO'</span><span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_split</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""测试字符串分割"""</span>
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>test_string<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>assertEqual<span class="token punctuation">(</span>result<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'hello'</span><span class="token punctuation">,</span> <span class="token string">'world'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 测试分割器</span>
+        <span class="token keyword">with</span> self<span class="token punctuation">.</span>assertRaises<span class="token punctuation">(</span>TypeError<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>test_string<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    unittest<span class="token punctuation">.</span>main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="七、异步编程框架"><a href="#七、异步编程框架" class="headerlink" title="七、异步编程框架"></a>七、异步编程框架</h2><h3 id="（一）asyncio-异步I-O"><a href="#（一）asyncio-异步I-O" class="headerlink" title="（一）asyncio - 异步I&#x2F;O"></a>（一）asyncio - 异步I&#x2F;O</h3><p><strong>简介</strong>：Python标准库中的异步编程框架。</p>
+<p><strong>代码示例</strong>：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> asyncio
+<span class="token keyword">import</span> aiohttp
+<span class="token keyword">import</span> time
+
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">fetch_url</span><span class="token punctuation">(</span>session<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""异步获取URL内容"""</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token keyword">async</span> <span class="token keyword">with</span> session<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span> <span class="token keyword">as</span> response<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> response<span class="token punctuation">.</span>text<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"Error fetching </span><span class="token interpolation"><span class="token punctuation">&#123;</span>url<span class="token punctuation">&#125;</span></span><span class="token string">: </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">str</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string">"</span></span>
+
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">fetch_multiple_urls</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""并发获取多个URL"""</span>
+    <span class="token keyword">async</span> <span class="token keyword">with</span> aiohttp<span class="token punctuation">.</span>ClientSession<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> session<span class="token punctuation">:</span>
+        tasks <span class="token operator">=</span> <span class="token punctuation">[</span>fetch_url<span class="token punctuation">(</span>session<span class="token punctuation">,</span> url<span class="token punctuation">)</span> <span class="token keyword">for</span> url <span class="token keyword">in</span> urls<span class="token punctuation">]</span>
+        results <span class="token operator">=</span> <span class="token keyword">await</span> asyncio<span class="token punctuation">.</span>gather<span class="token punctuation">(</span><span class="token operator">*</span>tasks<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> results
+
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""主函数"""</span>
+    urls <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string">'https://httpbin.org/delay/1'</span><span class="token punctuation">,</span>
+        <span class="token string">'https://httpbin.org/delay/2'</span><span class="token punctuation">,</span>
+        <span class="token string">'https://httpbin.org/delay/1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span>
+    
+    start_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    results <span class="token operator">=</span> <span class="token keyword">await</span> fetch_multiple_urls<span class="token punctuation">(</span>urls<span class="token punctuation">)</span>
+    end_time <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"获取 </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> 个URL耗时: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>end_time <span class="token operator">-</span> start_time<span class="token punctuation">:</span><span class="token format-spec">.2f</span><span class="token punctuation">&#125;</span></span><span class="token string"> 秒"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> result <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>results<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"URL </span><span class="token interpolation"><span class="token punctuation">&#123;</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">&#125;</span></span><span class="token string"> 结果长度: </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> 字符"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 运行异步程序</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    asyncio<span class="token punctuation">.</span>run<span class="token punctuation">(</span>main<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="八、框架选择指南"><a href="#八、框架选择指南" class="headerlink" title="八、框架选择指南"></a>八、框架选择指南</h2><h3 id="（一）Web开发框架选择"><a href="#（一）Web开发框架选择" class="headerlink" title="（一）Web开发框架选择"></a>（一）Web开发框架选择</h3><table>
+<thead>
+<tr>
+<th>项目类型</th>
+<th>推荐框架</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大型企业应用</td>
+<td>Django</td>
+<td>功能完整，生态成熟</td>
+</tr>
+<tr>
+<td>微服务&#x2F;API</td>
+<td>FastAPI</td>
+<td>高性能，现代化设计</td>
+</tr>
+<tr>
+<td>小型项目</td>
+<td>Flask</td>
+<td>轻量级，灵活性高</td>
+</tr>
+<tr>
+<td>实时应用</td>
+<td>Tornado</td>
+<td>异步支持，WebSocket</td>
+</tr>
+</tbody></table>
+<h3 id="（二）数据科学框架选择"><a href="#（二）数据科学框架选择" class="headerlink" title="（二）数据科学框架选择"></a>（二）数据科学框架选择</h3><table>
+<thead>
+<tr>
+<th>应用场景</th>
+<th>推荐框架</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据分析</td>
+<td>Pandas + NumPy</td>
+<td>功能强大，易用性好</td>
+</tr>
+<tr>
+<td>机器学习</td>
+<td>Scikit-learn</td>
+<td>算法丰富，文档完善</td>
+</tr>
+<tr>
+<td>深度学习</td>
+<td>PyTorch&#x2F;TensorFlow</td>
+<td>社区活跃，工具完善</td>
+</tr>
+<tr>
+<td>数据可视化</td>
+<td>Matplotlib + Seaborn</td>
+<td>功能全面，样式美观</td>
+</tr>
+</tbody></table>
+<h3 id="（三）选择建议"><a href="#（三）选择建议" class="headerlink" title="（三）选择建议"></a>（三）选择建议</h3><ol>
+<li><strong>项目规模</strong>：大型项目选择功能完整的框架，小型项目选择轻量级框架</li>
+<li><strong>性能要求</strong>：高性能需求选择FastAPI、Tornado等</li>
+<li><strong>团队经验</strong>：考虑团队对框架的熟悉程度</li>
+<li><strong>社区支持</strong>：选择社区活跃、文档完善的框架</li>
+<li><strong>长期维护</strong>：考虑框架的发展前景和维护状况</li>
+</ol>
+<h2 id="九、最佳实践"><a href="#九、最佳实践" class="headerlink" title="九、最佳实践"></a>九、最佳实践</h2><h3 id="（一）框架使用原则"><a href="#（一）框架使用原则" class="headerlink" title="（一）框架使用原则"></a>（一）框架使用原则</h3><ol>
+<li><strong>合适原则</strong>：根据项目需求选择合适的框架</li>
+<li><strong>简单原则</strong>：优先选择简单易用的解决方案</li>
+<li><strong>标准原则</strong>：遵循框架的最佳实践和约定</li>
+<li><strong>测试原则</strong>：编写充分的测试代码</li>
+<li><strong>文档原则</strong>：维护清晰的项目文档</li>
+</ol>
+<h3 id="（二）性能优化建议"><a href="#（二）性能优化建议" class="headerlink" title="（二）性能优化建议"></a>（二）性能优化建议</h3><ol>
+<li><strong>合理使用缓存</strong>：Redis、Memcached等</li>
+<li><strong>数据库优化</strong>：索引、查询优化</li>
+<li><strong>异步处理</strong>：使用异步框架处理I&#x2F;O密集型任务</li>
+<li><strong>代码优化</strong>：避免不必要的计算和内存占用</li>
+<li><strong>监控调优</strong>：使用性能监控工具</li>
+</ol>
+<h3 id="（三）安全考虑"><a href="#（三）安全考虑" class="headerlink" title="（三）安全考虑"></a>（三）安全考虑</h3><ol>
+<li><strong>输入验证</strong>：严格验证用户输入</li>
+<li><strong>权限控制</strong>：实现适当的访问控制</li>
+<li><strong>数据加密</strong>：敏感数据加密存储和传输</li>
+<li><strong>依赖管理</strong>：定期更新依赖包，修复安全漏洞</li>
+<li><strong>日志审计</strong>：记录关键操作日志</li>
+</ol>
+<h2 id="十、学习路径建议"><a href="#十、学习路径建议" class="headerlink" title="十、学习路径建议"></a>十、学习路径建议</h2><h3 id="（一）初学者路径"><a href="#（一）初学者路径" class="headerlink" title="（一）初学者路径"></a>（一）初学者路径</h3><ol>
+<li><strong>基础语法</strong>：掌握Python基础语法</li>
+<li><strong>标准库</strong>：熟悉常用标准库</li>
+<li><strong>Web开发</strong>：从Flask开始学习Web开发</li>
+<li><strong>数据处理</strong>：学习NumPy和Pandas</li>
+<li><strong>项目实践</strong>：完成小型项目</li>
+</ol>
+<h3 id="（二）进阶路径"><a href="#（二）进阶路径" class="headerlink" title="（二）进阶路径"></a>（二）进阶路径</h3><ol>
+<li><strong>深入框架</strong>：深入学习Django或FastAPI</li>
+<li><strong>数据科学</strong>：学习机器学习和数据可视化</li>
+<li><strong>异步编程</strong>：掌握asyncio和异步框架</li>
+<li><strong>测试开发</strong>：学习测试驱动开发</li>
+<li><strong>部署运维</strong>：学习容器化和云部署</li>
+</ol>
+<h3 id="（三）专业化方向"><a href="#（三）专业化方向" class="headerlink" title="（三）专业化方向"></a>（三）专业化方向</h3><ol>
+<li><strong>Web全栈</strong>：Django + Vue.js&#x2F;React</li>
+<li><strong>数据科学</strong>：Pandas + Scikit-learn + Jupyter</li>
+<li><strong>AI&#x2F;ML</strong>：TensorFlow&#x2F;PyTorch + MLOps</li>
+<li><strong>DevOps</strong>：自动化测试 + CI&#x2F;CD</li>
+<li><strong>爬虫开发</strong>：Scrapy + 分布式爬虫</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Python丰富的框架生态系统为不同领域的开发提供了强大支持。从Web开发的Django、Flask、FastAPI，到数据科学的NumPy、Pandas、Scikit-learn，再到深度学习的TensorFlow、PyTorch，每个框架都有其独特的优势和适用场景。 <mcreference link="https://www.techtootalk.com/article/top-python-frameworks-for-web-development-in-2025" index="4">4</mcreference></p>
+<p>选择合适的框架需要综合考虑项目需求、团队经验、性能要求和长期维护等因素。通过系统学习和实践这些框架，开发者可以构建高质量、高性能的Python应用程序。</p>
+<p>随着技术的不断发展，Python框架生态也在持续演进。保持学习热情，关注新技术趋势，是每个Python开发者持续成长的关键。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>The Most Popular Python Frameworks in 2024：<a target="_blank" rel="noopener" href="https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024">https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024</a> <mcreference link="https://codeanywhere.com/blog/the-most-popular-python-frameworks-in-2024" index="1">1</mcreference></li>
+<li>2024年顶级Python REST API框架：<a target="_blank" rel="noopener" href="https://www.explinks.com/blog/2024-%E5%B9%B4%E9%A1%B6%E7%BA%A7-python-rest-api-%E6%A1%86%E6%9E%B6/">https://www.explinks.com/blog/2024-年顶级-python-rest-api-框架/</a> <mcreference link="https://www.explinks.com/blog/2024-年顶级-python-rest-api-框架/" index="2">2</mcreference></li>
+<li>Top 10 Python Frameworks for Web Development：<a target="_blank" rel="noopener" href="https://blog.projecthelena.com/blog/top-10-python-frameworks-web-development-2024/">https://blog.projecthelena.com/blog/top-10-python-frameworks-web-development-2024/</a> <mcreference link="https://blog.projecthelena.com/blog/top-10-python-frameworks-web-development-2024/" index="3">3</mcreference></li>
+<li>Top Python Frameworks for Web Development in 2025：<a target="_blank" rel="noopener" href="https://www.techtootalk.com/article/top-python-frameworks-for-web-development-in-2025">https://www.techtootalk.com/article/top-python-frameworks-for-web-development-in-2025</a> <mcreference link="https://www.techtootalk.com/article/top-python-frameworks-for-web-development-in-2025" index="4">4</mcreference></li>
+<li>Which Is the Best Python Web Framework：<a target="_blank" rel="noopener" href="https://blog.jetbrains.com/pycharm/2025/02/django-flask-fastapi/">https://blog.jetbrains.com/pycharm/2025/02/django-flask-fastapi/</a> <mcreference link="https://blog.jetbrains.com/pycharm/2025/02/django-flask-fastapi/" index="5">5</mcreference></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/%E6%A1%86%E6%9E%B6/" class="print-no-link">#框架</a>
+      
+        <a href="/tags/Web%E5%BC%80%E5%8F%91/" class="print-no-link">#Web开发</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" class="print-no-link">#数据科学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/15/%E3%80%90Java%E3%80%91Spring%20Boot%E6%A1%86%E6%9E%B6%E6%B3%A8%E8%A7%A3%E5%A4%A7%E5%85%A8%E4%B8%8E%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/" title="【Java】Spring Boot框架注解大全与实用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【Java】Spring Boot框架注解大全与实用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/15/%E3%80%90Python%E3%80%91Python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/" title="【Python】Python内置函数详解与实用指南">
+                        <span class="hidden-mobile">【Python】Python内置函数详解与实用指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

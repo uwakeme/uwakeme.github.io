@@ -1,0 +1,1326 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="什么是Claude Code？Claude Code是由Anthropic公司推出的AI驱动代码编辑器，它将Claude AI的强大能力直接集成到开发环境中，为开发者提供智能代码补全、bug修复、代码重构、架构设计等全方位的AI辅助编程功能。作为AI编程工具的新标杆，Claude Code正在重新定义软件开发的工作流程。 核心特性1. 智能代码补全 上下文感知：理解整个代码库的上下文 多语言支持：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【AI】Claude Code详解：AI驱动的代码编辑器革命">
+<meta property="og:url" content="https://uwakeme.top/2025/07/17/%E3%80%90AI%E3%80%91Claude%20Code%E8%AF%A6%E8%A7%A3%EF%BC%9AAI%E9%A9%B1%E5%8A%A8%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8%E9%9D%A9%E5%91%BD/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="什么是Claude Code？Claude Code是由Anthropic公司推出的AI驱动代码编辑器，它将Claude AI的强大能力直接集成到开发环境中，为开发者提供智能代码补全、bug修复、代码重构、架构设计等全方位的AI辅助编程功能。作为AI编程工具的新标杆，Claude Code正在重新定义软件开发的工作流程。 核心特性1. 智能代码补全 上下文感知：理解整个代码库的上下文 多语言支持：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-17T08:25:16.268Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="代码编辑器">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="开发工具">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【AI】Claude Code详解：AI驱动的代码编辑器革命 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【AI】Claude Code详解：AI驱动的代码编辑器革命"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-17 00:00" pubdate>
+          2025-07-17 00:00
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【AI】Claude Code详解：AI驱动的代码编辑器革命</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是Claude-Code？"><a href="#什么是Claude-Code？" class="headerlink" title="什么是Claude Code？"></a>什么是Claude Code？</h2><p>Claude Code是由Anthropic公司推出的AI驱动代码编辑器，它将Claude AI的强大能力直接集成到开发环境中，为开发者提供智能代码补全、bug修复、代码重构、架构设计等全方位的AI辅助编程功能。作为AI编程工具的新标杆，Claude Code正在重新定义软件开发的工作流程。</p>
+<h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><h3 id="1-智能代码补全"><a href="#1-智能代码补全" class="headerlink" title="1. 智能代码补全"></a>1. 智能代码补全</h3><ul>
+<li><strong>上下文感知</strong>：理解整个代码库的上下文</li>
+<li><strong>多语言支持</strong>：支持Python、JavaScript、TypeScript、Java、C++等主流语言</li>
+<li><strong>智能建议</strong>：不仅补全代码，还提供最佳实践建议</li>
+<li><strong>代码解释</strong>：自动为复杂代码添加注释</li>
+</ul>
+<h3 id="2-代码理解与重构"><a href="#2-代码理解与重构" class="headerlink" title="2. 代码理解与重构"></a>2. 代码理解与重构</h3><ul>
+<li><strong>代码分析</strong>：深入理解代码逻辑和架构</li>
+<li><strong>重构建议</strong>：提供代码优化和重构方案</li>
+<li><strong>技术债务识别</strong>：自动发现代码中的潜在问题</li>
+<li><strong>性能优化</strong>：识别性能瓶颈并提供优化建议</li>
+</ul>
+<h3 id="3-Bug检测与修复"><a href="#3-Bug检测与修复" class="headerlink" title="3. Bug检测与修复"></a>3. Bug检测与修复</h3><ul>
+<li><strong>实时错误检测</strong>：在编码过程中即时发现错误</li>
+<li><strong>智能修复</strong>：提供一键修复方案</li>
+<li><strong>测试用例生成</strong>：自动生成单元测试</li>
+<li><strong>调试辅助</strong>：帮助定位复杂bug</li>
+</ul>
+<h3 id="4-架构设计辅助"><a href="#4-架构设计辅助" class="headerlink" title="4. 架构设计辅助"></a>4. 架构设计辅助</h3><ul>
+<li><strong>系统设计</strong>：协助设计系统架构</li>
+<li><strong>模式识别</strong>：识别和应用设计模式</li>
+<li><strong>API设计</strong>：帮助设计RESTful API和GraphQL接口</li>
+<li><strong>数据库设计</strong>：协助设计数据库架构</li>
+</ul>
+<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h3 id="1-系统要求"><a href="#1-系统要求" class="headerlink" title="1. 系统要求"></a>1. 系统要求</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 支持的平台</span>
+- Windows <span class="token number">10</span>/11
+- macOS <span class="token number">10.15</span>+
+- Linux Ubuntu <span class="token number">18.04</span>+
+
+<span class="token comment"># 硬件要求</span>
+- CPU：4核心以上
+- 内存：8GB以上
+- 存储：2GB可用空间
+- 网络：稳定的互联网连接<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-安装步骤"><a href="#2-安装步骤" class="headerlink" title="2. 安装步骤"></a>2. 安装步骤</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 方式1：VS Code扩展</span>
+<span class="token comment"># 在VS Code扩展商店搜索"Claude Code"并安装</span>
+
+<span class="token comment"># 方式2：独立应用</span>
+<span class="token comment"># 从官网下载安装包</span>
+<span class="token function">wget</span> https://claude-code.anthropic.com/download/claude-code-latest.deb
+<span class="token function">sudo</span> dpkg <span class="token parameter variable">-i</span> claude-code-latest.deb
+
+<span class="token comment"># 方式3：命令行工具</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> @anthropic-ai/claude-code<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-配置设置"><a href="#3-配置设置" class="headerlink" title="3. 配置设置"></a>3. 配置设置</h3><figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// settings.json</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token property">"claude.code.apiKey"</span><span class="token operator">:</span> <span class="token string">"your-api-key"</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.model"</span><span class="token operator">:</span> <span class="token string">"claude-3-5-sonnet-20241022"</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.maxTokens"</span><span class="token operator">:</span> <span class="token number">4000</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.temperature"</span><span class="token operator">:</span> <span class="token number">0.7</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.enableAutoComplete"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.enableCodeReview"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.enableTestGeneration"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="1-智能代码补全-1"><a href="#1-智能代码补全-1" class="headerlink" title="1. 智能代码补全"></a>1. 智能代码补全</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 输入注释，Claude Code自动生成代码</span>
+<span class="token comment"># 创建一个处理用户订单的函数，包括验证库存和计算价格</span>
+
+<span class="token keyword">def</span> <span class="token function">process_user_order</span><span class="token punctuation">(</span>order_items<span class="token punctuation">,</span> user_info<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    处理用户订单，包括库存验证和价格计算
+    
+    Args:
+        order_items: 订单商品列表
+        user_info: 用户信息
+    
+    Returns:
+        dict: 包含订单详情和总价格的字典
+    """</span>
+    <span class="token comment"># Claude Code会自动补全以下代码：</span>
+    total_price <span class="token operator">=</span> <span class="token number">0</span>
+    processed_items <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> order_items<span class="token punctuation">:</span>
+        <span class="token comment"># 验证库存</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> check_inventory<span class="token punctuation">(</span>item<span class="token punctuation">[</span><span class="token string">'product_id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> item<span class="token punctuation">[</span><span class="token string">'quantity'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"商品 </span><span class="token interpolation"><span class="token punctuation">&#123;</span>item<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token string"> 库存不足"</span></span><span class="token punctuation">)</span>
+        
+        <span class="token comment"># 计算价格</span>
+        item_price <span class="token operator">=</span> calculate_item_price<span class="token punctuation">(</span>item<span class="token punctuation">,</span> user_info<span class="token punctuation">)</span>
+        total_price <span class="token operator">+=</span> item_price
+        
+        processed_items<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token string">'product_id'</span><span class="token punctuation">:</span> item<span class="token punctuation">[</span><span class="token string">'product_id'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'name'</span><span class="token punctuation">:</span> item<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'quantity'</span><span class="token punctuation">:</span> item<span class="token punctuation">[</span><span class="token string">'quantity'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'unit_price'</span><span class="token punctuation">:</span> item<span class="token punctuation">[</span><span class="token string">'price'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'total_price'</span><span class="token punctuation">:</span> item_price
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 应用折扣</span>
+    discount <span class="token operator">=</span> calculate_discount<span class="token punctuation">(</span>total_price<span class="token punctuation">,</span> user_info<span class="token punctuation">)</span>
+    final_price <span class="token operator">=</span> total_price <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> discount<span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">'items'</span><span class="token punctuation">:</span> processed_items<span class="token punctuation">,</span>
+        <span class="token string">'subtotal'</span><span class="token punctuation">:</span> total_price<span class="token punctuation">,</span>
+        <span class="token string">'discount'</span><span class="token punctuation">:</span> discount<span class="token punctuation">,</span>
+        <span class="token string">'final_price'</span><span class="token punctuation">:</span> final_price
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-Bug检测与修复"><a href="#2-Bug检测与修复" class="headerlink" title="2. Bug检测与修复"></a>2. Bug检测与修复</h3><figure><div class="code-wrapper"><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 原始代码（有bug）</span>
+<span class="token keyword">function</span> <span class="token function">calculateAverage</span><span class="token punctuation">(</span><span class="token parameter">numbers</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        sum <span class="token operator">+=</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> sum <span class="token operator">/</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// Claude Code检测到的问题：</span>
+<span class="token comment">// 1. 没有处理空数组的情况</span>
+<span class="token comment">// 2. 没有验证输入类型</span>
+
+<span class="token comment">// 修复后的代码</span>
+<span class="token keyword">function</span> <span class="token function">calculateAverage</span><span class="token punctuation">(</span><span class="token parameter">numbers</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token operator">||</span> numbers<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'请输入非空数字数组'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">let</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!==</span> <span class="token string">'number'</span> <span class="token operator">||</span> <span class="token function">isNaN</span><span class="token punctuation">(</span>numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">数组元素 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>i<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 不是有效数字</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        sum <span class="token operator">+=</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">return</span> sum <span class="token operator">/</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-代码重构"><a href="#3-代码重构" class="headerlink" title="3. 代码重构"></a>3. 代码重构</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 重构前：冗长的条件判断</span>
+<span class="token keyword">def</span> <span class="token function">get_user_discount</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> user<span class="token punctuation">.</span>age <span class="token operator">&lt;</span> <span class="token number">18</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0.1</span>
+    <span class="token keyword">elif</span> user<span class="token punctuation">.</span>age <span class="token operator">>=</span> <span class="token number">18</span> <span class="token keyword">and</span> user<span class="token punctuation">.</span>age <span class="token operator">&lt;</span> <span class="token number">25</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0.05</span>
+    <span class="token keyword">elif</span> user<span class="token punctuation">.</span>age <span class="token operator">>=</span> <span class="token number">25</span> <span class="token keyword">and</span> user<span class="token punctuation">.</span>age <span class="token operator">&lt;</span> <span class="token number">60</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0.0</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0.15</span>
+
+<span class="token comment"># Claude Code重构建议</span>
+<span class="token keyword">def</span> <span class="token function">get_user_discount</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""根据用户年龄返回折扣率"""</span>
+    age_discounts <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token number">0.10</span><span class="token punctuation">,</span>    <span class="token comment"># 未成年人</span>
+        <span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token number">0.05</span><span class="token punctuation">,</span>   <span class="token comment"># 年轻人</span>
+        <span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">59</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token number">0.00</span><span class="token punctuation">,</span>   <span class="token comment"># 成年人</span>
+        <span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token string">'inf'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token number">0.15</span>  <span class="token comment"># 老年人</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>min_age<span class="token punctuation">,</span> max_age<span class="token punctuation">)</span><span class="token punctuation">,</span> discount <span class="token keyword">in</span> age_discounts<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> min_age <span class="token operator">&lt;=</span> user<span class="token punctuation">.</span>age <span class="token operator">&lt;=</span> max_age<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> discount
+    
+    <span class="token keyword">return</span> <span class="token number">0.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><h3 id="1-架构设计辅助"><a href="#1-架构设计辅助" class="headerlink" title="1. 架构设计辅助"></a>1. 架构设计辅助</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 请求Claude Code设计一个微服务架构</span>
+<span class="token triple-quoted-string string">"""
+请设计一个电商系统的微服务架构，包括：
+1. 用户服务
+2. 商品服务
+3. 订单服务
+4. 支付服务
+5. 通知服务
+要求：使用Python FastAPI，包含API设计和数据库模型
+"""</span>
+
+<span class="token comment"># Claude Code生成的架构设计</span>
+<span class="token triple-quoted-string string">"""
+电商系统微服务架构设计：
+
+## 1. 用户服务 (user-service)
+- 端口：8001
+- 功能：用户注册、登录、个人信息管理
+- 数据库：PostgreSQL
+
+## 2. 商品服务 (product-service)
+- 端口：8002
+- 功能：商品管理、库存管理、搜索
+- 数据库：MongoDB
+
+## 3. 订单服务 (order-service)
+- 端口：8003
+- 功能：订单创建、状态管理、历史查询
+- 数据库：PostgreSQL
+
+## 4. 支付服务 (payment-service)
+- 端口：8004
+- 功能：支付处理、退款、账单
+- 数据库：PostgreSQL + Redis缓存
+
+## 5. 通知服务 (notification-service)
+- 端口：8005
+- 功能：邮件、短信、推送通知
+- 消息队列：RabbitMQ
+"""</span>
+
+<span class="token comment"># 生成的用户服务代码</span>
+<span class="token keyword">from</span> fastapi <span class="token keyword">import</span> FastAPI<span class="token punctuation">,</span> HTTPException
+<span class="token keyword">from</span> pydantic <span class="token keyword">import</span> BaseModel
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Optional
+<span class="token keyword">import</span> asyncpg
+
+app <span class="token operator">=</span> FastAPI<span class="token punctuation">(</span>title<span class="token operator">=</span><span class="token string">"用户服务"</span><span class="token punctuation">,</span> version<span class="token operator">=</span><span class="token string">"1.0.0"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">UserCreate</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    username<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    email<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    password<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    full_name<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+
+<span class="token keyword">class</span> <span class="token class-name">UserResponse</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">id</span><span class="token punctuation">:</span> <span class="token builtin">int</span>
+    username<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    email<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    full_name<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span>
+    created_at<span class="token punctuation">:</span> <span class="token builtin">str</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>post</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">,</span> response_model<span class="token operator">=</span>UserResponse<span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">create_user</span><span class="token punctuation">(</span>user<span class="token punctuation">:</span> UserCreate<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""创建新用户"""</span>
+    <span class="token comment"># 实现代码...</span>
+    <span class="token keyword">pass</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>get</span><span class="token punctuation">(</span><span class="token string">"/users/&#123;user_id&#125;"</span><span class="token punctuation">,</span> response_model<span class="token operator">=</span>UserResponse<span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">get_user</span><span class="token punctuation">(</span>user_id<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""获取用户信息"""</span>
+    <span class="token comment"># 实现代码...</span>
+    <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-测试用例生成"><a href="#2-测试用例生成" class="headerlink" title="2. 测试用例生成"></a>2. 测试用例生成</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 原始函数</span>
+<span class="token keyword">def</span> <span class="token function">fibonacci</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""计算斐波那契数列的第n项"""</span>
+    <span class="token keyword">if</span> n <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">0</span>
+    <span class="token keyword">elif</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> fibonacci<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> fibonacci<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Claude Code生成的测试用例</span>
+<span class="token keyword">import</span> pytest
+
+<span class="token keyword">class</span> <span class="token class-name">TestFibonacci</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">test_fibonacci_base_cases</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_fibonacci_sequence</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">2</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">3</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">5</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">55</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_fibonacci_negative_input</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span>
+    
+    <span class="token keyword">def</span> <span class="token function">test_fibonacci_performance</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 测试性能优化版本</span>
+        <span class="token keyword">assert</span> fibonacci<span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">832040</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-性能优化建议"><a href="#3-性能优化建议" class="headerlink" title="3. 性能优化建议"></a>3. 性能优化建议</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 原始代码（性能问题）</span>
+<span class="token keyword">def</span> <span class="token function">find_duplicates</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    duplicates <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> numbers<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token keyword">and</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">not</span> <span class="token keyword">in</span> duplicates<span class="token punctuation">:</span>
+                duplicates<span class="token punctuation">.</span>append<span class="token punctuation">(</span>numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> duplicates
+
+<span class="token comment"># Claude Code优化建议</span>
+<span class="token keyword">def</span> <span class="token function">find_duplicates</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""优化的重复元素查找算法"""</span>
+    seen <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    duplicates <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">for</span> num <span class="token keyword">in</span> numbers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> num <span class="token keyword">in</span> seen<span class="token punctuation">:</span>
+            duplicates<span class="token punctuation">.</span>add<span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            seen<span class="token punctuation">.</span>add<span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> <span class="token builtin">list</span><span class="token punctuation">(</span>duplicates<span class="token punctuation">)</span>
+
+<span class="token comment"># 时间复杂度从O(n²)优化到O(n)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="集成开发环境"><a href="#集成开发环境" class="headerlink" title="集成开发环境"></a>集成开发环境</h2><h3 id="1-VS-Code集成"><a href="#1-VS-Code集成" class="headerlink" title="1. VS Code集成"></a>1. VS Code集成</h3><figure><div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// .vscode/settings.json</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token property">"claude.code.enable"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.languageServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"python"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"enabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            <span class="token property">"maxLineLength"</span><span class="token operator">:</span> <span class="token number">88</span><span class="token punctuation">,</span>
+            <span class="token property">"styleGuide"</span><span class="token operator">:</span> <span class="token string">"pep8"</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token property">"javascript"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"enabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            <span class="token property">"styleGuide"</span><span class="token operator">:</span> <span class="token string">"airbnb"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"claude.code.codeActions"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"quickFix"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"refactor"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"optimize"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-JetBrains系列集成"><a href="#2-JetBrains系列集成" class="headerlink" title="2. JetBrains系列集成"></a>2. JetBrains系列集成</h3><figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- .idea/claude-code.xml --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ClaudeCodeSettings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>apiKey<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>your-api-key<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>model<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>claude-3-5-sonnet-20241022<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>enableInlineCompletion<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>enableCodeReview<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>application</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-命令行工具"><a href="#3-命令行工具" class="headerlink" title="3. 命令行工具"></a>3. 命令行工具</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装CLI工具</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> @anthropic-ai/claude-code-cli
+
+<span class="token comment"># 基本使用</span>
+claude-code review src/
+claude-code optimize <span class="token parameter variable">--file</span> main.py
+claude-code generate-tests <span class="token parameter variable">--file</span> utils.py
+claude-code refactor <span class="token parameter variable">--pattern</span> <span class="token string">"extract-method"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="工作流集成"><a href="#工作流集成" class="headerlink" title="工作流集成"></a>工作流集成</h2><h3 id="1-Git工作流"><a href="#1-Git工作流" class="headerlink" title="1. Git工作流"></a>1. Git工作流</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 提交前代码审查</span>
+claude-code review <span class="token parameter variable">--staged</span>
+
+<span class="token comment"># 生成提交信息</span>
+claude-code commit-message <span class="token parameter variable">--diff</span> HEAD~1
+
+<span class="token comment"># 代码合并冲突解决</span>
+claude-code resolve-conflict <span class="token parameter variable">--file</span> conflicted.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-CI-CD集成"><a href="#2-CI-CD集成" class="headerlink" title="2. CI&#x2F;CD集成"></a>2. CI&#x2F;CD集成</h3><figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># .github/workflows/claude-code.yml</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> Claude Code Review
+<span class="token key atrule">on</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>pull_request<span class="token punctuation">]</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">review</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v3
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Claude Code Review
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> anthropic<span class="token punctuation">-</span>ai/claude<span class="token punctuation">-</span>code<span class="token punctuation">-</span>action@v1
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">api-key</span><span class="token punctuation">:</span> $<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> secrets.CLAUDE_API_KEY <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+          <span class="token key atrule">files</span><span class="token punctuation">:</span> <span class="token string">'src/**/*.py'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-代码质量检查"><a href="#3-代码质量检查" class="headerlink" title="3. 代码质量检查"></a>3. 代码质量检查</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># .claude-code-config.py</span>
+config <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"quality_gates"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"complexity"</span><span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+        <span class="token string">"duplication"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+        <span class="token string">"test_coverage"</span><span class="token punctuation">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
+        <span class="token string">"documentation"</span><span class="token punctuation">:</span> <span class="token number">70</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"rules"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"naming_conventions"</span><span class="token punctuation">:</span> <span class="token string">"pep8"</span><span class="token punctuation">,</span>
+        <span class="token string">"max_line_length"</span><span class="token punctuation">:</span> <span class="token number">88</span><span class="token punctuation">,</span>
+        <span class="token string">"import_order"</span><span class="token punctuation">:</span> <span class="token string">"standard"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="实际应用案例"><a href="#实际应用案例" class="headerlink" title="实际应用案例"></a>实际应用案例</h2><h3 id="1-Web应用开发"><a href="#1-Web应用开发" class="headerlink" title="1. Web应用开发"></a>1. Web应用开发</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 使用Claude Code快速生成Flask应用</span>
+<span class="token triple-quoted-string string">"""
+创建一个用户管理系统的Flask应用，包括：
+1. 用户注册和登录
+2. JWT认证
+3. 用户CRUD操作
+4. 密码加密
+5. 输入验证
+"""</span>
+
+<span class="token comment"># Claude Code生成的完整应用</span>
+<span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask<span class="token punctuation">,</span> request<span class="token punctuation">,</span> jsonify
+<span class="token keyword">from</span> flask_jwt_extended <span class="token keyword">import</span> JWTManager<span class="token punctuation">,</span> create_access_token<span class="token punctuation">,</span> jwt_required<span class="token punctuation">,</span> get_jwt_identity
+<span class="token keyword">from</span> werkzeug<span class="token punctuation">.</span>security <span class="token keyword">import</span> generate_password_hash<span class="token punctuation">,</span> check_password_hash
+<span class="token keyword">from</span> flask_sqlalchemy <span class="token keyword">import</span> SQLAlchemy
+<span class="token keyword">import</span> re
+
+app <span class="token operator">=</span> Flask<span class="token punctuation">(</span>__name__<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'JWT_SECRET_KEY'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'your-secret-key'</span>
+app<span class="token punctuation">.</span>config<span class="token punctuation">[</span><span class="token string">'SQLALCHEMY_DATABASE_URI'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'sqlite:///users.db'</span>
+jwt <span class="token operator">=</span> JWTManager<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+db <span class="token operator">=</span> SQLAlchemy<span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">User</span><span class="token punctuation">(</span>db<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">id</span> <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>Integer<span class="token punctuation">,</span> primary_key<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    username <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>String<span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">,</span> unique<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> nullable<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    email <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>String<span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">,</span> unique<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> nullable<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    password_hash <span class="token operator">=</span> db<span class="token punctuation">.</span>Column<span class="token punctuation">(</span>db<span class="token punctuation">.</span>String<span class="token punctuation">(</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nullable<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">'/register'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">register</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token comment"># 输入验证</span>
+    <span class="token keyword">if</span> <span class="token keyword">not</span> data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'username'</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token keyword">not</span> data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'email'</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token keyword">not</span> data<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'password'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'error'</span><span class="token punctuation">:</span> <span class="token string">'缺少必要字段'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">400</span>
+    
+    <span class="token keyword">if</span> <span class="token keyword">not</span> re<span class="token punctuation">.</span><span class="token keyword">match</span><span class="token punctuation">(</span><span class="token string">r'^[\w\.-]+@[\w\.-]+$'</span><span class="token punctuation">,</span> data<span class="token punctuation">[</span><span class="token string">'email'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'error'</span><span class="token punctuation">:</span> <span class="token string">'邮箱格式不正确'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">400</span>
+    
+    <span class="token keyword">if</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span>filter_by<span class="token punctuation">(</span>username<span class="token operator">=</span>data<span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>first<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'error'</span><span class="token punctuation">:</span> <span class="token string">'用户名已存在'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">400</span>
+    
+    <span class="token comment"># 创建用户</span>
+    user <span class="token operator">=</span> User<span class="token punctuation">(</span>
+        username<span class="token operator">=</span>data<span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        email<span class="token operator">=</span>data<span class="token punctuation">[</span><span class="token string">'email'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        password_hash<span class="token operator">=</span>generate_password_hash<span class="token punctuation">(</span>data<span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+    db<span class="token punctuation">.</span>session<span class="token punctuation">.</span>add<span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+    db<span class="token punctuation">.</span>session<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'message'</span><span class="token punctuation">:</span> <span class="token string">'用户创建成功'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">201</span>
+
+<span class="token decorator annotation punctuation">@app<span class="token punctuation">.</span>route</span><span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    user <span class="token operator">=</span> User<span class="token punctuation">.</span>query<span class="token punctuation">.</span>filter_by<span class="token punctuation">(</span>username<span class="token operator">=</span>data<span class="token punctuation">[</span><span class="token string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">if</span> user <span class="token keyword">and</span> check_password_hash<span class="token punctuation">(</span>user<span class="token punctuation">.</span>password_hash<span class="token punctuation">,</span> data<span class="token punctuation">[</span><span class="token string">'password'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        access_token <span class="token operator">=</span> create_access_token<span class="token punctuation">(</span>identity<span class="token operator">=</span>user<span class="token punctuation">.</span><span class="token builtin">id</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'access_token'</span><span class="token punctuation">:</span> access_token<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+    
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'error'</span><span class="token punctuation">:</span> <span class="token string">'用户名或密码错误'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-数据处理脚本"><a href="#2-数据处理脚本" class="headerlink" title="2. 数据处理脚本"></a>2. 数据处理脚本</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 使用Claude Code生成数据清洗脚本</span>
+<span class="token triple-quoted-string string">"""
+创建一个数据清洗脚本，功能包括：
+1. 读取CSV文件
+2. 处理缺失值
+3. 标准化数据格式
+4. 检测异常值
+5. 生成清洗报告
+"""</span>
+
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">from</span> scipy <span class="token keyword">import</span> stats
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+
+<span class="token keyword">class</span> <span class="token class-name">DataCleaner</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> file_path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>df <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span>file_path<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>report <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token string">'original_shape'</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>df<span class="token punctuation">.</span>shape<span class="token punctuation">,</span>
+            <span class="token string">'missing_values'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token string">'outliers'</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token string">'cleaning_steps'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">def</span> <span class="token function">handle_missing_values</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> strategy<span class="token operator">=</span><span class="token string">'mean'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""处理缺失值"""</span>
+        <span class="token keyword">for</span> column <span class="token keyword">in</span> self<span class="token punctuation">.</span>df<span class="token punctuation">.</span>columns<span class="token punctuation">:</span>
+            missing_count <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>isnull<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> missing_count <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'missing_values'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">=</span> missing_count
+                
+                <span class="token keyword">if</span> strategy <span class="token operator">==</span> <span class="token string">'mean'</span> <span class="token keyword">and</span> self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>dtype <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">'int64'</span><span class="token punctuation">,</span> <span class="token string">'float64'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>fillna<span class="token punctuation">(</span>self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> strategy <span class="token operator">==</span> <span class="token string">'median'</span><span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>fillna<span class="token punctuation">(</span>self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>median<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                <span class="token keyword">elif</span> strategy <span class="token operator">==</span> <span class="token string">'mode'</span><span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>fillna<span class="token punctuation">(</span>self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>mode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>fillna<span class="token punctuation">(</span>strategy<span class="token punctuation">,</span> inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                
+                self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'cleaning_steps'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Filled </span><span class="token interpolation"><span class="token punctuation">&#123;</span>missing_count<span class="token punctuation">&#125;</span></span><span class="token string"> missing values in </span><span class="token interpolation"><span class="token punctuation">&#123;</span>column<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">detect_outliers</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> method<span class="token operator">=</span><span class="token string">'iqr'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""检测异常值"""</span>
+        numeric_columns <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">.</span>select_dtypes<span class="token punctuation">(</span>include<span class="token operator">=</span><span class="token punctuation">[</span>np<span class="token punctuation">.</span>number<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>columns
+        
+        <span class="token keyword">for</span> column <span class="token keyword">in</span> numeric_columns<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> method <span class="token operator">==</span> <span class="token string">'iqr'</span><span class="token punctuation">:</span>
+                Q1 <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>quantile<span class="token punctuation">(</span><span class="token number">0.25</span><span class="token punctuation">)</span>
+                Q3 <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span><span class="token punctuation">.</span>quantile<span class="token punctuation">(</span><span class="token number">0.75</span><span class="token punctuation">)</span>
+                IQR <span class="token operator">=</span> Q3 <span class="token operator">-</span> Q1
+                lower_bound <span class="token operator">=</span> Q1 <span class="token operator">-</span> <span class="token number">1.5</span> <span class="token operator">*</span> IQR
+                upper_bound <span class="token operator">=</span> Q3 <span class="token operator">+</span> <span class="token number">1.5</span> <span class="token operator">*</span> IQR
+                
+                outliers <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">[</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">&lt;</span> lower_bound<span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>df<span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">></span> upper_bound<span class="token punctuation">)</span><span class="token punctuation">]</span>
+                self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'outliers'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>column<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>outliers<span class="token punctuation">)</span>
+                
+                <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>outliers<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+                    self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'cleaning_steps'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Detected </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>outliers<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> outliers in </span><span class="token interpolation"><span class="token punctuation">&#123;</span>column<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">generate_report</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""生成清洗报告"""</span>
+        self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'final_shape'</span><span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>df<span class="token punctuation">.</span>shape
+        self<span class="token punctuation">.</span>report<span class="token punctuation">[</span><span class="token string">'data_quality_score'</span><span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>calculate_quality_score<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>report
+    
+    <span class="token keyword">def</span> <span class="token function">calculate_quality_score</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""计算数据质量分数"""</span>
+        <span class="token comment"># 实现质量评分逻辑</span>
+        <span class="token keyword">return</span> <span class="token number">85.5</span>  <span class="token comment"># 示例分数</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="1-使用技巧"><a href="#1-使用技巧" class="headerlink" title="1. 使用技巧"></a>1. 使用技巧</h3><ul>
+<li><strong>明确需求</strong>：向Claude Code提供清晰、具体的指令</li>
+<li><strong>逐步细化</strong>：从高层次设计逐步细化到具体实现</li>
+<li><strong>验证结果</strong>：始终验证AI生成的代码是否符合预期</li>
+<li><strong>保持学习</strong>：理解AI提供的解决方案，不要完全依赖</li>
+</ul>
+<h3 id="2-团队协作"><a href="#2-团队协作" class="headerlink" title="2. 团队协作"></a>2. 团队协作</h3><figure><div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> 团队使用指南</span>
+<span class="token list punctuation">1.</span> 建立代码审查流程
+<span class="token list punctuation">2.</span> 统一编码标准
+<span class="token list punctuation">3.</span> 定期分享AI使用经验
+<span class="token list punctuation">4.</span> 建立知识库
+<span class="token list punctuation">5.</span> 培训团队成员<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-安全考虑"><a href="#3-安全考虑" class="headerlink" title="3. 安全考虑"></a>3. 安全考虑</h3><ul>
+<li><strong>API密钥管理</strong>：使用环境变量存储敏感信息</li>
+<li><strong>代码审查</strong>：AI生成的代码需要人工审查</li>
+<li><strong>依赖管理</strong>：检查AI引入的第三方库</li>
+<li><strong>性能测试</strong>：验证AI优化后的性能表现</li>
+</ul>
+<h2 id="常见问题与解决方案"><a href="#常见问题与解决方案" class="headerlink" title="常见问题与解决方案"></a>常见问题与解决方案</h2><h3 id="1-性能问题"><a href="#1-性能问题" class="headerlink" title="1. 性能问题"></a>1. 性能问题</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 问题：AI补全响应慢</span>
+<span class="token comment"># 解决方案：</span>
+<span class="token comment"># 1. 调整max_tokens参数</span>
+<span class="token comment"># 2. 使用更小的模型</span>
+<span class="token comment"># 3. 缓存常用代码片段</span>
+<span class="token comment"># 4. 本地化处理简单任务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="2-准确性问题"><a href="#2-准确性问题" class="headerlink" title="2. 准确性问题"></a>2. 准确性问题</h3><figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 问题：AI生成的代码不准确</span>
+<span class="token comment"># 解决方案：</span>
+<span class="token comment"># 1. 提供更多上下文信息</span>
+<span class="token comment"># 2. 使用更具体的提示</span>
+<span class="token comment"># 3. 分步骤生成复杂代码</span>
+<span class="token comment"># 4. 建立代码模板库</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h3 id="3-集成问题"><a href="#3-集成问题" class="headerlink" title="3. 集成问题"></a>3. 集成问题</h3><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 问题：与现有工具链冲突</span>
+<span class="token comment"># 解决方案：</span>
+<span class="token comment"># 1. 检查版本兼容性</span>
+<span class="token comment"># 2. 调整配置优先级</span>
+<span class="token comment"># 3. 使用容器化部署</span>
+<span class="token comment"># 4. 建立回滚机制</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="未来发展趋势"><a href="#未来发展趋势" class="headerlink" title="未来发展趋势"></a>未来发展趋势</h2><h3 id="1-技术演进"><a href="#1-技术演进" class="headerlink" title="1. 技术演进"></a>1. 技术演进</h3><ul>
+<li><strong>多模态支持</strong>：支持图像、音频等多模态输入</li>
+<li><strong>实时协作</strong>：多人实时AI编程协作</li>
+<li><strong>个性化学习</strong>：根据开发者习惯个性化推荐</li>
+<li><strong>跨语言支持</strong>：无缝切换不同编程语言</li>
+</ul>
+<h3 id="2-生态发展"><a href="#2-生态发展" class="headerlink" title="2. 生态发展"></a>2. 生态发展</h3><ul>
+<li><strong>插件生态</strong>：丰富的第三方插件</li>
+<li><strong>社区贡献</strong>：开源社区贡献的代码模板</li>
+<li><strong>企业集成</strong>：深度集成企业开发流程</li>
+<li><strong>教育培训</strong>：AI编程教育平台</li>
+</ul>
+<h2 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a>学习资源推荐</h2><ul>
+<li><strong>官方文档</strong>：<a target="_blank" rel="noopener" href="https://docs.anthropic.com/claude-code">https://docs.anthropic.com/claude-code</a></li>
+<li><strong>视频教程</strong>：Claude Code官方YouTube频道</li>
+<li><strong>实践项目</strong>：GitHub上的Claude Code示例项目</li>
+<li><strong>社区论坛</strong>：Claude Code开发者社区</li>
+<li><strong>认证课程</strong>：Anthropic官方认证培训</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Claude Code代表了AI辅助编程的最新发展方向，它不仅提高了开发效率，更重要的是改变了开发者的工作方式。通过智能代码补全、bug检测、架构设计等功能，Claude Code让开发者能够更专注于业务逻辑和创新。随着AI技术的不断发展，Claude Code将继续演进，为软件开发带来更多可能性。掌握Claude Code将成为未来开发者的必备技能。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+        <a href="/tags/Claude-Code/" class="print-no-link">#Claude Code</a>
+      
+        <a href="/tags/%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/" class="print-no-link">#代码编辑器</a>
+      
+        <a href="/tags/AI%E7%BC%96%E7%A8%8B/" class="print-no-link">#AI编程</a>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="print-no-link">#开发工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%8E%8B%E8%80%85/" title="【数据库】MySQL详解：关系型数据库的王者">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【数据库】MySQL详解：关系型数据库的王者</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/17/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Android%E5%BC%80%E5%8F%912025%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E9%AB%98%E7%BA%A7%E6%9E%B6%E6%9E%84%E5%B8%88/" title="【学习路线】Android开发2025：从入门到高级架构师">
+                        <span class="hidden-mobile">【学习路线】Android开发2025：从入门到高级架构师</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,891 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言Kubernetes，简称K8s，是一个开源的容器编排平台，用于自动化容器化应用程序的部署、扩展和管理。在现代云计算和微服务架构中，K8s已经成为事实上的标准。它能够帮助开发者和运维工程师更高效地管理复杂的应用环境，确保应用的高可用性和可伸缩性。本笔记旨在帮助初学者快速入门K8s的核心概念和基本操作。 一、Kubernetes核心概念理解K8s的核心概念是掌握其强大功能的基础。以下是一些最重要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习】Kubernetes (K8s) 基础入门笔记">
+<meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Kubernetes%20(K8s)%20%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言Kubernetes，简称K8s，是一个开源的容器编排平台，用于自动化容器化应用程序的部署、扩展和管理。在现代云计算和微服务架构中，K8s已经成为事实上的标准。它能够帮助开发者和运维工程师更高效地管理复杂的应用环境，确保应用的高可用性和可伸缩性。本笔记旨在帮助初学者快速入门K8s的核心概念和基本操作。 一、Kubernetes核心概念理解K8s的核心概念是掌握其强大功能的基础。以下是一些最重要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-14T08:45:04.493Z">
+<meta property="article:modified_time" content="2025-07-14T08:45:04.493Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="K8s">
+<meta property="article:tag" content="Kubernetes">
+<meta property="article:tag" content="容器编排">
+<meta property="article:tag" content="云计算">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【学习】Kubernetes (K8s) 基础入门笔记 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【学习】Kubernetes (K8s) 基础入门笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-14 16:45" pubdate>
+          2025-07-14 16:45
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【学习】Kubernetes (K8s) 基础入门笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Kubernetes，简称K8s，是一个开源的容器编排平台，用于自动化容器化应用程序的部署、扩展和管理。在现代云计算和微服务架构中，K8s已经成为事实上的标准。它能够帮助开发者和运维工程师更高效地管理复杂的应用环境，确保应用的高可用性和可伸缩性。本笔记旨在帮助初学者快速入门K8s的核心概念和基本操作。</p>
+<h1 id="一、Kubernetes核心概念"><a href="#一、Kubernetes核心概念" class="headerlink" title="一、Kubernetes核心概念"></a>一、Kubernetes核心概念</h1><p>理解K8s的核心概念是掌握其强大功能的基础。以下是一些最重要的概念：</p>
+<h2 id="（一）Container（容器）"><a href="#（一）Container（容器）" class="headerlink" title="（一）Container（容器）"></a>（一）Container（容器）</h2><p>容器是一种轻量级的、可移植的、自包含的软件打包技术。它将应用程序及其所有依赖（库、运行时等）打包在一起，确保在不同环境中拥有一致的运行表现。Docker是最常用的容器运行时之一。</p>
+<p>K8s的核心任务就是管理这些容器。</p>
+<h2 id="（二）Pod"><a href="#（二）Pod" class="headerlink" title="（二）Pod"></a>（二）Pod</h2><p>Pod是K8s中可以创建和管理的最小部署单元。一个Pod可以包含一个或多个紧密关联的容器。这些容器共享同一个网络命名空间（IP地址和端口空间）、IPC命名空间以及存储卷。</p>
+<p>Pod内的容器通常一起部署、一起启动、一起停止，并且可以像在同一台物理机上一样通过<code>localhost</code>相互通信。</p>
+<p><strong>示例：一个简单的Nginx Pod定义 (YAML格式)</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>pod
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>container
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>latest <span class="token comment"># 使用最新的nginx镜像</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span> <span class="token comment"># 容器监听的端口</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）Node（节点）"><a href="#（三）Node（节点）" class="headerlink" title="（三）Node（节点）"></a>（三）Node（节点）</h2><p>Node是K8s集群中的工作机器，可以是物理机或虚拟机。每个Node都运行着<code>kubelet</code>（负责管理Pod和容器）、<code>kube-proxy</code>（负责网络代理和负载均衡）以及容器运行时（如Docker）。Pod最终会在Node上运行。</p>
+<h2 id="（四）Service（服务）"><a href="#（四）Service（服务）" class="headerlink" title="（四）Service（服务）"></a>（四）Service（服务）</h2><p>Service是一种抽象，它定义了一组Pod的逻辑集合和一个访问它们的策略。由于Pod的生命周期是短暂的，它们可以被创建和销毁，IP地址也会随之改变。Service提供了一个稳定的入口点（固定的IP地址和DNS名称），使得其他应用或用户可以可靠地访问这组Pod提供的服务，而无需关心后端Pod的具体细节。</p>
+<p>Service通过Label Selector来选择它所代理的Pod。</p>
+<p><strong>示例：一个暴露Nginx Pod的Service定义 (YAML格式)</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx <span class="token comment"># 选择标签为 app:nginx 的Pod</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>       <span class="token comment"># Service监听的端口</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span> <span class="token comment"># Pod内容器监听的端口</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer <span class="token comment"># Service类型，LoadBalancer会尝试使用云提供商的负载均衡器暴露服务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（五）Namespace（命名空间）"><a href="#（五）Namespace（命名空间）" class="headerlink" title="（五）Namespace（命名空间）"></a>（五）Namespace（命名空间）</h2><p>Namespace用于在同一个K8s集群中创建多个虚拟集群。它可以将集群资源划分为逻辑上隔离的组，适用于多租户环境或者区分不同的项目、团队或环境（如开发、测试、生产）。</p>
+<p>大部分K8s资源（如Pod, Service, Deployment）都属于某个Namespace，而一些集群级别的资源（如Node, PersistentVolume）则不属于任何Namespace。默认情况下，所有资源都创建在<code>default</code>命名空间下。</p>
+<h2 id="（六）Label（标签）和Selector（选择器）"><a href="#（六）Label（标签）和Selector（选择器）" class="headerlink" title="（六）Label（标签）和Selector（选择器）"></a>（六）Label（标签）和Selector（选择器）</h2><p>Label是附加到K8s对象（如Pod, Node, Service）上的键值对。它们用于组织和选择对象的子集。例如，可以给所有前端Pod打上<code>tier: frontend</code>的标签，给所有后端Pod打上<code>tier: backend</code>的标签。</p>
+<p>Selector是用于基于Label查询和筛选K8s对象的机制。Service使用Label Selector来确定它应该将流量路由到哪些Pod。Deployment也使用Label Selector来管理它所控制的Pod副本。</p>
+<h2 id="（七）Deployment（部署）"><a href="#（七）Deployment（部署）" class="headerlink" title="（七）Deployment（部署）"></a>（七）Deployment（部署）</h2><p>Deployment为Pod和ReplicaSet（另一种K8s对象，用于维护指定数量的Pod副本）提供声明式的更新能力。您在Deployment中描述期望的应用状态，Deployment Controller会以受控的速率将实际状态逐步变更为期望状态。</p>
+<p>Deployment支持滚动更新和回滚应用版本，确保应用更新过程中的高可用性。</p>
+<p><strong>示例：一个管理Nginx Pod的Deployment定义 (YAML格式)</strong></p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span> <span class="token comment"># 期望运行3个Nginx Pod副本</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx <span class="token comment"># 选择标签为 app:nginx 的Pod进行管理</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span> <span class="token comment"># Pod模板，用于创建新的Pod</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>1.25.3 <span class="token comment"># 指定nginx镜像版本</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（八）ConfigMap和Secret"><a href="#（八）ConfigMap和Secret" class="headerlink" title="（八）ConfigMap和Secret"></a>（八）ConfigMap和Secret</h2><ul>
+<li><strong>ConfigMap</strong>：用于存储非敏感的配置数据，如配置文件、命令行参数等。Pod可以将ConfigMap中的数据作为环境变量、命令行参数或卷挂载到文件系统中使用。</li>
+<li><strong>Secret</strong>：用于存储敏感数据，如密码、API密钥、TLS证书等。Secret的使用方式与ConfigMap类似，但其数据会以Base64编码存储（注意：这只是编码，并非强加密，需要配合RBAC等权限控制来保护）。</li>
+</ul>
+<h1 id="二、Kubernetes架构"><a href="#二、Kubernetes架构" class="headerlink" title="二、Kubernetes架构"></a>二、Kubernetes架构</h1><p>K8s采用典型的Master-Worker（现在更常称为Control Plane-Node）架构。</p>
+<h2 id="（一）Control-Plane-Components（控制平面组件）"><a href="#（一）Control-Plane-Components（控制平面组件）" class="headerlink" title="（一）Control Plane Components（控制平面组件）"></a>（一）Control Plane Components（控制平面组件）</h2><p>控制平面组件负责集群的全局决策（例如，调度）以及检测和响应集群事件（例如，当Deployment的<code>replicas</code>字段不满足时启动新的Pod）。控制平面组件可以运行在集群中的任何机器上，但为了简单起见，启动脚本通常在同一台机器上启动所有控制平面组件，并且不会在这台机器上运行用户容器。</p>
+<p>主要组件包括：</p>
+<ol>
+<li><strong>kube-apiserver</strong>：API服务器是K8s控制平面的前端。它暴露K8s API，处理REST请求，验证和配置数据对象（如Pod, Service等），并将它们的状态存储在etcd中。</li>
+<li><strong>etcd</strong>：一个一致且高可用的键值存储，用作K8s所有集群数据的后台存储。</li>
+<li><strong>kube-scheduler</strong>：监视新创建的、未指定运行Node的Pod，并选择一个Node让Pod在上面运行。调度决策的因素包括：单个Pod和Pod集合的资源需求、硬件&#x2F;软件&#x2F;策略约束、亲和性和反亲和性规范、数据局部性、工作负载间的干扰和最后期限。</li>
+<li><strong>kube-controller-manager</strong>：运行控制器进程。逻辑上，每个控制器都是一个独立的进程，但是为了降低复杂性，它们都被编译到同一个可执行文件并在一个进程中运行。这些控制器包括：<ul>
+<li>Node Controller：负责在节点出现故障时进行通知和响应。</li>
+<li>Replication Controller：负责为集群中运行的每个复制控制器对象维护正确数量的Pod。</li>
+<li>Endpoints Controller：填充Endpoints对象（即加入Service与Pod）。</li>
+<li>Service Account &amp; Token Controllers：为新的Namespace创建默认的Service Account和API访问Token。</li>
+</ul>
+</li>
+<li><strong>cloud-controller-manager</strong>（可选）：嵌入了特定云平台的控制逻辑。Cloud Controller Manager允许您将您的集群连接到云提供商的API之上，并将与该云平台交互的组件与只与您的集群交互的组件分离开。</li>
+</ol>
+<h2 id="（二）Node-Components（节点组件）"><a href="#（二）Node-Components（节点组件）" class="headerlink" title="（二）Node Components（节点组件）"></a>（二）Node Components（节点组件）</h2><p>节点组件在每个Node上运行，维护运行的Pod并提供K8s运行时环境。</p>
+<ol>
+<li><strong>kubelet</strong>：一个在集群中每个Node上运行的代理。它确保容器都运行在Pod中。kubelet接收通过各种机制提供的一组PodSpec，并确保这些PodSpec中描述的容器正常运行且健康。kubelet不管理不是由K8s创建的容器。</li>
+<li><strong>kube-proxy</strong>：kube-proxy是集群中每个Node上运行的网络代理，实现了K8s Service概念的一部分。kube-proxy维护Node上的网络规则。这些网络规则允许从集群内部或外部的网络会话与Pod进行网络通信。如果操作系统提供了数据包过滤层并且可用，则kube-proxy会使用它。否则，kube-proxy会转发流量本身。</li>
+<li><strong>Container Runtime（容器运行时）</strong>：容器运行时是负责运行容器的软件。K8s支持多种容器运行时，如Docker、containerd、CRI-O以及任何实现了K8s容器运行时接口（CRI）的运行时。</li>
+</ol>
+<h1 id="三、Kubernetes基本操作-kubectl"><a href="#三、Kubernetes基本操作-kubectl" class="headerlink" title="三、Kubernetes基本操作 (kubectl)"></a>三、Kubernetes基本操作 (kubectl)</h1><p><code>kubectl</code>是K8s的命令行工具，用于与K8s集群进行交互。以下是一些常用的命令：</p>
+<h2 id="（一）查看集群信息"><a href="#（一）查看集群信息" class="headerlink" title="（一）查看集群信息"></a>（一）查看集群信息</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl cluster-info         <span class="token comment"># 显示集群控制平面和服务的端点信息</span>
+kubectl get nodes            <span class="token comment"># 列出集群中的所有Node及其状态</span>
+kubectl get namespaces       <span class="token comment"># 列出所有命名空间</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（二）部署和管理应用"><a href="#（二）部署和管理应用" class="headerlink" title="（二）部署和管理应用"></a>（二）部署和管理应用</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl apply <span class="token parameter variable">-f</span> <span class="token operator">&lt;</span>filename.yaml<span class="token operator">></span>    <span class="token comment"># 根据YAML文件创建或更新资源</span>
+kubectl get pods                     <span class="token comment"># 列出当前命名空间下的所有Pod</span>
+kubectl get pods <span class="token parameter variable">-n</span> <span class="token operator">&lt;</span>namespace<span class="token operator">></span>      <span class="token comment"># 列出指定命名空间下的所有Pod</span>
+kubectl get pods <span class="token parameter variable">-o</span> wide             <span class="token comment"># 以更详细的格式列出Pod（包括IP和所在Node）</span>
+kubectl describe pod <span class="token operator">&lt;</span>pod-name<span class="token operator">></span>      <span class="token comment"># 显示Pod的详细信息，常用于排错</span>
+kubectl logs <span class="token operator">&lt;</span>pod-name<span class="token operator">></span>              <span class="token comment"># 查看Pod的日志</span>
+kubectl logs <span class="token parameter variable">-f</span> <span class="token operator">&lt;</span>pod-name<span class="token operator">></span>           <span class="token comment"># 实时跟踪Pod的日志</span>
+kubectl <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> <span class="token operator">&lt;</span>pod-name<span class="token operator">></span> -- /bin/bash <span class="token comment"># 进入Pod的容器内部执行命令</span>
+kubectl get deployments              <span class="token comment"># 列出所有Deployment</span>
+kubectl scale deployment <span class="token operator">&lt;</span>deployment-name<span class="token operator">></span> <span class="token parameter variable">--replicas</span><span class="token operator">=</span><span class="token number">5</span> <span class="token comment"># 伸缩Deployment的副本数量</span>
+kubectl rollout status deployment/<span class="token operator">&lt;</span>deployment-name<span class="token operator">></span>    <span class="token comment"># 查看Deployment的部署状态</span>
+kubectl rollout <span class="token function">history</span> deployment/<span class="token operator">&lt;</span>deployment-name<span class="token operator">></span>   <span class="token comment"># 查看Deployment的更新历史</span>
+kubectl rollout undo deployment/<span class="token operator">&lt;</span>deployment-name<span class="token operator">></span>      <span class="token comment"># 回滚到上一个版本</span>
+kubectl delete pod <span class="token operator">&lt;</span>pod-name<span class="token operator">></span>          <span class="token comment"># 删除一个Pod</span>
+kubectl delete <span class="token parameter variable">-f</span> <span class="token operator">&lt;</span>filename.yaml<span class="token operator">></span>    <span class="token comment"># 删除YAML文件中定义的所有资源</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）查看资源"><a href="#（三）查看资源" class="headerlink" title="（三）查看资源"></a>（三）查看资源</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl get services                 <span class="token comment"># 列出所有Service</span>
+kubectl get configmaps               <span class="token comment"># 列出所有ConfigMap</span>
+kubectl get secrets                  <span class="token comment"># 列出所有Secret</span>
+kubectl get all                      <span class="token comment"># 列出当前命名空间下的所有常见资源</span>
+kubectl get all <span class="token parameter variable">-n</span> <span class="token operator">&lt;</span>namespace-name<span class="token operator">></span>  <span class="token comment"># 列出指定命名空间下的所有常见资源</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+
+<h1 id="四、准备环境-Minikube"><a href="#四、准备环境-Minikube" class="headerlink" title="四、准备环境 (Minikube)"></a>四、准备环境 (Minikube)</h1><p>对于初学者，在本地计算机上运行K8s是学习和实验的好方法。Minikube是一个轻量级的K8s实现，它在您的本地机器上创建一个虚拟机，并部署一个只包含一个节点的简单集群。</p>
+<h2 id="（一）安装Minikube"><a href="#（一）安装Minikube" class="headerlink" title="（一）安装Minikube"></a>（一）安装Minikube</h2><p>具体的安装步骤因操作系统而异，请参考Minikube官方文档：<br><a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/docs/start/">https://minikube.sigs.k8s.io/docs/start/</a></p>
+<h2 id="（二）启动Minikube集群"><a href="#（二）启动Minikube集群" class="headerlink" title="（二）启动Minikube集群"></a>（二）启动Minikube集群</h2><figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">minikube start <span class="token comment"># 启动Minikube集群</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
+
+<h2 id="（三）配置kubectl与Minikube交互"><a href="#（三）配置kubectl与Minikube交互" class="headerlink" title="（三）配置kubectl与Minikube交互"></a>（三）配置kubectl与Minikube交互</h2><p>Minikube通常会自动配置<code>kubectl</code>。您可以通过以下命令验证：</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kubectl config current-context
+<span class="token comment"># 应该输出 minikube</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
+<p>如果未自动配置，可以运行 <code>minikube kubectl -- config view</code> 查看配置，并手动设置 <code>kubectl</code> 上下文。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Kubernetes是一个功能强大且复杂的系统，但通过理解其核心概念和基本操作，您可以开始利用它来编排您的容器化应用程序。本笔记提供了一个入门级的概览，鼓励读者通过实践和进一步学习来深入掌握K8s。不断尝试部署示例应用、探索不同的资源对象以及熟悉<code>kubectl</code>命令，将有助于您更好地理解K8s的工作方式。</p>
+<h1 id="五、参考链接"><a href="#五、参考链接" class="headerlink" title="五、参考链接"></a>五、参考链接</h1><ul>
+<li><strong>Kubernetes官方文档 (中文)</strong>: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/home/">https://kubernetes.io/zh-cn/docs/home/</a></li>
+<li><strong>Kubernetes官方教程 (中文)</strong>: <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tutorials/">https://kubernetes.io/zh-cn/docs/tutorials/</a></li>
+<li><strong>Kubernetes GitHub</strong>: <a target="_blank" rel="noopener" href="https://github.com/kubernetes/kubernetes">https://github.com/kubernetes/kubernetes</a></li>
+<li><strong>Minikube官方文档</strong>: <a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/docs/">https://minikube.sigs.k8s.io/docs/</a></li>
+<li><strong>Katacoda Kubernetes Playground (在线实验环境)</strong>: <a target="_blank" rel="noopener" href="https://www.katacoda.com/courses/kubernetes">https://www.katacoda.com/courses/kubernetes</a> (部分场景可能需要调整或寻找替代)</li>
+<li><strong>《Kubernetes权威指南》</strong>: 一本广受欢迎的K8s书籍，适合深入学习。</li>
+<li><strong>《Kubernetes Patterns》</strong>: 介绍在K8s上设计和构建云原生应用的常见模式。</li>
+</ul>
+<p>希望这篇笔记能帮助您开启Kubernetes的学习之旅！ </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/K8s/" class="print-no-link">#K8s</a>
+      
+        <a href="/tags/Kubernetes/" class="print-no-link">#Kubernetes</a>
+      
+        <a href="/tags/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/" class="print-no-link">#容器编排</a>
+      
+        <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" class="print-no-link">#云计算</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91LibreOffice%E5%BC%80%E6%BA%90%E5%8A%9E%E5%85%AC%E5%A5%97%E4%BB%B6%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/" title="【工具】LibreOffice开源办公套件详解与实用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【工具】LibreOffice开源办公套件详解与实用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91JSON%E8%AF%AD%E8%A8%80%E8%AF%A6%E8%A7%A3%E4%B8%8EJava%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" title="【学习】JSON语言详解与Java应用实践">
+                        <span class="hidden-mobile">【学习】JSON语言详解与Java应用实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

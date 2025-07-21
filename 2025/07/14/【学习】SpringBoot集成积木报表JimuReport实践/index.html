@@ -1,0 +1,977 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="前言在企业级应用开发中，报表系统是不可或缺的一环，用于数据展示、分析和决策支持。积木报表（JimuReport）是一款开源免费、功能强大、基于Web的报表设计与生成工具，它采用拖拽式设计，支持多种数据源，可以快速制作各种复杂报表、图表、仪表盘甚至大屏。本文将介绍如何在Spring Boot项目中集成积木报表，并进行基本的使用。 一、积木报表简介（一）主要特性 在线设计：提供类Excel操作风格的W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习】SpringBoot集成积木报表JimuReport实践">
+<meta property="og:url" content="https://uwakeme.top/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91SpringBoot%E9%9B%86%E6%88%90%E7%A7%AF%E6%9C%A8%E6%8A%A5%E8%A1%A8JimuReport%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言在企业级应用开发中，报表系统是不可或缺的一环，用于数据展示、分析和决策支持。积木报表（JimuReport）是一款开源免费、功能强大、基于Web的报表设计与生成工具，它采用拖拽式设计，支持多种数据源，可以快速制作各种复杂报表、图表、仪表盘甚至大屏。本文将介绍如何在Spring Boot项目中集成积木报表，并进行基本的使用。 一、积木报表简介（一）主要特性 在线设计：提供类Excel操作风格的W">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-14T08:45:04.497Z">
+<meta property="article:modified_time" content="2025-07-14T08:49:02.234Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="JimuReport">
+<meta property="article:tag" content="报表">
+<meta property="article:tag" content="数据可视化">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【学习】SpringBoot集成积木报表JimuReport实践 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【学习】SpringBoot集成积木报表JimuReport实践"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-14 16:45" pubdate>
+          2025-07-14 16:45
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【学习】SpringBoot集成积木报表JimuReport实践</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在企业级应用开发中，报表系统是不可或缺的一环，用于数据展示、分析和决策支持。积木报表（JimuReport）是一款开源免费、功能强大、基于Web的报表设计与生成工具，它采用拖拽式设计，支持多种数据源，可以快速制作各种复杂报表、图表、仪表盘甚至大屏。本文将介绍如何在Spring Boot项目中集成积木报表，并进行基本的使用。</p>
+<h1 id="一、积木报表简介"><a href="#一、积木报表简介" class="headerlink" title="一、积木报表简介"></a>一、积木报表简介</h1><h2 id="（一）主要特性"><a href="#（一）主要特性" class="headerlink" title="（一）主要特性"></a>（一）主要特性</h2><ul>
+<li><strong>在线设计</strong>：提供类Excel操作风格的Web报表设计器，通过拖拽即可完成报表设计。</li>
+<li><strong>多种数据源支持</strong>：支持MySQL, Oracle, SQLServer, PostgreSQL等主流关系型数据库，以及API、JSON、Excel等多种数据源。</li>
+<li><strong>丰富的功能</strong>：涵盖数据报表、打印设计、图表报表、大屏设计、仪表盘等。</li>
+<li><strong>灵活部署</strong>：可以与Spring Boot项目快速集成。</li>
+<li><strong>免费开源</strong>：功能免费，可以商用，但代码不开放（指核心设计器部分，集成starter是开源的）。</li>
+</ul>
+<h2 id="（二）适用场景"><a href="#（二）适用场景" class="headerlink" title="（二）适用场景"></a>（二）适用场景</h2><ul>
+<li>快速开发各类业务报表。</li>
+<li>制作数据可视化大屏和仪表盘。</li>
+<li>需要复杂打印设计的场景（如套打）。</li>
+<li>替代部分商业BI工具，降低成本。</li>
+</ul>
+<h1 id="二、Spring-Boot项目集成积木报表"><a href="#二、Spring-Boot项目集成积木报表" class="headerlink" title="二、Spring Boot项目集成积木报表"></a>二、Spring Boot项目集成积木报表</h1><p>以下步骤基于积木报表官方文档，指导如何在Spring Boot项目中集成积木报表。</p>
+<h2 id="（一）添加Maven依赖"><a href="#（一）添加Maven依赖" class="headerlink" title="（一）添加Maven依赖"></a>（一）添加Maven依赖</h2><p>首先，在您的Spring Boot项目的 <code>pom.xml</code> 文件中添加积木报表的依赖。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 根据您的项目JDK版本设置 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.version</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>java.version</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 积木报表版本，请从官网或Maven中央仓库查询最新稳定版 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jimureport.version</span><span class="token punctuation">></span></span>1.6.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>jimureport.version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- 配置远程仓库，如果Maven中央仓库下载慢或找不到，可以尝试阿里云或官方仓库 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>aliyun Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://maven.aliyun.com/repository/public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>jeecg<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>jeecg Repository<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://maven.jeecg.org/nexus/content/repositories/jeecg<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Spring Boot Web Starter (通常已有) --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Spring Boot Freemarker Starter (积木报表可能需要) --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-freemarker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- JimuReport 核心依赖 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.jeecgframework.jimureport<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jimureport-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;jimureport.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 数据库驱动 (根据您项目连接的数据库选择添加) --></span>
+    <span class="token comment">&lt;!-- MySQL --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token comment">&lt;!-- &lt;version>8.0.28&lt;/version> 根据实际情况选择版本 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Oracle (示例) --></span>
+    <span class="token comment">&lt;!--
+    &lt;dependency>
+        &lt;groupId>com.oracle.database.jdbc&lt;/groupId>
+        &lt;artifactId>ojdbc8&lt;/artifactId>
+        &lt;scope>runtime&lt;/scope>
+    &lt;/dependency>
+    --></span>
+    <span class="token comment">&lt;!-- SQL Server (示例) --></span>
+    <span class="token comment">&lt;!--
+    &lt;dependency>
+        &lt;groupId>com.microsoft.sqlserver&lt;/groupId>
+        &lt;artifactId>mssql-jdbc&lt;/artifactId>
+        &lt;scope>runtime&lt;/scope>
+    &lt;/dependency>
+    --></span>
+
+    <span class="token comment">&lt;!-- 文件上传可能需要的MinIO依赖 (如果使用MinIO作为文件存储) --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>io.minio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>minio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>8.4.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span> <span class="token comment">&lt;!-- 请使用与积木报表兼容的版本 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p><strong>注意</strong>：请访问积木报表官方文档或Maven中央仓库确认最新的 <code>jimureport.version</code> 和其他相关依赖的版本。</p>
+<h2 id="（二）数据库初始化"><a href="#（二）数据库初始化" class="headerlink" title="（二）数据库初始化"></a>（二）数据库初始化</h2><p>积木报表需要自己的数据库表来存储报表定义、数据源配置等信息。</p>
+<ol>
+<li>从积木报表官网下载最新的SQL初始化脚本（通常名为 <code>jimureport.sql</code> 或类似）。</li>
+<li>在您的业务数据库或者为积木报表单独准备一个数据库中执行此脚本，创建所需的表结构。</li>
+</ol>
+<h2 id="（三）配置文件-application-yml-或-application-properties"><a href="#（三）配置文件-application-yml-或-application-properties" class="headerlink" title="（三）配置文件 (application.yml 或 application.properties)"></a>（三）配置文件 (<code>application.yml</code> 或 <code>application.properties</code>)</h2><p>配置数据库连接以及积木报表的相关参数。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span> <span class="token comment"># 您的应用端口</span>
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>jimu<span class="token punctuation">-</span>app
+  <span class="token comment"># 配置积木报表使用的数据库连接信息 (通常与您业务数据源一致，或单独配置)</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>3306/your_database_for_jimureport<span class="token punctuation">?</span>characterEncoding=UTF<span class="token punctuation">-</span>8<span class="token important">&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> root
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> your_password
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver <span class="token comment"># 或 com.mysql.jdbc.Driver</span>
+    <span class="token comment"># HikariCP 连接池配置 (可选, Spring Boot 默认)</span>
+    <span class="token comment"># hikari:</span>
+    <span class="token comment">#   connection-timeout: 30000</span>
+    <span class="token comment">#   idle-timeout: 600000</span>
+    <span class="token comment">#   max-lifetime: 1800000</span>
+    <span class="token comment">#   maximum-pool-size: 10</span>
+    <span class="token comment">#   minimum-idle: 5</span>
+
+  <span class="token comment"># 配置静态资源访问路径 (如果需要)</span>
+  <span class="token key atrule">mvc</span><span class="token punctuation">:</span>
+    <span class="token key atrule">static-path-pattern</span><span class="token punctuation">:</span> /static/<span class="token important">**</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+      <span class="token key atrule">static-locations</span><span class="token punctuation">:</span> classpath<span class="token punctuation">:</span>/static/
+
+<span class="token comment"># JimuReport 相关配置</span>
+<span class="token comment"># minidao 配置 (积木报表内部使用)</span>
+<span class="token key atrule">minidao</span><span class="token punctuation">:</span>
+  <span class="token key atrule">base-package</span><span class="token punctuation">:</span> org.jeecg.modules.jmreport.desreport.dao* <span class="token comment"># 默认扫描包路径</span>
+  <span class="token key atrule">db-type</span><span class="token punctuation">:</span> mysql <span class="token comment"># 根据您的数据库类型配置: mysql, oracle, sqlserver, postgresql 等</span>
+
+<span class="token comment"># jeecg 配置 (积木报表相关)</span>
+<span class="token key atrule">jeecg</span><span class="token punctuation">:</span>
+  <span class="token key atrule">jmreport</span><span class="token punctuation">:</span>
+    <span class="token comment"># 设计器中报表自动保存配置</span>
+    <span class="token key atrule">autoSave</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># 是否开启自动保存 true/false</span>
+    <span class="token key atrule">interval</span><span class="token punctuation">:</span> <span class="token number">300000</span> <span class="token comment"># 自动保存间隔时间，单位毫秒，默认5分钟 (5*60*1000)</span>
+    <span class="token comment"># 报表文件上传配置</span>
+    <span class="token comment"># uploadType: local # 文件存储类型: local (本地), minio (MinIO对象存储), alioss (阿里云OSS)</span>
+    <span class="token comment"># path: # 本地存储路径配置 (如果 uploadType 为 local)</span>
+    <span class="token comment">#   upload: D:/jimu_uploads # 自定义文件上传的基础路径</span>
+    <span class="token comment"># oss: # 阿里云OSS配置 (如果 uploadType 为 alioss)</span>
+    <span class="token comment">#   endpoint: oss-cn-beijing.aliyuncs.com</span>
+    <span class="token comment">#   accessKey: your_access_key</span>
+    <span class="token comment">#   secretKey: your_secret_key</span>
+    <span class="token comment">#   bucketName: your_bucket_name</span>
+    <span class="token comment">#   staticDomain: # 可选, 自定义CDN域名</span>
+    <span class="token comment"># minio: # MinIO配置 (如果 uploadType 为 minio)</span>
+    <span class="token comment">#   minio_url: http://localhost:9000</span>
+    <span class="token comment">#   minio_name: your_minio_access_key</span>
+    <span class="token comment">#   minio_pass: your_minio_secret_key</span>
+    <span class="token comment">#   bucketName: jmreport</span>
+    <span class="token comment"># token验证配置 (可选，用于API鉴权等)</span>
+    <span class="token comment"># token:</span>
+    <span class="token comment">#   header: x-access-token # header中token的名称</span>
+    <span class="token comment">#   secret: your_jwt_secret # jwt密钥</span>
+    <span class="token comment">#   expireTime: 7200 # token过期时间，单位秒</span>
+    <span class="token comment">#   custom: false # 是否开启自定义token验证逻辑</span>
+
+<span class="token comment"># 输出积木报表相关的SQL日志 (可选，便于调试)</span>
+<span class="token key atrule">logging</span><span class="token punctuation">:</span>
+  <span class="token key atrule">level</span><span class="token punctuation">:</span>
+    <span class="token key atrule">org.jeecg.modules.jmreport</span><span class="token punctuation">:</span> debug
+    <span class="token comment"># org.jeecg.common. கடல்.base.BaseMap DAO的SQL日志</span>
+    <span class="token comment"># org.jeecg.common. 海豚.base.dao: debug</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>请根据您的实际情况修改上述配置，特别是数据库连接信息和文件上传配置。</p>
+<h2 id="（四）启动类配置"><a href="#（四）启动类配置" class="headerlink" title="（四）启动类配置"></a>（四）启动类配置</h2><p>在Spring Boot的主启动类上，需要添加扫描积木报表相关包的注解。</p>
+<figure><div class="code-wrapper"><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>demo</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span></span><span class="token class-name">SpringApplication</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>autoconfigure<span class="token punctuation">.</span></span><span class="token class-name">SpringBootApplication</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootApplication</span><span class="token punctuation">(</span>scanBasePackages <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"com.example.demo"</span><span class="token punctuation">,</span> <span class="token string">"org.jeecg.modules.jmreport"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">// 如果您的项目包结构与 "com.example.demo" 不同，请相应修改</span>
+<span class="token comment">// 确保 "org.jeecg.modules.jmreport" 被扫描到，这是积木报表的核心包</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoApplication</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">SpringApplication</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">DemoApplication</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
+<p>如果您的启动类已经在根包下，<code>@SpringBootApplication</code> 默认会扫描其下所有子包，可能不需要显式添加 <code>org.jeecg.modules.jmreport</code>。但为了确保，可以显式指定。</p>
+<h2 id="（五）访问积木报表设计器"><a href="#（五）访问积木报表设计器" class="headerlink" title="（五）访问积木报表设计器"></a>（五）访问积木报表设计器</h2><p>启动您的Spring Boot应用后，可以通过以下URL访问积木报表的设计器界面：</p>
+<p><code>http://localhost:8080/jmreport/list</code></p>
+<p>（请将 <code>localhost:8080</code> 替换为您的实际应用访问地址和端口）</p>
+<p>如果一切配置正确，您应该能看到积木报表的列表页面，并可以开始创建和设计报表。</p>
+<h1 id="三、基本使用步骤"><a href="#三、基本使用步骤" class="headerlink" title="三、基本使用步骤"></a>三、基本使用步骤</h1><ol>
+<li><strong>配置数据源</strong>：在积木报表设计器界面，首先需要配置数据源，即告诉积木报表从哪个数据库或API获取数据。</li>
+<li><strong>新建报表</strong>：创建一个新的报表设计。</li>
+<li><strong>设计报表</strong>：<ul>
+<li><strong>数据集</strong>：编写SQL查询语句或配置API来获取报表所需的数据。</li>
+<li><strong>布局设计</strong>：在设计区拖拽字段、文本、图表等元素，设计报表的展现样式。</li>
+<li><strong>参数设置</strong>：如果报表需要动态查询条件，可以设置参数。</li>
+</ul>
+</li>
+<li><strong>预览与发布</strong>：设计完成后，可以预览报表效果，确认无误后保存并发布。</li>
+<li><strong>集成到业务系统</strong>：<ul>
+<li><strong>iframe嵌入</strong>：最简单的方式是将报表预览URL通过iframe嵌入到您的业务系统中。</li>
+<li><strong>API调用</strong>：积木报表也提供API接口，可以通过API获取报表数据或进行更深度的集成。</li>
+</ul>
+</li>
+</ol>
+<h1 id="四、常见问题与注意事项"><a href="#四、常见问题与注意事项" class="headerlink" title="四、常见问题与注意事项"></a>四、常见问题与注意事项</h1><ol>
+<li><strong>依赖冲突</strong>：集成第三方库时，可能会遇到版本冲突。请仔细检查 <code>pom.xml</code>，并使用Maven的依赖树分析工具 (<code>mvn dependency:tree</code>) 来排查。</li>
+<li><strong>数据库驱动</strong>：确保项目中添加了对应数据库的正确JDBC驱动。</li>
+<li><strong>SQL方言</strong>：积木报表的 <code>minidao.db-type</code> 配置需要与您使用的数据库类型匹配，以确保SQL语法的正确性。</li>
+<li><strong>文件上传路径</strong>：如果使用本地存储 (<code>uploadType: local</code>)，确保配置的 <code>path.upload</code> 目录存在并且应用有写入权限。</li>
+<li><strong>版本兼容性</strong>：积木报表版本更新较快，请留意官方的升级说明和版本兼容性。</li>
+<li><strong>安全性</strong>：对于生产环境，务必考虑积木报表访问的安全性，例如通过Spring Security等框架进行权限控制。积木报表本身也提供了一些权限配置。</li>
+<li><strong>中文乱码</strong>：确保数据库连接URL中正确设置了字符集（如 <code>characterEncoding=UTF-8</code>），以及服务器和数据库的字符集配置一致。</li>
+</ol>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>积木报表为Spring Boot项目提供了一个快速、高效的报表解决方案。通过简单的配置和在线设计，可以大大提升报表开发效率。当然，深入使用其高级功能（如图表、大屏、复杂打印、权限集成等）还需要进一步学习官方文档和实践。</p>
+<h1 id="六、参考资料"><a href="#六、参考资料" class="headerlink" title="六、参考资料"></a>六、参考资料</h1><ul>
+<li>积木报表官方文档: <a target="_blank" rel="noopener" href="http://report.jeecg.com/">http://report.jeecg.com/</a> (请查找最新官方文档地址)</li>
+<li>积木报表GitHub或Gitee: (通常可以在官网找到链接)</li>
+</ul>
+<hr>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+        <a href="/tags/SpringBoot/" class="print-no-link">#SpringBoot</a>
+      
+        <a href="/tags/JimuReport/" class="print-no-link">#JimuReport</a>
+      
+        <a href="/tags/%E6%8A%A5%E8%A1%A8/" class="print-no-link">#报表</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" class="print-no-link">#数据可视化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91YAML%E8%AF%AD%E8%A8%80%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" title="【学习】YAML语言详解与最佳实践">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习】YAML语言详解与最佳实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/14/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【学习】Redis从入门到精通">
+                        <span class="hidden-mobile">【学习】Redis从入门到精通</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
