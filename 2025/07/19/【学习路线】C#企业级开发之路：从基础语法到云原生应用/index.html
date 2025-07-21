@@ -1,0 +1,1381 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wake">
+  <meta name="keywords" content="技术博客, Web开发, 后端开发, Java, Python, 人工智能, 编程学习, 技术分享">
+  
+    <meta name="description" content="一、C#基础入门（1-2个月）（一）开发环境搭建 Visual Studio安装配置  Visual Studio Community：免费版本，功能完整 Visual Studio Code：轻量级，跨平台支持 JetBrains Rider：专业IDE，强大功能 .NET SDK：运行时和开发工具包 NuGet包管理器：第三方库管理   .NET生态系统了解  .NET Framework：W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习路线】C#企业级开发之路：从基础语法到云原生应用">
+<meta property="og:url" content="https://uwakeme.top/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、C#基础入门（1-2个月）（一）开发环境搭建 Visual Studio安装配置  Visual Studio Community：免费版本，功能完整 Visual Studio Code：轻量级，跨平台支持 JetBrains Rider：专业IDE，强大功能 .NET SDK：运行时和开发工具包 NuGet包管理器：第三方库管理   .NET生态系统了解  .NET Framework：W">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-21T02:15:51.194Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="Web开发">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content=".NET">
+<meta property="article:tag" content="企业级开发">
+<meta property="article:tag" content="学习路线">
+<meta property="article:tag" content="微软技术栈">
+<meta property="article:tag" content="云原生">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【学习路线】C#企业级开发之路：从基础语法到云原生应用 - Uwakeme</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/ai-assistant.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"uwakeme.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[],"backSpeed":40,"showCursor":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100},"position_indicator":{"enable":true,"color":"#33a3dc"}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""],"img_max_width":"80%","img_max_height":"80%"},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"level":3,"collapse":false,"follow":true,"number":true,"heading_list":true,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2,"element_loading_img":true},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"41fc030db57d5570dd22f78997dc4a7e","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"busuanzi":{"enable":true,"script_url":"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js","site_uv":true,"site_pv":true,"page_pv":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?41fc030db57d5570dd22f78997dc4a7e";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Wake 的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-book"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/" target="_self">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/guide/" target="_self">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://hexo.fluid-dev.com/docs/icon/" target="_self">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【学习路线】C#企业级开发之路：从基础语法到云原生应用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Wake
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-19 00:00" pubdate>
+          2025-07-19 00:00
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【学习路线】C#企业级开发之路：从基础语法到云原生应用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、C-基础入门（1-2个月）"><a href="#一、C-基础入门（1-2个月）" class="headerlink" title="一、C#基础入门（1-2个月）"></a>一、C#基础入门（1-2个月）</h1><h2 id="（一）开发环境搭建"><a href="#（一）开发环境搭建" class="headerlink" title="（一）开发环境搭建"></a>（一）开发环境搭建</h2><ul>
+<li><p><strong>Visual Studio安装配置</strong></p>
+<ul>
+<li>Visual Studio Community：免费版本，功能完整</li>
+<li>Visual Studio Code：轻量级，跨平台支持</li>
+<li>JetBrains Rider：专业IDE，强大功能</li>
+<li>.NET SDK：运行时和开发工具包</li>
+<li>NuGet包管理器：第三方库管理</li>
+</ul>
+</li>
+<li><p><strong>.NET生态系统了解</strong></p>
+<ul>
+<li>.NET Framework：Windows平台传统框架</li>
+<li>.NET Core&#x2F;.NET 5+：跨平台现代框架</li>
+<li>.NET Standard：API标准规范</li>
+<li>运行时：CLR、CoreCLR执行环境</li>
+<li>编译过程：C# → IL → JIT → 机器码</li>
+</ul>
+</li>
+<li><p><strong>项目结构与配置</strong></p>
+<ul>
+<li>解决方案(.sln)：多项目管理</li>
+<li>项目文件(.csproj)：项目配置</li>
+<li>程序集(.dll&#x2F;.exe)：编译输出</li>
+<li>配置文件：appsettings.json、web.config</li>
+<li>包引用：PackageReference、项目引用</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）C-语言基础"><a href="#（二）C-语言基础" class="headerlink" title="（二）C#语言基础"></a>（二）C#语言基础</h2><ul>
+<li><p><strong>基本语法</strong></p>
+<ul>
+<li>命名空间：namespace组织代码</li>
+<li>类和对象：class定义、对象实例化</li>
+<li>变量和常量：var、const、readonly</li>
+<li>数据类型：值类型、引用类型、可空类型</li>
+<li>运算符：算术、逻辑、比较、赋值运算符</li>
+</ul>
+</li>
+<li><p><strong>控制结构</strong></p>
+<ul>
+<li>条件语句：if-else、switch表达式</li>
+<li>循环语句：for、foreach、while、do-while</li>
+<li>跳转语句：break、continue、return、goto</li>
+<li>异常处理：try-catch-finally、throw</li>
+<li>using语句：资源自动释放</li>
+</ul>
+</li>
+<li><p><strong>方法与参数</strong></p>
+<ul>
+<li>方法定义：访问修饰符、返回类型、参数</li>
+<li>参数传递：值传递、引用传递(ref、out)</li>
+<li>可选参数：默认值、命名参数</li>
+<li>方法重载：同名不同参数</li>
+<li>扩展方法：为现有类型添加方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）面向对象编程基础"><a href="#（三）面向对象编程基础" class="headerlink" title="（三）面向对象编程基础"></a>（三）面向对象编程基础</h2><ul>
+<li><p><strong>类与对象</strong></p>
+<ul>
+<li>类的定义：字段、属性、方法、构造函数</li>
+<li>访问修饰符：public、private、protected、internal</li>
+<li>静态成员：static字段、方法、构造函数</li>
+<li>嵌套类：类内部定义的类</li>
+<li>分部类：partial关键字、代码分离</li>
+</ul>
+</li>
+<li><p><strong>继承与多态</strong></p>
+<ul>
+<li>继承：base关键字、单继承限制</li>
+<li>方法重写：virtual、override关键字</li>
+<li>抽象类：abstract类和方法</li>
+<li>密封类：sealed关键字、防止继承</li>
+<li>多态性：基类引用、虚方法调用</li>
+</ul>
+</li>
+<li><p><strong>接口与实现</strong></p>
+<ul>
+<li>接口定义：interface关键字、契约规范</li>
+<li>接口实现：隐式实现、显式实现</li>
+<li>多接口实现：解决命名冲突</li>
+<li>接口继承：接口间的继承关系</li>
+<li>默认接口方法：C# 8.0新特性</li>
+</ul>
+</li>
+</ul>
+<h1 id="二、C-核心特性（2-3个月）"><a href="#二、C-核心特性（2-3个月）" class="headerlink" title="二、C#核心特性（2-3个月）"></a>二、C#核心特性（2-3个月）</h1><h2 id="（一）泛型编程"><a href="#（一）泛型编程" class="headerlink" title="（一）泛型编程"></a>（一）泛型编程</h2><ul>
+<li><p><strong>泛型基础</strong></p>
+<ul>
+<li>泛型类：List<T>、Dictionary&lt;TKey, TValue&gt;</li>
+<li>泛型方法：类型参数、类型推断</li>
+<li>泛型接口：IEnumerable<T>、IComparer<T></li>
+<li>泛型委托：Action<T>、Func&lt;T, TResult&gt;</li>
+<li>协变和逆变：in、out关键字</li>
+</ul>
+</li>
+<li><p><strong>泛型约束</strong></p>
+<ul>
+<li>where子句：类型约束条件</li>
+<li>类约束：class、struct约束</li>
+<li>接口约束：实现特定接口</li>
+<li>构造函数约束：new()约束</li>
+<li>多重约束：组合多个约束条件</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）委托与事件"><a href="#（二）委托与事件" class="headerlink" title="（二）委托与事件"></a>（二）委托与事件</h2><ul>
+<li><p><strong>委托机制</strong></p>
+<ul>
+<li>委托定义：delegate关键字</li>
+<li>委托实例化：方法组转换</li>
+<li>多播委托：+、-操作符</li>
+<li>匿名方法：delegate表达式</li>
+<li>Lambda表达式：&#x3D;&gt; 语法</li>
+</ul>
+</li>
+<li><p><strong>事件系统</strong></p>
+<ul>
+<li>事件定义：event关键字</li>
+<li>事件发布：触发事件</li>
+<li>事件订阅：+&#x3D;、-&#x3D;操作符</li>
+<li>事件访问器：add、remove</li>
+<li>自定义事件参数：EventArgs派生类</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）LINQ与函数式编程"><a href="#（三）LINQ与函数式编程" class="headerlink" title="（三）LINQ与函数式编程"></a>（三）LINQ与函数式编程</h2><ul>
+<li><p><strong>LINQ基础</strong></p>
+<ul>
+<li>查询语法：from、where、select</li>
+<li>方法语法：Where()、Select()、OrderBy()</li>
+<li>延迟执行：IEnumerable<T>惰性求值</li>
+<li>立即执行：ToList()、ToArray()、Count()</li>
+<li>LINQ提供程序：LINQ to Objects、LINQ to SQL</li>
+</ul>
+</li>
+<li><p><strong>函数式编程特性</strong></p>
+<ul>
+<li>Lambda表达式：(x) &#x3D;&gt; x * 2</li>
+<li>表达式树：Expression&lt;Func&lt;T, bool&gt;&gt;</li>
+<li>高阶函数：接受函数作为参数</li>
+<li>不可变性：readonly、record类型</li>
+<li>模式匹配：switch表达式、is模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）异步编程"><a href="#（四）异步编程" class="headerlink" title="（四）异步编程"></a>（四）异步编程</h2><ul>
+<li><p><strong>async&#x2F;await模式</strong></p>
+<ul>
+<li>异步方法：async关键字</li>
+<li>等待操作：await关键字</li>
+<li>Task和Task<T>：异步操作表示</li>
+<li>异步返回类型：Task、ValueTask</li>
+<li>异步流：IAsyncEnumerable<T></li>
+</ul>
+</li>
+<li><p><strong>并发编程</strong></p>
+<ul>
+<li>线程安全：lock语句、Monitor类</li>
+<li>并发集合：ConcurrentDictionary、ConcurrentQueue</li>
+<li>任务并行：Parallel.For、Parallel.ForEach</li>
+<li>取消令牌：CancellationToken</li>
+<li>配置等待：ConfigureAwait(false)</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、-NET框架深入（3-4个月）"><a href="#三、-NET框架深入（3-4个月）" class="headerlink" title="三、.NET框架深入（3-4个月）"></a>三、.NET框架深入（3-4个月）</h1><h2 id="（一）集合与数据结构"><a href="#（一）集合与数据结构" class="headerlink" title="（一）集合与数据结构"></a>（一）集合与数据结构</h2><ul>
+<li><p><strong>基础集合</strong></p>
+<ul>
+<li>数组：Array、多维数组、锯齿数组</li>
+<li>列表：List<T>、ArrayList</li>
+<li>字典：Dictionary&lt;TKey, TValue&gt;、Hashtable</li>
+<li>集合：HashSet<T>、SortedSet<T></li>
+<li>队列和栈：Queue<T>、Stack<T></li>
+</ul>
+</li>
+<li><p><strong>高级集合</strong></p>
+<ul>
+<li>只读集合：ReadOnlyCollection<T></li>
+<li>不可变集合：ImmutableList<T>、ImmutableDictionary</li>
+<li>并发集合：线程安全的集合类型</li>
+<li>自定义集合：实现IEnumerable<T></li>
+<li>集合性能：时间复杂度、空间复杂度</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）反射与元数据"><a href="#（二）反射与元数据" class="headerlink" title="（二）反射与元数据"></a>（二）反射与元数据</h2><ul>
+<li><p><strong>反射基础</strong></p>
+<ul>
+<li>Type类：类型信息获取</li>
+<li>Assembly类：程序集加载和检查</li>
+<li>成员信息：MethodInfo、PropertyInfo、FieldInfo</li>
+<li>动态调用：Invoke方法、属性访问</li>
+<li>泛型反射：开放类型、封闭类型</li>
+</ul>
+</li>
+<li><p><strong>特性编程</strong></p>
+<ul>
+<li>特性定义：Attribute基类</li>
+<li>特性应用：[AttributeName]语法</li>
+<li>特性检索：GetCustomAttributes方法</li>
+<li>内置特性：Obsolete、Serializable、Conditional</li>
+<li>自定义特性：业务逻辑标记</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）序列化与I-O"><a href="#（三）序列化与I-O" class="headerlink" title="（三）序列化与I&#x2F;O"></a>（三）序列化与I&#x2F;O</h2><ul>
+<li><p><strong>序列化技术</strong></p>
+<ul>
+<li>JSON序列化：System.Text.Json、Newtonsoft.Json</li>
+<li>XML序列化：XmlSerializer、DataContractSerializer</li>
+<li>二进制序列化：BinaryFormatter（已废弃）</li>
+<li>自定义序列化：ISerializable接口</li>
+<li>序列化配置：特性控制、命名策略</li>
+</ul>
+</li>
+<li><p><strong>文件与流操作</strong></p>
+<ul>
+<li>文件操作：File、FileInfo类</li>
+<li>目录操作：Directory、DirectoryInfo类</li>
+<li>流操作：Stream、FileStream、MemoryStream</li>
+<li>文本读写：StreamReader、StreamWriter</li>
+<li>异步I&#x2F;O：异步文件操作</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）内存管理与性能"><a href="#（四）内存管理与性能" class="headerlink" title="（四）内存管理与性能"></a>（四）内存管理与性能</h2><ul>
+<li><p><strong>垃圾回收机制</strong></p>
+<ul>
+<li>GC工作原理：标记-清除算法</li>
+<li>代际回收：Gen0、Gen1、Gen2</li>
+<li>大对象堆：LOH、POH</li>
+<li>GC调优：GC.Collect()、GC压力</li>
+<li>内存泄漏：事件订阅、静态引用</li>
+</ul>
+</li>
+<li><p><strong>性能优化</strong></p>
+<ul>
+<li>值类型vs引用类型：装箱拆箱</li>
+<li>字符串优化：StringBuilder、string.Intern</li>
+<li>集合选择：性能特征对比</li>
+<li>异步优化：避免阻塞、配置等待</li>
+<li>内存分析：诊断工具、性能计数器</li>
+</ul>
+</li>
+</ul>
+<h1 id="四、Web开发与API（3-4个月）"><a href="#四、Web开发与API（3-4个月）" class="headerlink" title="四、Web开发与API（3-4个月）"></a>四、Web开发与API（3-4个月）</h1><h2 id="（一）ASP-NET-Core基础"><a href="#（一）ASP-NET-Core基础" class="headerlink" title="（一）ASP.NET Core基础"></a>（一）ASP.NET Core基础</h2><ul>
+<li><p><strong>Web应用架构</strong></p>
+<ul>
+<li>MVC模式：Model-View-Controller</li>
+<li>依赖注入：内置DI容器、服务注册</li>
+<li>中间件管道：请求处理流水线</li>
+<li>配置系统：appsettings.json、环境变量</li>
+<li>日志系统：ILogger、日志提供程序</li>
+</ul>
+</li>
+<li><p><strong>控制器与路由</strong></p>
+<ul>
+<li>控制器定义：Controller基类</li>
+<li>动作方法：HTTP方法映射</li>
+<li>路由配置：约定路由、特性路由</li>
+<li>模型绑定：请求数据绑定到模型</li>
+<li>模型验证：数据注解、自定义验证</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）Web-API开发"><a href="#（二）Web-API开发" class="headerlink" title="（二）Web API开发"></a>（二）Web API开发</h2><ul>
+<li><p><strong>RESTful API设计</strong></p>
+<ul>
+<li>HTTP方法：GET、POST、PUT、DELETE</li>
+<li>状态码：200、201、400、404、500</li>
+<li>内容协商：JSON、XML格式</li>
+<li>API版本控制：URL版本、Header版本</li>
+<li>API文档：Swagger&#x2F;OpenAPI</li>
+</ul>
+</li>
+<li><p><strong>数据传输与验证</strong></p>
+<ul>
+<li>DTO模式：数据传输对象</li>
+<li>模型验证：ValidationAttribute</li>
+<li>错误处理：异常过滤器、问题详细信息</li>
+<li>响应格式：统一响应格式</li>
+<li>分页查询：PagedList、分页参数</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）身份认证与授权"><a href="#（三）身份认证与授权" class="headerlink" title="（三）身份认证与授权"></a>（三）身份认证与授权</h2><ul>
+<li><p><strong>认证机制</strong></p>
+<ul>
+<li>Cookie认证：传统Web应用</li>
+<li>JWT认证：无状态令牌</li>
+<li>OAuth 2.0：第三方认证</li>
+<li>Identity框架：用户管理、角色管理</li>
+<li>多因素认证：2FA、TOTP</li>
+</ul>
+</li>
+<li><p><strong>授权策略</strong></p>
+<ul>
+<li>基于角色：Role-based授权</li>
+<li>基于声明：Claim-based授权</li>
+<li>基于策略：Policy-based授权</li>
+<li>资源授权：基于资源的授权</li>
+<li>授权过滤器：自定义授权逻辑</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）数据访问层"><a href="#（四）数据访问层" class="headerlink" title="（四）数据访问层"></a>（四）数据访问层</h2><ul>
+<li><p><strong>Entity Framework Core</strong></p>
+<ul>
+<li>Code First：代码优先开发</li>
+<li>Database First：数据库优先开发</li>
+<li>DbContext：数据库上下文</li>
+<li>实体配置：Fluent API、数据注解</li>
+<li>查询优化：Include、AsNoTracking</li>
+</ul>
+</li>
+<li><p><strong>数据库操作</strong></p>
+<ul>
+<li>CRUD操作：增删改查</li>
+<li>事务处理：数据库事务</li>
+<li>并发控制：乐观并发、悲观并发</li>
+<li>迁移管理：数据库版本控制</li>
+<li>性能优化：查询性能、连接池</li>
+</ul>
+</li>
+</ul>
+<h1 id="五、企业级开发实践（4-5个月）"><a href="#五、企业级开发实践（4-5个月）" class="headerlink" title="五、企业级开发实践（4-5个月）"></a>五、企业级开发实践（4-5个月）</h1><h2 id="（一）微服务架构"><a href="#（一）微服务架构" class="headerlink" title="（一）微服务架构"></a>（一）微服务架构</h2><ul>
+<li><p><strong>微服务设计</strong></p>
+<ul>
+<li>服务拆分：领域驱动设计</li>
+<li>服务通信：HTTP、gRPC、消息队列</li>
+<li>服务发现：Consul、Eureka</li>
+<li>配置管理：配置中心、环境配置</li>
+<li>服务网关：API Gateway、路由规则</li>
+</ul>
+</li>
+<li><p><strong>分布式系统</strong></p>
+<ul>
+<li>分布式事务：Saga模式、两阶段提交</li>
+<li>分布式锁：Redis锁、数据库锁</li>
+<li>分布式缓存：Redis、MemoryCache</li>
+<li>消息队列：RabbitMQ、Azure Service Bus</li>
+<li>事件驱动：事件溯源、CQRS模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）云原生开发"><a href="#（二）云原生开发" class="headerlink" title="（二）云原生开发"></a>（二）云原生开发</h2><ul>
+<li><p><strong>容器化部署</strong></p>
+<ul>
+<li>Docker：容器化应用</li>
+<li>Dockerfile：镜像构建</li>
+<li>Docker Compose：多容器编排</li>
+<li>Kubernetes：容器编排平台</li>
+<li>Helm：Kubernetes包管理</li>
+</ul>
+</li>
+<li><p><strong>云平台集成</strong></p>
+<ul>
+<li>Azure：微软云平台</li>
+<li>AWS：亚马逊云服务</li>
+<li>云服务：存储、数据库、消息队列</li>
+<li>无服务器：Azure Functions、AWS Lambda</li>
+<li>DevOps：CI&#x2F;CD流水线</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）测试与质量保证"><a href="#（三）测试与质量保证" class="headerlink" title="（三）测试与质量保证"></a>（三）测试与质量保证</h2><ul>
+<li><p><strong>单元测试</strong></p>
+<ul>
+<li>xUnit：测试框架</li>
+<li>Moq：模拟框架</li>
+<li>FluentAssertions：断言库</li>
+<li>测试覆盖率：代码覆盖率分析</li>
+<li>TDD：测试驱动开发</li>
+</ul>
+</li>
+<li><p><strong>集成测试</strong></p>
+<ul>
+<li>WebApplicationFactory：Web应用测试</li>
+<li>TestServer：测试服务器</li>
+<li>数据库测试：内存数据库、测试数据</li>
+<li>API测试：HTTP客户端测试</li>
+<li>端到端测试：Selenium、Playwright</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）监控与运维"><a href="#（四）监控与运维" class="headerlink" title="（四）监控与运维"></a>（四）监控与运维</h2><ul>
+<li><p><strong>应用监控</strong></p>
+<ul>
+<li>日志记录：结构化日志、日志聚合</li>
+<li>性能监控：APM工具、性能计数器</li>
+<li>健康检查：Health Check、存活探针</li>
+<li>指标收集：Prometheus、Grafana</li>
+<li>分布式追踪：OpenTelemetry、Jaeger</li>
+</ul>
+</li>
+<li><p><strong>错误处理</strong></p>
+<ul>
+<li>异常管理：全局异常处理</li>
+<li>错误日志：错误追踪、错误分析</li>
+<li>故障恢复：重试机制、熔断器</li>
+<li>监控告警：实时告警、通知机制</li>
+<li>故障排查：诊断工具、调试技巧</li>
+</ul>
+</li>
+</ul>
+<h1 id="六、高级特性与新技术（2-3个月）"><a href="#六、高级特性与新技术（2-3个月）" class="headerlink" title="六、高级特性与新技术（2-3个月）"></a>六、高级特性与新技术（2-3个月）</h1><h2 id="（一）C-新特性"><a href="#（一）C-新特性" class="headerlink" title="（一）C#新特性"></a>（一）C#新特性</h2><ul>
+<li><p><strong>C# 8.0特性</strong></p>
+<ul>
+<li>可空引用类型：null安全</li>
+<li>模式匹配：switch表达式</li>
+<li>异步流：IAsyncEnumerable</li>
+<li>默认接口方法：接口实现</li>
+<li>using声明：简化资源管理</li>
+</ul>
+</li>
+<li><p><strong>C# 9.0+特性</strong></p>
+<ul>
+<li>记录类型：record关键字</li>
+<li>初始化器：init访问器</li>
+<li>顶级程序：简化Main方法</li>
+<li>模式匹配增强：关系模式、逻辑模式</li>
+<li>目标类型new：类型推断</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）性能优化技术"><a href="#（二）性能优化技术" class="headerlink" title="（二）性能优化技术"></a>（二）性能优化技术</h2><ul>
+<li><p><strong>内存优化</strong></p>
+<ul>
+<li>Span<T>：栈上内存操作</li>
+<li>Memory<T>：内存抽象</li>
+<li>ArrayPool：数组池</li>
+<li>对象池：ObjectPool模式</li>
+<li>零分配：避免GC压力</li>
+</ul>
+</li>
+<li><p><strong>并发优化</strong></p>
+<ul>
+<li>Channel：生产者消费者</li>
+<li>ValueTask：减少分配</li>
+<li>并行LINQ：PLINQ</li>
+<li>无锁编程：Interlocked操作</li>
+<li>异步优化：避免同步阻塞</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）跨平台开发"><a href="#（三）跨平台开发" class="headerlink" title="（三）跨平台开发"></a>（三）跨平台开发</h2><ul>
+<li><p><strong>.NET MAUI</strong></p>
+<ul>
+<li>跨平台UI：Windows、macOS、iOS、Android</li>
+<li>MVVM模式：数据绑定、命令</li>
+<li>平台特定代码：条件编译</li>
+<li>原生API访问：平台集成</li>
+<li>应用发布：应用商店发布</li>
+</ul>
+</li>
+<li><p><strong>Blazor开发</strong></p>
+<ul>
+<li>Blazor Server：服务器端渲染</li>
+<li>Blazor WebAssembly：客户端运行</li>
+<li>组件模型：可重用UI组件</li>
+<li>JavaScript互操作：JS调用</li>
+<li>PWA支持：渐进式Web应用</li>
+</ul>
+</li>
+</ul>
+<h1 id="七、项目实战与工程化（持续进行）"><a href="#七、项目实战与工程化（持续进行）" class="headerlink" title="七、项目实战与工程化（持续进行）"></a>七、项目实战与工程化（持续进行）</h1><h2 id="（一）项目实战案例"><a href="#（一）项目实战案例" class="headerlink" title="（一）项目实战案例"></a>（一）项目实战案例</h2><ul>
+<li><p><strong>企业级Web应用</strong></p>
+<ul>
+<li>电商平台：商品管理、订单处理、支付集成</li>
+<li>内容管理系统：文章发布、用户管理、权限控制</li>
+<li>企业资源规划：ERP系统、业务流程管理</li>
+<li>客户关系管理：CRM系统、销售管理</li>
+<li>人力资源系统：HR管理、考勤系统</li>
+</ul>
+</li>
+<li><p><strong>微服务项目</strong></p>
+<ul>
+<li>用户服务：用户注册、登录、个人信息</li>
+<li>订单服务：订单创建、状态管理、支付处理</li>
+<li>库存服务：商品库存、库存预留、库存同步</li>
+<li>通知服务：邮件通知、短信通知、推送通知</li>
+<li>网关服务：API网关、路由、认证授权</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）代码质量管理"><a href="#（二）代码质量管理" class="headerlink" title="（二）代码质量管理"></a>（二）代码质量管理</h2><ul>
+<li><p><strong>代码规范</strong></p>
+<ul>
+<li>编码标准：命名约定、代码风格</li>
+<li>代码审查：Pull Request、代码评审</li>
+<li>静态分析：SonarQube、Roslyn分析器</li>
+<li>代码度量：复杂度、可维护性</li>
+<li>重构技巧：代码优化、设计模式</li>
+</ul>
+</li>
+<li><p><strong>版本控制</strong></p>
+<ul>
+<li>Git工作流：分支策略、合并策略</li>
+<li>语义化版本：版本号管理</li>
+<li>变更日志：CHANGELOG维护</li>
+<li>发布管理：版本发布、回滚策略</li>
+<li>代码保护：分支保护、权限管理</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）DevOps实践"><a href="#（三）DevOps实践" class="headerlink" title="（三）DevOps实践"></a>（三）DevOps实践</h2><ul>
+<li><p><strong>持续集成</strong></p>
+<ul>
+<li>Azure DevOps：微软DevOps平台</li>
+<li>GitHub Actions：自动化工作流</li>
+<li>构建管道：自动化构建、测试</li>
+<li>代码质量门禁：质量检查、测试覆盖率</li>
+<li>制品管理：NuGet包、Docker镜像</li>
+</ul>
+</li>
+<li><p><strong>持续部署</strong></p>
+<ul>
+<li>部署策略：蓝绿部署、滚动部署</li>
+<li>环境管理：开发、测试、生产环境</li>
+<li>配置管理：环境配置、密钥管理</li>
+<li>监控部署：部署监控、回滚机制</li>
+<li>基础设施即代码：ARM模板、Terraform</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、学习资源与职业发展"><a href="#八、学习资源与职业发展" class="headerlink" title="八、学习资源与职业发展"></a>八、学习资源与职业发展</h1><h2 id="（一）学习资源推荐"><a href="#（一）学习资源推荐" class="headerlink" title="（一）学习资源推荐"></a>（一）学习资源推荐</h2><ul>
+<li><p><strong>官方资源</strong></p>
+<ul>
+<li>Microsoft Learn：官方学习平台</li>
+<li>.NET文档：完整的技术文档</li>
+<li>C#语言规范：语言标准文档</li>
+<li>.NET API浏览器：API参考文档</li>
+<li>Channel 9：微软技术视频</li>
+</ul>
+</li>
+<li><p><strong>经典书籍</strong></p>
+<ul>
+<li>《C#本质论》：语言深入理解</li>
+<li>《CLR via C#》：运行时机制</li>
+<li>《C# in Depth》：语言高级特性</li>
+<li>《Effective C#》：最佳实践</li>
+<li>《.NET微服务架构》：微服务设计</li>
+</ul>
+</li>
+<li><p><strong>在线资源</strong></p>
+<ul>
+<li>Pluralsight：专业技术课程</li>
+<li>Microsoft Virtual Academy：免费在线课程</li>
+<li>.NET Foundation：开源社区</li>
+<li>NuGet Gallery：包管理仓库</li>
+<li>Stack Overflow：技术问答社区</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）技术社区"><a href="#（二）技术社区" class="headerlink" title="（二）技术社区"></a>（二）技术社区</h2><ul>
+<li><p><strong>国外社区</strong></p>
+<ul>
+<li>.NET Foundation：官方基金会</li>
+<li>Reddit：r&#x2F;dotnet、r&#x2F;csharp</li>
+<li>Discord：.NET Community</li>
+<li>GitHub：开源项目、代码协作</li>
+<li>.NET Conf：年度技术大会</li>
+</ul>
+</li>
+<li><p><strong>国内社区</strong></p>
+<ul>
+<li>.NET中文社区：中文技术交流</li>
+<li>博客园：.NET技术博客</li>
+<li>CSDN：技术文章、教程</li>
+<li>掘金：前沿技术分享</li>
+<li>微信群：技术交流群组</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）职业发展路径"><a href="#（三）职业发展路径" class="headerlink" title="（三）职业发展路径"></a>（三）职业发展路径</h2><ul>
+<li><p><strong>Web开发工程师</strong></p>
+<ul>
+<li>前端开发：Blazor、React、Vue集成</li>
+<li>后端开发：API开发、微服务架构</li>
+<li>全栈开发：前后端技术栈</li>
+<li>DevOps工程师：自动化部署、运维</li>
+<li>技术架构师：系统设计、技术选型</li>
+</ul>
+</li>
+<li><p><strong>企业级开发专家</strong></p>
+<ul>
+<li>.NET架构师：企业级系统架构</li>
+<li>微服务专家：分布式系统设计</li>
+<li>云原生专家：云平台、容器化</li>
+<li>性能优化专家：系统调优、性能分析</li>
+<li>技术管理：团队管理、项目管理</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）认证与进阶"><a href="#（四）认证与进阶" class="headerlink" title="（四）认证与进阶"></a>（四）认证与进阶</h2><ul>
+<li><p><strong>微软认证</strong></p>
+<ul>
+<li>Azure Developer Associate：Azure开发者</li>
+<li>Azure Solutions Architect：Azure架构师</li>
+<li>.NET Developer：.NET开发者认证</li>
+<li>DevOps Engineer：DevOps工程师</li>
+<li>Data Engineer：数据工程师</li>
+</ul>
+</li>
+<li><p><strong>持续学习建议</strong></p>
+<ul>
+<li>关注.NET发展：新版本特性、路线图</li>
+<li>参与开源项目：贡献代码、学习最佳实践</li>
+<li>技术分享：博客写作、会议演讲</li>
+<li>跨技术学习：前端、云计算、大数据</li>
+<li>软技能提升：沟通、管理、业务理解</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>总结</strong>：C#作为微软.NET生态系统的核心语言，以其强类型、面向对象、内存安全的特性，成为企业级应用开发的首选语言。从基础语法到高级特性，从Web开发到云原生应用，从单体架构到微服务，C#为开发者提供了完整的技术栈和丰富的生态系统。</p>
+<p>学习C#不仅要掌握语言特性，更要理解.NET平台的设计理念和最佳实践。随着.NET的跨平台发展和云原生技术的兴起，C#开发者面临着更广阔的发展机遇。建议在学习过程中注重实践，通过实际项目来巩固理论知识，积极参与开源社区，关注技术发展趋势。掌握C#，将为您在企业级开发、云原生应用、微服务架构等领域打开广阔的职业发展空间。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="category-chain-item">学习路线</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web%E5%BC%80%E5%8F%91/" class="print-no-link">#Web开发</a>
+      
+        <a href="/tags/C/" class="print-no-link">#C#</a>
+      
+        <a href="/tags/NET/" class="print-no-link">#.NET</a>
+      
+        <a href="/tags/%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91/" class="print-no-link">#企业级开发</a>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="print-no-link">#学习路线</a>
+      
+        <a href="/tags/%E5%BE%AE%E8%BD%AF%E6%8A%80%E6%9C%AF%E6%A0%88/" class="print-no-link">#微软技术栈</a>
+      
+        <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="print-no-link">#云原生</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C++%E7%8E%B0%E4%BB%A3%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%88%B0%E9%AB%98%E6%80%A7%E8%83%BD%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" title="【学习路线】C++现代编程之旅：从基础语法到高性能应用开发">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习路线】C++现代编程之旅：从基础语法到高性能应用开发</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/19/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91C%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E8%AF%A6%E7%BB%86%E7%AC%94%E8%AE%B0/" title="【学习路线】C语言从零到大神：系统编程的必经之路">
+                        <span class="hidden-mobile">【学习路线】C语言从零到大神：系统编程的必经之路</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script  src="https://lib.baomitu.com/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+<script src="/js/ai-assistant.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

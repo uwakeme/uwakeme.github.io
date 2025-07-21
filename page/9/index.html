@@ -316,15 +316,632 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/07/15/%E3%80%90Git%E3%80%91Git%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%A6%E8%A7%A3/" target="_self">
-          【Git】Git高级操作与最佳实践详解
+        <a href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E5%90%8E%E7%AB%AF%E4%B8%BB%E5%8A%A8%E6%8E%A8%E9%80%81%E6%B6%88%E6%81%AF%E5%88%B0%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" target="_self">
+          【Java】Java后端主动推送消息到前端的技术方案
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90Git%E3%80%91Git%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%AF%A6%E8%A7%A3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E5%90%8E%E7%AB%AF%E4%B8%BB%E5%8A%A8%E6%8E%A8%E9%80%81%E6%B6%88%E6%81%AF%E5%88%B0%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" target="_self">
         <div>
-          前言熟练掌握Git的高级操作可以显著提高开发效率，优化工作流程，解决复杂问题。本文将详细介绍Git的高级操作技巧与最佳实践，帮助开发者更加高效地管理代码和协作开发。 1. 提交历史管理1.1 修改最近的提交# 修改最近的提交信息 git commit --amend  # 修改最近的提交信息，不打开编辑器 git commit --amend -m "新的提交信息"  # 修改提交内容但保持提交信
+          前言在现代Web应用中，前端与后端之间的实时或准实时通信变得越来越重要。例如，在线聊天、实时数据更新、股票行情、消息通知、系统监控等场景，都需要后端能够在数据发生变化或特定事件触发时，主动将信息推送给前端，而不是等待前端下一次请求。本文将详细介绍几种Java后端主动向前端推送消息的常用技术方案，分析它们的原理、优缺点及适用场景。 一、常见的后端推送技术后端主动推送消息给前端的技术选择多样，开发者应
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JAVA/">#JAVA</a>
+            
+              <a href="/tags/WebSocket/">#WebSocket</a>
+            
+              <a href="/tags/Server-Sent-Events/">#Server-Sent Events</a>
+            
+              <a href="/tags/SSE/">#SSE</a>
+            
+              <a href="/tags/Long-Polling/">#Long Polling</a>
+            
+              <a href="/tags/Web-Push/">#Web Push</a>
+            
+              <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/">#实时通信</a>
+            
+              <a href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E4%BA%A4%E4%BA%92/">#前后端交互</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" target="_self">
+          【Java】Java反射（Reflection）机制详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" target="_self">
+        <div>
+          前言Java反射（Reflection）机制是Java语言一个非常强大且重要的特性。它允许程序在运行时（Runtime）检查或修改自身行为，例如获取任意一个类的内部信息（包括其成员变量、构造方法、成员方法等），以及在运行时动态创建对象、调用方法、设置和获取字段值等。这种能力使得Java具有了动态语言的一些特性，为框架设计、工具开发等提供了极大的灵活性。本文将深入探讨Java反射机制的核心概念、AP
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JAVA/">#JAVA</a>
+            
+              <a href="/tags/Reflection/">#Reflection</a>
+            
+              <a href="/tags/%E5%8F%8D%E5%B0%84/">#反射</a>
+            
+              <a href="/tags/%E5%8A%A8%E6%80%81%E7%BC%96%E7%A8%8B/">#动态编程</a>
+            
+              <a href="/tags/%E5%85%83%E7%BC%96%E7%A8%8B/">#元编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91%E6%B5%81%E8%A1%8C%E7%9A%84AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%A1%B9%E7%9B%AE%E8%AF%A6%E8%A7%A3/" target="_self">
+          【AI】流行的AI工作流项目详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91%E6%B5%81%E8%A1%8C%E7%9A%84AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%A1%B9%E7%9B%AE%E8%AF%A6%E8%A7%A3/" target="_self">
+        <div>
+          一、AI工作流项目概述AI工作流项目是指那些专注于简化和自动化人工智能工作流程的开源或商业软件项目。这些项目通常提供框架、工具或平台，帮助开发者和用户更高效地构建、部署和管理AI应用。随着AI技术的普及，各类工作流项目蓬勃发展，满足了从研究到生产的各种需求。 （一）AI工作流项目的重要性 降低技术门槛：使非专业人士也能利用AI技术解决问题 提高开发效率：简化重复性工作，加速应用开发 标准化流程：建
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">#工作流</a>
+            
+              <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">#效率工具</a>
+            
+              <a href="/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">#开源项目</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E6%8A%BD%E8%B1%A1%E7%B1%BB%EF%BC%88Abstract%20Class%EF%BC%89%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" target="_self">
+          【Java】Java抽象类（Abstract Class）详解与最佳实践
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90Java%E3%80%91Java%E6%8A%BD%E8%B1%A1%E7%B1%BB%EF%BC%88Abstract%20Class%EF%BC%89%E8%AF%A6%E8%A7%A3%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" target="_self">
+        <div>
+          前言抽象类是Java面向对象编程中的重要概念，它提供了一种在类层次结构中定义通用行为和强制子类实现特定方法的机制。抽象类介于普通类和接口之间，既可以包含具体的实现，也可以定义抽象方法要求子类必须实现。掌握抽象类的使用对于设计良好的面向对象程序至关重要。本文将深入探讨Java抽象类的概念、语法、特性、使用场景和最佳实践。 一、抽象类基础概念（一）什么是抽象类抽象类（Abstract Class） 是
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">#Java</a>
+            
+              <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
+            
+              <a href="/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/">#抽象类</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%B8%B8%E7%94%A8AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%B9%B3%E5%8F%B0%E5%AF%B9%E6%AF%94%E4%B8%8E%E6%8E%A8%E8%8D%90/" target="_self">
+          【AI】常用AI工作流平台对比与推荐
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%B8%B8%E7%94%A8AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%B9%B3%E5%8F%B0%E5%AF%B9%E6%AF%94%E4%B8%8E%E6%8E%A8%E8%8D%90/" target="_self">
+        <div>
+          一、AI工作流平台概述AI工作流平台是指能够集成、编排和自动化AI相关任务的系统工具，它们允许用户以可视化或代码的方式构建数据处理、模型训练、推理和应用部署的流程。随着人工智能技术的普及，各类AI工作流平台层出不穷，为不同技术背景的用户提供了便捷的AI应用开发环境。 （一）AI工作流平台的核心功能 任务编排：通过图形界面或代码定义任务执行顺序和依赖关系 模型集成：支持接入各种AI模型和服务 数据处
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">#工作流</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">#自动化</a>
+            
+              <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">#效率工具</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAAI%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
+          【AI】如何搭建AI工作流
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAAI%E5%B7%A5%E4%BD%9C%E6%B5%81/" target="_self">
+        <div>
+          如何搭建AI工作流一、AI工作流概述AI工作流是指利用人工智能技术和工具构建的一套自动化流程，用于提高工作效率、优化决策过程和增强创造力。一个完善的AI工作流可以帮助个人和团队更高效地完成各种任务，从内容创作到数据分析，从代码开发到项目管理。 二、AI工作流的核心组件1. 大语言模型(LLM) 通用型LLM：如GPT-4、Claude、Gemini等 专业领域模型：针对特定行业或任务优化的模型 本
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">#工作流</a>
+            
+              <a href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">#效率工具</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAn8n%20AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%B9%B3%E5%8F%B0/" target="_self">
+          【AI】如何搭建n8n AI工作流平台
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAn8n%20AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%B9%B3%E5%8F%B0/" target="_self">
+        <div>
+          一、n8n工作流平台概述n8n是一个功能强大的开源工作流自动化平台，允许用户通过可视化界面连接不同的应用程序、服务和API，实现数据流转和自动化操作。与其他自动化平台如Zapier、IFTTT相比，n8n最大的优势在于它可以自托管，确保数据隐私和安全，同时提供了更灵活的定制能力。 （一）n8n的核心特点 开源免费：n8n的核心功能完全开源，可以免费使用。 自托管：可以在自己的服务器上部署，保证数据
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">#工作流</a>
+            
+              <a href="/tags/n8n/">#n8n</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">#自动化</a>
+            
+              <a href="/tags/%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0/">#集成平台</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91n8n%E5%B8%B8%E7%94%A8AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%A1%88%E4%BE%8B%E8%AF%A6%E8%A7%A3/" target="_self">
+          【AI】n8n常用AI工作流案例详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91n8n%E5%B8%B8%E7%94%A8AI%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%A1%88%E4%BE%8B%E8%AF%A6%E8%A7%A3/" target="_self">
+        <div>
+          一、n8n与AI工作流概述（一）n8n简介n8n是一个强大的工作流自动化平台，允许用户通过可视化界面连接各种服务和API，创建复杂的自动化工作流。作为一个开源的”公平代码”项目，n8n提供了灵活的部署选项，可以自托管，保证数据隐私和安全。随着AI技术的发展，n8n已经成为构建AI工作流的重要工具之一，帮助用户将各种AI服务无缝集成到业务流程中。 核心特点：  节点式设计：通过拖拽节点和连接线创建工
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">#工作流</a>
+            
+              <a href="/tags/n8n/">#n8n</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">#自动化</a>
+            
+              <a href="/tags/%E9%9B%86%E6%88%90%E5%B9%B3%E5%8F%B0/">#集成平台</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90AI%E3%80%91%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E9%A2%86%E5%9F%9F%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD%E5%85%A8%E8%A7%A3%E6%9E%90/" target="_self">
+          【AI】人工智能领域关键术语全解析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90AI%E3%80%91%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E9%A2%86%E5%9F%9F%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD%E5%85%A8%E8%A7%A3%E6%9E%90/" target="_self">
+        <div>
+          一、前言人工智能（AI）作为当今最热门的技术领域之一，正在深刻改变着我们的生活和工作方式。然而，对于初学者或非技术背景的人士来说，理解AI领域的专业术语可能是一项挑战。本文旨在全面解析人工智能领域的关键术语，帮助读者建立对AI技术的系统认知，为进一步学习和应用AI技术奠定基础。 二、人工智能基础概念（一）核心定义 人工智能（Artificial Intelligence，AI） 指由人创造的、模拟
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-15 10:03" pubdate>
+              2025-07-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+            
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
+            
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
+            
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">#神经网络</a>
+            
+              <a href="/tags/LLM/">#LLM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/15/%E3%80%90Git%E3%80%91Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" target="_self">
+          【Git】Git基础概念与常用命令详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90Git%E3%80%91Git%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" target="_self">
+        <div>
+          前言Git是当今最流行的分布式版本控制系统，用于跟踪文件的变化并协调多人协作开发。本文将详细介绍Git的基础概念和常用命令，帮助您高效地使用Git进行项目管理。 1. Git的核心概念1.1 分布式版本控制与集中式版本控制系统（如SVN）不同，Git是一个分布式版本控制系统，这意味着：  每个开发者都拥有完整的代码仓库副本 大多数操作都是本地执行，不需要联网 提供更好的分支管理和合并功能 更适合团
         </div>
       </a>
 
@@ -367,600 +984,7 @@
             
               <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">#版本控制</a>
             
-              <a href="/tags/%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C/">#高级操作</a>
-            
-              <a href="/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">#最佳实践</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" target="_self">
-          【学习】网络代理详解与应用实践
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/15/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91%E7%BD%91%E7%BB%9C%E4%BB%A3%E7%90%86%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/" target="_self">
-        <div>
-          一、代理概述（一）什么是代理代理（Proxy）是一种网络通信服务，充当客户端和服务器之间的中介。当客户端需要从服务器请求资源时，它首先将请求发送给代理服务器，代理服务器再将请求转发到目标服务器，获取响应后再返回给客户端。 在这个过程中，代理服务器扮演了”中间人”的角色，可以执行各种功能，如缓存、过滤、负载均衡、匿名访问等。 （二）代理的基本工作原理代理的基本工作流程如下：  客户端配置使用代理服务
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-15 00:00" pubdate>
-              2025-07-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C/">#网络</a>
-            
-              <a href="/tags/%E5%AE%89%E5%85%A8/">#安全</a>
-            
-              <a href="/tags/%E4%BB%A3%E7%90%86/">#代理</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88%E4%B8%8E%E5%AF%B9%E6%AF%94/" target="_self">
-          【接口】接口类型总览与对比
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%80%BB%E8%A7%88%E4%B8%8E%E5%AF%B9%E6%AF%94/" target="_self">
-        <div>
-          【接口】接口类型总览与对比一、接口技术概述（一）什么是接口接口是不同软件系统之间进行通信和数据交换的桥梁，它定义了系统间交互的规则和标准。在现代软件架构中，接口技术的选择直接影响系统的性能、可扩展性和维护性。随着分布式系统、微服务架构和物联网的发展，各种接口技术也在不断演进，以满足不同场景的需求。 （二）接口技术的重要性 系统集成：接口使不同系统能够协同工作，实现功能互补 数据共享：通过接口可以在
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】WebSocket接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】WebSocket接口详解前言在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/WebSocket/">#WebSocket</a>
-            
-              <a href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/">#实时通信</a>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">#网络协议</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】gRPC接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】gRPC接口详解前言在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP&#x2F;2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRP
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-              <a href="/tags/gRPC/">#gRPC</a>
-            
-              <a href="/tags/RPC/">#RPC</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】WebService接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】WebService接口详解一、WebService概述（一）WebService的定义WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】SOAP接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-              <a href="/tags/SOAP/">#SOAP</a>
-            
-              <a href="/tags/Web%E6%9C%8D%E5%8A%A1/">#Web服务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】REST接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-              <a href="/tags/REST/">#REST</a>
-            
-              <a href="/tags/API%E8%AE%BE%E8%AE%A1/">#API设计</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91GraphQL%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】GraphQL接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91GraphQL%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】GraphQL接口详解前言随着API经济的兴起，如何高效、灵活地构建和使用API成为了开发者关注的焦点。传统的RESTful API在某些场景下暴露出了一些问题，例如数据冗余（over-fetching）和数据不足（under-fetching）。为了解决这些问题，Facebook于2012年内部开发并于2015年公开发布了GraphQL。GraphQL是一种用于API的查询语言，也是一个
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
-            
-              <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
-            
-              <a href="/tags/GraphQL/">#GraphQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-          【接口】MQTT接口详解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/14/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" target="_self">
-        <div>
-          【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布&#x2F;订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-07-14 16:45" pubdate>
-              2025-07-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8E%A5%E5%8F%A3/" class="category-chain-item">接口</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
-            
-              <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/">#物联网</a>
-            
-              <a href="/tags/MQTT/">#MQTT</a>
+              <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/">#命令行</a>
             
           </div>
         
