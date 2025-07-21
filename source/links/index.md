@@ -25,4 +25,3 @@ layout: links
 - 名称：Wake的博客
 - 链接：https://uwakeme.top
 - 描述：一起学习，一起进步
-- 图标：https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/avatar.jpg 
