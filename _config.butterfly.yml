@@ -41,8 +41,9 @@ social:
 # 搜索设置
 local_search:
   enable: true
-  preload: false
-  CDN:
+  labels:
+    input_placeholder: 请输入搜索内容
+    hits_empty: "未找到相关内容: ${query}" # 如果没有查到内容相关内容显示
 
 # 数学公式
 mathjax:
@@ -298,7 +299,7 @@ CDN:
 
 # 打赏 Sponsor/reward
 reward:
-  enable: true
+  enable: true  # 是否启用打赏功能
   QR_code:
      - img: /img/wechat.jpg
        link:
@@ -307,3 +308,53 @@ reward:
        link:
        text: 支付宝
 
+# 分享功能 AddToAny
+# https://www.addtoany.com/
+addtoany:
+  enable: false
+  item: facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link
+
+# toc (目录)
+toc:
+  post: true
+  page: false
+  number: false
+  expand: true # 是否展开
+  style_simple: false # for post
+  scroll_percent: true
+
+
+# Background effects (背景特效)
+# canvas_ribbon (静止彩带)
+# See: https://github.com/hustcc/ribbon.js
+canvas_ribbon:
+  enable: false
+  size: 150
+  alpha: 0.6
+  zIndex: -1
+  click_to_change: false
+  mobile: false
+# Fluttering Ribbon (动态彩带)
+canvas_fluttering_ribbon:
+  enable: false
+  mobile: false
+#星空特效
+# canvas_nest
+# https://github.com/hustcc/canvas-nest.js
+canvas_nest:
+  enable: true
+  color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
+  opacity: 0.7 # the opacity of line (0~1), default: 0.5.
+  zIndex: -1 # z-index property of the background, default: -1.
+  count: 99 # the number of lines, default: 99.
+  mobile: false
+
+# wordcount (字数统计)
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+
+  
