@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【博客】Hexo博客文章分类管理指南 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言随着博客文章数量的增长，将所有文章都放在source&#x2F;_posts目录下会变得难以管理。本文介绍如何通过文件夹分类来更好地组织Hexo博客文章，提高管理效率。 一、文件夹分类的优势（一）管理优势 结构清晰：按主题分类，便于查找和管理 维护方便：相关文章集中存放，便于批量操作 扩展性好：新增分类只需创建对应文件夹 协作友好：团队协作时分工更明确  （二）Hexo兼容性 完全兼容：Hexo原生支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【博客】Hexo博客文章分类管理指南">
+<meta property="og:url" content="https://uwakeme.top/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言随着博客文章数量的增长，将所有文章都放在source&#x2F;_posts目录下会变得难以管理。本文介绍如何通过文件夹分类来更好地组织Hexo博客文章，提高管理效率。 一、文件夹分类的优势（一）管理优势 结构清晰：按主题分类，便于查找和管理 维护方便：相关文章集中存放，便于批量操作 扩展性好：新增分类只需创建对应文件夹 协作友好：团队协作时分工更明确  （二）Hexo兼容性 完全兼容：Hexo原生支持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2025-07-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-22T10:42:05.515Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="博客管理">
+<meta property="article:tag" content="文件组织">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【博客】Hexo博客文章分类管理指南",
+  "url": "https://uwakeme.top/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2025-07-21T16:00:00.000Z",
+  "dateModified": "2025-07-22T10:42:05.515Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://uwakeme.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【博客】Hexo博客文章分类管理指南',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">178</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">466</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【博客】Hexo博客文章分类管理指南</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【博客】Hexo博客文章分类管理指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-21T16:00:00.000Z" title="发表于 2025-07-22 00:00:00">2025-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-22T10:42:05.515Z" title="更新于 2025-07-22 18:42:05">2025-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着博客文章数量的增长，将所有文章都放在<code>source/_posts</code>目录下会变得难以管理。本文介绍如何通过文件夹分类来更好地组织Hexo博客文章，提高管理效率。</p>
+<h1 id="一、文件夹分类的优势"><a href="#一、文件夹分类的优势" class="headerlink" title="一、文件夹分类的优势"></a>一、文件夹分类的优势</h1><h2 id="（一）管理优势"><a href="#（一）管理优势" class="headerlink" title="（一）管理优势"></a>（一）管理优势</h2><ol>
+<li><strong>结构清晰</strong>：按主题分类，便于查找和管理</li>
+<li><strong>维护方便</strong>：相关文章集中存放，便于批量操作</li>
+<li><strong>扩展性好</strong>：新增分类只需创建对应文件夹</li>
+<li><strong>协作友好</strong>：团队协作时分工更明确</li>
+</ol>
+<h2 id="（二）Hexo兼容性"><a href="#（二）Hexo兼容性" class="headerlink" title="（二）Hexo兼容性"></a>（二）Hexo兼容性</h2><ul>
+<li><strong>完全兼容</strong>：Hexo原生支持子文件夹结构</li>
+<li><strong>URL不变</strong>：文章URL路径不受文件夹影响</li>
+<li><strong>功能正常</strong>：所有Hexo功能（标签、分类、搜索等）正常工作</li>
+</ul>
+<h1 id="二、当前博客文件夹结构"><a href="#二、当前博客文件夹结构" class="headerlink" title="二、当前博客文件夹结构"></a>二、当前博客文件夹结构</h1><h2 id="（一）分类体系"><a href="#（一）分类体系" class="headerlink" title="（一）分类体系"></a>（一）分类体系</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">source/_posts/</span><br><span class="line">├── AI/                    # AI相关文章</span><br><span class="line">├── BUG解决/              # 问题解决方案</span><br><span class="line">├── Git/                  # Git版本控制</span><br><span class="line">├── Java/                 # Java编程</span><br><span class="line">├── Python/               # Python编程</span><br><span class="line">├── LINUX/                # Linux系统</span><br><span class="line">├── 数据库/               # 数据库相关</span><br><span class="line">├── 前端/                 # 前端开发</span><br><span class="line">├── 后端/                 # 后端开发</span><br><span class="line">├── 学习/                 # 技术学习笔记</span><br><span class="line">├── 学习路线/             # 学习路径规划</span><br><span class="line">├── 其他/                 # 其他杂项</span><br><span class="line">└── images/               # 图片资源</span><br></pre></td></tr></table></figure>
+
+<h2 id="（二）各分类说明"><a href="#（二）各分类说明" class="headerlink" title="（二）各分类说明"></a>（二）各分类说明</h2><h3 id="1-AI分类"><a href="#1-AI分类" class="headerlink" title="1. AI分类"></a>1. <strong>AI分类</strong></h3><ul>
+<li>AI工作流平台</li>
+<li>MCP协议应用</li>
+<li>AI工具使用指南</li>
+<li>人工智能技术解析</li>
+</ul>
+<h3 id="2-编程语言分类"><a href="#2-编程语言分类" class="headerlink" title="2. 编程语言分类"></a>2. <strong>编程语言分类</strong></h3><ul>
+<li><strong>Java</strong>：Spring Boot、工具类、最佳实践</li>
+<li><strong>Python</strong>：框架应用、技术实现、监听机制</li>
+</ul>
+<h3 id="3-技术栈分类"><a href="#3-技术栈分类" class="headerlink" title="3. 技术栈分类"></a>3. <strong>技术栈分类</strong></h3><ul>
+<li><strong>前端</strong>：Vue、React、JavaScript、CSS</li>
+<li><strong>后端</strong>：Spring Boot、Node.js、API设计</li>
+<li><strong>数据库</strong>：MySQL、MongoDB、Redis</li>
+</ul>
+<h3 id="4-系统运维分类"><a href="#4-系统运维分类" class="headerlink" title="4. 系统运维分类"></a>4. <strong>系统运维分类</strong></h3><ul>
+<li><strong>LINUX</strong>：服务器管理、系统配置</li>
+<li><strong>Git</strong>：版本控制、协作流程</li>
+</ul>
+<h3 id="5-学习成长分类"><a href="#5-学习成长分类" class="headerlink" title="5. 学习成长分类"></a>5. <strong>学习成长分类</strong></h3><ul>
+<li><strong>学习路线</strong>：技术成长路径</li>
+<li><strong>学习</strong>：新技术探索笔记</li>
+<li><strong>BUG解决</strong>：问题排查与解决</li>
+</ul>
+<h1 id="三、文件夹分类实施步骤"><a href="#三、文件夹分类实施步骤" class="headerlink" title="三、文件夹分类实施步骤"></a>三、文件夹分类实施步骤</h1><h2 id="（一）创建分类文件夹"><a href="#（一）创建分类文件夹" class="headerlink" title="（一）创建分类文件夹"></a>（一）创建分类文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在source/_posts目录下创建分类文件夹</span></span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/AI</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/Java</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/Python</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/前端</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/后端</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/数据库</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/LINUX</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/Git</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/学习路线</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/学习</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/BUG解决</span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">source</span>/_posts/其他</span><br></pre></td></tr></table></figure>
+
+<h2 id="（二）移动现有文章"><a href="#（二）移动现有文章" class="headerlink" title="（二）移动现有文章"></a>（二）移动现有文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按分类移动文章</span></span><br><span class="line">move <span class="string">&quot;source/_posts/【Java】*.md&quot;</span> <span class="string">&quot;source/_posts/Java/&quot;</span></span><br><span class="line">move <span class="string">&quot;source/_posts/【Python】*.md&quot;</span> <span class="string">&quot;source/_posts/Python/&quot;</span></span><br><span class="line">move <span class="string">&quot;source/_posts/【AI】*.md&quot;</span> <span class="string">&quot;source/_posts/AI/&quot;</span></span><br><span class="line">move <span class="string">&quot;source/_posts/【前端】*.md&quot;</span> <span class="string">&quot;source/_posts/前端/&quot;</span></span><br><span class="line">move <span class="string">&quot;source/_posts/【后端】*.md&quot;</span> <span class="string">&quot;source/_posts/后端/&quot;</span></span><br><span class="line"><span class="comment"># ... 其他分类类似</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="（三）验证配置"><a href="#（三）验证配置" class="headerlink" title="（三）验证配置"></a>（三）验证配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清理缓存</span></span><br><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新生成</span></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览</span></span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、文章创建规范"><a href="#四、文章创建规范" class="headerlink" title="四、文章创建规范"></a>四、文章创建规范</h1><h2 id="（一）新文章创建"><a href="#（一）新文章创建" class="headerlink" title="（一）新文章创建"></a>（一）新文章创建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在对应分类文件夹中创建文章</span></span><br><span class="line">hexo new post <span class="string">&quot;文章标题&quot;</span> --path <span class="string">&quot;Java/【Java】新文章标题&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="（二）文章命名规范"><a href="#（二）文章命名规范" class="headerlink" title="（二）文章命名规范"></a>（二）文章命名规范</h2><ul>
+<li><strong>格式</strong>：<code>【分类】具体标题.md</code></li>
+<li><strong>分类标识</strong>：与文件夹名称对应</li>
+<li><strong>标题简洁</strong>：避免过长的文件名</li>
+</ul>
+<h2 id="（三）Front-Matter配置"><a href="#（三）Front-Matter配置" class="headerlink" title="（三）Front Matter配置"></a>（三）Front Matter配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">【Java】Spring</span> <span class="string">Boot最佳实践</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">Java</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2025-07-22</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Java</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Spring</span> <span class="string">Boot</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">后端开发</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="五、管理最佳实践"><a href="#五、管理最佳实践" class="headerlink" title="五、管理最佳实践"></a>五、管理最佳实践</h1><h2 id="（一）分类原则"><a href="#（一）分类原则" class="headerlink" title="（一）分类原则"></a>（一）分类原则</h2><ol>
+<li><strong>主题明确</strong>：每个分类有明确的主题范围</li>
+<li><strong>互不重叠</strong>：避免分类之间的重叠</li>
+<li><strong>适度细分</strong>：既不过于宽泛，也不过于细致</li>
+<li><strong>便于扩展</strong>：为未来新分类预留空间</li>
+</ol>
+<h2 id="（二）文件命名"><a href="#（二）文件命名" class="headerlink" title="（二）文件命名"></a>（二）文件命名</h2><ol>
+<li><strong>统一格式</strong>：使用<code>【分类】标题</code>格式</li>
+<li><strong>避免特殊字符</strong>：文件名中避免特殊符号</li>
+<li><strong>长度适中</strong>：文件名不宜过长</li>
+<li><strong>语义清晰</strong>：从文件名能看出文章内容</li>
+</ol>
+<h2 id="（三）维护建议"><a href="#（三）维护建议" class="headerlink" title="（三）维护建议"></a>（三）维护建议</h2><ol>
+<li><strong>定期整理</strong>：定期检查分类是否合理</li>
+<li><strong>及时归档</strong>：新文章及时放入对应分类</li>
+<li><strong>清理冗余</strong>：删除过时或重复的文章</li>
+<li><strong>备份重要</strong>：重要文章做好备份</li>
+</ol>
+<h1 id="六、常见问题解答"><a href="#六、常见问题解答" class="headerlink" title="六、常见问题解答"></a>六、常见问题解答</h1><h2 id="（一）URL路径问题"><a href="#（一）URL路径问题" class="headerlink" title="（一）URL路径问题"></a>（一）URL路径问题</h2><p><strong>Q：文件夹分类会影响文章URL吗？</strong></p>
+<p>A：不会。Hexo的URL路径由配置文件中的<code>permalink</code>设置决定，与文件夹结构无关。</p>
+<h2 id="（二）搜索功能"><a href="#（二）搜索功能" class="headerlink" title="（二）搜索功能"></a>（二）搜索功能</h2><p><strong>Q：分类后搜索功能还能正常工作吗？</strong></p>
+<p>A：完全正常。Hexo的搜索功能会扫描所有子文件夹中的文章。</p>
+<h2 id="（三）标签和分类"><a href="#（三）标签和分类" class="headerlink" title="（三）标签和分类"></a>（三）标签和分类</h2><p><strong>Q：文件夹分类与Front Matter中的categories有什么关系？</strong></p>
+<p>A：两者独立。文件夹分类用于文件管理，categories用于博客分类显示。</p>
+<h2 id="（四）迁移现有博客"><a href="#（四）迁移现有博客" class="headerlink" title="（四）迁移现有博客"></a>（四）迁移现有博客</h2><p><strong>Q：如何将现有博客迁移到文件夹分类结构？</strong></p>
+<p>A：按照本文的步骤，先创建文件夹，再移动文章，最后验证生成。</p>
+<h1 id="七、扩展功能"><a href="#七、扩展功能" class="headerlink" title="七、扩展功能"></a>七、扩展功能</h1><h2 id="（一）自动化脚本"><a href="#（一）自动化脚本" class="headerlink" title="（一）自动化脚本"></a>（一）自动化脚本</h2><p>可以创建脚本来自动化文章分类：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// scripts/auto-categorize.js</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据文章标题自动分类的脚本</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">autoCategorize</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 实现自动分类逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="（二）批量操作"><a href="#（二）批量操作" class="headerlink" title="（二）批量操作"></a>（二）批量操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 批量修改某个分类下的文章</span></span><br><span class="line">find <span class="built_in">source</span>/_posts/Java -name <span class="string">&quot;*.md&quot;</span> -<span class="built_in">exec</span> sed -i <span class="string">&#x27;s/old/new/g&#x27;</span> &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>通过文件夹分类管理Hexo博客文章具有以下优势：</p>
+<ol>
+<li><strong>提高效率</strong>：快速定位和管理相关文章</li>
+<li><strong>结构清晰</strong>：逻辑分明的文件组织结构</li>
+<li><strong>便于维护</strong>：批量操作和管理更加方便</li>
+<li><strong>团队协作</strong>：多人协作时分工更明确</li>
+<li><strong>扩展性强</strong>：易于添加新的分类和内容</li>
+</ol>
+<p>建议所有Hexo博客用户都采用这种文件夹分类的管理方式，特别是当文章数量超过50篇时，这种组织方式的优势会更加明显。</p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><strong>Hexo官方文档</strong> - 文章管理</li>
+<li><strong>文件系统最佳实践</strong> - 目录结构设计</li>
+<li><strong>博客管理经验</strong> - 内容组织策略</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://uwakeme.top">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://uwakeme.top/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/">https://uwakeme.top/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://uwakeme.top" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2%E7%AE%A1%E7%90%86/">博客管理</a><a class="post-meta__tags" href="/tags/%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87/">文件组织</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【数据库】Redis从入门到精通</div></div><div class="info-2"><div class="info-item-1">前言Redis (Remote Dictionary Server) 是一个开源的、使用C语言编写的、支持网络、可基于内存亦可持久化的日志型、Key-Value（键值对）存储数据库，并提供多种语言的API。它通常被称为数据结构服务器，因为值（value）可以是字符串(String)、哈希(Hash)、列表(List)、集合(Set)、有序集合(Sorted Set)等多种复杂的数据结构。凭借其超高的性能、丰富的数据类型以及灵活的应用场景，Redis已成为现代应用架构中不可或缺的组件，广泛应用于缓存、消息队列、排行榜、分布式锁等场景。本笔记旨在帮助读者系统地学习Redis的核心概念、主要特性和典型应用。 一、Redis核心概念（一）键值存储 (Key-Value Store)Redis的核心是一个键值存储系统。每个键都是一个字符串，而值可以是多种数据类型。这种简单的模型使得Redis非常易于理解和使用。 （二）数据结构服务器与传统的关系型数据库不同，Redis的值不仅限于简单的字符串或数字，它可以是复杂的数据结构，如列表、集合、哈希表等。这使得开发者可以直接在数据库层面操作这些数据...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/20/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90%E4%B8%8E%E5%AF%B9%E6%AF%94/" title="【博客】Hexo博客主题推荐与对比"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-20</div><div class="info-item-2">【博客】Hexo博客主题推荐与对比</div></div><div class="info-2"><div class="info-item-1">Hexo博客主题推荐与对比Hexo作为一款流行的静态博客框架，拥有丰富多样的主题可供选择。本文将详细介绍几款优秀的Hexo主题，帮助您为自己的博客选择最适合的主题风格。 为什么主题很重要？博客主题不仅决定了网站的外观，还影响用户体验、功能特性以及SEO表现。一个好的主题应该具备：  美观的设计风格 响应式布局（适配各种设备） 良好的阅读体验 丰富的自定义选项 优秀的性能和加载速度 SEO友好的代码结构  接下来，我将介绍几款优秀的Hexo主题及其特点。 1. Fluid - 简约而不简单 特点：  设计简约现代，视觉效果出色 支持暗黑模式 内置多种页面布局和组件 文档丰富，配置简单直观 中文社区支持良好  适合人群： 追求简约设计但又需要一定功能丰富度的博主，特别适合技术类博客。 安装方法： 1npm install --save hexo-theme-fluid  主题配置示例： 12345# 在Hexo根目录的_config.yml中设置theme: fluid# 创建主题配置文件# 将主题_config.yml复制到Hexo根目录的source/_data/fluid.ym...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2AI%E5%8A%A9%E6%89%8B%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客AI助手功能实现指南（集成DeepSeek&#x2F;智谱GLM-4）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【博客】Hexo博客AI助手功能实现指南（集成DeepSeek&#x2F;智谱GLM-4）</div></div><div class="info-2"><div class="info-item-1">一、前言在AI技术快速发展的时代，为个人博客添加智能助手功能已成为提升用户体验的重要手段。本文详细介绍如何在Hexo博客中实现一个美观实用的AI助手，支持多种AI模型接入（智谱GLM-4、DeepSeek等），并提供完整的代码实现。 特别值得一提的是，智谱AI推出的GLM-4模型目前提供了免费版本（glm-4-flash），可以零成本为你的博客增添智能交互能力。 二、功能特点实现后的AI助手功能将具备以下特点：  美观的浮动聊天窗口：支持深色&#x2F;浅色模式自动适配 多种模型支持：可接入智谱GLM-4、DeepSeek等多种AI模型 两种实现版本：完整版（API调用）和基础版（预设问答，无需API） 流畅的用户体验：打字动画、加载提示、Markdown渲染支持 响应式设计：完美适配移动端和桌面端 本地记忆功能：保存聊天历史，提供连续对话体验  三、实现步骤（一）准备工作1. 所需资源 已搭建的Hexo博客 智谱AI平台账号（使用GLM-4时需要）或DeepSeek账号 基本的JavaScript和CSS知识  2. 注册智谱AI账号（可选）如果选择使用智谱GLM-4模型：  ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">178</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">466</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%86%E7%B1%BB%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">一、文件夹分类的优势</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%AE%A1%E7%90%86%E4%BC%98%E5%8A%BF"><span class="toc-text">（一）管理优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Hexo%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">（二）Hexo兼容性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BD%93%E5%89%8D%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%84"><span class="toc-text">二、当前博客文件夹结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%86%E7%B1%BB%E4%BD%93%E7%B3%BB"><span class="toc-text">（一）分类体系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%90%84%E5%88%86%E7%B1%BB%E8%AF%B4%E6%98%8E"><span class="toc-text">（二）各分类说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-AI%E5%88%86%E7%B1%BB"><span class="toc-text">1. AI分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%88%86%E7%B1%BB"><span class="toc-text">2. 编程语言分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8A%80%E6%9C%AF%E6%A0%88%E5%88%86%E7%B1%BB"><span class="toc-text">3. 技术栈分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%B3%BB%E7%BB%9F%E8%BF%90%E7%BB%B4%E5%88%86%E7%B1%BB"><span class="toc-text">4. 系统运维分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AD%A6%E4%B9%A0%E6%88%90%E9%95%BF%E5%88%86%E7%B1%BB"><span class="toc-text">5. 学习成长分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%86%E7%B1%BB%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="toc-text">三、文件夹分类实施步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9B%E5%BB%BA%E5%88%86%E7%B1%BB%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">（一）创建分类文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%A7%BB%E5%8A%A8%E7%8E%B0%E6%9C%89%E6%96%87%E7%AB%A0"><span class="toc-text">（二）移动现有文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="toc-text">（三）验证配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%96%87%E7%AB%A0%E5%88%9B%E5%BB%BA%E8%A7%84%E8%8C%83"><span class="toc-text">四、文章创建规范</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%96%B0%E6%96%87%E7%AB%A0%E5%88%9B%E5%BB%BA"><span class="toc-text">（一）新文章创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%96%87%E7%AB%A0%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">（二）文章命名规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Front-Matter%E9%85%8D%E7%BD%AE"><span class="toc-text">（三）Front Matter配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">五、管理最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%86%E7%B1%BB%E5%8E%9F%E5%88%99"><span class="toc-text">（一）分类原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="toc-text">（二）文件命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%BB%B4%E6%8A%A4%E5%BB%BA%E8%AE%AE"><span class="toc-text">（三）维护建议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94"><span class="toc-text">六、常见问题解答</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89URL%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-text">（一）URL路径问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="toc-text">（二）搜索功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%A0%87%E7%AD%BE%E5%92%8C%E5%88%86%E7%B1%BB"><span class="toc-text">（三）标签和分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E8%BF%81%E7%A7%BB%E7%8E%B0%E6%9C%89%E5%8D%9A%E5%AE%A2"><span class="toc-text">（四）迁移现有博客</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD"><span class="toc-text">七、扩展功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC"><span class="toc-text">（一）自动化脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">（二）批量操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">八、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客文章分类管理指南"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【博客】Hexo博客文章分类管理指南"/></a><div class="content"><a class="title" href="/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客文章分类管理指南">【博客】Hexo博客文章分类管理指南</a><time datetime="2025-07-21T16:00:00.000Z" title="发表于 2025-07-22 00:00:00">2025-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E5%85%B6%E4%BB%96/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E5%85%B6%E4%BB%96/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E5%85%B6%E4%BB%96/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%91C%E3%80%81C++%E3%80%81C#%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%9A%E4%B8%89%E7%A7%8D%E8%AF%AD%E8%A8%80%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8E%86%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景"/></a><div class="content"><a class="title" href="/2025/07/19/%E5%85%B6%E4%BB%96/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%91C%E3%80%81C++%E3%80%81C#%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%9A%E4%B8%89%E7%A7%8D%E8%AF%AD%E8%A8%80%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8E%86%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景">【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

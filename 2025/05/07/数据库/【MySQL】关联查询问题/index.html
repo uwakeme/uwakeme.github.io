@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【MySQL】关联查询问题 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据库关联查询的字段类型不一致问题问题描述在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。 错误示例以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系： 12345678SELECT     lct.id as task_id,    rtwm.id as report">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MySQL】关联查询问题">
+<meta property="og:url" content="https://uwakeme.top/2025/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="数据库关联查询的字段类型不一致问题问题描述在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。 错误示例以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系： 12345678SELECT     lct.id as task_id,    rtwm.id as report">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2025-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-21T08:25:21.932Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="SQL优化">
+<meta property="article:tag" content="BUG解决">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【MySQL】关联查询问题",
+  "url": "https://uwakeme.top/2025/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2025-05-06T16:00:00.000Z",
+  "dateModified": "2025-07-21T08:25:21.932Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://uwakeme.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png"><link rel="canonical" href="https://uwakeme.top/2025/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【MySQL】关联查询问题',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/ai-assistant.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">178</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">466</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【MySQL】关联查询问题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【MySQL】关联查询问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-06T16:00:00.000Z" title="发表于 2025-05-07 00:00:00">2025-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-21T08:25:21.932Z" title="更新于 2025-07-21 16:25:21">2025-07-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">905</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="数据库关联查询的字段类型不一致问题"><a href="#数据库关联查询的字段类型不一致问题" class="headerlink" title="数据库关联查询的字段类型不一致问题"></a>数据库关联查询的字段类型不一致问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在进行MySQL关联查询时，如果关联字段的数据类型不一致，可能会导致查询结果错误或者性能下降。这篇文章记录了一次由于字段类型不一致导致的关联查询问题。</p>
+<h2 id="错误示例"><a href="#错误示例" class="headerlink" title="错误示例"></a>错误示例</h2><p>以下是我用来关联查询的SQL语句，查询目的是通过左连接获取任务和报告的关联关系：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    lct.id <span class="keyword">as</span> task_id,</span><br><span class="line">    rtwm.id <span class="keyword">as</span> report_id,</span><br><span class="line">    rtwm.task_id <span class="keyword">as</span> related_task_id </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    lb_core_task lct </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">    report_to_work_main rtwm <span class="keyword">ON</span> rtwm.task_id <span class="operator">=</span> lct.id</span><br></pre></td></tr></table></figure>
+
+<p>执行后发现查询结果与预期不符，明显看出<code>task_id</code>和<code>related_task_id</code>并不是正确的关联关系。</p>
+<blockquote>
+<p>注意：如果看不到图片，请确保在博客对应目录下有正确的图片文件，或使用以下描述代替：</p>
+<p>查询结果显示：task_id是数字类型的值如”123”，而related_task_id是字符串类型的值如”123ABC”，明显不匹配。</p>
+</blockquote>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>经排查发现，问题出在字段类型不一致：</p>
+<ul>
+<li><code>lb_core_task</code>表中的<code>id</code>字段类型为<code>bigint(20)</code></li>
+<li><code>report_to_work_main</code>表中的<code>task_id</code>字段类型为<code>varchar</code></li>
+</ul>
+<p>当字段类型不一致时，MySQL在进行比较时会发生隐式类型转换，这可能导致：</p>
+<ol>
+<li>查询结果不准确</li>
+<li>无法使用索引，导致性能下降</li>
+<li>在某些情况下可能导致全表扫描</li>
+</ol>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>针对这个问题，有以下几种解决方案：</p>
+<h3 id="方案1：修改表结构，使字段类型一致"><a href="#方案1：修改表结构，使字段类型一致" class="headerlink" title="方案1：修改表结构，使字段类型一致"></a>方案1：修改表结构，使字段类型一致</h3><p>最彻底的解决方法是修改表结构，使关联字段的类型保持一致：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 假设我们需要将report_to_work_main表中的task_id改为bigint类型</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> report_to_work_main MODIFY <span class="keyword">COLUMN</span> task_id <span class="type">bigint</span>(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="方案2：在查询中进行显式类型转换"><a href="#方案2：在查询中进行显式类型转换" class="headerlink" title="方案2：在查询中进行显式类型转换"></a>方案2：在查询中进行显式类型转换</h3><p>如果无法修改表结构，可以在查询中进行显式类型转换：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    lct.id <span class="keyword">as</span> task_id,</span><br><span class="line">    rtwm.id <span class="keyword">as</span> report_id,</span><br><span class="line">    rtwm.task_id <span class="keyword">as</span> related_task_id </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    lb_core_task lct </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">    report_to_work_main rtwm <span class="keyword">ON</span> <span class="built_in">CAST</span>(rtwm.task_id <span class="keyword">AS</span> SIGNED) <span class="operator">=</span> lct.id</span><br><span class="line"><span class="comment">-- 或者</span></span><br><span class="line"><span class="comment">-- LEFT JOIN report_to_work_main rtwm ON rtwm.task_id = CAST(lct.id AS CHAR)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方案3：使用FIND-IN-SET或LIKE进行模糊匹配"><a href="#方案3：使用FIND-IN-SET或LIKE进行模糊匹配" class="headerlink" title="方案3：使用FIND_IN_SET或LIKE进行模糊匹配"></a>方案3：使用FIND_IN_SET或LIKE进行模糊匹配</h3><p>如果字符串字段中包含多个ID值，可以使用FIND_IN_SET或LIKE：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    lct.id <span class="keyword">as</span> task_id,</span><br><span class="line">    rtwm.id <span class="keyword">as</span> report_id,</span><br><span class="line">    rtwm.task_id <span class="keyword">as</span> related_task_id </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    lb_core_task lct </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> </span><br><span class="line">    report_to_work_main rtwm <span class="keyword">ON</span> FIND_IN_SET(lct.id, rtwm.task_id)</span><br><span class="line"><span class="comment">-- 或者</span></span><br><span class="line"><span class="comment">-- LEFT JOIN report_to_work_main rtwm ON rtwm.task_id LIKE CONCAT(&#x27;%&#x27;, lct.id, &#x27;%&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="性能影响"><a href="#性能影响" class="headerlink" title="性能影响"></a>性能影响</h2><p>字段类型不一致导致的隐式转换可能会严重影响查询性能，特别是在大表上。主要原因有：</p>
+<ol>
+<li><strong>无法使用索引</strong>：当MySQL对字段进行函数操作或类型转换时，通常无法使用索引</li>
+<li><strong>额外的CPU开销</strong>：类型转换需要额外的CPU计算资源</li>
+<li><strong>可能导致全表扫描</strong>：在最坏的情况下，会导致整个表被扫描</li>
+</ol>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>为了避免此类问题，建议遵循以下最佳实践：</p>
+<ol>
+<li>在设计数据库时，确保关联字段使用相同的数据类型</li>
+<li>使用外键约束来确保数据完整性和类型一致性</li>
+<li>定期检查和优化数据库结构</li>
+<li>对于经常进行连接的表，考虑使用相同的字段命名和类型</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>数据库关联查询中字段类型不一致是一个常见但容易被忽视的问题。通过保持关联字段类型的一致性，可以提高查询准确性和性能。在无法修改表结构的情况下，可以通过显式类型转换来解决，但应注意这可能会影响查询性能。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://uwakeme.top">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://uwakeme.top/2025/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/">https://uwakeme.top/2025/05/07/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E9%97%AE%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://uwakeme.top" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a><a class="post-meta__tags" href="/tags/SQL%E4%BC%98%E5%8C%96/">SQL优化</a><a class="post-meta__tags" href="/tags/BUG%E8%A7%A3%E5%86%B3/">BUG解决</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/06/26/%E5%AD%A6%E4%B9%A0/%E3%80%90%E5%AD%A6%E4%B9%A0%E3%80%91Nacos%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97/" title="【学习】Nacos详解：微服务注册中心与配置中心实战指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【学习】Nacos详解：微服务注册中心与配置中心实战指南</div></div><div class="info-2"><div class="info-item-1">前言在微服务架构日益普及的今天，服务注册发现和配置管理成为了分布式系统的核心基础设施。Nacos（Naming and Configuration Service）作为阿里巴巴开源的服务发现、配置管理和服务管理平台，为微服务架构提供了一站式解决方案。本文将深入探讨Nacos的核心功能、架构原理和实际应用。 什么是Nacos基本概念Nacos致力于帮助您发现、配置和管理微服务 2。它提供了一组简单易用的特性集，帮助您快速实现动态服务发现、服务配置、服务元数据及流量管理 3。 核心特性Nacos主要提供以下四大功能 3：  服务发现与服务健康检查  使服务更容易注册 通过DNS或HTTP接口发现其他服务 提供服务的实时健康检查 防止向不健康的主机或服务实例发送请求   动态配置管理  在所有环境中以集中和动态的方式管理所有服务的配置 消除了在更新配置时重新部署应用程序的需要 使配置的更改更加高效和灵活   动态DNS服务  提供基于DNS协议的服务发现能力 支持异构语言的服务发现 将注册在Nacos上的服务以域名的方式暴露端点   服务和元数据管理  管理数据中心的所有服务及元数据 ...</div></div></div></a><a class="pagination-related" href="/2025/04/22/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91VUE%E4%B8%AD%E7%9A%84watch%E7%9B%91%E5%90%AC/" title="【前端】VUE中的watch监听"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【前端】VUE中的watch监听</div></div><div class="info-2"><div class="info-item-1">一、watch概述（一）什么是watch？ watch是Vue中的一个特性，用于监听数据的变化并执行相应的操作。 当被监听的数据发生变化时，会触发一个回调函数，我们可以在这个回调函数中执行一些逻辑操作。 watch适用于需要在数据变化时执行异步或开销较大的操作的场景。  （二）基本语法1. 选项式API（Options API）中的watch12345678910111213export default &#123;  data() &#123;    return &#123;      message: &#x27;Hello&#x27;    &#125;  &#125;,  watch: &#123;    // 监听message属性的变化    message(newValue, oldValue) &#123;      console.log(&#x27;message变化了&#x27;, newValue, oldValue)    &#125;  &#125;&#125;  2. 组合式API（Composition API）中的watch12345678im...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97/" title="【MySQL】MySQL性能优化全面指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【MySQL】MySQL性能优化全面指南</div></div><div class="info-2"><div class="info-item-1">MySQL性能优化全面指南MySQL作为当前最流行的关系型数据库之一，其性能优化对于系统的整体表现至关重要。本文将从多个维度详细介绍MySQL的优化方法，帮助开发者和数据库管理员提升数据库性能。 一、SQL语句优化（一）避免全表扫描 使用EXPLAIN分析SQL执行计划，避免全表扫描操作 确保查询语句使用了适当的索引 避免在WHERE子句中使用函数操作，如WHERE YEAR(create_time) = 2023  （二）优化SELECT查询 只查询必要的列，避免使用SELECT * 使用LIMIT限制结果集大小 避免使用SELECT DISTINCT，可以通过其他方式实现去重 使用覆盖索引减少回表操作  （三）优化JOIN操作 小表驱动大表，将小结果集的表放在JOIN操作符的左边 使用JOIN代替子查询，减少临时表的创建 确保JOIN条件字段上有适当的索引 避免过多的JOIN操作，必要时拆分复杂查询  （四）合理使用子查询 尽可能使用JOIN代替子查询 避免在WHERE子句中使用IN包含子查询，可以改用JOIN 使用EXISTS代替IN进行关联查询  （五）批量操作优化 使用...</div></div></div></a><a class="pagination-related" href="/2025/03/20/LINUX/%E3%80%90LINUX%E3%80%91MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/" title="【LINUX】MySQL服务器的安全配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">【LINUX】MySQL服务器的安全配置</div></div><div class="info-2"><div class="info-item-1"> 如果MySQL正常启动，本地可以正常登录连接，但是其他电脑连接不上的话，大概率就是MySQL服务器的安全配置导致不允许来自指定IP地址的连接  报错信息11130 - Host &#x27;连接电脑IP&#x27; is not allowed to connect to this MySQL server  解决步骤 通过本地服务器登录MySQL1mysql -u root -p 查看当前主机权限，如果是localhost，说明MySQL只允许本地连接1SELECT host, user FROM mysql.user WHERE user = &#x27;your_username&#x27;; 更新主机权限12// 设置为所有ip都可以连接UPDATE mysql.user SET host = &#x27;%&#x27; WHERE user = &#x27;your_username&#x27;; 刷新权限1FLUSH PRIVILEGES;  </div></div></div></a><a class="pagination-related" href="/2024/11/11/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%EF%BC%9A%E6%96%B0%E5%A2%9E%E6%88%96%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/" title="【MySQL】存储过程：新增或更新数据"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-11</div><div class="info-item-2">【MySQL】存储过程：新增或更新数据</div></div><div class="info-2"><div class="info-item-1">存储过程：新增或更新数据1234567891011121314151617181920212223242526272829303132333435CREATE DEFINER=`root`@`%` PROCEDURE `database`.`UpdateOrInsertReviseHistory`(    IN p_file_number VARCHAR(255),    IN p_version_id VARCHAR(255),    IN p_effect_date DATETIME,    IN p_revise_content TEXT)BEGIN    -- 检查记录是否存在    IF EXISTS (SELECT 1 FROM revise_history WHERE file_number = p_file_number AND version_id = p_version_id) THEN        -- 如果存在则更新        IF p_revise_content IS NOT NULL AND p_revise_content != &#x27;...</div></div></div></a><a class="pagination-related" href="/2025/07/16/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91MySQL%E7%B4%A2%E5%BC%95%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E7%B1%BB%E5%9E%8B%E4%B8%8E%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5/" title="【MySQL】MySQL索引详解：原理、类型与优化策略"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-16</div><div class="info-item-2">【MySQL】MySQL索引详解：原理、类型与优化策略</div></div><div class="info-2"><div class="info-item-1">一、索引基础概念（一）什么是索引索引是一种用于快速查询和检索数据的数据结构，其本质可以看成是一种排序好的数据结构。索引的作用就相当于书的目录，通过索引可以快速定位到需要的数据，而不需要全表扫描，从而显著提高查询效率。 在MySQL中，索引是存储引擎层面实现的，不同的存储引擎对索引的实现方式可能会有所不同。但无论是哪种存储引擎，索引的目的都是提高数据检索的效率，降低数据库的IO成本。 （二）索引的优缺点1. 索引的优点 提高查询速度：通过索引，数据库可以大幅减少需要扫描的数据量，直接定位到符合条件的记录，从而显著加快数据检索速度，减少磁盘I&#x2F;O次数。 保证数据唯一性：通过创建唯一索引，可以确保表中的某一列（或几列组合）的值是独一无二的，比如用户ID、邮箱等。主键本身就是一种唯一索引。 加速排序和分组：如果查询中的ORDER BY或GROUP BY子句涉及的列建有索引，数据库往往可以直接利用索引已经排好序的特性，避免额外的排序操作。  2. 索引的缺点 创建和维护耗时：创建索引本身需要时间，特别是对大表操作时。更重要的是，当对表中的数据进行增、删、改(DML操作)时，不仅要...</div></div></div></a><a class="pagination-related" href="/2025/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" title="【MySQL】常用函数总结"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-14</div><div class="info-item-2">【MySQL】常用函数总结</div></div><div class="info-2"><div class="info-item-1">【MySQL】常用函数总结一、字符串处理函数1. 字符串连接函数CONCAT()将多个字符串连接成一个字符串： 123456789-- 基本用法SELECT CONCAT(&#x27;Hello&#x27;, &#x27; &#x27;, &#x27;World&#x27;) AS greeting;-- 结果: Hello World-- 连接列值SELECT CONCAT(first_name, &#x27; &#x27;, last_name) AS full_name FROM employees;-- 与其他表达式混用SELECT CONCAT(&#x27;ID: &#x27;, id, &#x27;, Name: &#x27;, name) FROM products;  CONCAT_WS()使用指定的分隔符连接多个字符串，比CONCAT更方便： 123456789101112-- 基本语法: CONCAT_WS(separator, string1, string2, ...)-- 使用逗号连接SELECT CONCAT_WS(&#x27;,&#x27;, &#x...</div></div></div></a><a class="pagination-related" href="/2025/07/17/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91MySQL%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%8E%8B%E8%80%85/" title="【数据库】MySQL详解：关系型数据库的王者"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-17</div><div class="info-item-2">【数据库】MySQL详解：关系型数据库的王者</div></div><div class="info-2"><div class="info-item-1">什么是MySQL？MySQL是一个开源的关系型数据库管理系统（RDBMS），由瑞典MySQL AB公司开发，现在属于Oracle公司。它使用结构化查询语言（SQL）进行数据库管理，是目前最流行的开源数据库之一。 核心特性1. 开源免费 社区版完全免费 商业版提供额外功能和技术支持 拥有庞大的开源社区支持  2. 跨平台支持 支持Windows、Linux、macOS等主流操作系统 支持多种硬件架构  3. 高性能 支持多线程，充分利用CPU资源 优化的SQL查询算法 支持索引优化查询速度  4. 可靠性 支持事务处理（ACID特性） 数据备份和恢复机制 主从复制架构  存储引擎InnoDB（默认引擎） 事务支持：支持ACID事务 行级锁：提高并发性能 外键约束：保证数据完整性 崩溃恢复：自动故障恢复机制  MyISAM 表级锁：适合读多写少的场景 全文索引：支持全文搜索 压缩表：节省存储空间  基本操作数据库操作12345678-- 创建数据库CREATE DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">178</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">466</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E4%B8%8D%E4%B8%80%E8%87%B4%E9%97%AE%E9%A2%98"><span class="toc-text">数据库关联查询的字段类型不一致问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%A4%BA%E4%BE%8B"><span class="toc-text">错误示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%881%EF%BC%9A%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%BB%93%E6%9E%84%EF%BC%8C%E4%BD%BF%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E4%B8%80%E8%87%B4"><span class="toc-text">方案1：修改表结构，使字段类型一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%882%EF%BC%9A%E5%9C%A8%E6%9F%A5%E8%AF%A2%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%98%BE%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">方案2：在查询中进行显式类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%883%EF%BC%9A%E4%BD%BF%E7%94%A8FIND-IN-SET%E6%88%96LIKE%E8%BF%9B%E8%A1%8C%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="toc-text">方案3：使用FIND_IN_SET或LIKE进行模糊匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D"><span class="toc-text">性能影响</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客文章分类管理指南"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【博客】Hexo博客文章分类管理指南"/></a><div class="content"><a class="title" href="/2025/07/22/%E5%8D%9A%E5%AE%A2/%E3%80%90%E5%8D%9A%E5%AE%A2%E3%80%91Hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97/" title="【博客】Hexo博客文章分类管理指南">【博客】Hexo博客文章分类管理指南</a><time datetime="2025-07-21T16:00:00.000Z" title="发表于 2025-07-22 00:00:00">2025-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据库】Redis从入门到精通"/></a><div class="content"><a class="title" href="/2025/07/21/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91Redis%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" title="【数据库】Redis从入门到精通">【数据库】Redis从入门到精通</a><time datetime="2025-07-21T02:15:51.212Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/21/%E5%85%B6%E4%BB%96/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微信小程序】微信小程序开发指南：从零开始的完整实践"/></a><div class="content"><a class="title" href="/2025/07/21/%E5%85%B6%E4%BB%96/%E3%80%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%91%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E5%AE%9E%E8%B7%B5/" title="【微信小程序】微信小程序开发指南：从零开始的完整实践">【微信小程序】微信小程序开发指南：从零开始的完整实践</a><time datetime="2025-07-21T02:15:51.211Z" title="发表于 2025-07-21 10:15:51">2025-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E5%85%B6%E4%BB%96/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%91C%E3%80%81C++%E3%80%81C#%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%9A%E4%B8%89%E7%A7%8D%E8%AF%AD%E8%A8%80%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8E%86%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景"/></a><div class="content"><a class="title" href="/2025/07/19/%E5%85%B6%E4%BB%96/%E3%80%90%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E3%80%91C%E3%80%81C++%E3%80%81C#%E6%B7%B1%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%9A%E4%B8%89%E7%A7%8D%E8%AF%AD%E8%A8%80%E7%9A%84%E6%BC%94%E8%BF%9B%E5%8E%86%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" title="【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景">【编程语言】C、C++、C#深度对比：三种语言的演进历程与应用场景</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用"/></a><div class="content"><a class="title" href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91AI%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%88%90%E9%95%BF%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%88%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" title="【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用">【学习路线】AI开发工程师成长指南：从机器学习基础到大模型应用</a><time datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2024 - 2025 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/custom.js"></script><script src="/js/ai-assistant.js"></script><script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
