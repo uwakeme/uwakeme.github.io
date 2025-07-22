@@ -1,5 +1,5 @@
 ---
-title: 【BUG】GitHub连接失败：Failed to connect to github.com port 443 after 21056 ms: Couldn't connect to server
+title: 【BUG】GitHub连接失败Failed to connect to github.com port 443 after 21056 ms, Couldn't connect to server
 date: 2025-07-15
 categories:
   - BUG
