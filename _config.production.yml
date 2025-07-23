@@ -1,0 +1,68 @@
+# 生产环境配置文件
+# 覆盖开发环境的配置以优化性能
+
+# 启用压缩
+neat_enable: true
+neat_html:
+  enable: true
+  exclude:
+    - '**/*.min.html'
+neat_css:
+  enable: true
+  exclude:
+    - '**/*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '**/*.min.js'
+
+# 启用缓存
+cache:
+  enable: true
+
+# 生产环境URL
+url: https://uwakeme.top
+
+# 禁用调试信息
+debug: false
+
+# 启用Gzip压缩
+compress: true
+
+# 优化图片
+image_optimization:
+  enable: true
+  quality: 80
+  progressive: true
+
+# 启用CDN
+use_cdn: true
+
+# 启用Service Worker
+pwa:
+  enable: true
+  manifest: /manifest.json
+  
+# 启用预加载
+preload:
+  enable: true
+  
+# 启用懒加载
+lazyload:
+  enable: true
+
+# 生产环境分析工具
+analytics:
+  google_analytics: # 你的GA ID
+  baidu_analytics: # 你的百度统计ID
+  
+# 错误监控
+error_tracking:
+  enable: true
+  
+# 性能监控
+performance_monitoring:
+  enable: true

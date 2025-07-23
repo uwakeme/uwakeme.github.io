@@ -135,17 +135,91 @@ seo:
     enable: true
     placeholder: /images/loading.gif
 
+# ==================================== SEO优化增强 ====================================
 # 启用sitemap
 sitemap:
   path: sitemap.xml
+  template: ./sitemap_template.xml
+  rel: false
+  tags: true
+  categories: true
 
 # 启用robots.txt
 robotstxt:
+  useragent: "*"
+  allow:
+    - /
+    - /archives/
+    - /categories/
+    - /tags/
+    - /about/
+  disallow:
+    - /admin/
+    - /temp/
+    - /node_modules/
+  sitemap:
+    - /sitemap.xml
+    - /local-search.xml
+
+# 自动生成canonical链接
+auto_canonical:
   enable: true
-  sitemap: /sitemap.xml
+
+# 结构化数据
+structured_data:
+  enable: true
+  type: 'BlogPosting'
+  author: 'Wake'
+  publisher: 'Uwakeme'
+  logo: 'https://uwakeme.top/img/favicon.png'
+
+# Open Graph优化
+open_graph:
+  enable: true
+  type: website
+  twitter_card: summary_large_image
+  twitter_site: '@uwakeme'
+  fb_app_id:
+  image: https://uwakeme.top/img/og-image.png
 
 # 添加RSS订阅
 feed:
   type: atom
   path: atom.xml
   limit: 20
+
+# ==================================== 性能优化 ====================================
+# 静态资源压缩
+neat_enable: true
+neat_html:
+  enable: true
+  exclude:
+neat_css:
+  enable: true
+  exclude:
+    - '*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'
+
+# 图片懒加载配置
+lazyload:
+  enable: true
+  field: site
+  placeholder: /img/loading.gif
+  blur: 1
+
+# 缓存配置
+cache:
+  enable: true
+  ttl: 86400000  # 24小时缓存
+
+# 预加载配置
+preload:
+  enable: true
+  rev: false
+  delay: true

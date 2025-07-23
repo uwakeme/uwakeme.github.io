@@ -10,6 +10,29 @@ nav:
 # 网站图标
 favicon: https://cdn.jsdelivr.net/gh/uwakeme/cdn@main/img/favicon.png
 
+# 头像
+avatar:
+  img: /img/avatar.jpeg
+  effect: true # 頭像會一直轉圈
+
+# 主頁subtitle
+subtitle:
+  enable: true
+  # Typewriter Effect (打字效果)
+  effect: true
+  # Customize typed.js
+  # https://github.com/mattboldt/typed.js/#customization
+  typed_option:
+  # source 調用第三方服務
+  # false 關閉調用
+  # 1  調用一言網的一句話（簡體） https://hitokoto.cn/
+  # 2  調用一句網（簡體） http://yijuzhan.com/
+  # 3  調用今日詩詞（簡體） https://www.jinrishici.com/
+  # subtitle 會先顯示 source , 再顯示 sub 的內容
+  source: true
+  # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
+  sub:
+
 # 菜单设置
 menu:
   首页: / || fas fa-home
@@ -38,6 +61,13 @@ social:
   fab fa-github: https://github.com/uwakeme || Github
   fas fa-envelope: mailto:wakemeup2025@126.com || Email
 
+search:
+  # Choose: algolia_search / local_search / docsearch
+  # leave it empty if you don't need search
+  use: local_search
+  placeholder: 请输入搜索内容
+
+
 # 搜索设置
 local_search:
   enable: true
@@ -60,15 +90,15 @@ katex:
 lazyload:
   enable: true
   field: site # site/post
-  placeholder: # 占位图
-  blur: false # 模糊效果
+  placeholder: /img/loading.gif # 占位图
+  blur: 1 # 模糊效果
 
 # 图片放大
-medium_zoom: false
+medium_zoom: true
 fancybox: true
 
 # 页面设置
-index_img: # 主页顶部图
+index_img: /img/index_img.jpg # 主页顶部图
 default_top_img: # 默认顶部图
 archive_img: # 归档页顶部图
 tag_img: # 标签页顶部图
@@ -156,12 +186,10 @@ index_post_content:
 # 锚点
 anchor:
   button:
-    enable: false
+    enable: true
     always_show: false
     icon: # the unicode value of Font Awesome icon, such as '\3423'
-  auto_update: false # when you scroll in post, the URL will update according to header id.
-
-# 图片点击放大已在上面配置
+  auto_update: true # when you scroll in post, the URL will update according to header id.
 
 # 阅读模式
 readmode: true
@@ -230,27 +258,17 @@ cloudflare_analytics:
 # https://clarity.microsoft.com/
 microsoft_clarity:
 
-# 广告
-# Google Adsense (谷歌广告)
-google_adsense:
-  enable: false
-  auto_ads: true
-  js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
-  client: # your Google Adsense client id
-  enable_page_level_ads: true
-
-# 网站图标已在上面设置
-
-# PWA
+# PWA 渐进式Web应用
 # See https://github.com/JLHwung/hexo-offline
 # ---------------
 pwa:
-  enable: false
-  manifest: /pwa/manifest.json
-  apple_touch_icon: /pwa/apple-touch-icon.png
-  favicon_32_32: /pwa/32.png
-  favicon_16_16: /pwa/16.png
-  mask_icon: /pwa/safari-pinned-tab.svg
+  enable: true
+  manifest: /manifest.json
+  apple_touch_icon: /img/icon-152x152.png
+  favicon_32_32: /img/icon-32x32.png
+  favicon_16_16: /img/icon-16x16.png
+  mask_icon: /img/safari-pinned-tab.svg
+  theme_color: "#49b1f5"
 
 # Open graph meta tags
 # https://developers.facebook.com/docs/sharing/webmasters/
@@ -265,23 +283,43 @@ Open_Graph_meta:
     # fb_admins:
     # fb_app_id:
 
-# 添加CSS和JS
+# 添加CSS和JS - 性能优化
 inject:
   head:
     - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
     - <link rel="stylesheet" href="/css/custom.css">
     - <link rel="stylesheet" href="/css/ai-assistant.css">
+    - <link rel="stylesheet" href="/css/performance.css">
+    - <link rel="stylesheet" href="/css/mobile-optimization.css">
+    - <link rel="stylesheet" href="/css/content-management.css">
+    - <link rel="stylesheet" href="/css/theme-enhancement.css">
+    - <link rel="stylesheet" href="/css/mermaid-style.css">
+    # 预加载关键资源
+    - <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    - <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    - <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    # 性能优化meta标签
+    - <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    - <meta http-equiv="X-UA-Compatible" content="IE=edge">
   bottom:
     - <script src="/js/custom.js"></script>
     - <script src="/js/ai-assistant.js"></script>
-    - <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    - <script src="/js/performance.js"></script>
+    - <script src="/js/structured-data.js"></script>
+    - <script src="/js/seo-meta.js"></script>
+    - <script src="/js/enhanced-search.js"></script>
+    - <script src="/js/ux-enhancement.js"></script>
+    - <script src="/js/related-posts.js"></script>
+    - <script src="/js/tag-category-manager.js"></script>
+    - <script src="/js/theme-enhancement.js"></script>
+    - <script src="/js/mermaid-init.js"></script>
 
-# CDN设置
+# CDN设置 - 性能优化
 CDN:
   # The CDN provider of internal scripts (主题内部 js 的 cdn 配置)
   # option: local/jsdelivr/unpkg/cdnjs/custom
   # Dev version can only choose. ( dev版的主题只能设置为 local )
-  internal_provider: local
+  internal_provider: jsdelivr
 
   # The CDN provider of third party scripts (第三方 js 的 cdn 配置)
   # option: local/jsdelivr/unpkg/cdnjs/custom
@@ -289,13 +327,42 @@ CDN:
   third_party_provider: jsdelivr
 
   # Add version number to CDN, true or false
-  version: false
+  version: true
 
   # Custom format
   # For example: https://cdn.staticfile.org/${cdnjs_name}/${version}/${min_cdnjs_file}
   custom_format:
 
   option:
+    # 主要库使用CDN加速
+    jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
+    jquery_ui: https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js
+    fontawesome: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css
+    prismjs_css: https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.min.css
+    prismjs_js: https://cdn.jsdelivr.net/npm/prismjs@latest/components/prism-core.min.js
+
+# 文章版权信息
+post_copyright:
+  enable: true
+  decode: false
+  author_href: https://uwakeme.top/about/
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+# 文章过期提醒
+noticeOutdate:
+  enable: true
+  style: flat # style: simple/flat
+  limit_day: 365
+  position: top # position: top/bottom
+  message_prev: 本文最后更新于
+  message_next: 天前，文中内容可能已过时，请谨慎参考。
+
+# 相关文章推荐
+related_post:
+  enable: true
+  limit: 6 # 显示推荐文章数目
+  date_type: created # or created or updated 文章日期显示创建日或者更新日
 
 # 打赏 Sponsor/reward
 reward:
@@ -328,7 +395,7 @@ toc:
 # canvas_ribbon (静止彩带)
 # See: https://github.com/hustcc/ribbon.js
 canvas_ribbon:
-  enable: false
+  enable: true
   size: 150
   alpha: 0.6
   zIndex: -1
@@ -356,5 +423,109 @@ wordcount:
   min2read: true
   total_wordcount: true
 
+# ==================================== 高级功能配置 ====================================
 
-  
+# 鼠标点击效果
+fireworks:
+  enable: true
+  zIndex: 9999 # -1 or 9999
+  mobile: false
+
+# 文字点击效果
+ClickShowText:
+  enable: false
+  text:
+    - 富强
+    - 民主
+    - 文明
+    - 和谐
+    - 自由
+    - 平等
+    - 公正
+    - 法治
+    - 爱国
+    - 敬业
+    - 诚信
+    - 友善
+  fontSize: 15px
+  random: true
+  mobile: false
+
+# 网站运行时间
+runtimeshow:
+  enable: true
+  publish_date: 2024/08/29 00:00:00  # 网站上线时间
+  format: '本站已运行 {d} 天 {h} 小时 {m} 分钟 {s} 秒'
+
+# 访客统计 (busuanzi)
+busuanzi:
+  site_uv: true
+  site_pv: true
+  page_pv: true
+
+# 美化配置
+beautify:
+  enable: true
+  field: post # site/post
+  title-prefix-icon: '\f0c1'
+  title-prefix-icon-color: '#F47466'
+
+# 页面加载动画
+preloader:
+  enable: true
+  # source
+  # 1. fullpage-loading
+  # 2. pace (progress bar)
+  source: 1
+  # pace theme (see https://codebyzach.github.io/pace/)
+  pace_css_url: https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css
+
+# 评论功能
+comments:
+  # Up to two comments system, the first will be shown as default
+  # Leave it empty if you don't need comments
+  # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
+  # Format of two comments system : Disqus,Waline
+  use: Disqusjs
+  # Display the comment name next to the button
+  text: true
+  # Lazyload: The comment system will be load when comment element enters the browser's viewport.
+  # If you set it to true, the comment count will be invalid
+  lazyload: false
+  # Display comment count in post's top_img
+  count: true
+  # Display comment count in Home Page
+  card_post_count: true
+
+disqusjs:
+  shortname: uwakeme
+  apikey: B8nMqe9biE6yezafjREQRGw9Cx00rv0nCHIuYvHSZy3QDwdFmD058KDxQf5yIbKC
+  option:
+
+# Mermaid
+# https://github.com/mermaid-js/mermaid
+mermaid:
+  enable: true
+  # Write Mermaid diagrams using code blocks
+  code_write: true
+  # built-in themes: default / forest / dark / neutral
+  theme:
+    light: default
+    dark: dark
+  # CDN
+  cdn: https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js
+
+syntax_highlighter: 'highlight.js'
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+  exclude_languages: []
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+  exclude_languages: []
+
