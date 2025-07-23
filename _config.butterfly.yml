@@ -294,6 +294,7 @@ inject:
     - <link rel="stylesheet" href="/css/content-management.css">
     - <link rel="stylesheet" href="/css/theme-enhancement.css">
     - <link rel="stylesheet" href="/css/mermaid-style.css">
+    - <link rel="stylesheet" href="/css/categories-page.css">
     # 预加载关键资源
     - <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     - <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -313,6 +314,8 @@ inject:
     - <script src="/js/tag-category-manager.js"></script>
     - <script src="/js/theme-enhancement.js"></script>
     - <script src="/js/mermaid-init.js"></script>
+    - <script src="/js/categories-data.js"></script>
+    - <script src="/js/categories-page.js"></script>
 
 # CDN设置 - 性能优化
 CDN:
@@ -353,7 +356,7 @@ post_copyright:
 noticeOutdate:
   enable: true
   style: flat # style: simple/flat
-  limit_day: 365
+  limit_day: 1000
   position: top # position: top/bottom
   message_prev: 本文最后更新于
   message_next: 天前，文中内容可能已过时，请谨慎参考。
@@ -395,7 +398,7 @@ toc:
 # canvas_ribbon (静止彩带)
 # See: https://github.com/hustcc/ribbon.js
 canvas_ribbon:
-  enable: true
+  enable: false
   size: 150
   alpha: 0.6
   zIndex: -1
@@ -403,8 +406,8 @@ canvas_ribbon:
   mobile: false
 # Fluttering Ribbon (动态彩带)
 canvas_fluttering_ribbon:
-  enable: false
-  mobile: false
+  enable: true
+  mobile: true
 #星空特效
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
@@ -528,4 +531,8 @@ prismjs:
   line_number: true
   tab_replace: ''
   exclude_languages: []
+
+# https://instant.page/
+# prefetch (預加載)
+instantpage: true
 
