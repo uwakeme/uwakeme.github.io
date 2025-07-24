@@ -59,6 +59,6 @@ graph TD
 - 邮箱：wakemeup2025@126.com
 - GitHub：[uwakeme](https://github.com/uwakeme)
 - 微信公众号：扫描下方二维码
-![微信二维码](./img/wechat_public.jpg)
+![微信二维码](./img/about/wechat_public.jpg)
 
 感谢你访问我的博客！希望这里的内容对你有所帮助。

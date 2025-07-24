@@ -16,7 +16,7 @@ date: 2024-11-12 10:15:08
 
 + 更换新电脑后，安装了新版本node（20.15.0），发现使用打包命令`vue-cli-service build --mode production` 时会报错，报错信息如下
 
-  ![QQ20241111-162833](../images/QQ20241111-162833.png)
+  ![QQ20241111-162833](/img/post/QQ20241111-162833.png)
 
   ```
   [Error: error:0308010C:digital envelope routines::unsupported]
@@ -46,6 +46,6 @@ date: 2024-11-12 10:15:08
 
 + 方法三：修改配置文件，在`package.json` 文件中找到打包语句，然后再前面添加上面方法二中的语句 + &&
 
-  ![image-20241111164325408](../images/image-20241111164325408.png)
+  ![image-20241111164325408](/img/post/image-20241111164325408.png)
 
   
