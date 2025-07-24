@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 添加文章卡片动画延迟
   addAnimationDelay();
   
-  // 添加代码块语言标签
-  addCodeLangLabel();
+  // 添加代码块语言标签 - 已禁用，使用主题自带功能
+  // addCodeLangLabel();
   
   // 添加图片点击放大效果
   addImageZoom();
@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 初始化文章内容目录悬浮效果
   initTocSticky();
+
+  // 初始化移动端目录切换
+  initMobileTocToggle();
   
   // 添加阅读进度条
   addReadingProgressBar();
@@ -27,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 激活目录跟随滚动
   activateTocScroll();
   
-  // 添加文章推荐
-  addRelatedPosts();
+  // 添加文章推荐 - 已禁用，使用 related-posts.js 中的系统
+  // addRelatedPosts();
   
   // 根据文章内容生成封面图
   generatePostCover();
@@ -223,94 +226,289 @@ function addReadingProgressBar() {
   });
 }
 
-// 增强代码块复制功能
+// 增强代码块复制功能 - 使用主题自带功能
 function enhanceCodeCopy() {
-  const copyButtons = document.querySelectorAll('.copy-btn');
-  
-  copyButtons.forEach(btn => {
-    const originalText = btn.textContent;
-    
-    btn.addEventListener('click', function() {
-      // 创建成功提示
-      const successTip = document.createElement('div');
-      successTip.className = 'copy-success-tip';
-      successTip.textContent = '复制成功！';
-      successTip.style.position = 'fixed';
-      successTip.style.top = '20px';
-      successTip.style.left = '50%';
-      successTip.style.transform = 'translateX(-50%)';
-      successTip.style.padding = '8px 16px';
-      successTip.style.backgroundColor = 'rgba(73, 177, 245, 0.9)';
-      successTip.style.color = 'white';
-      successTip.style.borderRadius = '4px';
-      successTip.style.zIndex = '9999';
-      successTip.style.opacity = '0';
-      successTip.style.transition = 'opacity 0.3s';
-      
-      document.body.appendChild(successTip);
-      
-      // 显示提示
-      setTimeout(() => {
-        successTip.style.opacity = '1';
-      }, 10);
-      
-      // 隐藏提示
-      setTimeout(() => {
-        successTip.style.opacity = '0';
-        setTimeout(() => {
-          document.body.removeChild(successTip);
-        }, 300);
-      }, 2000);
-    });
-  });
+  // 让主题自带的复制功能正常工作
+  // 不添加自定义复制按钮，避免冲突
+  console.log('使用Butterfly主题自带的代码复制功能');
 }
 
-// 激活目录跟随滚动
+// 激活目录跟随滚动 - 增强版
 function activateTocScroll() {
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
-  
-  if (tocLinks.length === 0 || headings.length === 0) {
+  // 查找目录容器（支持多种可能的选择器）
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  // 查找目录链接（支持多种可能的选择器）
+  const tocLinks = document.querySelectorAll('.toc-wrapper a, .toc-div a, .post-toc a, #toc a, .aside-content .card-widget.card-toc a, .toc-link');
+  // 查找文章标题
+  const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6, article h1, article h2, article h3, article h4, article h5, article h6');
+
+  console.log('TOC Debug:', {
+    tocWrapper: tocWrapper,
+    tocLinksCount: tocLinks.length,
+    headingsCount: headings.length
+  });
+
+  if (!tocWrapper || tocLinks.length === 0 || headings.length === 0) {
     return;
   }
-  
+
+  // 优化目录结构
+  enhanceTocStructure();
+
+  // 添加目录折叠功能
+  addTocCollapse();
+
   // 清除所有激活状态
   function clearActiveLinks() {
     tocLinks.forEach(link => {
       link.classList.remove('active');
     });
   }
-  
-  // 监听滚动事件
-  window.addEventListener('scroll', function() {
-    // 获取当前滚动位置
-    const scrollTop = window.scrollY;
-    
+
+  // 节流函数
+  function throttle(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // 监听滚动事件（使用节流优化性能）
+  const handleScroll = throttle(function() {
     // 找到当前可见的标题
     let currentHeading = null;
-    
+    let minDistance = Infinity;
+
     headings.forEach(heading => {
       const rect = heading.getBoundingClientRect();
-      
-      // 如果标题在视口上方或在视口内靠上位置
-      if (rect.top <= 100) {
+      const distance = Math.abs(rect.top - 100);
+
+      // 选择距离视口顶部100px最近的标题
+      if (rect.top <= 150 && distance < minDistance) {
+        minDistance = distance;
         currentHeading = heading;
       }
     });
-    
+
     // 如果找到了当前可见的标题
     if (currentHeading) {
       // 清除所有激活状态
       clearActiveLinks();
-      
+
       // 获取当前标题的ID
       const id = currentHeading.id;
-      
-      // 找到对应的TOC链接并设置为激活状态
-      const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+
+      // 找到对应的TOC链接并设置为激活状态（支持多种选择器）
+      const activeLink = document.querySelector(`
+        .toc-wrapper a[href="#${id}"],
+        .toc-div a[href="#${id}"],
+        .post-toc a[href="#${id}"],
+        #toc a[href="#${id}"],
+        .aside-content .card-widget.card-toc a[href="#${id}"],
+        .toc-link[href="#${id}"]
+      `);
       if (activeLink) {
         activeLink.classList.add('active');
+        console.log('Active link found:', activeLink);
+
+        // 自动滚动到可见区域
+        scrollTocToActive(activeLink);
       }
+    }
+  }, 100);
+
+  window.addEventListener('scroll', handleScroll);
+
+  // 点击目录链接平滑滚动
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+// 优化目录结构
+function enhanceTocStructure() {
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  if (!tocWrapper) return;
+
+  // 添加目录标题（如果不存在）
+  if (!tocWrapper.querySelector('.toc-title, .card-header, .item-headline')) {
+    const title = document.createElement('div');
+    title.className = 'toc-title';
+    title.textContent = '目录';
+    tocWrapper.insertBefore(title, tocWrapper.firstChild);
+  }
+
+  // 为不同层级添加类名
+  const tocItems = tocWrapper.querySelectorAll('li, .toc-item');
+  tocItems.forEach(item => {
+    const link = item.querySelector('a, .toc-link');
+    if (link) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          const level = parseInt(targetElement.tagName.substring(1));
+          item.classList.add(`toc-level-${level}`);
+
+          // 为子级添加缩进
+          if (level > 2) {
+            item.classList.add('toc-child');
+          }
+        }
+      }
+    }
+  });
+}
+
+// 添加目录折叠功能
+function addTocCollapse() {
+  const tocWrapper = document.querySelector('.toc-wrapper');
+  if (!tocWrapper) return;
+
+  const title = tocWrapper.querySelector('.toc-title');
+  if (!title) return;
+
+  // 添加折叠按钮
+  const collapseBtn = document.createElement('span');
+  collapseBtn.className = 'toc-collapse-btn';
+  collapseBtn.innerHTML = '−';
+  collapseBtn.style.cssText = `
+    float: right;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(73, 177, 245, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  `;
+
+  title.appendChild(collapseBtn);
+
+  // 折叠功能
+  let isCollapsed = false;
+  collapseBtn.addEventListener('click', function() {
+    const tocContent = tocWrapper.querySelector('.toc');
+    if (!tocContent) return;
+
+    isCollapsed = !isCollapsed;
+
+    if (isCollapsed) {
+      tocContent.style.display = 'none';
+      collapseBtn.innerHTML = '+';
+      collapseBtn.style.transform = 'rotate(180deg)';
+    } else {
+      tocContent.style.display = 'block';
+      collapseBtn.innerHTML = '−';
+      collapseBtn.style.transform = 'rotate(0deg)';
+    }
+  });
+}
+
+// 滚动目录到激活项
+function scrollTocToActive(activeLink) {
+  const tocWrapper = document.querySelector('.toc-wrapper');
+  if (!tocWrapper || !activeLink) return;
+
+  const tocRect = tocWrapper.getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+
+  // 如果激活的链接不在可视区域内，滚动到可视区域
+  if (linkRect.top < tocRect.top || linkRect.bottom > tocRect.bottom) {
+    const scrollTop = activeLink.offsetTop - tocWrapper.offsetTop - tocWrapper.clientHeight / 2;
+    tocWrapper.scrollTo({
+      top: scrollTop,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// 初始化移动端目录切换
+function initMobileTocToggle() {
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  if (!tocWrapper) return;
+
+  // 检查是否为移动设备
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // 创建切换按钮
+  function createToggleButton() {
+    if (document.querySelector('.toc-toggle-btn')) return;
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'toc-toggle-btn';
+    toggleBtn.innerHTML = '📋';
+    toggleBtn.title = '显示/隐藏目录';
+
+    // 添加到页面
+    document.body.appendChild(toggleBtn);
+
+    // 绑定点击事件
+    toggleBtn.addEventListener('click', function() {
+      tocWrapper.classList.toggle('show');
+
+      // 更新按钮图标
+      if (tocWrapper.classList.contains('show')) {
+        toggleBtn.innerHTML = '✕';
+        toggleBtn.title = '隐藏目录';
+      } else {
+        toggleBtn.innerHTML = '📋';
+        toggleBtn.title = '显示目录';
+      }
+    });
+
+    // 点击目录外部区域隐藏目录
+    document.addEventListener('click', function(e) {
+      if (!tocWrapper.contains(e.target) && !toggleBtn.contains(e.target)) {
+        tocWrapper.classList.remove('show');
+        toggleBtn.innerHTML = '📋';
+        toggleBtn.title = '显示目录';
+      }
+    });
+  }
+
+  // 移除切换按钮
+  function removeToggleButton() {
+    const toggleBtn = document.querySelector('.toc-toggle-btn');
+    if (toggleBtn) {
+      toggleBtn.remove();
+    }
+    tocWrapper.classList.remove('show');
+  }
+
+  // 初始化
+  if (isMobile()) {
+    createToggleButton();
+  }
+
+  // 监听窗口大小变化
+  window.addEventListener('resize', function() {
+    if (isMobile()) {
+      createToggleButton();
+    } else {
+      removeToggleButton();
     }
   });
 }
@@ -1757,286 +1955,6 @@ if ('serviceWorker' in navigator) {
 
 })();
 ;
-// 增强搜索功能
-(function() {
-  'use strict';
-
-  let searchData = [];
-  let searchIndex = null;
-
-  // 初始化搜索数据
-  async function initSearchData() {
-    try {
-      const response = await fetch('/local-search.xml');
-      const text = await response.text();
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(text, 'text/xml');
-      const entries = xmlDoc.querySelectorAll('entry');
-
-      searchData = Array.from(entries).map(entry => ({
-        title: entry.querySelector('title')?.textContent || '',
-        content: entry.querySelector('content')?.textContent || '',
-        url: entry.querySelector('url')?.textContent || '',
-        categories: entry.querySelector('categories')?.textContent || '',
-        tags: entry.querySelector('tags')?.textContent || ''
-      }));
-
-      console.log('搜索数据加载完成:', searchData.length, '篇文章');
-    } catch (error) {
-      console.error('搜索数据加载失败:', error);
-    }
-  }
-
-  // 搜索函数
-  function performSearch(query) {
-    if (!query || query.length < 2) return [];
-
-    const results = [];
-    const queryLower = query.toLowerCase();
-    const queryWords = queryLower.split(/\s+/).filter(word => word.length > 0);
-
-    searchData.forEach(item => {
-      let score = 0;
-      const titleLower = item.title.toLowerCase();
-      const contentLower = item.content.toLowerCase();
-      const categoriesLower = item.categories.toLowerCase();
-      const tagsLower = item.tags.toLowerCase();
-
-      // 标题匹配权重最高
-      queryWords.forEach(word => {
-        if (titleLower.includes(word)) {
-          score += 10;
-        }
-        if (categoriesLower.includes(word)) {
-          score += 5;
-        }
-        if (tagsLower.includes(word)) {
-          score += 3;
-        }
-        if (contentLower.includes(word)) {
-          score += 1;
-        }
-      });
-
-      // 完整查询匹配
-      if (titleLower.includes(queryLower)) {
-        score += 20;
-      }
-      if (contentLower.includes(queryLower)) {
-        score += 5;
-      }
-
-      if (score > 0) {
-        results.push({
-          ...item,
-          score,
-          highlight: highlightText(item.title, query),
-          excerpt: generateExcerpt(item.content, query)
-        });
-      }
-    });
-
-    return results.sort((a, b) => b.score - a.score).slice(0, 10);
-  }
-
-  // 高亮文本
-  function highlightText(text, query) {
-    if (!query) return text;
-    
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  }
-
-  // 生成摘要
-  function generateExcerpt(content, query, maxLength = 150) {
-    if (!content) return '';
-    
-    const queryLower = query.toLowerCase();
-    const contentLower = content.toLowerCase();
-    const index = contentLower.indexOf(queryLower);
-    
-    let start = 0;
-    if (index !== -1) {
-      start = Math.max(0, index - 50);
-    }
-    
-    let excerpt = content.substring(start, start + maxLength);
-    if (start > 0) excerpt = '...' + excerpt;
-    if (start + maxLength < content.length) excerpt += '...';
-    
-    return highlightText(excerpt, query);
-  }
-
-  // 创建搜索结果HTML
-  function createSearchResultHTML(results) {
-    if (results.length === 0) {
-      return '<div class="search-no-results">未找到相关内容</div>';
-    }
-
-    return results.map(result => `
-      <div class="search-result-item">
-        <h3 class="search-result-title">
-          <a href="${result.url}">${result.highlight}</a>
-        </h3>
-        <div class="search-result-excerpt">${result.excerpt}</div>
-        <div class="search-result-meta">
-          ${result.categories ? `<span class="category">${result.categories}</span>` : ''}
-          ${result.tags ? `<span class="tags">${result.tags}</span>` : ''}
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // 搜索建议功能
-  function generateSearchSuggestions(query) {
-    if (!query || query.length < 2) return [];
-
-    const suggestions = new Set();
-    const queryLower = query.toLowerCase();
-
-    searchData.forEach(item => {
-      // 从标题提取建议
-      const titleWords = item.title.toLowerCase().split(/\s+/);
-      titleWords.forEach(word => {
-        if (word.includes(queryLower) && word.length > 2) {
-          suggestions.add(word);
-        }
-      });
-
-      // 从标签提取建议
-      if (item.tags) {
-        const tags = item.tags.toLowerCase().split(',');
-        tags.forEach(tag => {
-          const cleanTag = tag.trim();
-          if (cleanTag.includes(queryLower) && cleanTag.length > 1) {
-            suggestions.add(cleanTag);
-          }
-        });
-      }
-    });
-
-    return Array.from(suggestions).slice(0, 5);
-  }
-
-  // 搜索历史管理
-  const searchHistory = {
-    key: 'blog_search_history',
-    maxItems: 10,
-
-    get() {
-      try {
-        return JSON.parse(localStorage.getItem(this.key) || '[]');
-      } catch {
-        return [];
-      }
-    },
-
-    add(query) {
-      if (!query || query.length < 2) return;
-      
-      let history = this.get();
-      history = history.filter(item => item !== query);
-      history.unshift(query);
-      history = history.slice(0, this.maxItems);
-      
-      localStorage.setItem(this.key, JSON.stringify(history));
-    },
-
-    clear() {
-      localStorage.removeItem(this.key);
-    }
-  };
-
-  // 增强搜索框功能
-  function enhanceSearchBox() {
-    const searchInput = document.querySelector('#local-search-input, .search-input');
-    const searchResults = document.querySelector('#local-search-result, .search-results');
-    
-    if (!searchInput) return;
-
-    let searchTimeout;
-
-    // 实时搜索
-    searchInput.addEventListener('input', function(e) {
-      const query = e.target.value.trim();
-      
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        if (query.length >= 2) {
-          const results = performSearch(query);
-          if (searchResults) {
-            searchResults.innerHTML = createSearchResultHTML(results);
-          }
-        } else {
-          if (searchResults) {
-            searchResults.innerHTML = '';
-          }
-        }
-      }, 300);
-    });
-
-    // 搜索提交
-    searchInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const query = e.target.value.trim();
-        if (query) {
-          searchHistory.add(query);
-          // 这里可以添加搜索统计
-        }
-      }
-    });
-
-    // 搜索建议
-    const suggestionContainer = document.createElement('div');
-    suggestionContainer.className = 'search-suggestions';
-    searchInput.parentNode.appendChild(suggestionContainer);
-
-    searchInput.addEventListener('focus', function() {
-      const history = searchHistory.get();
-      if (history.length > 0) {
-        suggestionContainer.innerHTML = `
-          <div class="suggestion-section">
-            <div class="suggestion-title">搜索历史</div>
-            ${history.map(item => `<div class="suggestion-item" data-query="${item}">${item}</div>`).join('')}
-          </div>
-        `;
-        suggestionContainer.style.display = 'block';
-      }
-    });
-
-    // 点击建议项
-    suggestionContainer.addEventListener('click', function(e) {
-      if (e.target.classList.contains('suggestion-item')) {
-        const query = e.target.dataset.query;
-        searchInput.value = query;
-        searchInput.dispatchEvent(new Event('input'));
-        suggestionContainer.style.display = 'none';
-      }
-    });
-
-    // 点击外部隐藏建议
-    document.addEventListener('click', function(e) {
-      if (!searchInput.contains(e.target) && !suggestionContainer.contains(e.target)) {
-        suggestionContainer.style.display = 'none';
-      }
-    });
-  }
-
-  // 初始化
-  async function initEnhancedSearch() {
-    await initSearchData();
-    enhanceSearchBox();
-  }
-
-  // 页面加载完成后初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initEnhancedSearch);
-  } else {
-    initEnhancedSearch();
-  }
-
-})();
-;
 // 用户体验增强脚本
 (function() {
   'use strict';
@@ -2168,62 +2086,10 @@ if ('serviceWorker' in navigator) {
     }
   }
 
-  // 代码复制功能增强
+  // 代码复制功能增强 - 移除自定义复制按钮，使用主题自带功能
   function enhanceCodeCopy() {
-    document.querySelectorAll('pre code').forEach(codeBlock => {
-      const pre = codeBlock.parentElement;
-      if (pre.querySelector('.copy-btn')) return; // 避免重复添加
-
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
-      copyBtn.innerHTML = '复制';
-      copyBtn.style.cssText = `
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 5px 10px;
-        background: rgba(0,0,0,0.7);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 12px;
-        cursor: pointer;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      `;
-
-      pre.style.position = 'relative';
-      pre.appendChild(copyBtn);
-
-      // 鼠标悬停显示复制按钮
-      pre.addEventListener('mouseenter', () => {
-        copyBtn.style.opacity = '1';
-      });
-
-      pre.addEventListener('mouseleave', () => {
-        copyBtn.style.opacity = '0';
-      });
-
-      // 复制功能
-      copyBtn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(codeBlock.textContent);
-          copyBtn.innerHTML = '已复制';
-          copyBtn.style.background = '#28a745';
-          
-          setTimeout(() => {
-            copyBtn.innerHTML = '复制';
-            copyBtn.style.background = 'rgba(0,0,0,0.7)';
-          }, 2000);
-        } catch (err) {
-          console.error('复制失败:', err);
-          copyBtn.innerHTML = '复制失败';
-          setTimeout(() => {
-            copyBtn.innerHTML = '复制';
-          }, 2000);
-        }
-      });
-    });
+    // 不添加自定义复制按钮，让主题自带的复制功能正常工作
+    console.log('使用Butterfly主题自带的代码复制功能');
   }
 
   // 移动端导航优化
@@ -2997,555 +2863,6 @@ if ('serviceWorker' in navigator) {
     document.addEventListener('DOMContentLoaded', initTagCategoryManager);
   } else {
     initTagCategoryManager();
-  }
-
-})();
-;
-// 主题增强JavaScript
-(function() {
-  'use strict';
-
-  // 页面加载动画
-  function initPageLoader() {
-    // 创建加载动画
-    const loader = document.createElement('div');
-    loader.className = 'loading-container';
-    loader.innerHTML = `
-      <div class="loading-spinner"></div>
-    `;
-    document.body.appendChild(loader);
-
-    // 页面加载完成后隐藏动画
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-          loader.remove();
-        }, 500);
-      }, 500);
-    });
-  }
-
-  // 主题切换功能
-  function initThemeToggle() {
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (!themeToggle) return;
-
-    // 获取当前主题
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-
-    // 切换主题
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // 添加切换动画
-      document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-      setTimeout(() => {
-        document.body.style.transition = '';
-      }, 300);
-    });
-  }
-
-  // 滚动动画
-  function initScrollAnimations() {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-up');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // 观察需要动画的元素
-    document.querySelectorAll('.post-card, .sidebar-card, .widget').forEach(el => {
-      observer.observe(el);
-    });
-  }
-
-  // 打字机效果
-  function initTypewriter() {
-    const typewriterElements = document.querySelectorAll('.typewriter');
-    
-    typewriterElements.forEach(element => {
-      const text = element.textContent;
-      element.textContent = '';
-      element.style.width = '0';
-      
-      let i = 0;
-      const timer = setInterval(() => {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(timer);
-          element.style.borderRight = 'none';
-        }
-      }, 100);
-    });
-  }
-
-  // 鼠标跟随效果
-  function initMouseFollower() {
-    const follower = document.createElement('div');
-    follower.className = 'mouse-follower';
-    follower.style.cssText = `
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: var(--theme-color);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
-      transition: transform 0.1s ease;
-      transform: translate(-50%, -50%);
-    `;
-    document.body.appendChild(follower);
-
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function updateFollower() {
-      followerX += (mouseX - followerX) * 0.1;
-      followerY += (mouseY - followerY) * 0.1;
-      
-      follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
-      
-      requestAnimationFrame(updateFollower);
-    }
-    updateFollower();
-
-    // 鼠标悬停效果
-    document.addEventListener('mouseenter', (e) => {
-      if (e.target.matches('a, button, .clickable')) {
-        follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        follower.style.opacity = '0.8';
-      }
-    }, true);
-
-    document.addEventListener('mouseleave', (e) => {
-      if (e.target.matches('a, button, .clickable')) {
-        follower.style.transform = 'translate(-50%, -50%) scale(1)';
-        follower.style.opacity = '0.6';
-      }
-    }, true);
-  }
-
-  // 粒子背景效果
-  function initParticleBackground() {
-    const canvas = document.createElement('canvas');
-    canvas.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.3;
-    `;
-    document.body.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // 创建粒子
-    function createParticle() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2
-      };
-    }
-
-    // 初始化粒子
-    for (let i = 0; i < 50; i++) {
-      particles.push(createParticle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach((particle, index) => {
-        // 更新位置
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        
-        // 边界检测
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-        
-        // 绘制粒子
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(73, 177, 245, ${particle.opacity})`;
-        ctx.fill();
-        
-        // 连接附近的粒子
-        particles.slice(index + 1).forEach(otherParticle => {
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 100) {
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(73, 177, 245, ${0.1 * (1 - distance / 100)})`;
-            ctx.stroke();
-          }
-        });
-      });
-      
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
-
-  // 网站运行时间
-  function initRuntimeDisplay() {
-    const runtimeElement = document.querySelector('.runtime-display');
-    if (!runtimeElement) return;
-
-    const startDate = new Date('2024-01-01 00:00:00');
-    
-    function updateRuntime() {
-      const now = new Date();
-      const diff = now - startDate;
-      
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      runtimeElement.innerHTML = `本站已运行 ${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
-    }
-    
-    updateRuntime();
-    setInterval(updateRuntime, 1000);
-  }
-
-  // 图片懒加载增强
-  function enhanceImageLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          
-          // 添加加载动画
-          img.style.filter = 'blur(5px)';
-          img.style.transition = 'filter 0.3s ease';
-          
-          const tempImg = new Image();
-          tempImg.onload = () => {
-            img.src = img.dataset.src;
-            img.style.filter = 'none';
-            img.classList.add('loaded');
-          };
-          tempImg.src = img.dataset.src;
-          
-          observer.unobserve(img);
-        }
-      });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
-  }
-
-  // 代码复制功能增强
-  function enhanceCodeBlocks() {
-    document.querySelectorAll('pre code').forEach(codeBlock => {
-      const pre = codeBlock.parentElement;
-      
-      // 添加语言标签
-      const language = codeBlock.className.match(/language-(\w+)/);
-      if (language) {
-        const langLabel = document.createElement('span');
-        langLabel.className = 'code-language';
-        langLabel.textContent = language[1].toUpperCase();
-        langLabel.style.cssText = `
-          position: absolute;
-          top: 8px;
-          right: 60px;
-          background: rgba(255,255,255,0.1);
-          color: #fff;
-          padding: 2px 8px;
-          border-radius: 4px;
-          font-size: 12px;
-        `;
-        pre.appendChild(langLabel);
-      }
-    });
-  }
-
-  // 初始化所有功能
-  function initThemeEnhancements() {
-    initPageLoader();
-    initThemeToggle();
-    initScrollAnimations();
-    initTypewriter();
-    initMouseFollower();
-    initParticleBackground();
-    initRuntimeDisplay();
-    enhanceImageLazyLoading();
-    enhanceCodeBlocks();
-  }
-
-  // 页面加载完成后初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeEnhancements);
-  } else {
-    initThemeEnhancements();
-  }
-
-})();
-;
-// Mermaid 图表初始化脚本
-(function() {
-  'use strict';
-
-  // 检查是否已经加载了 Mermaid
-  if (typeof mermaid !== 'undefined') {
-    initMermaid();
-    return;
-  }
-
-  // 动态加载 Mermaid
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
-  script.onload = function() {
-    initMermaid();
-  };
-  script.onerror = function() {
-    console.error('Failed to load Mermaid library');
-  };
-  document.head.appendChild(script);
-
-  function initMermaid() {
-    // 配置 Mermaid
-    const config = {
-      startOnLoad: false,
-      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default',
-      themeVariables: {
-        primaryColor: '#49b1f5',
-        primaryTextColor: '#333',
-        primaryBorderColor: '#49b1f5',
-        lineColor: '#666',
-        secondaryColor: '#f8f9fa',
-        tertiaryColor: '#e9ecef'
-      },
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'basis'
-      },
-      sequence: {
-        useMaxWidth: true,
-        diagramMarginX: 50,
-        diagramMarginY: 10,
-        actorMargin: 50,
-        width: 150,
-        height: 65,
-        boxMargin: 10,
-        boxTextMargin: 5,
-        noteMargin: 10,
-        messageMargin: 35
-      },
-      gantt: {
-        useMaxWidth: true,
-        barHeight: 20,
-        fontSize: 11,
-        fontFamily: '"Open Sans", sans-serif',
-        numberSectionStyles: 4,
-        axisFormat: '%Y-%m-%d'
-      }
-    };
-
-    mermaid.initialize(config);
-
-    // 渲染所有 Mermaid 图表
-    renderMermaidDiagrams();
-
-    // 监听主题变化
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-          const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
-          config.theme = newTheme;
-          mermaid.initialize(config);
-          renderMermaidDiagrams();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme']
-    });
-  }
-
-  function renderMermaidDiagrams() {
-    // 查找所有 Mermaid 代码块
-    const mermaidBlocks = document.querySelectorAll('code.language-mermaid, pre code.mermaid, .mermaid');
-    
-    mermaidBlocks.forEach((block, index) => {
-      // 避免重复渲染
-      if (block.classList.contains('mermaid-rendered')) {
-        return;
-      }
-
-      let mermaidCode = '';
-      
-      // 获取 Mermaid 代码
-      if (block.tagName === 'CODE') {
-        mermaidCode = block.textContent || block.innerText;
-        
-        // 创建容器
-        const container = document.createElement('div');
-        container.className = 'mermaid-container';
-        container.style.cssText = `
-          text-align: center;
-          margin: 20px 0;
-          padding: 20px;
-          background: #f8f9fa;
-          border-radius: 8px;
-          border: 1px solid #e9ecef;
-        `;
-        
-        // 创建 Mermaid 元素
-        const mermaidDiv = document.createElement('div');
-        mermaidDiv.className = 'mermaid';
-        mermaidDiv.textContent = mermaidCode;
-        
-        container.appendChild(mermaidDiv);
-        
-        // 替换原来的代码块
-        const pre = block.closest('pre');
-        if (pre) {
-          pre.parentNode.replaceChild(container, pre);
-        } else {
-          block.parentNode.replaceChild(container, block);
-        }
-        
-        block.classList.add('mermaid-rendered');
-      } else if (block.classList.contains('mermaid')) {
-        mermaidCode = block.textContent || block.innerText;
-        block.classList.add('mermaid-rendered');
-      }
-
-      // 渲染图表
-      if (mermaidCode.trim()) {
-        try {
-          const id = 'mermaid-' + Date.now() + '-' + index;
-          
-          mermaid.render(id, mermaidCode).then(({svg}) => {
-            const targetElement = block.classList.contains('mermaid') ? block : 
-                                 document.querySelector('.mermaid-container:last-of-type .mermaid');
-            
-            if (targetElement) {
-              targetElement.innerHTML = svg;
-              
-              // 添加响应式样式
-              const svgElement = targetElement.querySelector('svg');
-              if (svgElement) {
-                svgElement.style.maxWidth = '100%';
-                svgElement.style.height = 'auto';
-              }
-            }
-          }).catch(error => {
-            console.error('Mermaid rendering error:', error);
-            
-            // 显示错误信息
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'mermaid-error';
-            errorDiv.style.cssText = `
-              color: #dc3545;
-              background: #f8d7da;
-              border: 1px solid #f5c6cb;
-              border-radius: 4px;
-              padding: 10px;
-              margin: 10px 0;
-              font-family: monospace;
-            `;
-            errorDiv.innerHTML = `
-              <strong>Mermaid 渲染错误:</strong><br>
-              <code>${error.message}</code><br>
-              <details>
-                <summary>原始代码</summary>
-                <pre>${mermaidCode}</pre>
-              </details>
-            `;
-            
-            const targetElement = block.classList.contains('mermaid') ? block : 
-                                 document.querySelector('.mermaid-container:last-of-type .mermaid');
-            
-            if (targetElement) {
-              targetElement.parentNode.replaceChild(errorDiv, targetElement);
-            }
-          });
-        } catch (error) {
-          console.error('Mermaid initialization error:', error);
-        }
-      }
-    });
-  }
-
-  // 页面加载完成后初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      // 延迟一点时间确保其他脚本加载完成
-      setTimeout(() => {
-        if (typeof mermaid === 'undefined') {
-          // 如果还没有加载，手动加载
-          const script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
-          script.onload = initMermaid;
-          document.head.appendChild(script);
-        } else {
-          initMermaid();
-        }
-      }, 500);
-    });
-  } else {
-    setTimeout(() => {
-      if (typeof mermaid === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
-        script.onload = initMermaid;
-        document.head.appendChild(script);
-      } else {
-        initMermaid();
-      }
-    }, 500);
   }
 
 })();

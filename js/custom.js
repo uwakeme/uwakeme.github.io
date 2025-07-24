@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 添加文章卡片动画延迟
   addAnimationDelay();
   
-  // 添加代码块语言标签
-  addCodeLangLabel();
+  // 添加代码块语言标签 - 已禁用，使用主题自带功能
+  // addCodeLangLabel();
   
   // 添加图片点击放大效果
   addImageZoom();
@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 初始化文章内容目录悬浮效果
   initTocSticky();
+
+  // 初始化移动端目录切换
+  initMobileTocToggle();
   
   // 添加阅读进度条
   addReadingProgressBar();
@@ -27,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 激活目录跟随滚动
   activateTocScroll();
   
-  // 添加文章推荐
-  addRelatedPosts();
+  // 添加文章推荐 - 已禁用，使用 related-posts.js 中的系统
+  // addRelatedPosts();
   
   // 根据文章内容生成封面图
   generatePostCover();
@@ -223,94 +226,289 @@ function addReadingProgressBar() {
   });
 }
 
-// 增强代码块复制功能
+// 增强代码块复制功能 - 使用主题自带功能
 function enhanceCodeCopy() {
-  const copyButtons = document.querySelectorAll('.copy-btn');
-  
-  copyButtons.forEach(btn => {
-    const originalText = btn.textContent;
-    
-    btn.addEventListener('click', function() {
-      // 创建成功提示
-      const successTip = document.createElement('div');
-      successTip.className = 'copy-success-tip';
-      successTip.textContent = '复制成功！';
-      successTip.style.position = 'fixed';
-      successTip.style.top = '20px';
-      successTip.style.left = '50%';
-      successTip.style.transform = 'translateX(-50%)';
-      successTip.style.padding = '8px 16px';
-      successTip.style.backgroundColor = 'rgba(73, 177, 245, 0.9)';
-      successTip.style.color = 'white';
-      successTip.style.borderRadius = '4px';
-      successTip.style.zIndex = '9999';
-      successTip.style.opacity = '0';
-      successTip.style.transition = 'opacity 0.3s';
-      
-      document.body.appendChild(successTip);
-      
-      // 显示提示
-      setTimeout(() => {
-        successTip.style.opacity = '1';
-      }, 10);
-      
-      // 隐藏提示
-      setTimeout(() => {
-        successTip.style.opacity = '0';
-        setTimeout(() => {
-          document.body.removeChild(successTip);
-        }, 300);
-      }, 2000);
-    });
-  });
+  // 让主题自带的复制功能正常工作
+  // 不添加自定义复制按钮，避免冲突
+  console.log('使用Butterfly主题自带的代码复制功能');
 }
 
-// 激活目录跟随滚动
+// 激活目录跟随滚动 - 增强版
 function activateTocScroll() {
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
-  
-  if (tocLinks.length === 0 || headings.length === 0) {
+  // 查找目录容器（支持多种可能的选择器）
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  // 查找目录链接（支持多种可能的选择器）
+  const tocLinks = document.querySelectorAll('.toc-wrapper a, .toc-div a, .post-toc a, #toc a, .aside-content .card-widget.card-toc a, .toc-link');
+  // 查找文章标题
+  const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6, article h1, article h2, article h3, article h4, article h5, article h6');
+
+  console.log('TOC Debug:', {
+    tocWrapper: tocWrapper,
+    tocLinksCount: tocLinks.length,
+    headingsCount: headings.length
+  });
+
+  if (!tocWrapper || tocLinks.length === 0 || headings.length === 0) {
     return;
   }
-  
+
+  // 优化目录结构
+  enhanceTocStructure();
+
+  // 添加目录折叠功能
+  addTocCollapse();
+
   // 清除所有激活状态
   function clearActiveLinks() {
     tocLinks.forEach(link => {
       link.classList.remove('active');
     });
   }
-  
-  // 监听滚动事件
-  window.addEventListener('scroll', function() {
-    // 获取当前滚动位置
-    const scrollTop = window.scrollY;
-    
+
+  // 节流函数
+  function throttle(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // 监听滚动事件（使用节流优化性能）
+  const handleScroll = throttle(function() {
     // 找到当前可见的标题
     let currentHeading = null;
-    
+    let minDistance = Infinity;
+
     headings.forEach(heading => {
       const rect = heading.getBoundingClientRect();
-      
-      // 如果标题在视口上方或在视口内靠上位置
-      if (rect.top <= 100) {
+      const distance = Math.abs(rect.top - 100);
+
+      // 选择距离视口顶部100px最近的标题
+      if (rect.top <= 150 && distance < minDistance) {
+        minDistance = distance;
         currentHeading = heading;
       }
     });
-    
+
     // 如果找到了当前可见的标题
     if (currentHeading) {
       // 清除所有激活状态
       clearActiveLinks();
-      
+
       // 获取当前标题的ID
       const id = currentHeading.id;
-      
-      // 找到对应的TOC链接并设置为激活状态
-      const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+
+      // 找到对应的TOC链接并设置为激活状态（支持多种选择器）
+      const activeLink = document.querySelector(`
+        .toc-wrapper a[href="#${id}"],
+        .toc-div a[href="#${id}"],
+        .post-toc a[href="#${id}"],
+        #toc a[href="#${id}"],
+        .aside-content .card-widget.card-toc a[href="#${id}"],
+        .toc-link[href="#${id}"]
+      `);
       if (activeLink) {
         activeLink.classList.add('active');
+        console.log('Active link found:', activeLink);
+
+        // 自动滚动到可见区域
+        scrollTocToActive(activeLink);
       }
+    }
+  }, 100);
+
+  window.addEventListener('scroll', handleScroll);
+
+  // 点击目录链接平滑滚动
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+// 优化目录结构
+function enhanceTocStructure() {
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  if (!tocWrapper) return;
+
+  // 添加目录标题（如果不存在）
+  if (!tocWrapper.querySelector('.toc-title, .card-header, .item-headline')) {
+    const title = document.createElement('div');
+    title.className = 'toc-title';
+    title.textContent = '目录';
+    tocWrapper.insertBefore(title, tocWrapper.firstChild);
+  }
+
+  // 为不同层级添加类名
+  const tocItems = tocWrapper.querySelectorAll('li, .toc-item');
+  tocItems.forEach(item => {
+    const link = item.querySelector('a, .toc-link');
+    if (link) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          const level = parseInt(targetElement.tagName.substring(1));
+          item.classList.add(`toc-level-${level}`);
+
+          // 为子级添加缩进
+          if (level > 2) {
+            item.classList.add('toc-child');
+          }
+        }
+      }
+    }
+  });
+}
+
+// 添加目录折叠功能
+function addTocCollapse() {
+  const tocWrapper = document.querySelector('.toc-wrapper');
+  if (!tocWrapper) return;
+
+  const title = tocWrapper.querySelector('.toc-title');
+  if (!title) return;
+
+  // 添加折叠按钮
+  const collapseBtn = document.createElement('span');
+  collapseBtn.className = 'toc-collapse-btn';
+  collapseBtn.innerHTML = '−';
+  collapseBtn.style.cssText = `
+    float: right;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(73, 177, 245, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  `;
+
+  title.appendChild(collapseBtn);
+
+  // 折叠功能
+  let isCollapsed = false;
+  collapseBtn.addEventListener('click', function() {
+    const tocContent = tocWrapper.querySelector('.toc');
+    if (!tocContent) return;
+
+    isCollapsed = !isCollapsed;
+
+    if (isCollapsed) {
+      tocContent.style.display = 'none';
+      collapseBtn.innerHTML = '+';
+      collapseBtn.style.transform = 'rotate(180deg)';
+    } else {
+      tocContent.style.display = 'block';
+      collapseBtn.innerHTML = '−';
+      collapseBtn.style.transform = 'rotate(0deg)';
+    }
+  });
+}
+
+// 滚动目录到激活项
+function scrollTocToActive(activeLink) {
+  const tocWrapper = document.querySelector('.toc-wrapper');
+  if (!tocWrapper || !activeLink) return;
+
+  const tocRect = tocWrapper.getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+
+  // 如果激活的链接不在可视区域内，滚动到可视区域
+  if (linkRect.top < tocRect.top || linkRect.bottom > tocRect.bottom) {
+    const scrollTop = activeLink.offsetTop - tocWrapper.offsetTop - tocWrapper.clientHeight / 2;
+    tocWrapper.scrollTo({
+      top: scrollTop,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// 初始化移动端目录切换
+function initMobileTocToggle() {
+  const tocWrapper = document.querySelector('.toc-wrapper, .toc-div, .post-toc, #toc, .aside-content .card-widget.card-toc');
+  if (!tocWrapper) return;
+
+  // 检查是否为移动设备
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // 创建切换按钮
+  function createToggleButton() {
+    if (document.querySelector('.toc-toggle-btn')) return;
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'toc-toggle-btn';
+    toggleBtn.innerHTML = '📋';
+    toggleBtn.title = '显示/隐藏目录';
+
+    // 添加到页面
+    document.body.appendChild(toggleBtn);
+
+    // 绑定点击事件
+    toggleBtn.addEventListener('click', function() {
+      tocWrapper.classList.toggle('show');
+
+      // 更新按钮图标
+      if (tocWrapper.classList.contains('show')) {
+        toggleBtn.innerHTML = '✕';
+        toggleBtn.title = '隐藏目录';
+      } else {
+        toggleBtn.innerHTML = '📋';
+        toggleBtn.title = '显示目录';
+      }
+    });
+
+    // 点击目录外部区域隐藏目录
+    document.addEventListener('click', function(e) {
+      if (!tocWrapper.contains(e.target) && !toggleBtn.contains(e.target)) {
+        tocWrapper.classList.remove('show');
+        toggleBtn.innerHTML = '📋';
+        toggleBtn.title = '显示目录';
+      }
+    });
+  }
+
+  // 移除切换按钮
+  function removeToggleButton() {
+    const toggleBtn = document.querySelector('.toc-toggle-btn');
+    if (toggleBtn) {
+      toggleBtn.remove();
+    }
+    tocWrapper.classList.remove('show');
+  }
+
+  // 初始化
+  if (isMobile()) {
+    createToggleButton();
+  }
+
+  // 监听窗口大小变化
+  window.addEventListener('resize', function() {
+    if (isMobile()) {
+      createToggleButton();
+    } else {
+      removeToggleButton();
     }
   });
 }
