@@ -38,7 +38,7 @@ tags:
   hexo -v
   ```
 
-![image-20240826165435565](./images/搭建博客网站.assets/image-20240826165435565.png)
+![image-20240826165435565](../images/搭建博客网站.assets/image-20240826165435565.png)
 
 
 
@@ -59,9 +59,9 @@ tags:
   ```
   > 如果使用SSH连接，请确保已配置SSH密钥
 
-![image-20240826165628344](./images/搭建博客网站.assets/image-20240826165628344.png)
+![image-20240826165628344](../images/搭建博客网站.assets/image-20240826165628344.png)
 
-![image-20240826165852596](./images/搭建博客网站.assets/image-20240826165852596.png)
+![image-20240826165852596](../images/搭建博客网站.assets/image-20240826165852596.png)
 
 
 
@@ -71,7 +71,7 @@ tags:
 
 + 进入到刚拉下来的文件夹中，打开cmd
 
-  ![image-20240826170201662](./images/搭建博客网站.assets/image-20240826170201662.png)
+  ![image-20240826170201662](../images/搭建博客网站.assets/image-20240826170201662.png)
 
 + 初始化指令
 
@@ -80,13 +80,13 @@ tags:
   ```
   > 注意：使用点号`.`表示在当前目录初始化，或者可以使用`hexo init myHexoBlob`创建新文件夹
 
-  ![image-20240826170444846](./images/搭建博客网站.assets/image-20240826170444846.png)
+  ![image-20240826170444846](../images/搭建博客网站.assets/image-20240826170444846.png)
 
   这样hexo的配置文件就初始化好了
 
 + 然后重新用管理员运行cmd，并切换到hexo新生成的文件夹中，安装依赖
 
-  ![image-20240826170910180](./images/搭建博客网站.assets/image-20240826170910180.png)
+  ![image-20240826170910180](../images/搭建博客网站.assets/image-20240826170910180.png)
 
 ## 2、启动hexo
 
@@ -100,7 +100,7 @@ hexo generate
 hexo server
 ```
 
-![image-20240826172804368](./images/搭建博客网站.assets/image-20240826172804368.png)
+![image-20240826172804368](../images/搭建博客网站.assets/image-20240826172804368.png)
 
 ## 3、更换主题
 
@@ -109,7 +109,7 @@ hexo server
   ```shell
   npm install --save hexo-theme-fluid
   ```
-  ![image-20240826173132910](./images/搭建博客网站.assets/image-20240826173132910.png)
+  ![image-20240826173132910](../images/搭建博客网站.assets/image-20240826173132910.png)
 + 修改hexo的配置文件 `_config.yml`，找到theme字段，修改为：
 
   ```yaml
@@ -169,7 +169,7 @@ hexo server
   ```
 
 ## 5、部署到GitHub Pages
-  ![image-20240826173132910](./images/搭建博客网站.assets/image-20240826173132910.png)
+  ![image-20240826173132910](../images/搭建博客网站.assets/image-20240826173132910.png)
 + 安装部署插件
 
   ```shell
