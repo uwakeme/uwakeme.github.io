@@ -51,10 +51,11 @@ highlight:
   tab_replace: ''
   wrap: true
   hljs: false
-prismjs:
-  preprocess: true
-  line_number: true
-  tab_replace: ''
+# prismjs配置已禁用，避免与highlight.js冲突
+# prismjs:
+#   preprocess: true
+#   line_number: true
+#   tab_replace: ''
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -113,15 +114,15 @@ search:
   content: true
   format: html
 
-# Mermaid图表配置
-mermaid:
-  enable: true  # 启用 mermaid
-  # 使用 CDN 引入
-  cdn: https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js
-  # 全局配置
-  options:
-    theme: 'default'
-    startOnLoad: true
+# Mermaid图表配置已移至_config.butterfly.yml，避免冲突
+# mermaid:
+#   enable: true  # 启用 mermaid
+#   # 使用 CDN 引入
+#   cdn: https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js
+#   # 全局配置
+#   options:
+#     theme: 'default'
+#     startOnLoad: true
 
 # ==================================== SEO 优化 ====================================
 # 更多SEO优化设置

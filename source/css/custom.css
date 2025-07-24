@@ -268,25 +268,9 @@ tr:hover {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* 代码块美化 */
-pre {
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px;
-}
-
+/* 代码块美化 - 简化样式，避免与主题冲突 */
 pre code {
   border-radius: 5px;
-}
-
-pre::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 5px;
-  background: linear-gradient(to bottom, var(--primary-color), var(--hover-color));
 }
 
 /* 移动端适配 */
@@ -323,29 +307,278 @@ pre::before {
   margin-right: 5px;
 }
 
-/* 文章目录美化 */
-.toc-wrapper {
-  border-left: 2px solid var(--primary-color);
-  padding-left: 15px;
-  transition: all 0.3s;
+/* 文章目录美化 - 紧凑优化版 */
+.toc-wrapper,
+.toc-div,
+.post-toc,
+#toc,
+.aside-content .card-widget.card-toc {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(73, 177, 245, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 16px 12px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease !important;
+  max-width: 280px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
 }
 
-.toc-wrapper .toc-link {
-  transition: all 0.3s;
-  border-left: 2px solid transparent;
-  margin-left: -2px;
+.toc-wrapper:hover,
+.toc-div:hover,
+.post-toc:hover,
+#toc:hover,
+.aside-content .card-widget.card-toc:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(73, 177, 245, 0.3) !important;
 }
 
-.toc-wrapper .toc-link.active {
-  border-left: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  font-weight: bold;
-  padding-left: 5px;
+/* 目录标题 */
+.toc-wrapper .toc-title,
+.toc-div .toc-title,
+.post-toc .toc-title,
+#toc .toc-title,
+.aside-content .card-widget.card-toc .card-header,
+.aside-content .card-widget.card-toc .item-headline {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid rgba(73, 177, 245, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 
-.toc-wrapper .toc-link:hover {
-  color: var(--hover-color);
-  padding-left: 5px;
+.toc-wrapper .toc-title::before,
+.toc-div .toc-title::before,
+.post-toc .toc-title::before,
+#toc .toc-title::before,
+.aside-content .card-widget.card-toc .card-header::before,
+.aside-content .card-widget.card-toc .item-headline::before {
+  content: "📋" !important;
+  font-size: 12px !important;
+}
+
+/* 目录列表 */
+.toc-wrapper .toc,
+.toc-div .toc,
+.post-toc .toc,
+#toc .toc,
+.aside-content .card-widget.card-toc .toc,
+.aside-content .card-widget.card-toc ol {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.toc-wrapper .toc-item,
+.toc-wrapper li,
+.toc-div .toc-item,
+.toc-div li,
+.post-toc .toc-item,
+.post-toc li,
+#toc .toc-item,
+#toc li,
+.aside-content .card-widget.card-toc .toc-item,
+.aside-content .card-widget.card-toc li {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.toc-wrapper .toc-link,
+.toc-wrapper a,
+.toc-div .toc-link,
+.toc-div a,
+.post-toc .toc-link,
+.post-toc a,
+#toc .toc-link,
+#toc a,
+.aside-content .card-widget.card-toc .toc-link,
+.aside-content .card-widget.card-toc a {
+  display: block !important;
+  padding: 4px 8px !important;
+  margin: 2px 0 !important;
+  color: #666 !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  border-left: 3px solid transparent !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.toc-wrapper .toc-link:hover,
+.toc-wrapper a:hover,
+.toc-div .toc-link:hover,
+.toc-div a:hover,
+.post-toc .toc-link:hover,
+.post-toc a:hover,
+#toc .toc-link:hover,
+#toc a:hover,
+.aside-content .card-widget.card-toc .toc-link:hover,
+.aside-content .card-widget.card-toc a:hover {
+  background: rgba(73, 177, 245, 0.08) !important;
+  color: var(--primary-color) !important;
+  border-left-color: rgba(73, 177, 245, 0.3) !important;
+  padding-left: 12px !important;
+}
+
+.toc-wrapper .toc-link.active,
+.toc-wrapper a.active,
+.toc-div .toc-link.active,
+.toc-div a.active,
+.post-toc .toc-link.active,
+.post-toc a.active,
+#toc .toc-link.active,
+#toc a.active,
+.aside-content .card-widget.card-toc .toc-link.active,
+.aside-content .card-widget.card-toc a.active {
+  background: rgba(73, 177, 245, 0.12) !important;
+  color: var(--primary-color) !important;
+  font-weight: 500 !important;
+  border-left-color: var(--primary-color) !important;
+  padding-left: 12px !important;
+}
+
+/* 不同层级的缩进 */
+.toc-wrapper .toc-child {
+  padding-left: 16px;
+}
+
+.toc-wrapper .toc-child .toc-child {
+  padding-left: 32px;
+}
+
+.toc-wrapper .toc-child .toc-child .toc-child {
+  padding-left: 48px;
+}
+
+/* 层级指示线 */
+.toc-wrapper .toc-child::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(73, 177, 245, 0.2);
+}
+
+/* 暗色主题适配 */
+html.dark-theme .toc-wrapper {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: rgba(73, 177, 245, 0.3);
+  color: #e1e1e1;
+}
+
+html.dark-theme .toc-wrapper .toc-link {
+  color: #aaa;
+}
+
+html.dark-theme .toc-wrapper .toc-link:hover {
+  background: rgba(73, 177, 245, 0.15);
+  color: #49b1f5;
+}
+
+html.dark-theme .toc-wrapper .toc-link.active {
+  background: rgba(73, 177, 245, 0.2);
+  color: #49b1f5;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .toc-wrapper {
+    position: fixed !important;
+    top: 60px;
+    right: 10px;
+    max-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    font-size: 12px;
+    padding: 12px 8px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .toc-wrapper.show {
+    transform: translateX(0);
+  }
+
+  .toc-wrapper .toc-link {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+
+  /* 添加目录切换按钮 */
+  .toc-toggle-btn {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .toc-toggle-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .toc-wrapper {
+    max-width: 180px;
+    font-size: 11px;
+  }
+
+  .toc-wrapper .toc-link {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+
+  .toc-toggle-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+/* 滚动条美化 */
+.toc-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-wrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+}
+
+.toc-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(73, 177, 245, 0.3);
+  border-radius: 2px;
+}
+
+.toc-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(73, 177, 245, 0.5);
 }
 
 /* 首页特色卡片区域样式 */
@@ -793,25 +1026,25 @@ pre::before {
   background: linear-gradient(to right, var(--primary-color), transparent);
 }
 
-/* 代码块优化 */
+/* 代码块优化 - 使用主题默认样式并确保宽度占满 */
+.post-content figure.highlight,
+.post-content .highlight {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 1.5rem 0 !important;
+}
+
 .post-content pre {
-  position: relative;
-  background-color: #282c34;
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1.5rem 0;
-  overflow: auto;
-  transition: all 0.3s;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 1.5rem 0 !important;
 }
 
-.post-content pre:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
+/* 保持主题原有的代码块样式，只调整宽度 */
 .post-content code {
   font-family: 'Fira Code', 'Source Code Pro', Consolas, Monaco, 'Andale Mono', monospace;
-  font-size: 0.9rem;
 }
 
 /* 表格增强 */
@@ -863,9 +1096,13 @@ pre::before {
     margin: 1rem 0;
   }
   
-  .post-content pre {
-    padding: 0.8rem;
-    margin: 1rem 0;
+  .post-content pre,
+  .post-content .highlight,
+  .post-content figure.highlight {
+    margin: 1rem 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 }
 

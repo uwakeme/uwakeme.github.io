@@ -278,30 +278,10 @@
     images.forEach(img => imageObserver.observe(img));
   }
 
-  // 代码复制功能增强
+  // 代码复制功能增强 - 移除自定义功能，使用主题自带
   function enhanceCodeBlocks() {
-    document.querySelectorAll('pre code').forEach(codeBlock => {
-      const pre = codeBlock.parentElement;
-      
-      // 添加语言标签
-      const language = codeBlock.className.match(/language-(\w+)/);
-      if (language) {
-        const langLabel = document.createElement('span');
-        langLabel.className = 'code-language';
-        langLabel.textContent = language[1].toUpperCase();
-        langLabel.style.cssText = `
-          position: absolute;
-          top: 8px;
-          right: 60px;
-          background: rgba(255,255,255,0.1);
-          color: #fff;
-          padding: 2px 8px;
-          border-radius: 4px;
-          font-size: 12px;
-        `;
-        pre.appendChild(langLabel);
-      }
-    });
+    // 不添加自定义语言标签和复制按钮，让主题自带功能正常工作
+    console.log('使用Butterfly主题自带的代码块功能');
   }
 
   // 初始化所有功能

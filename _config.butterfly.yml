@@ -288,12 +288,12 @@ inject:
   head:
     - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
     - <link rel="stylesheet" href="/css/custom.css">
-
     - <link rel="stylesheet" href="/css/performance.css">
     - <link rel="stylesheet" href="/css/mobile-optimization.css">
     - <link rel="stylesheet" href="/css/content-management.css">
-    - <link rel="stylesheet" href="/css/theme-enhancement.css">
-    - <link rel="stylesheet" href="/css/mermaid-style.css">
+    # 已禁用的CSS文件（避免与主题冲突）
+    # - <link rel="stylesheet" href="/css/theme-enhancement.css">
+    # - <link rel="stylesheet" href="/css/mermaid-style.css">
     - <link rel="stylesheet" href="/css/categories-page.css">
     # 预加载关键资源
     - <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -304,16 +304,16 @@ inject:
     - <meta http-equiv="X-UA-Compatible" content="IE=edge">
   bottom:
     - <script src="/js/custom.js"></script>
-
     - <script src="/js/performance.js"></script>
     - <script src="/js/structured-data.js"></script>
     - <script src="/js/seo-meta.js"></script>
-    - <script src="/js/enhanced-search.js"></script>
+    # 已禁用的JS文件（避免与主题冲突）
+    # - <script src="/js/enhanced-search.js"></script>
     - <script src="/js/ux-enhancement.js"></script>
     - <script src="/js/related-posts.js"></script>
     - <script src="/js/tag-category-manager.js"></script>
-    - <script src="/js/theme-enhancement.js"></script>
-    - <script src="/js/mermaid-init.js"></script>
+    # - <script src="/js/theme-enhancement.js"></script>
+    # - <script src="/js/mermaid-init.js"></script>
     - <script src="/js/categories-data.js"></script>
     - <script src="/js/categories-page.js"></script>
 
@@ -341,8 +341,9 @@ CDN:
     jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
     jquery_ui: https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js
     fontawesome: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css
-    prismjs_css: https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.min.css
-    prismjs_js: https://cdn.jsdelivr.net/npm/prismjs@latest/components/prism-core.min.js
+    # prismjs CDN已禁用，避免与highlight.js冲突
+    # prismjs_css: https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.min.css
+    # prismjs_js: https://cdn.jsdelivr.net/npm/prismjs@latest/components/prism-core.min.js
 
 # 文章版权信息
 post_copyright:
@@ -363,7 +364,7 @@ noticeOutdate:
 
 # 相关文章推荐
 related_post:
-  enable: true
+  enable: false  # 禁用主题自带的相关推荐，使用自定义推荐系统
   limit: 6 # 显示推荐文章数目
   date_type: created # or created or updated 文章日期显示创建日或者更新日
 
@@ -526,11 +527,12 @@ highlight:
   wrap: true
   hljs: false
   exclude_languages: []
-prismjs:
-  preprocess: true
-  line_number: true
-  tab_replace: ''
-  exclude_languages: []
+# prismjs配置已禁用，避免与highlight.js冲突
+# prismjs:
+#   preprocess: true
+#   line_number: true
+#   tab_replace: ''
+#   exclude_languages: []
 
 # https://instant.page/
 # prefetch (預加載)

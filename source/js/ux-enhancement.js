@@ -129,62 +129,10 @@
     }
   }
 
-  // 代码复制功能增强
+  // 代码复制功能增强 - 移除自定义复制按钮，使用主题自带功能
   function enhanceCodeCopy() {
-    document.querySelectorAll('pre code').forEach(codeBlock => {
-      const pre = codeBlock.parentElement;
-      if (pre.querySelector('.copy-btn')) return; // 避免重复添加
-
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn';
-      copyBtn.innerHTML = '复制';
-      copyBtn.style.cssText = `
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 5px 10px;
-        background: rgba(0,0,0,0.7);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 12px;
-        cursor: pointer;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      `;
-
-      pre.style.position = 'relative';
-      pre.appendChild(copyBtn);
-
-      // 鼠标悬停显示复制按钮
-      pre.addEventListener('mouseenter', () => {
-        copyBtn.style.opacity = '1';
-      });
-
-      pre.addEventListener('mouseleave', () => {
-        copyBtn.style.opacity = '0';
-      });
-
-      // 复制功能
-      copyBtn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(codeBlock.textContent);
-          copyBtn.innerHTML = '已复制';
-          copyBtn.style.background = '#28a745';
-          
-          setTimeout(() => {
-            copyBtn.innerHTML = '复制';
-            copyBtn.style.background = 'rgba(0,0,0,0.7)';
-          }, 2000);
-        } catch (err) {
-          console.error('复制失败:', err);
-          copyBtn.innerHTML = '复制失败';
-          setTimeout(() => {
-            copyBtn.innerHTML = '复制';
-          }, 2000);
-        }
-      });
-    });
+    // 不添加自定义复制按钮，让主题自带的复制功能正常工作
+    console.log('使用Butterfly主题自带的代码复制功能');
   }
 
   // 移动端导航优化
