@@ -394,3 +394,4 @@ nvm安装低版本Node.js的"The system cannot find the file specified"错误主
 - [Node.js官方下载页面](https://nodejs.org/en/download/)
 - [npm官方文档](https://docs.npmjs.com/)
 - [nvm-windows问题追踪](https://github.com/coreybutler/nvm-windows/issues)
+- [nvm常见问题](https://nvm.uihtm.com/doc/nvm-old.html)
