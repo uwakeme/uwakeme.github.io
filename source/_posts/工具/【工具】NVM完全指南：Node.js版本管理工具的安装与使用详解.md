@@ -85,7 +85,7 @@ https://github.com/coreybutler/nvm-windows/releases
 + 当前最新版本：v1.2.2（更新日期：2025-01-01）
 + 下载文件：nvm-setup.zip
 + 注意，nvm 1.2.2版本，安装node低于14的版本有无法安装的问题
-![问题截图](/img/post/工具/nvm/nvm14bug.png)
+![问题截图](https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvm14bug.png)
 
 
 ## （二）安装步骤

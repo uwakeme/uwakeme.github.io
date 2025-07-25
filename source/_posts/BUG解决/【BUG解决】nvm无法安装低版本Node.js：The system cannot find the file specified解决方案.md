@@ -11,7 +11,7 @@ tags:
 categories: BUG解决
 description: 详细解决nvm在Windows系统下安装低版本Node.js时出现"The system cannot find the file specified"错误的问题，提供多种解决方案和预防措施
 keywords: nvm, Node.js, 安装错误, Windows, 版本管理, 系统找不到文件, 低版本Node
-cover: /img/post/BUG/nvmbug1.png
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvmbug20250725-01.png
 ---
 
 # 前言
@@ -36,7 +36,7 @@ Installing npm v6.14.16...
 error installing 12.22.12: open C:\Users\wake\AppData\Local\Temp\nvm-npm-329d497460\npm-v6.14.16.zip: The system cannot find the file specified.
 ```
 
-![错误截图](/img/post/BUG/nvmbug1.png)
+![错误截图](https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvmbug20250725-01.png)
 
 ## （二）解决后的效果
 
@@ -76,21 +76,38 @@ error installing 12.22.12: open C:\Users\wake\AppData\Local\Temp\nvm-npm-329d497
 ## （一）方案一：降级nvm版本（推荐）
 
 ### 1. 卸载当前nvm
-```powershell
-# 1. 通过控制面板卸载nvm-windows
-# 2. 删除环境变量中的NVM相关配置
-# 3. 删除nvm安装目录（通常在C:\Users\{用户名}\AppData\Roaming\nvm）
-```
+
+#### 第一步：通过控制面板卸载nvm-windows
+1. 打开**控制面板** → **程序和功能**
+2. 找到**NVM for Windows**
+3. 点击**卸载**并确认
+
+#### 第二步：删除环境变量中的NVM相关配置
+1. 右键**此电脑** → **属性** → **高级系统设置**
+2. 点击**环境变量**按钮
+3. 在系统变量中删除以下变量（如果存在）：
+   - `NVM_HOME`
+   - `NVM_SYMLINK`
+4. 在PATH变量中删除nvm相关的路径
+
+#### 第三步：删除nvm安装目录
+1. 删除nvm安装目录（通常在`C:\Users\{用户名}\AppData\Roaming\nvm`）
+2. 删除Node.js符号链接目录（通常在`C:\Program Files\nodejs`）
 
 ### 2. 安装兼容版本nvm
-```bash
-# 下载nvm-windows 1.1.12版本
-# GitHub地址：https://github.com/coreybutler/nvm-windows/releases/tag/1.1.12
 
-# 下载nvm-setup.zip并安装
-```
+#### 第一步：下载nvm-windows 1.1.12版本
+1. 访问GitHub发布页面：https://github.com/coreybutler/nvm-windows/releases/tag/1.1.12
+2. 下载**nvm-setup.zip**文件
+3. 解压下载的压缩包
 
-![解决方案截图](/img/post/BUG/nvmbug2.png)
+#### 第二步：安装nvm 1.1.12
+1. **以管理员身份**运行`nvm-setup.exe`
+2. 选择安装路径（建议使用默认路径）
+3. 选择Node.js符号链接路径
+4. 完成安装向导
+
+![解决方案截图](https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvmbug20250725-02.png)
 
 ### 3. 验证安装
 ```bash
@@ -107,13 +124,15 @@ node --version
 npm --version
 ```
 
-![成功安装截图](/img/post/BUG/nvmbug3.png)
+![成功安装截图](https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvmbug20250725-03.png)
 
 如上图所示，降级nvm版本后，Node.js 12.22.12安装成功，没有再出现"The system cannot find the file specified"错误。
 
 ## （二）方案二：手动安装npm
 
 ### 1. 先安装Node.js（忽略npm错误）
+
+#### 执行安装命令：
 ```bash
 # 强制安装Node.js（即使npm安装失败）
 nvm install 12.22.12
@@ -121,62 +140,82 @@ nvm use 12.22.12
 ```
 
 ### 2. 手动下载并安装npm
-```bash
-# 下载对应版本的npm
-# 访问：https://registry.npmjs.org/npm/-/npm-6.14.16.tgz
 
-# 解压到Node.js目录
-# 通常路径：C:\Users\{用户名}\AppData\Roaming\nvm\v12.22.12\node_modules\npm
-```
+#### 第一步：下载对应版本的npm
+1. 访问npm注册表：https://registry.npmjs.org/npm/-/npm-6.14.16.tgz
+2. 下载npm-6.14.16.tgz文件
+3. 解压下载的压缩包
+
+#### 第二步：安装npm到Node.js目录
+1. 找到Node.js安装目录（通常在`C:\Users\{用户名}\AppData\Roaming\nvm\v12.22.12\`）
+2. 将解压的npm文件夹复制到`node_modules`目录下
+3. 确保npm文件夹路径为：`C:\Users\{用户名}\AppData\Roaming\nvm\v12.22.12\node_modules\npm`
 
 ### 3. 配置npm
-```bash
-# 创建npm.cmd文件
-echo @IF EXIST "%~dp0\node.exe" ( "%~dp0\node.exe" "%~dp0\node_modules\npm\bin\npm-cli.js" %* ) ELSE ( @SETLOCAL & @SET PATHEXT=%PATHEXT:;.JS;=;% & node "%~dp0\node_modules\npm\bin\npm-cli.js" %* ) > npm.cmd
 
-# 验证npm
+#### 第一步：创建npm命令文件
+在Node.js安装目录下创建`npm.cmd`文件：
+
+```bash
+echo @IF EXIST "%~dp0\node.exe" ( "%~dp0\node.exe" "%~dp0\node_modules\npm\bin\npm-cli.js" %* ) ELSE ( @SETLOCAL & @SET PATHEXT=%PATHEXT:;.JS;=;% & node "%~dp0\node_modules\npm\bin\npm-cli.js" %* ) > npm.cmd
+```
+
+#### 第二步：验证npm安装
+```bash
 npm --version
 ```
+
+如果显示版本号，说明npm配置成功。
 
 ## （三）方案三：使用替代版本管理工具
 
 ### 1. 使用fnm
-```bash
-# 安装fnm
-winget install Schniz.fnm
 
-# 使用fnm安装Node.js
+#### 第一步：安装fnm
+```bash
+winget install Schniz.fnm
+```
+
+#### 第二步：使用fnm安装Node.js
+```bash
 fnm install 12.22.12
 fnm use 12.22.12
 ```
 
 ### 2. 使用volta
-```bash
-# 安装volta
-winget install Volta.Volta
 
-# 使用volta安装Node.js
+#### 第一步：安装volta
+```bash
+winget install Volta.Volta
+```
+
+#### 第二步：使用volta安装Node.js
 volta install node@12.22.12
 ```
 
 ## （四）方案四：修改nvm配置
 
 ### 1. 修改nvm设置
-```bash
-# 编辑nvm的settings.txt文件
-# 路径：C:\Users\{用户名}\AppData\Roaming\nvm\settings.txt
 
-# 添加或修改以下配置
+#### 第一步：编辑nvm配置文件
+1. 找到nvm的`settings.txt`文件（路径：`C:\Users\{用户名}\AppData\Roaming\nvm\settings.txt`）
+2. 使用文本编辑器打开该文件
+3. 添加或修改以下配置：
+
+```text
 node_mirror: https://npmmirror.com/mirrors/node/
 npm_mirror: https://npmmirror.com/mirrors/npm/
 ```
 
 ### 2. 清理缓存重试
-```bash
-# 清理nvm缓存
-# 删除临时文件夹：C:\Users\{用户名}\AppData\Local\Temp\nvm-*
 
-# 重新尝试安装
+#### 第一步：清理nvm缓存
+1. 打开文件资源管理器
+2. 导航到`C:\Users\{用户名}\AppData\Local\Temp\`
+3. 删除所有以`nvm-`开头的临时文件夹
+
+#### 第二步：重新尝试安装
+```bash
 nvm install 12.22.12
 ```
 
@@ -193,89 +232,139 @@ nvm install 12.22.12
 ```
 
 ### 2. 安装前检查
+
+#### 第一步：检查要安装的Node.js版本
 ```bash
-# 检查要安装的Node.js版本
 nvm list available
-
-# 查看nvm版本
-nvm version
-
-# 根据需要选择合适的nvm版本
 ```
+
+#### 第二步：查看当前nvm版本
+```bash
+nvm version
+```
+
+#### 第三步：版本兼容性判断
+根据上述兼容性对照表，选择合适的nvm版本。如果需要安装Node.js 12.x等低版本，建议使用nvm 1.1.12。
 
 ## （二）环境配置最佳实践
 
 ### 1. 备份配置
-```bash
-# 备份nvm配置
-copy "%APPDATA%\nvm\settings.txt" "%APPDATA%\nvm\settings.txt.backup"
 
-# 备份环境变量
-# 导出NVM_HOME和NVM_SYMLINK环境变量设置
+#### 第一步：备份nvm配置文件
+```bash
+copy "%APPDATA%\nvm\settings.txt" "%APPDATA%\nvm\settings.txt.backup"
 ```
+
+#### 第二步：备份环境变量
+1. 打开**系统属性** → **高级** → **环境变量**
+2. 记录或截图保存以下环境变量的值：
+   - `NVM_HOME`
+   - `NVM_SYMLINK`
+   - PATH中的nvm相关路径
 
 ### 2. 分离环境
-```bash
-# 为不同项目创建独立的Node.js环境
-# 使用.nvmrc文件指定项目所需的Node.js版本
 
+#### 为不同项目创建独立的Node.js环境：
+
+#### 第一步：创建.nvmrc文件
+在项目根目录创建`.nvmrc`文件，指定项目所需的Node.js版本：
+
+```bash
 echo "12.22.12" > .nvmrc
 ```
+
+#### 第二步：使用指定版本
+```bash
+nvm use
+```
+
+这样可以确保每个项目使用正确的Node.js版本，避免版本冲突。
 
 # 五、故障排除
 
 ## （一）常见错误及解决方法
 
 ### 1. 权限错误
-```bash
-# 错误：Access denied
-# 解决：以管理员身份运行PowerShell
+
+#### 错误现象：
+```
+Access denied
 ```
 
+#### 解决方法：
+1. 右键点击**PowerShell**或**命令提示符**
+2. 选择**以管理员身份运行**
+3. 重新执行nvm命令
+
 ### 2. 网络错误
+
+#### 错误现象：
+```
+Download failed
+```
+
+#### 解决方法：
+配置国内镜像源加速下载：
+
 ```bash
-# 错误：Download failed
-# 解决：配置代理或使用镜像源
 nvm node_mirror https://npmmirror.com/mirrors/node/
 nvm npm_mirror https://npmmirror.com/mirrors/npm/
 ```
 
 ### 3. 路径错误
-```bash
-# 错误：Path too long
-# 解决：将nvm安装到较短的路径，如C:\nvm
+
+#### 错误现象：
 ```
+Path too long
+```
+
+#### 解决方法：
+1. 卸载当前nvm
+2. 重新安装nvm到较短的路径，如`C:\nvm`
+3. 避免使用包含空格或特殊字符的路径
 
 ## （二）验证安装
 
 ### 1. 完整性检查
+
+#### 第一步：检查Node.js
 ```bash
-# 检查Node.js
 node --version
 node -e "console.log('Node.js is working!')"
+```
 
-# 检查npm
+#### 第二步：检查npm
+```bash
 npm --version
 npm list -g --depth=0
+```
 
-# 检查nvm
+#### 第三步：检查nvm
+```bash
 nvm list
 nvm current
 ```
 
 ### 2. 功能测试
+
+#### 第一步：创建测试项目
 ```bash
-# 创建测试项目
 mkdir nvm-test
 cd nvm-test
 npm init -y
+```
 
-# 安装测试包
+#### 第二步：安装测试包
+```bash
 npm install lodash
+```
 
-# 运行测试
+#### 第三步：运行测试
+```bash
 node -e "console.log(require('lodash').VERSION)"
 ```
+
+如果所有命令都能正常执行并返回预期结果，说明nvm和Node.js安装成功。
 
 # 六、总结
 
