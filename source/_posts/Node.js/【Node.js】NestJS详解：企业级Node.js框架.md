@@ -1,5 +1,5 @@
 ---
-title: NestJS详解：企业级Node.js框架
+title: 【Node.js】NestJS详解：企业级Node.js框架
 date: 2025-07-04
 tags: 
   - 后端开发, 
@@ -7,7 +7,7 @@ tags:
   - NestJS, 
   - TypeScript, 
   - 框架
-categories: 后端
+categories: Node.js
 description: 深入解析NestJS框架，包括依赖注入、装饰器、模块系统、控制器、服务、管道、守卫、拦截器、微服务等核心概念和企业级应用实践
 ---
 

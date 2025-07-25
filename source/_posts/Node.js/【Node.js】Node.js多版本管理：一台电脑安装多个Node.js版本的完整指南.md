@@ -1,5 +1,5 @@
 ---
-title: 【后端】Node.js多版本管理：一台电脑安装多个Node.js版本的完整指南
+title: 【Node.js】Node.js多版本管理：一台电脑安装多个Node.js版本的完整指南
 date: 2025-07-25
 tags: 
     - 后端
@@ -8,7 +8,7 @@ tags:
     - 开发环境
     - nvm
     - 工具
-categories: 后端
+categories: Node.js
 description: 详细介绍如何在一台电脑上安装和管理多个Node.js版本，包括nvm、n、fnm等版本管理工具的使用方法，以及不同项目间Node.js版本切换的最佳实践
 keywords: Node.js, 多版本管理, nvm, 版本切换, 开发环境, npm, 项目管理
 # cover: /img/post/nodejs-version-management.jpg  # 请添加对应的封面图

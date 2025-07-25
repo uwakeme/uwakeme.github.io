@@ -1,6 +1,6 @@
 ---
-title: FastAPI详解：现代Python异步Web框架
-categories: 后端
+title: 【Python】FastAPI详解：现代Python异步Web框架
+categories: Python
 tags:
   - FastAPI
   - Python

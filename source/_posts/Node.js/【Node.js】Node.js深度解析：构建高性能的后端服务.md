@@ -1,5 +1,5 @@
 ---
-title: 【后端】Node.js深度解析：构建高性能的后端服务
+title: 【Node.js】Node.js深度解析：构建高性能的后端服务
 date: 2025-07-04 16:00:00
 tags:
   - 后端
@@ -7,7 +7,7 @@ tags:
   - JavaScript
   - Express
   - Koa
-categories: 后端
+categories: Node.js
 ---
 
 # 摘要

@@ -1,5 +1,5 @@
 ---
-title: 【后端】Django详解：Python Web开发框架
+title: 【Python】Django详解：Python Web开发框架
 tags: 
     - 后端
     - Python
