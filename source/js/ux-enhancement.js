@@ -18,52 +18,6 @@
     });
   }
 
-  // 返回顶部按钮
-  function initBackToTop() {
-    const backToTopBtn = document.createElement('button');
-    backToTopBtn.innerHTML = '↑';
-    backToTopBtn.className = 'back-to-top';
-    backToTopBtn.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #007acc;
-      color: white;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    `;
-
-    document.body.appendChild(backToTopBtn);
-
-    // 滚动显示/隐藏
-    window.addEventListener('scroll', throttle(() => {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-      } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-      }
-    }, 100));
-
-    // 点击返回顶部
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
   // 阅读进度条
   function initReadingProgress() {
     const progressBar = document.createElement('div');
@@ -247,7 +201,6 @@
   // 初始化所有功能
   function initUXEnhancements() {
     initSmoothScroll();
-    initBackToTop();
     initReadingProgress();
     enhanceImageLazyLoading();
     enhanceCodeCopy();

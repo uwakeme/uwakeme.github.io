@@ -291,10 +291,6 @@ inject:
     - <link rel="stylesheet" href="/css/performance.css">
     - <link rel="stylesheet" href="/css/mobile-optimization.css">
     - <link rel="stylesheet" href="/css/content-management.css">
-    # 已禁用的CSS文件（避免与主题冲突）
-    # - <link rel="stylesheet" href="/css/theme-enhancement.css">
-    # - <link rel="stylesheet" href="/css/mermaid-style.css">
-    - <link rel="stylesheet" href="/css/categories-page.css">
     # FontAwesome图标库 - 直接加载确保图标正常显示
     - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
     - <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -303,19 +299,12 @@ inject:
     - <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     - <meta http-equiv="X-UA-Compatible" content="IE=edge">
   bottom:
-    - <script src="/js/custom.js"></script>
     - <script src="/js/performance.js"></script>
     - <script src="/js/structured-data.js"></script>
     - <script src="/js/seo-meta.js"></script>
-    # 已禁用的JS文件（避免与主题冲突）
-    # - <script src="/js/enhanced-search.js"></script>
     - <script src="/js/ux-enhancement.js"></script>
     - <script src="/js/related-posts.js"></script>
-    - <script src="/js/tag-category-manager.js"></script>
-    # - <script src="/js/theme-enhancement.js"></script>
-    # - <script src="/js/mermaid-init.js"></script>
-    - <script src="/js/categories-data.js"></script>
-    - <script src="/js/categories-page.js"></script>
+
 
 # CDN设置 - 性能优化
 CDN:
@@ -341,9 +330,6 @@ CDN:
     jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
     jquery_ui: https://cdn.jsdelivr.net/npm/jquery-ui@latest/dist/jquery-ui.min.js
     fontawesome: https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css
-    # prismjs CDN已禁用，避免与highlight.js冲突
-    # prismjs_css: https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.min.css
-    # prismjs_js: https://cdn.jsdelivr.net/npm/prismjs@latest/components/prism-core.min.js
 
 # 文章版权信息
 post_copyright:
