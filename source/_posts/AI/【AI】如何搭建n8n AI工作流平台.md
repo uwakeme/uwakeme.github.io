@@ -7,6 +7,7 @@ tags:
   - 工作流
   - 自动化
   - 集成平台
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/n8n.jpg
 ---
 
 # 一、n8n工作流平台概述

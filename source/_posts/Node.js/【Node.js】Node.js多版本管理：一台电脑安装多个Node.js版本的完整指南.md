@@ -11,7 +11,7 @@ tags:
 categories: Node.js
 description: 详细介绍如何在一台电脑上安装和管理多个Node.js版本，包括nvm、n、fnm等版本管理工具的使用方法，以及不同项目间Node.js版本切换的最佳实践
 keywords: Node.js, 多版本管理, nvm, 版本切换, 开发环境, npm, 项目管理
-# cover: /img/post/nodejs-version-management.jpg  # 请添加对应的封面图
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/20250725113309590.png
 ---
 
 # 前言

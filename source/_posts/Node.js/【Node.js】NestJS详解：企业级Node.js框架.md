@@ -9,6 +9,7 @@ tags:
   - 框架
 categories: Node.js
 description: 深入解析NestJS框架，包括依赖注入、装饰器、模块系统、控制器、服务、管道、守卫、拦截器、微服务等核心概念和企业级应用实践
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/20250728191330211.png
 ---
 
 # 引言

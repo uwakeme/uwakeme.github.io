@@ -6,6 +6,7 @@ tags:
   - 工作流
   - 开源项目
   - 效率工具
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/20250728191456488.png
 ---
 
 # 一、AI工作流项目概述

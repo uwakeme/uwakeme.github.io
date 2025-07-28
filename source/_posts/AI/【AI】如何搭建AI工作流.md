@@ -5,6 +5,7 @@ tags:
   - AI
   - 工作流
   - 效率工具
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/20250728191456488.png
 ---
 
 # 如何搭建AI工作流
