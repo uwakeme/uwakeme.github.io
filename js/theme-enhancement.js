@@ -278,12 +278,6 @@
     images.forEach(img => imageObserver.observe(img));
   }
 
-  // 代码复制功能增强 - 移除自定义功能，使用主题自带
-  function enhanceCodeBlocks() {
-    // 不添加自定义语言标签和复制按钮，让主题自带功能正常工作
-    console.log('使用Butterfly主题自带的代码块功能');
-  }
-
   // 初始化所有功能
   function initThemeEnhancements() {
     initPageLoader();
