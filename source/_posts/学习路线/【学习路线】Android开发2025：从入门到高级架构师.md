@@ -9,6 +9,7 @@ tags:
   - Kotlin
   - Jetpack Compose
   - 架构师
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/Android.jpg
 ---
 
 ## 前言

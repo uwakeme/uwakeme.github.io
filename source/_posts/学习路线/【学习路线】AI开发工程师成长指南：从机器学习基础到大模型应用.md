@@ -10,6 +10,7 @@ tags:
   - 人工智能
   - 学习路线
   - 数据科学
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/AI.jpg
 ---
 
 # 一、AI开发基础准备（2-3个月）
