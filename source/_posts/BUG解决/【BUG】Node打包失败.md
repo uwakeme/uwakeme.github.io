@@ -10,7 +10,7 @@ date: 2024-11-12 10:15:08
 ---
 
 
-# 【BUG解决】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]
+# 【BUG】Node打包失败[Error: error:0308010C:digital envelope routines::unsupported]
 
 ## 一、出现问题
 

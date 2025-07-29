@@ -1,14 +1,14 @@
 ---
-title: 【BUG解决】nvm无法安装低版本Node.js：The system cannot find the file specified解决方案
+title: 【BUG】nvm无法安装低版本Node.js：The system cannot find the file specified解决方案
 date: 2025-07-25
 tags: 
-    - BUG解决
+    - BUG
     - Node.js
     - nvm
     - 版本管理
     - Windows
     - 环境配置
-categories: BUG解决
+categories: BUG
 description: 详细解决nvm在Windows系统下安装低版本Node.js时出现"The system cannot find the file specified"错误的问题，提供多种解决方案和预防措施
 keywords: nvm, Node.js, 安装错误, Windows, 版本管理, 系统找不到文件, 低版本Node
 cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nvmbug20250725-01.png
