@@ -283,21 +283,9 @@ Open_Graph_meta:
     # fb_admins:
     # fb_app_id:
 
-# 添加CSS和JS - 性能优化
+# 添加CSS和JS
 inject:
   head:
-    # 字符编码确保
-    - <meta charset="UTF-8">
-    # 性能优化meta标签
-    - <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    - <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    # DNS预解析
-    - <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    - <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    # 字体加载优化
-    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
-    # 自定义CSS
-    - <link rel="stylesheet" href="/css/custom.css">
   bottom:
 
 
@@ -457,7 +445,7 @@ beautify:
 
 # 页面加载动画
 preloader:
-  enable: true
+  enable: false
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
