@@ -286,24 +286,19 @@ Open_Graph_meta:
 # 添加CSS和JS - 性能优化
 inject:
   head:
-    - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_3846514_kabxni94auf.css">
-    - <link rel="stylesheet" href="/css/custom.css">
-    - <link rel="stylesheet" href="/css/performance.css">
-    - <link rel="stylesheet" href="/css/mobile-optimization.css">
-    - <link rel="stylesheet" href="/css/content-management.css">
-    # FontAwesome图标库 - 直接加载确保图标正常显示
-    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
-    - <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    - <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    # 字符编码确保
+    - <meta charset="UTF-8">
     # 性能优化meta标签
     - <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     - <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    # DNS预解析
+    - <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    - <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    # 字体加载优化
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+    # 自定义CSS
+    - <link rel="stylesheet" href="/css/custom.css">
   bottom:
-    - <script src="/js/performance.js"></script>
-    - <script src="/js/structured-data.js"></script>
-    - <script src="/js/seo-meta.js"></script>
-    - <script src="/js/ux-enhancement.js"></script>
-    - <script src="/js/related-posts.js"></script>
 
 
 # CDN设置 - 性能优化
@@ -466,7 +461,7 @@ preloader:
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
-  source: 1
+  source: 2
   # pace theme (see https://codebyzach.github.io/pace/)
   pace_css_url: https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css
 

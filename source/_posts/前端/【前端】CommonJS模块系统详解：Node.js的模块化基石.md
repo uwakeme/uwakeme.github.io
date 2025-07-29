@@ -11,6 +11,7 @@ tags:
   - 后端
 description: 深入解析CommonJS模块系统的工作原理、语法特性、与ES6模块的区别，以及在现代JavaScript开发中的应用实践
 keywords: CommonJS, Node.js, 模块化, require, exports, module.exports, JavaScript, ES6模块
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/commonjs.jpg
 ---
 
 # 前言
