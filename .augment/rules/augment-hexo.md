@@ -62,28 +62,84 @@ tags:
 
 ## 代码展示
 
-- 所有代码必须使用Markdown代码块格式，并标明语言类型
-- 代码示例应该简洁且能直接运行
-- 关键代码行应添加注释说明
-- 示例：
+### 代码块使用规范
+
+**代码块应该包含：**
+- ✅ 实际的代码（Java、Kotlin、JavaScript、Python等）
+- ✅ 配置文件内容（XML、JSON、YAML、Gradle等）
+- ✅ 项目目录结构
+- ✅ 命令行指令和SQL语句
+
+**代码块不应该包含：**
+- ❌ 步骤说明和教程文字
+- ❌ 安装指南和操作步骤
+- ❌ 纯文本的说明内容
+- ❌ 概念解释和理论描述
+
+### 代码注释要求
+
+- **详细注释**：所有代码必须包含详细的中文注释
+- **概念解释**：对技术概念进行解释，特别是对其他技术栈开发者可能陌生的概念
+- **功能说明**：每个重要方法、类、变量都要有功能说明
+- **技术类比**：使用"类似于..."的表述，将新概念与读者熟悉的技术进行类比
+- **实用性注释**：注释要直接说明代码的实际作用和业务意义
+
+### 注释示例
 
 ```java
-// 使用Stream过滤列表
+// Stream API：Java 8的函数式编程特性，类似于JavaScript的数组方法
 List<String> filtered = list.stream()
-    .filter(s -> s.contains("a"))  // 过滤包含字母'a'的元素
-    .collect(Collectors.toList()); // 收集结果到新列表
+    .filter(s -> s.contains("a"))  // 过滤包含字母'a'的元素，类似于JavaScript的array.filter()
+    .collect(Collectors.toList()); // 收集结果到新列表，类似于将结果转换为数组
+```
+
+```kotlin
+// 数据类：自动生成equals、hashCode、toString等方法，类似于Java的POJO类但更简洁
+data class User(
+    val id: Int,        // val表示只读属性，类似于Java的final字段
+    val name: String,   // Kotlin的字符串类型，非空
+    val email: String
+)
+
+// 扩展函数：为现有类添加新方法，无需继承或修改原类，类似于C#的扩展方法
+fun String.isEmailValid(): Boolean {
+    // 使用正则表达式验证邮箱格式
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
 ```
 
 ## 命令行展示
 
 - 命令行指令使用shell代码块
 - 每个命令应附带简短注释说明其功能
+- 对于复杂命令，应解释参数含义和执行结果
 - 示例：
 
 ```shell
 uname -a          # 查看系统内核信息
 lsb_release -a    # 查看Linux发行版本
-df -h             # 查看磁盘空间
+df -h             # 查看磁盘空间，-h参数以人类可读格式显示
+```
+
+## 步骤说明格式
+
+**步骤说明应使用正常文本格式，不要放在代码块中：**
+
+**正确格式：**
+```
+**Android Studio安装**
+1. 下载地址：https://developer.android.com/studio
+2. 推荐版本：Android Studio Hedgehog | 2023.1.1
+3. 系统要求：
+   - Windows 10/11 64位
+   - macOS 10.14 (Mojave) 或更高
+```
+
+**错误格式：**
+```bash
+# Android Studio安装
+# 1. 下载地址：https://developer.android.com/studio
+# 2. 推荐版本：Android Studio Hedgehog | 2023.1.1
 ```
 
 # 输出指南
@@ -98,10 +154,21 @@ df -h             # 查看磁盘空间
    - 正确的前置元数据（title、categories、tags）
    - 清晰的章节结构
    - 专业准确的技术内容
-   - 格式正确的代码示例
+   - 格式正确的代码示例（遵循代码注释要求）
    - 必要的图表或示意图说明（如适用）
    - 所有参考的资料和网站信息
 6. 可以适当的添加butterfly主题的Button按钮，Series系列文章等特有的功能
+
+## 代码质量检查清单
+
+在输出技术笔记前，请确保：
+
+- [ ] 所有代码块都包含详细的中文注释
+- [ ] 对新技术概念进行了类比解释
+- [ ] 步骤说明使用正常文本格式，未放在代码块中
+- [ ] 代码注释说明了实际功能和业务意义
+- [ ] 为其他技术栈开发者提供了足够的上下文
+- [ ] 代码示例可以直接运行或理解
 
 # 示例
 
@@ -129,5 +196,21 @@ Stream是Java 8引入的新成员，它允许以声明性方式处理数据集�
 
 1. **不存储数据**：Stream不是数据结构，它只是某种数据源的一个视图。
 2. **函数式编程**：Stream提供了函数式编程的支持，可以使用Lambda表达式来处理数据。
+
+## （二）代码示例
+
+```java
+// Stream API：Java 8的函数式编程特性，类似于JavaScript的数组方法
+List<User> users = Arrays.asList(
+    new User("张三", 25),
+    new User("李四", 30)
+);
+
+// 过滤和转换操作，类似于SQL的WHERE和SELECT
+List<String> names = users.stream()
+    .filter(user -> user.getAge() > 18)  // 过滤成年用户，类似于WHERE age > 18
+    .map(User::getName)                  // 提取用户名，类似于SELECT name
+    .collect(Collectors.toList());       // 收集结果到列表
+```
 
 ```

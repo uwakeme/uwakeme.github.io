@@ -21,34 +21,39 @@ Android开发作为移动应用开发的核心领域，经历了从Java到Kotlin
 ### （一）开发环境搭建
 
 #### 1.1 开发工具安装
-```bash
-# Android Studio安装
-# 1. 下载地址：https://developer.android.com/studio
-# 2. 推荐版本：Android Studio Hedgehog | 2023.1.1
-# 3. 系统要求：
-#    - Windows 10/11 64位
-#    - macOS 10.14 (Mojave) 或更高
-#    - Ubuntu 14.04 LTS 或更高
 
-# SDK配置
-# 1. Android SDK Platform 34
-# 2. Android SDK Build-Tools 34.0.0
-# 3. Android Emulator
-# 4. Android SDK Platform-Tools
-```
+**Android Studio安装**
+1. 下载地址：https://developer.android.com/studio
+2. 推荐版本：Android Studio Hedgehog | 2023.1.1
+3. 系统要求：
+   - Windows 10/11 64位
+   - macOS 10.14 (Mojave) 或更高
+   - Ubuntu 14.04 LTS 或更高
+
+**SDK配置**
+1. Android SDK Platform 34
+2. Android SDK Build-Tools 34.0.0
+3. Android Emulator
+4. Android SDK Platform-Tools
 
 #### 1.2 第一个Android应用
 ```kotlin
-// MainActivity.kt
+// MainActivity.kt - 应用的主活动类，相当于桌面应用的主窗口
 class MainActivity : ComponentActivity() {
+    // onCreate方法：Activity生命周期的开始，相当于程序的main方法
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState) // 调用父类的初始化方法
+
+        // setContent：设置UI内容，使用Jetpack Compose声明式UI
         setContent {
+            // MyApplicationTheme：应用主题包装器，定义颜色、字体等样式
             MyApplicationTheme {
+                // Surface：类似于HTML的div容器，提供背景和形状
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), // 填充整个屏幕
+                    color = MaterialTheme.colorScheme.background // 使用主题背景色
                 ) {
+                    // 调用自定义的问候组件
                     Greeting("Android")
                 }
             }
@@ -56,11 +61,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// @Composable注解：标记这是一个可组合函数，用于构建UI
+// 类似于React的函数组件或Vue的组件
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    // Text组件：显示文本，类似于HTML的<p>标签
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Hello $name!", // 显示的文本内容
+        modifier = modifier    // 修饰符，用于设置样式、布局等属性
     )
 }
 ```
@@ -69,23 +77,31 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 #### 2.1 Kotlin核心语法
 ```kotlin
-// 数据类
+// 数据类：自动生成equals、hashCode、toString等方法
+// 类似于Java的POJO类，但更简洁
 data class User(
-    val id: Int,
-    val name: String,
+    val id: Int,        // val表示只读属性，类似于Java的final字段
+    val name: String,   // Kotlin的字符串类型，非空
     val email: String
 )
 
-// 扩展函数
+// 扩展函数：为现有类添加新方法，无需继承或修改原类
+// 类似于C#的扩展方法
 fun String.isEmailValid(): Boolean {
+    // 使用Android内置的邮箱格式验证
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
 
-// 协程基础
+// 协程函数：用于异步编程，类似于JavaScript的async/await
+// suspend关键字表示这是一个可挂起函数
 suspend fun fetchUserData(): List<User> {
+    // withContext：切换协程上下文到IO线程池
+    // 类似于在后台线程执行耗时操作
     return withContext(Dispatchers.IO) {
-        // 模拟网络请求
-        delay(1000)
+        // delay：非阻塞延迟，模拟网络请求耗时
+        delay(1000) // 等待1秒
+
+        // 返回模拟的用户数据列表
         listOf(
             User(1, "张三", "zhangsan@example.com"),
             User(2, "李四", "lisi@example.com")
@@ -96,22 +112,31 @@ suspend fun fetchUserData(): List<User> {
 
 #### 2.2 Kotlin高阶函数
 ```kotlin
-// 函数式编程
-val numbers = listOf(1, 2, 3, 4, 5)
-val doubled = numbers.map { it * 2 }
-val sum = numbers.reduce { acc, i -> acc + i }
+// 函数式编程：类似于JavaScript的数组方法或C#的LINQ
+val numbers = listOf(1, 2, 3, 4, 5) // 创建不可变列表
 
-// DSL构建器
+// map函数：对每个元素进行转换，it表示当前元素
+// 类似于JavaScript的array.map()
+val doubled = numbers.map { it * 2 } // 结果：[2, 4, 6, 8, 10]
+
+// reduce函数：将列表归约为单个值
+// acc是累加器，i是当前元素，类似于JavaScript的array.reduce()
+val sum = numbers.reduce { acc, i -> acc + i } // 结果：15
+
+// DSL构建器：领域特定语言，用于创建流畅的API
+// 类似于建造者模式，但语法更简洁
 class AlertDialogBuilder {
-    var title: String = ""
-    var message: String = ""
-    var positiveButton: String = ""
-    var onPositiveClick: () -> Unit = {}
-    
+    var title: String = ""           // 对话框标题
+    var message: String = ""         // 对话框消息
+    var positiveButton: String = ""  // 确认按钮文本
+    var onPositiveClick: () -> Unit = {} // 点击回调函数，类似于事件处理器
+
+    // 构建最终的AlertDialog对象
     fun build(): AlertDialog {
         return AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
+            // Lambda表达式作为点击监听器
             .setPositiveButton(positiveButton) { _, _ -> onPositiveClick() }
             .create()
     }
@@ -122,22 +147,33 @@ class AlertDialogBuilder {
 
 #### 3.1 Activity与Fragment
 ```kotlin
-// 现代Activity实现
+// 现代Activity实现：Activity是Android的页面容器，类似于桌面应用的窗口
 class MainActivity : ComponentActivity() {
+    // 使用委托属性获取ViewModel，类似于依赖注入
+    // ViewModel负责管理UI相关的数据，类似于MVVM模式的ViewModel
     private val viewModel: MainViewModel by viewModels()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
+        // 设置Compose UI内容
         setContent {
             MyAppTheme {
+                // 创建导航控制器，用于页面间跳转
+                // 类似于Web开发中的路由器
                 val navController = rememberNavController()
+
+                // NavHost：导航宿主，定义应用的导航图
                 NavHost(
                     navController = navController,
-                    startDestination = "home"
+                    startDestination = "home" // 起始页面路由
                 ) {
+                    // 定义路由：类似于Web的路由配置
                     composable("home") { HomeScreen(navController) }
+
+                    // 带参数的路由：{id}是路径参数
                     composable("detail/{id}") { backStackEntry ->
+                        // 从导航参数中获取id值
                         val id = backStackEntry.arguments?.getString("id")
                         DetailScreen(id, navController)
                     }
@@ -147,18 +183,23 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Fragment与ViewModel
+// Fragment：UI片段，类似于可复用的UI组件
+// 可以嵌入到Activity中，实现模块化UI
 class UserFragment : Fragment() {
+    // Fragment也可以有自己的ViewModel
     private val viewModel: UserViewModel by viewModels()
-    
+
+    // onCreateView：创建Fragment的视图
+    // 类似于Web组件的render方法
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,  // 布局填充器
+        container: ViewGroup?,     // 父容器
+        savedInstanceState: Bundle? // 保存的状态
     ): View {
+        // 返回ComposeView，在Fragment中使用Compose UI
         return ComposeView(requireContext()).apply {
             setContent {
-                UserScreen(viewModel)
+                UserScreen(viewModel) // 设置Compose内容
             }
         }
     }
@@ -167,43 +208,57 @@ class UserFragment : Fragment() {
 
 #### 3.2 数据存储
 ```kotlin
-// Room数据库
-@Entity(tableName = "users")
+// Room数据库：Android的SQLite ORM框架，类似于Entity Framework或Hibernate
+// @Entity注解：标记这是一个数据库表实体
+@Entity(tableName = "users") // 指定表名
 data class UserEntity(
-    @PrimaryKey val id: Int,
-    val name: String,
-    val email: String,
-    val createdAt: Long = System.currentTimeMillis()
+    @PrimaryKey val id: Int,    // 主键，类似于数据库的PRIMARY KEY
+    val name: String,           // 用户名字段
+    val email: String,          // 邮箱字段
+    val createdAt: Long = System.currentTimeMillis() // 创建时间，默认当前时间戳
 )
 
+// @Dao注解：数据访问对象，类似于Repository模式
+// 定义数据库操作方法，类似于SQL查询接口
 @Dao
 interface UserDao {
+    // @Query注解：自定义SQL查询，:id是参数占位符
     @Query("SELECT * FROM users WHERE id = :id")
-    suspend fun getUserById(id: Int): UserEntity?
-    
+    suspend fun getUserById(id: Int): UserEntity? // 可能返回null
+
+    // @Insert注解：插入操作，冲突时替换
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)
-    
+
+    // 返回Flow：响应式数据流，数据变化时自动更新UI
+    // 类似于Observable或LiveData
     @Query("SELECT * FROM users ORDER BY createdAt DESC")
     fun getAllUsers(): Flow<List<UserEntity>>
 }
 
+// @Database注解：数据库配置
+// entities：包含的表实体，version：数据库版本号
 @Database(entities = [UserEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
+    // 提供DAO访问接口
     abstract fun userDao(): UserDao
 }
 
-// DataStore偏好存储
+// DataStore：现代化的偏好设置存储，替代SharedPreferences
+// 类似于浏览器的localStorage，但支持类型安全和协程
 class UserPreferences(private val dataStore: DataStore<Preferences>) {
+    // 定义偏好设置的键，类型安全
     private val USER_NAME = stringPreferencesKey("user_name")
     private val IS_FIRST_LAUNCH = booleanPreferencesKey("is_first_launch")
-    
+
+    // 读取用户名，返回Flow响应式数据流
     val userName: Flow<String> = dataStore.data
-        .map { preferences -> preferences[USER_NAME] ?: "" }
-    
+        .map { preferences -> preferences[USER_NAME] ?: "" } // 默认空字符串
+
+    // 保存用户名，使用协程异步操作
     suspend fun saveUserName(name: String) {
         dataStore.edit { preferences ->
-            preferences[USER_NAME] = name
+            preferences[USER_NAME] = name // 更新偏好设置
         }
     }
 }
