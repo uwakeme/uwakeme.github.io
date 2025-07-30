@@ -12,10 +12,8 @@ tags:
 categories: 工具
 description: 全面介绍jsDelivr CDN服务的使用方法、配置技巧和最佳实践，涵盖GitHub仓库加速、npm包分发、开源项目CDN等多种应用场景
 keywords: jsDelivr, CDN, 内容分发网络, GitHub加速, npm包, 前端优化, 开源项目, 免费CDN
-cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/jsdelivr-cover.png
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/jsDelivrCDN.jpg
 ---
-
-![jsDelivr CDN](https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/jsdelivr-banner.png)
 
 # 前言
 
