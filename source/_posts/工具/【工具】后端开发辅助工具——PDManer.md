@@ -1,5 +1,5 @@
 ---
-title: 【工具】后端开发辅助工具——PDManer
+title: 【工具】后端开发辅助工具——PDMaas
 date: 2025-07-14
 categories: 工具
 tags:
