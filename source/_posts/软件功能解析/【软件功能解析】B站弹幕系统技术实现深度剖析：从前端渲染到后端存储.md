@@ -10,6 +10,7 @@ tags:
   - 后端架构
   - WebSocket
   - 视频同步
+cover: https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/bilibili.svg
 ---
 
 # 一、弹幕系统概述与技术挑战
