@@ -1,6 +1,6 @@
 ---
-title: 【MySQL】关联查询问题详解：字段类型不一致的解决方案
-categories: MySQL
+title: 【BUG】关联查询问题详解：字段类型不一致的解决方案
+categories: BUG
 date: 2025-05-07
 tags:
   - MySQL
