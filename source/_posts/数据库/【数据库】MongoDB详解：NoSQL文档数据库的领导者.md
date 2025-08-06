@@ -1,95 +1,277 @@
 ---
 title: 【数据库】MongoDB详解：NoSQL文档数据库的领导者
-date: 2025-07-17 15:25:00
-tags: [数据库, MongoDB, NoSQL, 文档数据库, 后端开发]
+date: 2025-07-17
 categories: 数据库
+tags:
+  - 数据库
+  - MongoDB
+  - NoSQL
+  - 文档数据库
+  - 分布式数据库
+  - BSON
 ---
 
-## 什么是MongoDB？
+# 前言
 
-MongoDB是一个基于分布式文件存储的NoSQL数据库，由C++语言编写。它采用文档存储模型，将数据存储为类似JSON的BSON格式，具有高性能、高可用性和易扩展的特点。
+MongoDB是当今最流行的NoSQL数据库之一，它以文档存储模型、高性能和易扩展性著称。作为传统关系型数据库的重要补充，MongoDB在处理非结构化数据、快速开发和大规模分布式应用方面展现出独特优势。本文将全面介绍MongoDB的核心概念、操作方法、高级特性以及实际应用场景。
 
-## 核心概念
+# 一、MongoDB基础概念
+
+## （一）什么是MongoDB
+
+MongoDB是一个基于分布式文件存储的NoSQL数据库，由C++语言编写。它采用文档存储模型，将数据存储为类似JSON的BSON（Binary JSON）格式，具有高性能、高可用性和易扩展的特点。
+
+**MongoDB的核心特点：**
+- **文档导向**：数据以文档形式存储，支持复杂的数据结构
+- **动态模式**：无需预定义表结构，支持灵活的数据模型
+- **水平扩展**：原生支持分片（Sharding）和副本集（Replica Set）
+- **丰富查询**：支持复杂查询、索引和聚合操作
+- **高性能**：内存映射文件和高效的存储引擎
+
+## （二）核心概念详解
 
 ### 1. 文档（Document）
-- MongoDB的基本数据单元
-- 类似JSON的BSON格式
-- 支持嵌套文档和数组
-- 动态模式，无需预定义结构
+
+**文档是MongoDB的基本数据单元，具有以下特点：**
+- **BSON格式**：类似JSON但支持更多数据类型（如ObjectId、Date等）
+- **嵌套结构**：支持嵌套文档和数组，可以表示复杂的数据关系
+- **动态模式**：同一集合中的文档可以有不同的字段结构
+- **最大大小**：单个文档最大16MB
 
 ### 2. 集合（Collection）
-- 文档的容器
-- 类似关系型数据库中的表
-- 不需要预定义模式
-- 可以存储不同结构的文档
+
+**集合是文档的容器，类似于关系型数据库中的表：**
+- **无模式约束**：不需要预定义字段结构
+- **灵活存储**：可以存储不同结构的文档
+- **自动创建**：首次插入文档时自动创建集合
+- **命名规范**：集合名不能包含某些特殊字符
 
 ### 3. 数据库（Database）
-- 集合的容器
-- 一个MongoDB实例可以包含多个数据库
 
-## 数据模型示例
+**数据库是集合的容器：**
+- **多数据库支持**：一个MongoDB实例可以包含多个数据库
+- **独立命名空间**：每个数据库有独立的文件和权限
+- **默认数据库**：test、admin、local、config等系统数据库
 
-### 文档结构
+### 4. MongoDB vs 关系型数据库对比
+
+| MongoDB | 关系型数据库 | 说明 |
+|---------|-------------|------|
+| Database | Database | 数据库 |
+| Collection | Table | 表/集合 |
+| Document | Row | 行/文档 |
+| Field | Column | 列/字段 |
+| Index | Index | 索引 |
+| Embedded Document | JOIN | 关联关系 |
+
+## （三）数据模型示例
+
+### 1. 用户文档结构
+
 ```json
+// 用户文档示例：展示MongoDB文档的灵活性和嵌套能力
 {
-  "_id": ObjectId("507f1f77bcf86cd799439011"),
-  "username": "john_doe",
-  "email": "john@example.com",
-  "profile": {
-    "firstName": "John",
-    "lastName": "Doe",
-    "age": 30,
-    "address": {
-      "street": "123 Main St",
-      "city": "New York",
-      "state": "NY",
-      "zipcode": "10001"
+  "_id": ObjectId("507f1f77bcf86cd799439011"),    // MongoDB自动生成的唯一标识符
+  "username": "john_doe",                         // 用户名，字符串类型
+  "email": "john@example.com",                    // 邮箱地址，用于登录和通知
+  "profile": {                                    // 嵌套文档：用户详细信息
+    "firstName": "John",                          // 名字
+    "lastName": "Doe",                            // 姓氏
+    "age": 30,                                    // 年龄，数字类型
+    "avatar": "https://example.com/avatar.jpg",   // 头像URL
+    "address": {                                  // 嵌套文档：地址信息
+      "street": "123 Main St",                   // 街道地址
+      "city": "New York",                        // 城市
+      "state": "NY",                             // 州/省
+      "zipcode": "10001",                        // 邮政编码
+      "country": "USA"                           // 国家
     }
   },
-  "tags": ["developer", "mongodb", "nodejs"],
-  "createdAt": ISODate("2024-01-15T10:00:00Z"),
-  "updatedAt": ISODate("2024-01-15T10:00:00Z")
+  "tags": ["developer", "mongodb", "nodejs"],     // 数组：用户标签
+  "preferences": {                                 // 嵌套文档：用户偏好设置
+    "language": "en",                             // 语言偏好
+    "timezone": "America/New_York",               // 时区设置
+    "notifications": {                            // 通知设置
+      "email": true,                              // 邮件通知开关
+      "sms": false,                               // 短信通知开关
+      "push": true                                // 推送通知开关
+    }
+  },
+  "loginHistory": [                               // 数组：登录历史记录
+    {
+      "timestamp": ISODate("2024-01-15T10:00:00Z"), // 登录时间
+      "ip": "192.168.1.100",                     // 登录IP
+      "device": "Chrome on Windows"              // 设备信息
+    }
+  ],
+  "status": "active",                             // 用户状态：active/inactive/suspended
+  "createdAt": ISODate("2024-01-15T10:00:00Z"),  // 创建时间
+  "updatedAt": ISODate("2024-01-15T10:00:00Z")   // 最后更新时间
 }
 ```
 
-## 基本操作
+### 2. 数据类型说明
 
-### 连接数据库
+**MongoDB支持的主要数据类型：**
 ```javascript
-// 使用MongoDB Shell
+// MongoDB数据类型示例
+{
+  "string": "文本字符串",                    // String：UTF-8字符串
+  "number": 42,                            // Number：64位浮点数
+  "integer": NumberInt(32),                // 32位整数
+  "long": NumberLong(64),                  // 64位整数
+  "boolean": true,                         // Boolean：布尔值
+  "date": ISODate("2024-01-15"),          // Date：日期时间
+  "objectId": ObjectId("507f1f77bcf86cd799439011"), // ObjectId：唯一标识符
+  "array": [1, 2, 3],                     // Array：数组
+  "object": { "nested": "value" },        // Object：嵌套文档
+  "null": null,                           // Null：空值
+  "binary": BinData(0, "base64data"),     // Binary：二进制数据
+  "regex": /pattern/i,                    // RegExp：正则表达式
+  "decimal": NumberDecimal("123.45")      // Decimal128：高精度小数
+}
+```
+
+# 二、MongoDB基本操作
+
+## （一）连接与环境配置
+
+### 1. 连接数据库
+
+```javascript
+// 方法1：使用MongoDB Shell连接
+// 连接到本地MongoDB实例的指定数据库
 mongo mongodb://localhost:27017/mydb
 
-// 使用Node.js
-const MongoClient = require('mongodb').MongoClient;
+// 方法2：使用连接字符串（包含认证信息）
+mongo "mongodb://username:password@localhost:27017/mydb?authSource=admin"
+
+// 方法3：使用Node.js驱动程序连接
+const { MongoClient } = require('mongodb');
+
+// 连接字符串配置
 const uri = "mongodb://localhost:27017";
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,        // 使用新的URL解析器
+  useUnifiedTopology: true      // 使用新的服务器发现和监控引擎
+});
+
+// 异步连接示例
+async function connectToMongoDB() {
+  try {
+    await client.connect();                    // 建立连接
+    console.log("成功连接到MongoDB");
+
+    const database = client.db('mydb');       // 选择数据库
+    const collection = database.collection('users'); // 选择集合
+
+    // 执行数据库操作...
+
+  } catch (error) {
+    console.error("连接失败:", error);
+  } finally {
+    await client.close();                     // 关闭连接
+  }
+}
 ```
 
-### 数据库操作
+### 2. 连接字符串详解
+
 ```javascript
-// 创建/切换数据库
-use mydb
+// 完整的MongoDB连接字符串格式
+// mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
+
+// 示例：生产环境连接字符串
+const productionUri = "mongodb://admin:password@mongo1.example.com:27017,mongo2.example.com:27017,mongo3.example.com:27017/myapp?replicaSet=myReplicaSet&authSource=admin&ssl=true";
+
+// 连接选项说明：
+// - replicaSet: 副本集名称
+// - authSource: 认证数据库
+// - ssl: 启用SSL/TLS加密
+// - maxPoolSize: 连接池最大连接数
+// - retryWrites: 启用重试写入
+```
+
+## （二）数据库操作
+
+### 1. 数据库管理
+
+```javascript
+// 创建/切换数据库（数据库在首次写入数据时才会真正创建）
+use mydb                          // 切换到mydb数据库
 
 // 查看所有数据库
-show dbs
+show dbs                          // 显示所有数据库列表
 
-// 查看当前数据库
-db
+// 查看当前使用的数据库
+db                                // 显示当前数据库名称
 
-// 删除数据库
-db.dropDatabase()
+// 获取数据库统计信息
+db.stats()                        // 显示数据库大小、集合数量等统计信息
+
+// 删除当前数据库（谨慎操作！）
+db.dropDatabase()                 // 删除当前数据库及其所有集合
+
+// 检查数据库是否存在
+db.adminCommand("listDatabases").databases.forEach(
+  function(database) {
+    if (database.name === "mydb") {
+      print("数据库 mydb 存在");
+    }
+  }
+);
 ```
 
-### 集合操作
+### 2. 集合操作
+
 ```javascript
-// 创建集合
-db.createCollection("users")
+// 显式创建集合（可选，通常在插入数据时自动创建）
+db.createCollection("users")                    // 创建名为users的集合
+
+// 创建集合时指定选项
+db.createCollection("logs", {
+  capped: true,                                 // 创建固定大小集合
+  size: 100000,                                // 集合大小限制（字节）
+  max: 1000                                    // 文档数量限制
+});
+
+// 创建集合时设置验证规则
+db.createCollection("products", {
+  validator: {                                  // 文档验证器
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "price"],              // 必需字段
+      properties: {
+        name: {
+          bsonType: "string",
+          description: "产品名称必须是字符串"
+        },
+        price: {
+          bsonType: "number",
+          minimum: 0,
+          description: "价格必须是非负数"
+        }
+      }
+    }
+  }
+});
 
 // 查看所有集合
-show collections
+show collections                                // 显示当前数据库中的所有集合
+
+// 获取集合统计信息
+db.users.stats()                               // 显示users集合的统计信息
+
+// 重命名集合
+db.users.renameCollection("customers")         // 将users集合重命名为customers
 
 // 删除集合
-db.users.drop()
+db.users.drop()                                // 删除users集合
+
+// 检查集合是否存在
+if (db.getCollectionNames().indexOf("users") !== -1) {
+  print("集合 users 存在");
+}
 ```
 
 ### 文档操作（CRUD）

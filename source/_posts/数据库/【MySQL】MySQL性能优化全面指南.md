@@ -8,45 +8,188 @@ tags:
   - 数据库优化
   - 索引优化
   - SQL优化
+  - 查询优化
 ---
 
-# MySQL性能优化全面指南
+# 前言
 
-MySQL作为当前最流行的关系型数据库之一，其性能优化对于系统的整体表现至关重要。本文将从多个维度详细介绍MySQL的优化方法，帮助开发者和数据库管理员提升数据库性能。
+MySQL作为当前最流行的关系型数据库之一，其性能优化对于系统的整体表现至关重要。随着数据量的增长和并发访问的增加，数据库往往成为系统的性能瓶颈。本文将从SQL语句优化、索引设计、表结构优化、服务器配置等多个维度，系统性地介绍MySQL性能优化的方法和最佳实践，帮助开发者和数据库管理员构建高性能的数据库系统。
 
-## 一、SQL语句优化
+# 一、SQL语句优化
 
-### （一）避免全表扫描
+## （一）避免全表扫描
 
-- 使用`EXPLAIN`分析SQL执行计划，避免全表扫描操作
-- 确保查询语句使用了适当的索引
-- 避免在WHERE子句中使用函数操作，如`WHERE YEAR(create_time) = 2023`
+### 1. 使用EXPLAIN分析执行计划
 
-### （二）优化SELECT查询
+```sql
+-- 使用EXPLAIN分析查询执行计划，识别性能问题
+EXPLAIN SELECT * FROM users WHERE age = 25;
 
-- 只查询必要的列，避免使用`SELECT *`
-- 使用LIMIT限制结果集大小
-- 避免使用SELECT DISTINCT，可以通过其他方式实现去重
-- 使用覆盖索引减少回表操作
+-- 关键指标解读：
+-- type: 连接类型，ALL表示全表扫描（需要优化）
+-- key: 使用的索引，NULL表示未使用索引
+-- rows: 扫描的行数，数值越小越好
+-- Extra: 额外信息，Using filesort/Using temporary需要关注
 
-### （三）优化JOIN操作
+-- 使用EXPLAIN FORMAT=JSON获取更详细信息
+EXPLAIN FORMAT=JSON
+SELECT u.name, o.total
+FROM users u
+JOIN orders o ON u.id = o.user_id
+WHERE u.age > 18;
+```
 
-- 小表驱动大表，将小结果集的表放在JOIN操作符的左边
-- 使用JOIN代替子查询，减少临时表的创建
-- 确保JOIN条件字段上有适当的索引
-- 避免过多的JOIN操作，必要时拆分复杂查询
+### 2. 避免在WHERE子句中使用函数
 
-### （四）合理使用子查询
+```sql
+-- 错误示例：在WHERE子句中使用函数，导致索引失效
+SELECT * FROM orders
+WHERE YEAR(create_time) = 2023;  -- 无法使用create_time上的索引
 
-- 尽可能使用JOIN代替子查询
-- 避免在WHERE子句中使用IN包含子查询，可以改用JOIN
-- 使用EXISTS代替IN进行关联查询
+-- 正确示例：使用范围查询，可以利用索引
+SELECT * FROM orders
+WHERE create_time >= '2023-01-01'
+  AND create_time < '2024-01-01';  -- 可以使用create_time上的索引
 
-### （五）批量操作优化
+-- 错误示例：对字段进行计算
+SELECT * FROM products
+WHERE price * 0.8 > 100;  -- 无法使用price上的索引
 
-- 使用批量插入代替单条插入：`INSERT INTO table VALUES (1,2), (3,4), (5,6)`
-- 使用事务包裹批量操作，减少提交次数
-- 对于大批量操作，考虑使用LOAD DATA INFILE
+-- 正确示例：将计算移到右边
+SELECT * FROM products
+WHERE price > 100 / 0.8;  -- 可以使用price上的索引
+```
+
+## （二）优化SELECT查询
+
+### 1. 避免使用SELECT *
+
+```sql
+-- 错误示例：查询所有字段，浪费网络带宽和内存
+SELECT * FROM users WHERE id = 1;
+
+-- 正确示例：只查询需要的字段
+SELECT id, name, email FROM users WHERE id = 1;
+
+-- 覆盖索引示例：查询字段都在索引中，避免回表操作
+-- 假设有索引：INDEX idx_name_email (name, email)
+SELECT name, email FROM users WHERE name = 'John';  -- 使用覆盖索引，性能更好
+```
+
+### 2. 合理使用LIMIT
+
+```sql
+-- 分页查询优化：避免大偏移量的LIMIT
+-- 错误示例：偏移量过大，性能差
+SELECT * FROM users ORDER BY id LIMIT 100000, 10;
+
+-- 正确示例：使用WHERE条件代替大偏移量
+SELECT * FROM users WHERE id > 100000 ORDER BY id LIMIT 10;
+
+-- 或者使用游标分页
+SELECT * FROM users WHERE id > :last_id ORDER BY id LIMIT 10;
+```
+
+### 3. 去重操作优化
+
+```sql
+-- 避免使用DISTINCT，考虑使用GROUP BY
+-- 如果可能，通过业务逻辑避免重复数据
+
+-- 示例：统计不同用户的订单数
+-- 使用GROUP BY代替DISTINCT
+SELECT user_id, COUNT(*) as order_count
+FROM orders
+GROUP BY user_id;
+
+-- 而不是
+SELECT DISTINCT user_id FROM orders;  -- 只能获取用户ID，信息有限
+```
+
+## （三）优化JOIN操作
+
+### 1. 小表驱动大表原则
+
+```sql
+-- 正确示例：小表（categories）驱动大表（products）
+SELECT p.name, c.category_name
+FROM categories c                    -- 小表在前（假设只有几十个分类）
+JOIN products p ON c.id = p.category_id  -- 大表在后（假设有数万个产品）
+WHERE c.status = 'active';
+
+-- 确保JOIN条件字段上有索引
+-- 在products表的category_id字段上创建索引
+CREATE INDEX idx_products_category_id ON products(category_id);
+```
+
+### 2. JOIN代替子查询
+
+```sql
+-- 错误示例：使用子查询，可能产生临时表
+SELECT * FROM users
+WHERE id IN (
+    SELECT user_id FROM orders WHERE total > 1000
+);
+
+-- 正确示例：使用JOIN，通常性能更好
+SELECT DISTINCT u.*
+FROM users u
+JOIN orders o ON u.id = o.user_id
+WHERE o.total > 1000;
+
+-- 或者使用EXISTS（适用于只需要判断存在性的场景）
+SELECT * FROM users u
+WHERE EXISTS (
+    SELECT 1 FROM orders o
+    WHERE o.user_id = u.id AND o.total > 1000
+);
+```
+
+## （四）批量操作优化
+
+### 1. 批量插入优化
+
+```sql
+-- 错误示例：逐条插入，事务开销大
+INSERT INTO users (name, email) VALUES ('User1', 'user1@example.com');
+INSERT INTO users (name, email) VALUES ('User2', 'user2@example.com');
+INSERT INTO users (name, email) VALUES ('User3', 'user3@example.com');
+
+-- 正确示例：批量插入，减少事务开销
+INSERT INTO users (name, email) VALUES
+('User1', 'user1@example.com'),
+('User2', 'user2@example.com'),
+('User3', 'user3@example.com');
+
+-- 大批量数据导入：使用LOAD DATA INFILE
+LOAD DATA INFILE '/path/to/users.csv'
+INTO TABLE users
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(name, email);
+```
+
+### 2. 批量更新优化
+
+```sql
+-- 使用事务包裹批量操作
+START TRANSACTION;
+
+UPDATE users SET status = 'active' WHERE last_login > '2023-01-01';
+UPDATE users SET status = 'inactive' WHERE last_login < '2022-01-01';
+DELETE FROM users WHERE status = 'deleted' AND created_at < '2020-01-01';
+
+COMMIT;
+
+-- 使用CASE WHEN进行条件批量更新
+UPDATE users
+SET status = CASE
+    WHEN last_login > '2023-01-01' THEN 'active'
+    WHEN last_login < '2022-01-01' THEN 'inactive'
+    ELSE status
+END
+WHERE last_login IS NOT NULL;
+```
 
 ## 二、索引优化
 
