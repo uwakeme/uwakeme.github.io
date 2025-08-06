@@ -123,7 +123,7 @@
       ogTags['og:image:width'] = firstImage.naturalWidth || 800;
       ogTags['og:image:height'] = firstImage.naturalHeight || 600;
     } else {
-      ogTags['og:image'] = 'https://uwakeme.top/img/og-image.png';
+      ogTags['og:image'] = 'https://uwakeme.tech/img/og-image.png';
     }
 
     // 创建或更新OG标签

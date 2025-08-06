@@ -9,24 +9,24 @@
       "@type": "WebSite",
       "name": "Uwakeme",
       "alternateName": "Wake的技术博客",
-      "url": "https://uwakeme.top",
+      "url": "https://uwakeme.tech",
       "description": "Wake的个人技术博客，专注分享技术知识、学习心得和生活感悟。主要涉及Web开发、后端技术、人工智能等领域的内容。",
       "author": {
         "@type": "Person",
         "name": "Wake",
-        "url": "https://uwakeme.top/about/"
+        "url": "https://uwakeme.tech/about/"
       },
       "publisher": {
         "@type": "Organization",
         "name": "Uwakeme",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://uwakeme.top/img/favicon.png"
+          "url": "https://uwakeme.tech/img/favicon.png"
         }
       },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://uwakeme.top/search?q={search_term_string}",
+        "target": "https://uwakeme.tech/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     };
@@ -55,14 +55,14 @@
       "author": {
         "@type": "Person",
         "name": "Wake",
-        "url": "https://uwakeme.top/about/"
+        "url": "https://uwakeme.tech/about/"
       },
       "publisher": {
         "@type": "Organization",
         "name": "Uwakeme",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://uwakeme.top/img/favicon.png"
+          "url": "https://uwakeme.tech/img/favicon.png"
         }
       },
       "mainEntityOfPage": {
