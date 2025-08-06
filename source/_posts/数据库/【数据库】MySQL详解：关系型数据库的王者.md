@@ -3,6 +3,7 @@ title: 【数据库】MySQL详解：关系型数据库的王者
 date: 2025-07-17 15:20:00
 tags: [数据库, MySQL, 关系型数据库, 后端开发]
 categories: 数据库
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/mysql.jpeg
 ---
 
 ## 什么是MySQL？
