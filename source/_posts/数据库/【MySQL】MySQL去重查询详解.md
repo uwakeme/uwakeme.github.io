@@ -1,13 +1,11 @@
 ---
-title: 【MySQL】MySQL去重操作详解：DISTINCT、GROUP BY与实际应用场景
+title: 【MySQL】MySQL去重查询详解
 categories: MySQL
 date: 2025-08-06
 tags:
   - MySQL
   - 数据库
-  - 去重
-  - DISTINCT
-  - GROUP BY
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/mysql.jpeg
 ---
 
 # 前言
