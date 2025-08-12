@@ -6,9 +6,8 @@ tags:
   - 数据库
   - MongoDB
   - NoSQL
-  - 文档数据库
-  - 分布式数据库
-  - BSON
+  - 分布式
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/MongoDB.jpg
 ---
 
 # 前言

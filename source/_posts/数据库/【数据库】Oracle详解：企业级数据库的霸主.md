@@ -1,8 +1,11 @@
 ---
 title: 【数据库】Oracle详解：企业级数据库的霸主
 date: 2025-07-17 15:55:00
-tags: [数据库, Oracle, 企业级数据库, PL/SQL, 后端开发]
+tags: 
+    - 数据库
+    - Oracle
 categories: 数据库
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/oracle.jpg
 ---
 
 ## 什么是Oracle？
