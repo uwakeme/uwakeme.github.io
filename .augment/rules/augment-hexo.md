@@ -17,7 +17,7 @@ type: "always_apply"
 ---
 title: 【分类】具体标题
 categories: 分类
-date: yyyy-MM-dd
+date: yyyy-MM-dd HH:mm:ss
 tags:
   - 标签1
   - 标签2
@@ -28,7 +28,7 @@ tags:
 
 ## （一）小节标题
 
-正文内容
+正文内容...
 ```
 
 ## 分类规范
@@ -41,6 +41,13 @@ tags:
   - 【BUG】：问题排查和解决方案
   - 【数据库】：数据库相关内容
   - 【前端】：前端开发相关内容
+  - 【算法】：算法相关文章
+  - 【博客】：博客相关文章
+  - 【后端】：后端开发相关内容
+  - 【AI】：人工智能相关内容
+  - 【求职】：求职相关文章
+  - 【大数据】：大数据相关文章
+  - 等其他分类
 
 ## 章节结构
 
@@ -54,16 +61,16 @@ tags:
 
 - 使用清晰、专业的技术语言
 - 保持第一人称（"笔者"）的写作风格
-- 适当使用技术术语，但需要确保术语准确
+- 适当使用技术术语，但需要确保术语准确，专业术语读者可能不懂的要有注解
 - 对复杂概念提供简洁明了、易于理解的解释
-- 在恰当的时候使用代码来解释，但切忌滥用代码，导致文章可读性变差
+- 避免使用过时的技术，尽量使用主流技术
 
 ## 代码展示
 
 ### 代码块使用规范
 
 **代码块应该包含：**
-- ✅ 实际的代码（Java、Kotlin、JavaScript、Python等）
+- ✅ 实际的代码（Java、Kotlin、JavaScript、Python等编程语言的代码）
 - ✅ 配置文件内容（XML、JSON、YAML、Gradle等）
 - ✅ 项目目录结构
 - ✅ 命令行指令和SQL语句
@@ -78,7 +85,7 @@ tags:
 ### 代码注释要求
 
 - **详细注释**：所有代码必须包含详细的中文注释
-- **概念解释**：对技术概念进行解释，特别是对其他技术栈开发者可能陌生的概念
+- **概念解释**：对代码中的某些概念进行解释，特别是对其他技术栈开发者可能陌生的概念
 - **功能说明**：每个重要方法、类、变量都要有功能说明
 - **实用性注释**：注释要直接说明代码的实际作用和业务意义
 
@@ -87,36 +94,23 @@ tags:
 ```java
 // Stream API：Java 8的函数式编程特性，类似于JavaScript的数组方法
 List<String> filtered = list.stream()
-    .filter(s -> s.contains("a"))  // 过滤包含字母'a'的元素，类似于JavaScript的array.filter()
-    .collect(Collectors.toList()); // 收集结果到新列表，类似于将结果转换为数组
+    .filter(s -> s.contains("a"))  // 过滤包含字母'a'的元素
+    .collect(Collectors.toList()); // 收集结果到新列表
 ```
 
 ```kotlin
-// 数据类：自动生成equals、hashCode、toString等方法，类似于Java的POJO类但更简洁
+// 数据类：自动生成equals、hashCode、toString等方法
 data class User(
     val id: Int,        // val表示只读属性，类似于Java的final字段
     val name: String,   // Kotlin的字符串类型，非空
     val email: String
 )
 
-// 扩展函数：为现有类添加新方法，无需继承或修改原类，类似于C#的扩展方法
+// 扩展函数：为现有类添加新方法，无需继承或修改原类
 fun String.isEmailValid(): Boolean {
     // 使用正则表达式验证邮箱格式
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
-```
-
-## 命令行展示
-
-- 命令行指令使用shell代码块
-- 每个命令应附带简短注释说明其功能
-- 对于复杂命令，应解释参数含义和执行结果
-- 示例：
-
-```shell
-uname -a          # 查看系统内核信息
-lsb_release -a    # 查看Linux发行版本
-df -h             # 查看磁盘空间，-h参数以人类可读格式显示
 ```
 
 ## 步骤说明格式
