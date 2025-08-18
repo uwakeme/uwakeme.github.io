@@ -6,7 +6,6 @@ tags:
   - NW.js
   - 桌面应用开发
   - Node.js
-  - Chromium
   - 跨平台开发
   - JavaScript
 cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/nwjs.jpeg
