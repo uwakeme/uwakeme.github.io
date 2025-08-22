@@ -50,7 +50,7 @@ case $choice in
         echo ""
 
         echo -e "${GREEN}🎉 快速部署完成！${NC}"
-        echo -e "${CYAN}📊 访问 https://uwakeme.tech 查看效果${NC}"
+        echo -e "${CYAN}📊 访问 https://hexo.blob.uwakeme.tech 查看效果${NC}"
         ;;
     2)
         echo -e "${GREEN}🔧 启动自动化部署流程...${NC}"

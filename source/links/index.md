@@ -23,5 +23,5 @@ layout: links
 如果您想添加本站为友链，可以使用以下信息：
 
 - 名称：Wake的博客
-- 链接：https://uwakeme.tech
+- 链接：https://hexo.blob.uwakeme.tech
 - 描述：一起学习，一起进步

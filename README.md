@@ -137,7 +137,7 @@ author: Wake
 
 ## 联系方式
 
-- 博客：[https://uwakeme.tech](https://uwakeme.tech)
+- 博客：[https://hexo.blob.uwakeme.tech](https://hexo.blob.uwakeme.tech)
 - GitHub：[https://github.com/uwakeme](https://github.com/uwakeme)
 
 ## 致谢
