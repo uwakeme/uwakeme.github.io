@@ -635,7 +635,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
-        cname: uwakeme.tech
+        cname: example.com
 ```
 
 ## （二）多平台部署支持
