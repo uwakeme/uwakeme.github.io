@@ -1,12 +1,12 @@
 ---
-title: 【后端】Spring Boot详解：企业级Java开发框架
+title: 【Java】Spring Boot详解：企业级Java开发框架
 tags: 
     - 后端
     - Java
     - Spring Boot
     - 微服务
     - 框架
-categories: 后端
+categories: Java
 description: 深入解析Spring Boot框架，包括核心概念、自动配置、起步依赖、微服务开发、数据访问、安全认证等企业级Java开发的核心技术
 date: 2025-07-05
 ---
