@@ -3,6 +3,7 @@ title: 【数据库】Redis详解：内存数据库与缓存之王
 date: 2025-07-17 15:30:00
 tags: [数据库, Redis, 内存数据库, 缓存, 后端开发]
 categories: 数据库
+cover: https://cdn.jsdelivr.net/gh/uwakeme/personal-image-repository/images/redis.jpg
 ---
 
 ## 什么是Redis？
