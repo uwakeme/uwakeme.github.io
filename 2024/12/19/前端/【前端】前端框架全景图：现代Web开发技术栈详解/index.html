@@ -1,0 +1,885 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【前端】前端框架全景图：现代Web开发技术栈详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="全面介绍现代前端开发中的主要框架和技术栈，包括React、Vue、Angular等主流框架的特点、适用场景和生态系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【前端】前端框架全景图：现代Web开发技术栈详解">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="全面介绍现代前端开发中的主要框架和技术栈，包括React、Vue、Angular等主流框架的特点、适用场景和生态系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2024-12-19T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.184Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="TypeScript,">
+<meta property="article:tag" content="Web开发">
+<meta property="article:tag" content="前端,">
+<meta property="article:tag" content="框架,">
+<meta property="article:tag" content="JavaScript,">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【前端】前端框架全景图：现代Web开发技术栈详解",
+  "url": "https://hexo.blog.uwakeme.tech/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2024-12-19T02:00:00.000Z",
+  "dateModified": "2026-01-15T08:48:25.184Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【前端】前端框架全景图：现代Web开发技术栈详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【前端】前端框架全景图：现代Web开发技术栈详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【前端】前端框架全景图：现代Web开发技术栈详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-19T02:00:00.000Z" title="发表于 2024-12-19 10:00:00">2024-12-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.184Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>现代前端开发已经从简单的HTML、CSS、JavaScript组合发展成为一个复杂而丰富的生态系统。各种框架、库和工具层出不穷，为开发者提供了强大的能力来构建复杂的用户界面和交互体验。本文将全面介绍当前主流的前端框架，帮助开发者了解各个框架的特点、优势和适用场景。</p>
+<h1 id="一、前端框架发展历程"><a href="#一、前端框架发展历程" class="headerlink" title="一、前端框架发展历程"></a>一、前端框架发展历程</h1><h2 id="（一）发展阶段"><a href="#（一）发展阶段" class="headerlink" title="（一）发展阶段"></a>（一）发展阶段</h2><h3 id="1-原生时代（2000-2010）"><a href="#1-原生时代（2000-2010）" class="headerlink" title="1. 原生时代（2000-2010）"></a>1. 原生时代（2000-2010）</h3><ul>
+<li><strong>特点</strong>：直接使用HTML、CSS、JavaScript</li>
+<li><strong>代表技术</strong>：DOM操作、jQuery</li>
+<li><strong>优势</strong>：简单直接，学习成本低</li>
+<li><strong>劣势</strong>：代码复用性差，维护困难</li>
+</ul>
+<h3 id="2-库时代（2006-2013）"><a href="#2-库时代（2006-2013）" class="headerlink" title="2. 库时代（2006-2013）"></a>2. 库时代（2006-2013）</h3><ul>
+<li><strong>特点</strong>：引入工具库简化开发</li>
+<li><strong>代表技术</strong>：jQuery、Prototype、MooTools</li>
+<li><strong>优势</strong>：简化DOM操作，提高开发效率</li>
+<li><strong>劣势</strong>：缺乏架构指导，项目结构混乱</li>
+</ul>
+<h3 id="3-MV-框架时代（2010-2016）"><a href="#3-MV-框架时代（2010-2016）" class="headerlink" title="3. MV*框架时代（2010-2016）"></a>3. MV*框架时代（2010-2016）</h3><ul>
+<li><strong>特点</strong>：引入架构模式，分离关注点</li>
+<li><strong>代表技术</strong>：Backbone.js、AngularJS、Ember.js</li>
+<li><strong>优势</strong>：代码组织更好，可维护性提升</li>
+<li><strong>劣势</strong>：学习曲线陡峭，性能问题</li>
+</ul>
+<h3 id="4-组件化时代（2013-至今）"><a href="#4-组件化时代（2013-至今）" class="headerlink" title="4. 组件化时代（2013-至今）"></a>4. 组件化时代（2013-至今）</h3><ul>
+<li><strong>特点</strong>：组件化开发，虚拟DOM，响应式更新</li>
+<li><strong>代表技术</strong>：React、Vue、Angular</li>
+<li><strong>优势</strong>：高性能，可复用，易维护</li>
+<li><strong>劣势</strong>：生态复杂，工具链繁重</li>
+</ul>
+<h2 id="（二）技术演进趋势"><a href="#（二）技术演进趋势" class="headerlink" title="（二）技术演进趋势"></a>（二）技术演进趋势</h2><ol>
+<li><strong>性能优化</strong>：从DOM操作到虚拟DOM，从客户端渲染到服务端渲染</li>
+<li><strong>开发体验</strong>：热重载、TypeScript支持、开发工具完善</li>
+<li><strong>架构模式</strong>：从MVC到组件化，从命令式到声明式</li>
+<li><strong>生态系统</strong>：工具链完善，社区活跃，插件丰富</li>
+</ol>
+<h1 id="二、主流前端框架对比"><a href="#二、主流前端框架对比" class="headerlink" title="二、主流前端框架对比"></a>二、主流前端框架对比</h1><h2 id="（一）框架分类"><a href="#（一）框架分类" class="headerlink" title="（一）框架分类"></a>（一）框架分类</h2><h3 id="1-按架构模式分类"><a href="#1-按架构模式分类" class="headerlink" title="1. 按架构模式分类"></a>1. 按架构模式分类</h3><ul>
+<li><strong>MVVM框架</strong>：Vue.js、Angular</li>
+<li><strong>函数式框架</strong>：React</li>
+<li><strong>全栈框架</strong>：Next.js、Nuxt.js、SvelteKit</li>
+</ul>
+<h3 id="2-按应用场景分类"><a href="#2-按应用场景分类" class="headerlink" title="2. 按应用场景分类"></a>2. 按应用场景分类</h3><ul>
+<li><strong>SPA框架</strong>：React、Vue、Angular</li>
+<li><strong>SSR框架</strong>：Next.js、Nuxt.js、SvelteKit</li>
+<li><strong>静态站点生成器</strong>：Gatsby、VuePress、Gridsome</li>
+<li><strong>移动端框架</strong>：React Native、Ionic、Flutter Web</li>
+</ul>
+<h3 id="3-按学习曲线分类"><a href="#3-按学习曲线分类" class="headerlink" title="3. 按学习曲线分类"></a>3. 按学习曲线分类</h3><ul>
+<li><strong>易上手</strong>：Vue.js、Svelte</li>
+<li><strong>中等难度</strong>：React</li>
+<li><strong>较复杂</strong>：Angular</li>
+</ul>
+<h2 id="（二）主要框架特点对比"><a href="#（二）主要框架特点对比" class="headerlink" title="（二）主要框架特点对比"></a>（二）主要框架特点对比</h2><table>
+<thead>
+<tr>
+<th>框架</th>
+<th>发布年份</th>
+<th>开发者</th>
+<th>核心特点</th>
+<th>学习曲线</th>
+<th>生态系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>React</td>
+<td>2013</td>
+<td>Facebook</td>
+<td>虚拟DOM、JSX、单向数据流</td>
+<td>中等</td>
+<td>非常丰富</td>
+</tr>
+<tr>
+<td>Vue.js</td>
+<td>2014</td>
+<td>尤雨溪</td>
+<td>渐进式、双向绑定、模板语法</td>
+<td>较低</td>
+<td>丰富</td>
+</tr>
+<tr>
+<td>Angular</td>
+<td>2016</td>
+<td>Google</td>
+<td>TypeScript、依赖注入、完整框架</td>
+<td>较高</td>
+<td>完整</td>
+</tr>
+<tr>
+<td>Svelte</td>
+<td>2016</td>
+<td>Rich Harris</td>
+<td>编译时优化、无虚拟DOM</td>
+<td>较低</td>
+<td>发展中</td>
+</tr>
+<tr>
+<td>Solid.js</td>
+<td>2021</td>
+<td>Ryan Carniato</td>
+<td>细粒度响应式、高性能</td>
+<td>中等</td>
+<td>新兴</td>
+</tr>
+</tbody></table>
+<h1 id="三、React生态系统"><a href="#三、React生态系统" class="headerlink" title="三、React生态系统"></a>三、React生态系统</h1><blockquote>
+<p>💡 <strong>深度阅读</strong>：想要深入了解React框架的详细特性、最佳实践和实战案例，请参考：<a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91React%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%B8%8E%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5.md">【前端】React框架详解：组件化开发与现代前端实践</a></p>
+</blockquote>
+<h2 id="（一）核心特点"><a href="#（一）核心特点" class="headerlink" title="（一）核心特点"></a>（一）核心特点</h2><h3 id="1-技术特色"><a href="#1-技术特色" class="headerlink" title="1. 技术特色"></a>1. 技术特色</h3><ul>
+<li><strong>虚拟DOM</strong>：高效的DOM更新机制</li>
+<li><strong>JSX语法</strong>：JavaScript和HTML的结合</li>
+<li><strong>组件化</strong>：可复用的UI组件</li>
+<li><strong>单向数据流</strong>：可预测的数据流向</li>
+<li><strong>Hooks</strong>：函数组件的状态管理</li>
+</ul>
+<h3 id="2-设计哲学"><a href="#2-设计哲学" class="headerlink" title="2. 设计哲学"></a>2. 设计哲学</h3><ul>
+<li><strong>声明式编程</strong>：描述UI应该是什么样子</li>
+<li><strong>组件组合</strong>：通过组合小组件构建复杂UI</li>
+<li><strong>学习一次，到处编写</strong>：React Native、React VR等</li>
+</ul>
+<h2 id="（二）生态系统"><a href="#（二）生态系统" class="headerlink" title="（二）生态系统"></a>（二）生态系统</h2><h3 id="1-状态管理"><a href="#1-状态管理" class="headerlink" title="1. 状态管理"></a>1. 状态管理</h3><ul>
+<li><strong>Redux</strong>：可预测的状态容器</li>
+<li><strong>MobX</strong>：响应式状态管理</li>
+<li><strong>Zustand</strong>：轻量级状态管理</li>
+<li><strong>Recoil</strong>：Facebook的实验性状态管理</li>
+</ul>
+<h3 id="2-路由管理"><a href="#2-路由管理" class="headerlink" title="2. 路由管理"></a>2. 路由管理</h3><ul>
+<li><strong>React Router</strong>：声明式路由</li>
+<li><strong>Reach Router</strong>：已合并到React Router</li>
+<li><strong>Next.js Router</strong>：基于文件系统的路由</li>
+</ul>
+<h3 id="3-UI组件库"><a href="#3-UI组件库" class="headerlink" title="3. UI组件库"></a>3. UI组件库</h3><ul>
+<li><strong>Ant Design</strong>：企业级UI设计语言</li>
+<li><strong>Material-UI</strong>：Google Material Design</li>
+<li><strong>Chakra UI</strong>：简单、模块化、可访问</li>
+<li><strong>React Bootstrap</strong>：Bootstrap的React实现</li>
+</ul>
+<h3 id="4-开发工具"><a href="#4-开发工具" class="headerlink" title="4. 开发工具"></a>4. 开发工具</h3><ul>
+<li><strong>Create React App</strong>：零配置脚手架</li>
+<li><strong>Vite</strong>：快速构建工具</li>
+<li><strong>Storybook</strong>：组件开发环境</li>
+</ul>
+<h2 id="（三）适用场景"><a href="#（三）适用场景" class="headerlink" title="（三）适用场景"></a>（三）适用场景</h2><ol>
+<li><strong>大型单页应用</strong>：复杂的业务逻辑和交互</li>
+<li><strong>企业级应用</strong>：需要长期维护的项目</li>
+<li><strong>移动应用</strong>：React Native跨平台开发</li>
+<li><strong>服务端渲染</strong>：Next.js提供SSR能力</li>
+</ol>
+<h1 id="四、Vue-js生态系统"><a href="#四、Vue-js生态系统" class="headerlink" title="四、Vue.js生态系统"></a>四、Vue.js生态系统</h1><blockquote>
+<p>💡 <strong>深度阅读</strong>：</p>
+<ul>
+<li>Vue 2详细介绍：<a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">【前端】Vue2详解：经典的渐进式前端框架</a></li>
+<li>Vue 3详细介绍：<a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue3%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%8C%96%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">【前端】Vue3详解：现代化的渐进式前端框架</a></li>
+</ul>
+</blockquote>
+<h2 id="（一）核心特点-1"><a href="#（一）核心特点-1" class="headerlink" title="（一）核心特点"></a>（一）核心特点</h2><h3 id="1-技术特色-1"><a href="#1-技术特色-1" class="headerlink" title="1. 技术特色"></a>1. 技术特色</h3><ul>
+<li><strong>渐进式框架</strong>：可以逐步采用</li>
+<li><strong>响应式数据绑定</strong>：自动追踪依赖</li>
+<li><strong>模板语法</strong>：基于HTML的模板</li>
+<li><strong>组件系统</strong>：可复用的组件</li>
+<li><strong>虚拟DOM</strong>：高效的更新机制</li>
+</ul>
+<h3 id="2-设计哲学-1"><a href="#2-设计哲学-1" class="headerlink" title="2. 设计哲学"></a>2. 设计哲学</h3><ul>
+<li><strong>易学易用</strong>：降低学习门槛</li>
+<li><strong>渐进式</strong>：可以在现有项目中逐步引入</li>
+<li><strong>灵活性</strong>：支持多种开发方式</li>
+</ul>
+<h2 id="（二）生态系统-1"><a href="#（二）生态系统-1" class="headerlink" title="（二）生态系统"></a>（二）生态系统</h2><h3 id="1-状态管理-1"><a href="#1-状态管理-1" class="headerlink" title="1. 状态管理"></a>1. 状态管理</h3><ul>
+<li><strong>Vuex</strong>：Vue.js的官方状态管理</li>
+<li><strong>Pinia</strong>：Vue 3推荐的状态管理</li>
+<li><strong>VueUse</strong>：Vue组合式API工具集</li>
+</ul>
+<h3 id="2-路由管理-1"><a href="#2-路由管理-1" class="headerlink" title="2. 路由管理"></a>2. 路由管理</h3><ul>
+<li><strong>Vue Router</strong>：官方路由管理器</li>
+<li><strong>支持嵌套路由</strong>：复杂应用的路由需求</li>
+</ul>
+<h3 id="3-UI组件库-1"><a href="#3-UI组件库-1" class="headerlink" title="3. UI组件库"></a>3. UI组件库</h3><ul>
+<li><strong>Element Plus</strong>：基于Vue 3的桌面端组件库</li>
+<li><strong>Ant Design Vue</strong>：Ant Design的Vue实现</li>
+<li><strong>Vuetify</strong>：Material Design组件框架</li>
+<li><strong>Quasar</strong>：跨平台Vue.js框架</li>
+</ul>
+<h3 id="4-开发工具-1"><a href="#4-开发工具-1" class="headerlink" title="4. 开发工具"></a>4. 开发工具</h3><ul>
+<li><strong>Vue CLI</strong>：标准工具链</li>
+<li><strong>Vite</strong>：下一代构建工具</li>
+<li><strong>Vue Devtools</strong>：浏览器调试工具</li>
+</ul>
+<h2 id="（三）适用场景-1"><a href="#（三）适用场景-1" class="headerlink" title="（三）适用场景"></a>（三）适用场景</h2><ol>
+<li><strong>中小型项目</strong>：快速开发和迭代</li>
+<li><strong>渐进式改造</strong>：在现有项目中逐步引入</li>
+<li><strong>原型开发</strong>：快速验证想法</li>
+<li><strong>移动端应用</strong>：结合Cordova或Capacitor</li>
+</ol>
+<h1 id="五、Angular生态系统"><a href="#五、Angular生态系统" class="headerlink" title="五、Angular生态系统"></a>五、Angular生态系统</h1><blockquote>
+<p>💡 <strong>深度阅读</strong>：想要深入了解Angular框架的详细特性、架构设计和企业级开发实践，请参考：<a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Angular%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0.md">【前端】Angular框架详解：企业级前端开发平台</a></p>
+</blockquote>
+<h2 id="（一）核心特点-2"><a href="#（一）核心特点-2" class="headerlink" title="（一）核心特点"></a>（一）核心特点</h2><h3 id="1-技术特色-2"><a href="#1-技术特色-2" class="headerlink" title="1. 技术特色"></a>1. 技术特色</h3><ul>
+<li><strong>TypeScript优先</strong>：强类型支持</li>
+<li><strong>依赖注入</strong>：松耦合的架构</li>
+<li><strong>模块系统</strong>：代码组织和懒加载</li>
+<li><strong>完整框架</strong>：包含所有必需功能</li>
+<li><strong>企业级特性</strong>：测试、国际化、无障碍</li>
+</ul>
+<h3 id="2-设计哲学-2"><a href="#2-设计哲学-2" class="headerlink" title="2. 设计哲学"></a>2. 设计哲学</h3><ul>
+<li><strong>约定优于配置</strong>：标准化的开发方式</li>
+<li><strong>企业级开发</strong>：适合大型团队协作</li>
+<li><strong>长期支持</strong>：稳定的版本发布周期</li>
+</ul>
+<h2 id="（二）生态系统-2"><a href="#（二）生态系统-2" class="headerlink" title="（二）生态系统"></a>（二）生态系统</h2><h3 id="1-状态管理-2"><a href="#1-状态管理-2" class="headerlink" title="1. 状态管理"></a>1. 状态管理</h3><ul>
+<li><strong>NgRx</strong>：基于Redux模式的状态管理</li>
+<li><strong>Akita</strong>：简单有效的状态管理</li>
+<li><strong>服务注入</strong>：通过依赖注入共享状态</li>
+</ul>
+<h3 id="2-UI组件库"><a href="#2-UI组件库" class="headerlink" title="2. UI组件库"></a>2. UI组件库</h3><ul>
+<li><strong>Angular Material</strong>：官方Material Design组件</li>
+<li><strong>NG-ZORRO</strong>：Ant Design的Angular实现</li>
+<li><strong>PrimeNG</strong>：丰富的UI组件集合</li>
+<li><strong>Ionic</strong>：移动端UI组件</li>
+</ul>
+<h3 id="3-开发工具"><a href="#3-开发工具" class="headerlink" title="3. 开发工具"></a>3. 开发工具</h3><ul>
+<li><strong>Angular CLI</strong>：强大的命令行工具</li>
+<li><strong>Angular DevKit</strong>：开发工具包</li>
+<li><strong>Protractor</strong>：端到端测试框架</li>
+</ul>
+<h2 id="（三）适用场景-2"><a href="#（三）适用场景-2" class="headerlink" title="（三）适用场景"></a>（三）适用场景</h2><ol>
+<li><strong>企业级应用</strong>：大型、复杂的业务系统</li>
+<li><strong>长期项目</strong>：需要长期维护和扩展</li>
+<li><strong>团队协作</strong>：大型开发团队</li>
+<li><strong>移动应用</strong>：Ionic混合应用开发</li>
+</ol>
+<h1 id="六、新兴框架"><a href="#六、新兴框架" class="headerlink" title="六、新兴框架"></a>六、新兴框架</h1><h2 id="（一）Svelte"><a href="#（一）Svelte" class="headerlink" title="（一）Svelte"></a>（一）Svelte</h2><h3 id="1-核心特点"><a href="#1-核心特点" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>编译时优化</strong>：构建时生成优化代码</li>
+<li><strong>无虚拟DOM</strong>：直接操作DOM</li>
+<li><strong>更小的包体积</strong>：编译后代码更精简</li>
+<li><strong>简洁的语法</strong>：接近原生HTML/CSS/JS</li>
+</ul>
+<h3 id="2-优势"><a href="#2-优势" class="headerlink" title="2. 优势"></a>2. 优势</h3><ul>
+<li><strong>性能优异</strong>：运行时开销小</li>
+<li><strong>学习成本低</strong>：语法简单直观</li>
+<li><strong>包体积小</strong>：适合性能敏感的应用</li>
+</ul>
+<h3 id="3-适用场景"><a href="#3-适用场景" class="headerlink" title="3. 适用场景"></a>3. 适用场景</h3><ul>
+<li><strong>性能要求高</strong>：需要极致性能的应用</li>
+<li><strong>小型项目</strong>：快速开发简单应用</li>
+<li><strong>嵌入式组件</strong>：在现有项目中嵌入组件</li>
+</ul>
+<h2 id="（二）Solid-js"><a href="#（二）Solid-js" class="headerlink" title="（二）Solid.js"></a>（二）Solid.js</h2><h3 id="1-核心特点-1"><a href="#1-核心特点-1" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>细粒度响应式</strong>：精确的更新机制</li>
+<li><strong>JSX语法</strong>：类似React的开发体验</li>
+<li><strong>高性能</strong>：接近原生JavaScript性能</li>
+<li><strong>小体积</strong>：运行时代码很少</li>
+</ul>
+<h3 id="2-优势-1"><a href="#2-优势-1" class="headerlink" title="2. 优势"></a>2. 优势</h3><ul>
+<li><strong>性能卓越</strong>：在基准测试中表现优异</li>
+<li><strong>React-like</strong>：React开发者容易上手</li>
+<li><strong>现代特性</strong>：支持最新的JavaScript特性</li>
+</ul>
+<h3 id="3-适用场景-1"><a href="#3-适用场景-1" class="headerlink" title="3. 适用场景"></a>3. 适用场景</h3><ul>
+<li><strong>高性能应用</strong>：对性能有极致要求</li>
+<li><strong>React迁移</strong>：从React迁移的项目</li>
+<li><strong>现代浏览器</strong>：不需要兼容老旧浏览器</li>
+</ul>
+<h2 id="（三）Alpine-js"><a href="#（三）Alpine-js" class="headerlink" title="（三）Alpine.js"></a>（三）Alpine.js</h2><h3 id="1-核心特点-2"><a href="#1-核心特点-2" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>轻量级</strong>：只有15KB</li>
+<li><strong>声明式</strong>：在HTML中直接使用</li>
+<li><strong>无构建步骤</strong>：可以直接在HTML中使用</li>
+<li><strong>Vue-like</strong>：类似Vue的语法</li>
+</ul>
+<h3 id="2-优势-2"><a href="#2-优势-2" class="headerlink" title="2. 优势"></a>2. 优势</h3><ul>
+<li><strong>简单易用</strong>：学习成本极低</li>
+<li><strong>渐进增强</strong>：可以逐步添加交互</li>
+<li><strong>无需构建</strong>：适合简单项目</li>
+</ul>
+<h3 id="3-适用场景-2"><a href="#3-适用场景-2" class="headerlink" title="3. 适用场景"></a>3. 适用场景</h3><ul>
+<li><strong>简单交互</strong>：为静态页面添加交互</li>
+<li><strong>原型开发</strong>：快速验证想法</li>
+<li><strong>渐进增强</strong>：在传统网站中添加现代交互</li>
+</ul>
+<h1 id="七、全栈框架"><a href="#七、全栈框架" class="headerlink" title="七、全栈框架"></a>七、全栈框架</h1><h2 id="（一）Next-js（React生态）"><a href="#（一）Next-js（React生态）" class="headerlink" title="（一）Next.js（React生态）"></a>（一）Next.js（React生态）</h2><h3 id="1-核心特点-3"><a href="#1-核心特点-3" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>服务端渲染</strong>：SEO友好</li>
+<li><strong>静态站点生成</strong>：预渲染页面</li>
+<li><strong>API路由</strong>：内置API开发能力</li>
+<li><strong>自动代码分割</strong>：优化加载性能</li>
+<li><strong>零配置</strong>：开箱即用</li>
+</ul>
+<h3 id="2-适用场景"><a href="#2-适用场景" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>电商网站</strong>：需要SEO的商业网站</li>
+<li><strong>博客系统</strong>：内容驱动的网站</li>
+<li><strong>企业官网</strong>：需要快速加载的展示网站</li>
+</ul>
+<h2 id="（二）Nuxt-js（Vue生态）"><a href="#（二）Nuxt-js（Vue生态）" class="headerlink" title="（二）Nuxt.js（Vue生态）"></a>（二）Nuxt.js（Vue生态）</h2><h3 id="1-核心特点-4"><a href="#1-核心特点-4" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>基于Vue.js</strong>：Vue的全栈框架</li>
+<li><strong>多种渲染模式</strong>：SSR、SPA、静态生成</li>
+<li><strong>自动路由</strong>：基于文件系统的路由</li>
+<li><strong>模块生态</strong>：丰富的模块系统</li>
+</ul>
+<h3 id="2-适用场景-1"><a href="#2-适用场景-1" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>Vue项目的SSR</strong>：需要服务端渲染的Vue应用</li>
+<li><strong>JAMstack应用</strong>：现代的静态网站</li>
+<li><strong>多页应用</strong>：传统的多页面网站</li>
+</ul>
+<h2 id="（三）SvelteKit（Svelte生态）"><a href="#（三）SvelteKit（Svelte生态）" class="headerlink" title="（三）SvelteKit（Svelte生态）"></a>（三）SvelteKit（Svelte生态）</h2><h3 id="1-核心特点-5"><a href="#1-核心特点-5" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>基于Svelte</strong>：享受Svelte的性能优势</li>
+<li><strong>适配器系统</strong>：部署到各种平台</li>
+<li><strong>文件系统路由</strong>：约定式路由</li>
+<li><strong>服务端渲染</strong>：完整的SSR支持</li>
+</ul>
+<h3 id="2-适用场景-2"><a href="#2-适用场景-2" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>高性能网站</strong>：需要极致性能的应用</li>
+<li><strong>现代Web应用</strong>：使用最新Web标准</li>
+<li><strong>JAMstack项目</strong>：静态优先的应用</li>
+</ul>
+<h1 id="八、移动端框架"><a href="#八、移动端框架" class="headerlink" title="八、移动端框架"></a>八、移动端框架</h1><h2 id="（一）React-Native"><a href="#（一）React-Native" class="headerlink" title="（一）React Native"></a>（一）React Native</h2><h3 id="1-核心特点-6"><a href="#1-核心特点-6" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>跨平台</strong>：一套代码，多端运行</li>
+<li><strong>原生性能</strong>：接近原生应用性能</li>
+<li><strong>热重载</strong>：快速开发迭代</li>
+<li><strong>丰富生态</strong>：大量第三方库</li>
+</ul>
+<h3 id="2-适用场景-3"><a href="#2-适用场景-3" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>跨平台移动应用</strong>：iOS和Android同时开发</li>
+<li><strong>快速原型</strong>：快速验证移动应用想法</li>
+<li><strong>团队技能复用</strong>：Web开发团队转移动开发</li>
+</ul>
+<h2 id="（二）Ionic"><a href="#（二）Ionic" class="headerlink" title="（二）Ionic"></a>（二）Ionic</h2><h3 id="1-核心特点-7"><a href="#1-核心特点-7" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>混合应用</strong>：基于Web技术的移动应用</li>
+<li><strong>多框架支持</strong>：支持Angular、React、Vue</li>
+<li><strong>原生功能</strong>：通过Capacitor访问原生API</li>
+<li><strong>UI组件</strong>：丰富的移动端UI组件</li>
+</ul>
+<h3 id="2-适用场景-4"><a href="#2-适用场景-4" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>快速开发</strong>：利用Web技能快速开发移动应用</li>
+<li><strong>跨平台应用</strong>：一套代码多端运行</li>
+<li><strong>企业应用</strong>：内部使用的移动应用</li>
+</ul>
+<h2 id="（三）Flutter-Web"><a href="#（三）Flutter-Web" class="headerlink" title="（三）Flutter Web"></a>（三）Flutter Web</h2><h3 id="1-核心特点-8"><a href="#1-核心特点-8" class="headerlink" title="1. 核心特点"></a>1. 核心特点</h3><ul>
+<li><strong>Dart语言</strong>：Google开发的现代语言</li>
+<li><strong>自绘引擎</strong>：完全控制渲染过程</li>
+<li><strong>跨平台</strong>：移动、Web、桌面统一</li>
+<li><strong>高性能</strong>：接近原生性能</li>
+</ul>
+<h3 id="2-适用场景-5"><a href="#2-适用场景-5" class="headerlink" title="2. 适用场景"></a>2. 适用场景</h3><ul>
+<li><strong>跨平台统一</strong>：需要在多个平台保持一致体验</li>
+<li><strong>复杂UI</strong>：需要复杂动画和交互</li>
+<li><strong>性能要求高</strong>：对性能有较高要求</li>
+</ul>
+<h1 id="九、构建工具和开发环境"><a href="#九、构建工具和开发环境" class="headerlink" title="九、构建工具和开发环境"></a>九、构建工具和开发环境</h1><h2 id="（一）构建工具"><a href="#（一）构建工具" class="headerlink" title="（一）构建工具"></a>（一）构建工具</h2><h3 id="1-Webpack"><a href="#1-Webpack" class="headerlink" title="1. Webpack"></a>1. Webpack</h3><ul>
+<li><strong>功能强大</strong>：模块打包、代码分割、插件系统</li>
+<li><strong>生态丰富</strong>：大量loader和plugin</li>
+<li><strong>配置复杂</strong>：学习成本较高</li>
+<li><strong>适用场景</strong>：复杂的大型项目</li>
+</ul>
+<h3 id="2-Vite"><a href="#2-Vite" class="headerlink" title="2. Vite"></a>2. Vite</h3><ul>
+<li><strong>快速启动</strong>：基于ES模块的开发服务器</li>
+<li><strong>热更新快</strong>：毫秒级的热更新</li>
+<li><strong>现代化</strong>：支持最新的前端技术</li>
+<li><strong>适用场景</strong>：现代前端项目开发</li>
+</ul>
+<h3 id="3-Parcel"><a href="#3-Parcel" class="headerlink" title="3. Parcel"></a>3. Parcel</h3><ul>
+<li><strong>零配置</strong>：开箱即用</li>
+<li><strong>自动优化</strong>：自动进行各种优化</li>
+<li><strong>多语言支持</strong>：支持多种文件类型</li>
+<li><strong>适用场景</strong>：快速原型和小型项目</li>
+</ul>
+<h3 id="4-Rollup"><a href="#4-Rollup" class="headerlink" title="4. Rollup"></a>4. Rollup</h3><ul>
+<li><strong>ES模块优先</strong>：专为ES模块设计</li>
+<li><strong>Tree Shaking</strong>：优秀的死代码消除</li>
+<li><strong>小体积</strong>：生成的包体积小</li>
+<li><strong>适用场景</strong>：库和组件开发</li>
+</ul>
+<h2 id="（二）包管理器"><a href="#（二）包管理器" class="headerlink" title="（二）包管理器"></a>（二）包管理器</h2><h3 id="1-npm"><a href="#1-npm" class="headerlink" title="1. npm"></a>1. npm</h3><ul>
+<li><strong>官方工具</strong>：Node.js官方包管理器</li>
+<li><strong>生态最大</strong>：包数量最多</li>
+<li><strong>功能完整</strong>：支持各种包管理需求</li>
+</ul>
+<h3 id="2-Yarn"><a href="#2-Yarn" class="headerlink" title="2. Yarn"></a>2. Yarn</h3><ul>
+<li><strong>性能优化</strong>：并行安装，速度更快</li>
+<li><strong>锁文件</strong>：确保依赖版本一致</li>
+<li><strong>工作空间</strong>：支持monorepo</li>
+</ul>
+<h3 id="3-pnpm"><a href="#3-pnpm" class="headerlink" title="3. pnpm"></a>3. pnpm</h3><ul>
+<li><strong>磁盘效率</strong>：硬链接节省磁盘空间</li>
+<li><strong>安装速度</strong>：比npm和yarn更快</li>
+<li><strong>严格模式</strong>：避免幽灵依赖</li>
+</ul>
+<h2 id="（三）开发工具"><a href="#（三）开发工具" class="headerlink" title="（三）开发工具"></a>（三）开发工具</h2><h3 id="1-VS-Code"><a href="#1-VS-Code" class="headerlink" title="1. VS Code"></a>1. VS Code</h3><ul>
+<li><strong>轻量级</strong>：启动快，资源占用少</li>
+<li><strong>插件丰富</strong>：强大的插件生态</li>
+<li><strong>前端友好</strong>：内置前端开发支持</li>
+</ul>
+<h3 id="2-WebStorm"><a href="#2-WebStorm" class="headerlink" title="2. WebStorm"></a>2. WebStorm</h3><ul>
+<li><strong>功能强大</strong>：完整的IDE功能</li>
+<li><strong>智能提示</strong>：优秀的代码补全</li>
+<li><strong>调试能力</strong>：强大的调试功能</li>
+</ul>
+<h3 id="3-浏览器开发工具"><a href="#3-浏览器开发工具" class="headerlink" title="3. 浏览器开发工具"></a>3. 浏览器开发工具</h3><ul>
+<li><strong>Chrome DevTools</strong>：功能最全面</li>
+<li><strong>Firefox Developer Tools</strong>：专业的开发工具</li>
+<li><strong>Safari Web Inspector</strong>：macOS开发必备</li>
+</ul>
+<h1 id="十、选择框架的考虑因素"><a href="#十、选择框架的考虑因素" class="headerlink" title="十、选择框架的考虑因素"></a>十、选择框架的考虑因素</h1><h2 id="（一）项目因素"><a href="#（一）项目因素" class="headerlink" title="（一）项目因素"></a>（一）项目因素</h2><h3 id="1-项目规模"><a href="#1-项目规模" class="headerlink" title="1. 项目规模"></a>1. 项目规模</h3><ul>
+<li><strong>小型项目</strong>：Vue.js、Alpine.js、Svelte</li>
+<li><strong>中型项目</strong>：React、Vue.js</li>
+<li><strong>大型项目</strong>：Angular、React</li>
+</ul>
+<h3 id="2-项目类型"><a href="#2-项目类型" class="headerlink" title="2. 项目类型"></a>2. 项目类型</h3><ul>
+<li><strong>企业应用</strong>：Angular、React</li>
+<li><strong>内容网站</strong>：Next.js、Nuxt.js、Gatsby</li>
+<li><strong>移动应用</strong>：React Native、Ionic</li>
+<li><strong>桌面应用</strong>：Electron + 任意框架</li>
+</ul>
+<h3 id="3-性能要求"><a href="#3-性能要求" class="headerlink" title="3. 性能要求"></a>3. 性能要求</h3><ul>
+<li><strong>高性能</strong>：Svelte、Solid.js、原生JavaScript</li>
+<li><strong>一般性能</strong>：React、Vue.js、Angular</li>
+<li><strong>快速开发</strong>：Vue.js、Alpine.js</li>
+</ul>
+<h2 id="（二）团队因素"><a href="#（二）团队因素" class="headerlink" title="（二）团队因素"></a>（二）团队因素</h2><h3 id="1-技能水平"><a href="#1-技能水平" class="headerlink" title="1. 技能水平"></a>1. 技能水平</h3><ul>
+<li><strong>初学者</strong>：Vue.js、Alpine.js</li>
+<li><strong>有经验</strong>：React、Angular</li>
+<li><strong>专家级</strong>：任意框架 + 自定义解决方案</li>
+</ul>
+<h3 id="2-团队规模"><a href="#2-团队规模" class="headerlink" title="2. 团队规模"></a>2. 团队规模</h3><ul>
+<li><strong>个人/小团队</strong>：Vue.js、Svelte</li>
+<li><strong>中等团队</strong>：React、Vue.js</li>
+<li><strong>大团队</strong>：Angular、React</li>
+</ul>
+<h3 id="3-维护周期"><a href="#3-维护周期" class="headerlink" title="3. 维护周期"></a>3. 维护周期</h3><ul>
+<li><strong>短期项目</strong>：任意轻量级框架</li>
+<li><strong>长期项目</strong>：Angular、React、Vue.js</li>
+<li><strong>遗留系统</strong>：渐进式框架（Vue.js、Alpine.js）</li>
+</ul>
+<h2 id="（三）技术因素"><a href="#（三）技术因素" class="headerlink" title="（三）技术因素"></a>（三）技术因素</h2><h3 id="1-生态系统"><a href="#1-生态系统" class="headerlink" title="1. 生态系统"></a>1. 生态系统</h3><ul>
+<li><strong>成熟生态</strong>：React、Vue.js、Angular</li>
+<li><strong>新兴生态</strong>：Svelte、Solid.js</li>
+<li><strong>特定需求</strong>：根据具体需求选择</li>
+</ul>
+<h3 id="2-学习曲线"><a href="#2-学习曲线" class="headerlink" title="2. 学习曲线"></a>2. 学习曲线</h3><ul>
+<li><strong>快速上手</strong>：Vue.js、Alpine.js、Svelte</li>
+<li><strong>中等难度</strong>：React、Solid.js</li>
+<li><strong>较高门槛</strong>：Angular</li>
+</ul>
+<h3 id="3-社区支持"><a href="#3-社区支持" class="headerlink" title="3. 社区支持"></a>3. 社区支持</h3><ul>
+<li><strong>活跃社区</strong>：React、Vue.js、Angular</li>
+<li><strong>企业支持</strong>：React（Facebook）、Angular（Google）</li>
+<li><strong>个人维护</strong>：Vue.js（尤雨溪团队）、Svelte（Rich Harris）</li>
+</ul>
+<h1 id="十一、未来趋势"><a href="#十一、未来趋势" class="headerlink" title="十一、未来趋势"></a>十一、未来趋势</h1><h2 id="（一）技术趋势"><a href="#（一）技术趋势" class="headerlink" title="（一）技术趋势"></a>（一）技术趋势</h2><h3 id="1-性能优化"><a href="#1-性能优化" class="headerlink" title="1. 性能优化"></a>1. 性能优化</h3><ul>
+<li><strong>编译时优化</strong>：Svelte的编译时优化理念</li>
+<li><strong>细粒度更新</strong>：Solid.js的精确更新</li>
+<li><strong>服务端组件</strong>：React Server Components</li>
+<li><strong>边缘计算</strong>：在CDN边缘运行代码</li>
+</ul>
+<h3 id="2-开发体验"><a href="#2-开发体验" class="headerlink" title="2. 开发体验"></a>2. 开发体验</h3><ul>
+<li><strong>零配置</strong>：开箱即用的开发环境</li>
+<li><strong>类型安全</strong>：TypeScript的广泛采用</li>
+<li><strong>热重载</strong>：毫秒级的开发反馈</li>
+<li><strong>可视化开发</strong>：低代码/无代码平台</li>
+</ul>
+<h3 id="3-跨平台统一"><a href="#3-跨平台统一" class="headerlink" title="3. 跨平台统一"></a>3. 跨平台统一</h3><ul>
+<li><strong>一套代码多端运行</strong>：React Native、Flutter</li>
+<li><strong>Web标准统一</strong>：WebAssembly、Web Components</li>
+<li><strong>桌面应用</strong>：Electron、Tauri</li>
+</ul>
+<h2 id="（二）架构趋势"><a href="#（二）架构趋势" class="headerlink" title="（二）架构趋势"></a>（二）架构趋势</h2><h3 id="1-JAMstack"><a href="#1-JAMstack" class="headerlink" title="1. JAMstack"></a>1. JAMstack</h3><ul>
+<li><strong>静态优先</strong>：预构建静态资源</li>
+<li><strong>API驱动</strong>：通过API获取动态数据</li>
+<li><strong>CDN分发</strong>：全球化内容分发</li>
+</ul>
+<h3 id="2-微前端"><a href="#2-微前端" class="headerlink" title="2. 微前端"></a>2. 微前端</h3><ul>
+<li><strong>应用拆分</strong>：大型应用的模块化</li>
+<li><strong>技术栈多样化</strong>：不同模块使用不同技术</li>
+<li><strong>独立部署</strong>：模块独立开发和部署</li>
+</ul>
+<h3 id="3-Serverless"><a href="#3-Serverless" class="headerlink" title="3. Serverless"></a>3. Serverless</h3><ul>
+<li><strong>函数即服务</strong>：按需执行的后端逻辑</li>
+<li><strong>边缘计算</strong>：在用户附近执行代码</li>
+<li><strong>自动扩缩容</strong>：根据负载自动调整资源</li>
+</ul>
+<h2 id="（三）生态发展"><a href="#（三）生态发展" class="headerlink" title="（三）生态发展"></a>（三）生态发展</h2><h3 id="1-工具链整合"><a href="#1-工具链整合" class="headerlink" title="1. 工具链整合"></a>1. 工具链整合</h3><ul>
+<li><strong>一体化工具</strong>：集成开发、构建、部署</li>
+<li><strong>云原生开发</strong>：基于云的开发环境</li>
+<li><strong>AI辅助开发</strong>：智能代码生成和优化</li>
+</ul>
+<h3 id="2-标准化"><a href="#2-标准化" class="headerlink" title="2. 标准化"></a>2. 标准化</h3><ul>
+<li><strong>Web Components</strong>：浏览器原生组件标准</li>
+<li><strong>ES模块</strong>：标准化的模块系统</li>
+<li><strong>Web APIs</strong>：丰富的浏览器API</li>
+</ul>
+<h3 id="3-社区生态"><a href="#3-社区生态" class="headerlink" title="3. 社区生态"></a>3. 社区生态</h3><ul>
+<li><strong>开源协作</strong>：更好的开源项目管理</li>
+<li><strong>知识共享</strong>：更好的文档和教程</li>
+<li><strong>工具互操作</strong>：不同工具间的协作</li>
+</ul>
+<h1 id="十二、学习路径建议"><a href="#十二、学习路径建议" class="headerlink" title="十二、学习路径建议"></a>十二、学习路径建议</h1><h2 id="（一）初学者路径"><a href="#（一）初学者路径" class="headerlink" title="（一）初学者路径"></a>（一）初学者路径</h2><h3 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h3><ol>
+<li><strong>HTML/CSS基础</strong>：掌握网页结构和样式</li>
+<li><strong>JavaScript基础</strong>：ES6+语法、DOM操作</li>
+<li><strong>开发工具</strong>：VS Code、浏览器开发工具</li>
+<li><strong>版本控制</strong>：Git基础操作</li>
+</ol>
+<h3 id="2-框架选择"><a href="#2-框架选择" class="headerlink" title="2. 框架选择"></a>2. 框架选择</h3><ul>
+<li><strong>推荐起点</strong>：Vue.js（学习曲线平缓）</li>
+<li><strong>备选方案</strong>：React（生态丰富）</li>
+<li><strong>进阶选择</strong>：Angular（企业级特性）</li>
+</ul>
+<h3 id="3-学习顺序"><a href="#3-学习顺序" class="headerlink" title="3. 学习顺序"></a>3. 学习顺序</h3><ol>
+<li>框架基础概念</li>
+<li>组件开发</li>
+<li>状态管理</li>
+<li>路由管理</li>
+<li>项目实战</li>
+</ol>
+<h2 id="（二）进阶开发者路径"><a href="#（二）进阶开发者路径" class="headerlink" title="（二）进阶开发者路径"></a>（二）进阶开发者路径</h2><h3 id="1-深入理解"><a href="#1-深入理解" class="headerlink" title="1. 深入理解"></a>1. 深入理解</h3><ul>
+<li><strong>框架原理</strong>：虚拟DOM、响应式系统</li>
+<li><strong>性能优化</strong>：代码分割、懒加载</li>
+<li><strong>架构设计</strong>：组件设计、状态管理</li>
+</ul>
+<h3 id="2-生态扩展"><a href="#2-生态扩展" class="headerlink" title="2. 生态扩展"></a>2. 生态扩展</h3><ul>
+<li><strong>构建工具</strong>：Webpack、Vite配置</li>
+<li><strong>测试框架</strong>：单元测试、集成测试</li>
+<li><strong>部署运维</strong>：CI/CD、容器化</li>
+</ul>
+<h3 id="3-跨领域发展"><a href="#3-跨领域发展" class="headerlink" title="3. 跨领域发展"></a>3. 跨领域发展</h3><ul>
+<li><strong>移动开发</strong>：React Native、Ionic</li>
+<li><strong>桌面应用</strong>：Electron</li>
+<li><strong>服务端渲染</strong>：Next.js、Nuxt.js</li>
+</ul>
+<h2 id="（三）专家级路径"><a href="#（三）专家级路径" class="headerlink" title="（三）专家级路径"></a>（三）专家级路径</h2><h3 id="1-技术深度"><a href="#1-技术深度" class="headerlink" title="1. 技术深度"></a>1. 技术深度</h3><ul>
+<li><strong>源码阅读</strong>：理解框架实现原理</li>
+<li><strong>性能调优</strong>：深度性能优化</li>
+<li><strong>架构设计</strong>：大型应用架构</li>
+</ul>
+<h3 id="2-技术广度"><a href="#2-技术广度" class="headerlink" title="2. 技术广度"></a>2. 技术广度</h3><ul>
+<li><strong>多框架掌握</strong>：了解各框架优劣</li>
+<li><strong>新技术跟踪</strong>：关注技术发展趋势</li>
+<li><strong>跨端开发</strong>：全栈开发能力</li>
+</ul>
+<h3 id="3-社区贡献"><a href="#3-社区贡献" class="headerlink" title="3. 社区贡献"></a>3. 社区贡献</h3><ul>
+<li><strong>开源贡献</strong>：参与开源项目</li>
+<li><strong>技术分享</strong>：写作、演讲</li>
+<li><strong>团队建设</strong>：技术领导力</li>
+</ul>
+<h1 id="十三、总结"><a href="#十三、总结" class="headerlink" title="十三、总结"></a>十三、总结</h1><h2 id="核心要点"><a href="#核心要点" class="headerlink" title="核心要点"></a>核心要点</h2><ol>
+<li><strong>没有银弹</strong>：没有一个框架适合所有场景</li>
+<li><strong>场景驱动</strong>：根据具体需求选择合适的技术栈</li>
+<li><strong>持续学习</strong>：前端技术发展迅速，需要持续学习</li>
+<li><strong>实践为王</strong>：理论结合实践，在项目中积累经验</li>
+</ol>
+<h2 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h2><h3 id="1-新手入门"><a href="#1-新手入门" class="headerlink" title="1. 新手入门"></a>1. 新手入门</h3><ul>
+<li><strong>首选</strong>：Vue.js（易学易用，生态完善）→ <a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">Vue2详解</a> | <a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue3%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%8C%96%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">Vue3详解</a></li>
+<li><strong>备选</strong>：React（生态丰富，就业机会多）→ <a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91React%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%B8%8E%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5.md">React详解</a></li>
+</ul>
+<h3 id="2-企业项目"><a href="#2-企业项目" class="headerlink" title="2. 企业项目"></a>2. 企业项目</h3><ul>
+<li><strong>大型项目</strong>：Angular（完整框架，企业级特性）→ <a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Angular%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0.md">Angular详解</a></li>
+<li><strong>中型项目</strong>：React或Vue.js（灵活性好）→ 参考对应详解文章</li>
+<li><strong>小型项目</strong>：Vue.js或Svelte（开发效率高）→ <a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">Vue详解系列</a></li>
+</ul>
+<h3 id="3-特殊需求"><a href="#3-特殊需求" class="headerlink" title="3. 特殊需求"></a>3. 特殊需求</h3><ul>
+<li><strong>极致性能</strong>：Svelte、Solid.js</li>
+<li><strong>SEO要求</strong>：Next.js、Nuxt.js</li>
+<li><strong>移动应用</strong>：React Native、Ionic</li>
+<li><strong>快速原型</strong>：Alpine.js、Vue.js</li>
+</ul>
+<h2 id="发展趋势"><a href="#发展趋势" class="headerlink" title="发展趋势"></a>发展趋势</h2><ol>
+<li><strong>性能优化</strong>：编译时优化、细粒度更新</li>
+<li><strong>开发体验</strong>：零配置、类型安全、热重载</li>
+<li><strong>跨平台统一</strong>：一套代码多端运行</li>
+<li><strong>生态整合</strong>：工具链一体化、标准化</li>
+</ol>
+<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><ol>
+<li><strong>扎实基础</strong>：深入理解JavaScript和Web标准</li>
+<li><strong>选择专精</strong>：深入掌握一到两个主流框架</li>
+<li><strong>关注趋势</strong>：跟踪技术发展，适时学习新技术</li>
+<li><strong>实践应用</strong>：通过实际项目积累经验</li>
+<li><strong>社区参与</strong>：积极参与开源社区，分享经验</li>
+</ol>
+<p>前端技术的发展日新月异，但核心思想和设计模式相对稳定。掌握好基础知识，理解框架背后的设计思想，就能在技术变迁中保持竞争力。选择适合的框架，持续学习和实践，是成为优秀前端开发者的关键。</p>
+<h2 id="深入学习资源"><a href="#深入学习资源" class="headerlink" title="深入学习资源"></a>深入学习资源</h2><h3 id="本系列详细文章"><a href="#本系列详细文章" class="headerlink" title="本系列详细文章"></a>本系列详细文章</h3><ul>
+<li><a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91React%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%B8%8E%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5.md">【前端】React框架详解：组件化开发与现代前端实践</a> - React完整学习指南</li>
+<li><a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue2%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%BB%8F%E5%85%B8%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">【前端】Vue2详解：经典的渐进式前端框架</a> - Vue 2深度解析</li>
+<li><a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue3%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%8C%96%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6.md">【前端】Vue3详解：现代化的渐进式前端框架</a> - Vue 3新特性详解</li>
+<li><a href="./%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Angular%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0.md">【前端】Angular框架详解：企业级前端开发平台</a> - Angular企业级开发</li>
+</ul>
+<h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://reactjs.org/">React官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://vuejs.org/">Vue.js官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://angular.io/">Angular官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://svelte.dev/">Svelte官方文档</a></li>
+</ul>
+<h3 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/">MDN Web文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://caniuse.com/">Can I Use</a></li>
+<li><a target="_blank" rel="noopener" href="https://stateofjs.com/">State of JS调查</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/trending/javascript">GitHub Trending</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/">https://hexo.blog.uwakeme.tech/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%85%A8%E6%99%AF%E5%9B%BE%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TypeScript/">TypeScript,</a><a class="post-meta__tags" href="/tags/Web%E5%BC%80%E5%8F%91/">Web开发</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端,</a><a class="post-meta__tags" href="/tags/%E6%A1%86%E6%9E%B6/">框架,</a><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript,</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/12/19/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Angular%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/" title="【前端】Angular框架详解：企业级前端开发平台"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【前端】Angular框架详解：企业级前端开发平台</div></div><div class="info-2"><div class="info-item-1">Angular是由Google开发和维护的开源前端框架，专为构建大型、复杂的单页应用程序而设计。它采用TypeScript作为主要开发语言，提供了完整的开发生态系统和企业级特性。 目录 Angular基础概念 项目结构与CLI 组件系统 模板语法 依赖注入 服务与HTTP客户端 路由系统 表单处理 状态管理 测试 最佳实践 总结   一、Angular基础概念（一）核心特性1. TypeScript优先Angular从设计之初就采用TypeScript，提供强类型支持和现代JavaScript特性。 1234567891011121314// 接口定义interface User {  id: number;  name: string;  email: string;  isActive: boolean;}// 类型安全的组件@Component({  selector: 'app-user',  template: `    &lt;div class="user-card"&gt;      &lt;h...</div></div></div></a><a class="pagination-related" href="/2024/12/16/LINUX/%E3%80%90LINUX%E3%80%91%E5%9C%A8%E4%B8%80%E5%8F%B0%E7%A9%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2%E7%BD%91%E9%A1%B5%E7%B3%BB%E7%BB%9F/" title="【LINUX】在一台空服务器上部署网页系统"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【LINUX】在一台空服务器上部署网页系统</div></div><div class="info-2"><div class="info-item-1">一、准备环境 首先要看服务器是什么系统，笔者所用的是Centos7系统，所以以下也是在Centos7下的操作。  如果是Ubantu可以参考最后的链接  查看服务器信息 1234uname -a          # 查看系统内核信息lsb_release -a    # 如果是 Linux 系统，查看发行版本df -h             # 查看磁盘空间free -m           # 查看内存使用情况  虽然说是空环境，但是在服务器上面可能还有很多东西需要配置、安装，比如yum配置源等。  检查软件安装状态： 123mysql --version    # 检查 MySQL 是否已安装nginx -v           # 检查 Nginx 是否已安装java -version      # 检查 Java 是否已安装  二、安装部署所需的软件 本次部署的服务器可以连接互联网，所以本次部署采用的安装也是在线安装。 如果发现yum安装依赖时连接失败或安装错误，可以查询一下看看是不是yum源没有配置。  （一）MySQL MySQL是一个关系型数据库管理系统，是网站...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-text">一、前端框架发展历程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%8F%91%E5%B1%95%E9%98%B6%E6%AE%B5"><span class="toc-text">（一）发展阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%EF%BC%882000-2010%EF%BC%89"><span class="toc-text">1. 原生时代（2000-2010）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BA%93%E6%97%B6%E4%BB%A3%EF%BC%882006-2013%EF%BC%89"><span class="toc-text">2. 库时代（2006-2013）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-MV-%E6%A1%86%E6%9E%B6%E6%97%B6%E4%BB%A3%EF%BC%882010-2016%EF%BC%89"><span class="toc-text">3. MV*框架时代（2010-2016）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BB%84%E4%BB%B6%E5%8C%96%E6%97%B6%E4%BB%A3%EF%BC%882013-%E8%87%B3%E4%BB%8A%EF%BC%89"><span class="toc-text">4. 组件化时代（2013-至今）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B%E8%B6%8B%E5%8A%BF"><span class="toc-text">（二）技术演进趋势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BB%E6%B5%81%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94"><span class="toc-text">二、主流前端框架对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A1%86%E6%9E%B6%E5%88%86%E7%B1%BB"><span class="toc-text">（一）框架分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8C%89%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="toc-text">1. 按架构模式分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8C%89%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%88%86%E7%B1%BB"><span class="toc-text">2. 按应用场景分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8C%89%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF%E5%88%86%E7%B1%BB"><span class="toc-text">3. 按学习曲线分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%B8%BB%E8%A6%81%E6%A1%86%E6%9E%B6%E7%89%B9%E7%82%B9%E5%AF%B9%E6%AF%94"><span class="toc-text">（二）主要框架特点对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81React%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F"><span class="toc-text">三、React生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9"><span class="toc-text">（一）核心特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E7%89%B9%E8%89%B2"><span class="toc-text">1. 技术特色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6"><span class="toc-text">2. 设计哲学</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F"><span class="toc-text">（二）生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="toc-text">1. 状态管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86"><span class="toc-text">2. 路由管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-UI%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-text">3. UI组件库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">4. 开发工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">（三）适用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Vue-js%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F"><span class="toc-text">四、Vue.js生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-1"><span class="toc-text">（一）核心特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E7%89%B9%E8%89%B2-1"><span class="toc-text">1. 技术特色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6-1"><span class="toc-text">2. 设计哲学</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F-1"><span class="toc-text">（二）生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86-1"><span class="toc-text">1. 状态管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86-1"><span class="toc-text">2. 路由管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-UI%E7%BB%84%E4%BB%B6%E5%BA%93-1"><span class="toc-text">3. UI组件库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7-1"><span class="toc-text">4. 开发工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">（三）适用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Angular%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F"><span class="toc-text">五、Angular生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-2"><span class="toc-text">（一）核心特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E7%89%B9%E8%89%B2-2"><span class="toc-text">1. 技术特色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6-2"><span class="toc-text">2. 设计哲学</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F-2"><span class="toc-text">（二）生态系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86-2"><span class="toc-text">1. 状态管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-UI%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-text">2. UI组件库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">3. 开发工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-text">（三）适用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%96%B0%E5%85%B4%E6%A1%86%E6%9E%B6"><span class="toc-text">六、新兴框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89Svelte"><span class="toc-text">（一）Svelte</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%98%E5%8A%BF"><span class="toc-text">2. 优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">3. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Solid-js"><span class="toc-text">（二）Solid.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-1"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%98%E5%8A%BF-1"><span class="toc-text">2. 优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">3. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Alpine-js"><span class="toc-text">（三）Alpine.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-2"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%98%E5%8A%BF-2"><span class="toc-text">2. 优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-text">3. 适用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%85%A8%E6%A0%88%E6%A1%86%E6%9E%B6"><span class="toc-text">七、全栈框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89Next-js%EF%BC%88React%E7%94%9F%E6%80%81%EF%BC%89"><span class="toc-text">（一）Next.js（React生态）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-3"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">2. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Nuxt-js%EF%BC%88Vue%E7%94%9F%E6%80%81%EF%BC%89"><span class="toc-text">（二）Nuxt.js（Vue生态）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-4"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="toc-text">2. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89SvelteKit%EF%BC%88Svelte%E7%94%9F%E6%80%81%EF%BC%89"><span class="toc-text">（三）SvelteKit（Svelte生态）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-5"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="toc-text">2. 适用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%A1%86%E6%9E%B6"><span class="toc-text">八、移动端框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89React-Native"><span class="toc-text">（一）React Native</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-6"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="toc-text">2. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Ionic"><span class="toc-text">（二）Ionic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-7"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="toc-text">2. 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Flutter-Web"><span class="toc-text">（三）Flutter Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9-8"><span class="toc-text">1. 核心特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="toc-text">2. 适用场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E5%92%8C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">九、构建工具和开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7"><span class="toc-text">（一）构建工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Webpack"><span class="toc-text">1. Webpack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Vite"><span class="toc-text">2. Vite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Parcel"><span class="toc-text">3. Parcel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Rollup"><span class="toc-text">4. Rollup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">（二）包管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-npm"><span class="toc-text">1. npm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Yarn"><span class="toc-text">2. Yarn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-pnpm"><span class="toc-text">3. pnpm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">（三）开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-VS-Code"><span class="toc-text">1. VS Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-WebStorm"><span class="toc-text">2. WebStorm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">3. 浏览器开发工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E9%80%89%E6%8B%A9%E6%A1%86%E6%9E%B6%E7%9A%84%E8%80%83%E8%99%91%E5%9B%A0%E7%B4%A0"><span class="toc-text">十、选择框架的考虑因素</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E9%A1%B9%E7%9B%AE%E5%9B%A0%E7%B4%A0"><span class="toc-text">（一）项目因素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A1%B9%E7%9B%AE%E8%A7%84%E6%A8%A1"><span class="toc-text">1. 项目规模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">2. 项目类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%80%A7%E8%83%BD%E8%A6%81%E6%B1%82"><span class="toc-text">3. 性能要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9B%A2%E9%98%9F%E5%9B%A0%E7%B4%A0"><span class="toc-text">（二）团队因素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%80%E8%83%BD%E6%B0%B4%E5%B9%B3"><span class="toc-text">1. 技能水平</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9B%A2%E9%98%9F%E8%A7%84%E6%A8%A1"><span class="toc-text">2. 团队规模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BB%B4%E6%8A%A4%E5%91%A8%E6%9C%9F"><span class="toc-text">3. 维护周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%8A%80%E6%9C%AF%E5%9B%A0%E7%B4%A0"><span class="toc-text">（三）技术因素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F"><span class="toc-text">1. 生态系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF"><span class="toc-text">2. 学习曲线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81"><span class="toc-text">3. 社区支持</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E6%9C%AA%E6%9D%A5%E8%B6%8B%E5%8A%BF"><span class="toc-text">十一、未来趋势</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%8A%80%E6%9C%AF%E8%B6%8B%E5%8A%BF"><span class="toc-text">（一）技术趋势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">1. 性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C"><span class="toc-text">2. 开发体验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BB%9F%E4%B8%80"><span class="toc-text">3. 跨平台统一</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9E%B6%E6%9E%84%E8%B6%8B%E5%8A%BF"><span class="toc-text">（二）架构趋势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-JAMstack"><span class="toc-text">1. JAMstack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BE%AE%E5%89%8D%E7%AB%AF"><span class="toc-text">2. 微前端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Serverless"><span class="toc-text">3. Serverless</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%94%9F%E6%80%81%E5%8F%91%E5%B1%95"><span class="toc-text">（三）生态发展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B7%A5%E5%85%B7%E9%93%BE%E6%95%B4%E5%90%88"><span class="toc-text">1. 工具链整合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-text">2. 标准化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A4%BE%E5%8C%BA%E7%94%9F%E6%80%81"><span class="toc-text">3. 社区生态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%E5%BB%BA%E8%AE%AE"><span class="toc-text">十二、学习路径建议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9D%E5%AD%A6%E8%80%85%E8%B7%AF%E5%BE%84"><span class="toc-text">（一）初学者路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">1. 基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9"><span class="toc-text">2. 框架选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AD%A6%E4%B9%A0%E9%A1%BA%E5%BA%8F"><span class="toc-text">3. 学习顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BF%9B%E9%98%B6%E5%BC%80%E5%8F%91%E8%80%85%E8%B7%AF%E5%BE%84"><span class="toc-text">（二）进阶开发者路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="toc-text">1. 深入理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%9F%E6%80%81%E6%89%A9%E5%B1%95"><span class="toc-text">2. 生态扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%A8%E9%A2%86%E5%9F%9F%E5%8F%91%E5%B1%95"><span class="toc-text">3. 跨领域发展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E4%B8%93%E5%AE%B6%E7%BA%A7%E8%B7%AF%E5%BE%84"><span class="toc-text">（三）专家级路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E6%B7%B1%E5%BA%A6"><span class="toc-text">1. 技术深度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8A%80%E6%9C%AF%E5%B9%BF%E5%BA%A6"><span class="toc-text">2. 技术广度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A4%BE%E5%8C%BA%E8%B4%A1%E7%8C%AE"><span class="toc-text">3. 社区贡献</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">十三、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9"><span class="toc-text">核心要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="toc-text">选择建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8"><span class="toc-text">1. 新手入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%81%E4%B8%9A%E9%A1%B9%E7%9B%AE"><span class="toc-text">2. 企业项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%89%B9%E6%AE%8A%E9%9C%80%E6%B1%82"><span class="toc-text">3. 特殊需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF"><span class="toc-text">发展趋势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text">学习建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="toc-text">深入学习资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E7%B3%BB%E5%88%97%E8%AF%A6%E7%BB%86%E6%96%87%E7%AB%A0"><span class="toc-text">本系列详细文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="toc-text">官方文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="toc-text">学习资源</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'd3527b66a366663246cf75241c90278a'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

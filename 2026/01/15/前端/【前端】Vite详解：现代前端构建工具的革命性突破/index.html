@@ -1,0 +1,618 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【前端】Vite详解：现代前端构建工具的革命性突破 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Vite简介（一）什么是ViteVite（法语中”快速”的意思，发音 /vit/）是一种新型前端构建工具，由Vue.js的创建者尤雨溪（Evan You）开发。它旨在利用现代浏览器已经支持的新特性（如ES模块）提供更快的开发体验。Vite由两部分组成：  开发服务器：基于原生ES模块提供丰富的内建功能，如速度极快的热模块替换（HMR） 构建命令：使用Rollup打包代码，预配置为生产环境输出高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【前端】Vite详解：现代前端构建工具的革命性突破">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、Vite简介（一）什么是ViteVite（法语中”快速”的意思，发音 /vit/）是一种新型前端构建工具，由Vue.js的创建者尤雨溪（Evan You）开发。它旨在利用现代浏览器已经支持的新特性（如ES模块）提供更快的开发体验。Vite由两部分组成：  开发服务器：基于原生ES模块提供丰富的内建功能，如速度极快的热模块替换（HMR） 构建命令：使用Rollup打包代码，预配置为生产环境输出高">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2026-01-15T08:48:25.175Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.175Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="构建工具">
+<meta property="article:tag" content="Vite">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【前端】Vite详解：现代前端构建工具的革命性突破",
+  "url": "https://hexo.blog.uwakeme.tech/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2026-01-15T08:48:25.175Z",
+  "dateModified": "2026-01-15T08:48:25.175Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【前端】Vite详解：现代前端构建工具的革命性突破',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【前端】Vite详解：现代前端构建工具的革命性突破</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【前端】Vite详解：现代前端构建工具的革命性突破</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T08:48:25.175Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.175Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="一、Vite简介"><a href="#一、Vite简介" class="headerlink" title="一、Vite简介"></a>一、Vite简介</h1><h2 id="（一）什么是Vite"><a href="#（一）什么是Vite" class="headerlink" title="（一）什么是Vite"></a>（一）什么是Vite</h2><p>Vite（法语中”快速”的意思，发音 <code>/vit/</code>）是一种新型前端构建工具，由Vue.js的创建者尤雨溪（Evan You）开发。它旨在利用现代浏览器已经支持的新特性（如ES模块）提供更快的开发体验。Vite由两部分组成：</p>
+<ol>
+<li><strong>开发服务器</strong>：基于原生ES模块提供丰富的内建功能，如速度极快的热模块替换（HMR）</li>
+<li><strong>构建命令</strong>：使用Rollup打包代码，预配置为生产环境输出高度优化的静态资源</li>
+</ol>
+<p>Vite的核心理念是利用浏览器原生ES模块支持和现代JavaScript工具链，从根本上解决传统打包工具在开发过程中面临的性能瓶颈。</p>
+<h2 id="（二）为什么需要Vite"><a href="#（二）为什么需要Vite" class="headerlink" title="（二）为什么需要Vite"></a>（二）为什么需要Vite</h2><p>随着前端项目规模不断扩大，使用传统打包工具（如webpack）进行开发时，常常会遇到以下问题：</p>
+<ol>
+<li><strong>冷启动缓慢</strong>：开发服务器启动时需要预先打包整个应用</li>
+<li><strong>更新速度慢</strong>：代码变更后重新构建速度与应用规模成正比</li>
+<li><strong>构建过程复杂</strong>：配置繁琐，学习成本高</li>
+</ol>
+<p>Vite正是为解决这些问题而生，它通过以下方式改变了前端开发体验：</p>
+<ul>
+<li>利用浏览器原生ES模块支持，无需打包即可提供服务</li>
+<li>只在需要时按需编译源码，而不是预先打包整个应用</li>
+<li>借助esbuild（Go语言编写）预构建依赖，速度比JavaScript编写的打包器快10-100倍</li>
+<li>实现毫秒级的热模块替换，无论应用大小如何都能保持极速的更新响应</li>
+</ul>
+<h1 id="二、Vite的核心特性"><a href="#二、Vite的核心特性" class="headerlink" title="二、Vite的核心特性"></a>二、Vite的核心特性</h1><h2 id="（一）极速的开发服务器启动"><a href="#（一）极速的开发服务器启动" class="headerlink" title="（一）极速的开发服务器启动"></a>（一）极速的开发服务器启动</h2><p>传统打包工具启动开发服务器时，需要先构建整个应用的依赖图，这对于大型应用来说可能需要几十秒甚至几分钟。而Vite采用了完全不同的方法：</p>
+<ol>
+<li><p><strong>依赖与源码分离</strong>：Vite将模块分为”依赖”和”源码”两类分别处理</p>
+<ul>
+<li><strong>依赖</strong>：指相对稳定的第三方库，使用esbuild预构建为ESM格式</li>
+<li><strong>源码</strong>：包含JSX、CSS或Vue/Svelte组件等需要转换的代码，基于原生ESM按需提供服务</li>
+</ul>
+</li>
+<li><p><strong>按需编译</strong>：只有当浏览器请求特定模块时，Vite才会对其进行转换和提供服务</p>
+</li>
+</ol>
+<p>这种方式使得Vite的开发服务器启动速度与项目复杂度解耦，通常只需要几百毫秒。</p>
+<h2 id="（二）闪电般的热模块替换（HMR）"><a href="#（二）闪电般的热模块替换（HMR）" class="headerlink" title="（二）闪电般的热模块替换（HMR）"></a>（二）闪电般的热模块替换（HMR）</h2><p>热模块替换（HMR）是现代前端开发工具的标准功能，但在大型应用中，传统工具的HMR性能常常随着应用规模增长而显著下降。Vite的HMR实现基于原生ESM，具有以下优势：</p>
+<ol>
+<li><strong>精确失效</strong>：当编辑一个文件时，Vite只需精确地使已编辑的模块与其最近的HMR边界之间的链失效（大多数时候只有模块本身）</li>
+<li><strong>无须重新构建整个束</strong>：不需要重新构建整个包，只更新变更的部分</li>
+<li><strong>一致的快速响应</strong>：无论应用大小如何，HMR更新速度始终保持极速</li>
+</ol>
+<h2 id="（三）优化的构建流程"><a href="#（三）优化的构建流程" class="headerlink" title="（三）优化的构建流程"></a>（三）优化的构建流程</h2><p>虽然开发环境使用原生ESM，但生产环境Vite仍然使用Rollup进行构建，这是因为：</p>
+<ol>
+<li>原生ESM在生产环境中由于网络请求数量多，性能仍不够理想</li>
+<li>代码分割、懒加载和公共块提取等优化在生产环境中非常重要</li>
+<li>Rollup提供了丰富的插件生态和优化策略</li>
+</ol>
+<p>Vite为生产构建提供了一套预配置的构建优化方案，包括：</p>
+<ul>
+<li>CSS代码分割</li>
+<li>预加载指令生成</li>
+<li>异步块加载优化</li>
+<li>兼容性处理</li>
+</ul>
+<h2 id="（四）通用的插件接口"><a href="#（四）通用的插件接口" class="headerlink" title="（四）通用的插件接口"></a>（四）通用的插件接口</h2><p>Vite提供了一套兼容Rollup的插件API，使得：</p>
+<ol>
+<li>Vite特有的功能可以通过插件扩展</li>
+<li>社区已有的Rollup插件可以直接在Vite中使用</li>
+<li>插件可以在开发和构建之间共享配置</li>
+</ol>
+<p>这种统一的插件系统大大降低了工具链的复杂度，为开发者提供了一致的体验。</p>
+<h1 id="三、Vite的安装与使用"><a href="#三、Vite的安装与使用" class="headerlink" title="三、Vite的安装与使用"></a>三、Vite的安装与使用</h1><h2 id="（一）创建Vite项目"><a href="#（一）创建Vite项目" class="headerlink" title="（一）创建Vite项目"></a>（一）创建Vite项目</h2><p>使用npm、yarn或pnpm均可创建Vite项目：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用npm</span></span><br><span class="line">npm create vite@latest my-vite-app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用yarn</span></span><br><span class="line">yarn create vite my-vite-app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用pnpm</span></span><br><span class="line">pnpm create vite my-vite-app</span><br></pre></td></tr></tbody></table></figure>
+
+<p>创建项目时，可以选择多种框架模板：</p>
+<ul>
+<li>vanilla（原生JS）</li>
+<li>vue</li>
+<li>react</li>
+<li>preact</li>
+<li>lit</li>
+<li>svelte</li>
+<li>solid</li>
+<li>qwik</li>
+</ul>
+<p>还可以选择是否使用TypeScript。</p>
+<h2 id="（二）项目结构"><a href="#（二）项目结构" class="headerlink" title="（二）项目结构"></a>（二）项目结构</h2><p>一个基本的Vite项目结构如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">my-vite-app/</span><br><span class="line">├── node_modules/</span><br><span class="line">├── public/            # 静态资源目录</span><br><span class="line">├── src/               # 源代码目录</span><br><span class="line">│   ├── assets/        # 资源文件</span><br><span class="line">│   ├── components/    # 组件</span><br><span class="line">│   ├── App.jsx        # 应用入口组件</span><br><span class="line">│   └── main.jsx       # 应用入口文件</span><br><span class="line">├── index.html         # HTML入口文件（注意位于根目录）</span><br><span class="line">├── package.json       # 项目配置</span><br><span class="line">├── vite.config.js     # Vite配置文件</span><br><span class="line">└── README.md          # 项目说明</span><br></pre></td></tr></tbody></table></figure>
+
+<p>值得注意的是，与传统工具不同，Vite项目的<code>index.html</code>位于项目根目录而非public目录，这是因为Vite将HTML视为源码的一部分，直接参与到构建过程中。</p>
+<h2 id="（三）基本命令"><a href="#（三）基本命令" class="headerlink" title="（三）基本命令"></a>（三）基本命令</h2><p>Vite提供了三个主要命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动开发服务器</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建生产版本</span></span><br><span class="line">npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览生产构建</span></span><br><span class="line">npm run preview</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="（四）配置文件"><a href="#（四）配置文件" class="headerlink" title="（四）配置文件"></a>（四）配置文件</h2><p>Vite的配置文件为<code>vite.config.js</code>，支持ES模块语法：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> { defineConfig } <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">'@vitejs/plugin-react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">react</span>()],</span><br><span class="line">  <span class="attr">server</span>: {</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3000</span>,</span><br><span class="line">    <span class="attr">open</span>: <span class="literal">true</span></span><br><span class="line">  },</span><br><span class="line">  <span class="attr">build</span>: {</span><br><span class="line">    <span class="attr">outDir</span>: <span class="string">'dist'</span>,</span><br><span class="line">    <span class="attr">minify</span>: <span class="string">'terser'</span>,</span><br><span class="line">    <span class="attr">sourcemap</span>: <span class="literal">true</span></span><br><span class="line">  }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Vite采用约定优于配置的理念，大多数情况下默认配置已经足够使用，只需针对特定需求进行调整。</p>
+<h1 id="四、Vite与其他构建工具的对比"><a href="#四、Vite与其他构建工具的对比" class="headerlink" title="四、Vite与其他构建工具的对比"></a>四、Vite与其他构建工具的对比</h1><h2 id="（一）Vite-vs-Webpack"><a href="#（一）Vite-vs-Webpack" class="headerlink" title="（一）Vite vs Webpack"></a>（一）Vite vs Webpack</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Vite</th>
+<th>Webpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发服务器启动速度</td>
+<td>极快（毫秒级）</td>
+<td>较慢（随项目规模增加）</td>
+</tr>
+<tr>
+<td>HMR性能</td>
+<td>极快且稳定</td>
+<td>随项目规模增长变慢</td>
+</tr>
+<tr>
+<td>配置复杂度</td>
+<td>简单，约定优于配置</td>
+<td>复杂，需要详细配置</td>
+</tr>
+<tr>
+<td>生态系统</td>
+<td>正在快速增长</td>
+<td>成熟且庞大</td>
+</tr>
+<tr>
+<td>学习曲线</td>
+<td>较平缓</td>
+<td>较陡峭</td>
+</tr>
+<tr>
+<td>构建输出</td>
+<td>基于Rollup，优化良好</td>
+<td>高度可配置，功能强大</td>
+</tr>
+<tr>
+<td>兼容性</td>
+<td>开发环境需现代浏览器</td>
+<td>较好</td>
+</tr>
+</tbody></table>
+<p>Webpack的优势在于其成熟度和灵活性，特别适合需要高度自定义构建流程的复杂项目。而Vite的优势在于极速的开发体验和简单的配置，更适合现代Web应用开发。</p>
+<h2 id="（二）Vite-vs-Snowpack"><a href="#（二）Vite-vs-Snowpack" class="headerlink" title="（二）Vite vs Snowpack"></a>（二）Vite vs Snowpack</h2><p>Snowpack是另一个基于ESM的构建工具，与Vite有相似的设计理念：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Vite</th>
+<th>Snowpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发服务器性能</td>
+<td>极快</td>
+<td>很快</td>
+</tr>
+<tr>
+<td>生产构建</td>
+<td>使用Rollup</td>
+<td>可选多种构建器</td>
+</tr>
+<tr>
+<td>插件系统</td>
+<td>兼容Rollup</td>
+<td>专有API</td>
+</tr>
+<tr>
+<td>热更新</td>
+<td>极快且可靠</td>
+<td>快速</td>
+</tr>
+<tr>
+<td>社区支持</td>
+<td>活跃且增长迅速</td>
+<td>较少（目前已停止维护）</td>
+</tr>
+</tbody></table>
+<p>值得注意的是，Snowpack团队已停止维护该项目，并推荐用户迁移到其他工具（包括Vite）。</p>
+<h2 id="（三）Vite-vs-Create-React-App-CRA"><a href="#（三）Vite-vs-Create-React-App-CRA" class="headerlink" title="（三）Vite vs Create React App (CRA)"></a>（三）Vite vs Create React App (CRA)</h2><p>作为React官方脚手架，CRA提供了一种”零配置”的React应用开发体验：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Vite</th>
+<th>Create React App</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发服务器启动</td>
+<td>毫秒级</td>
+<td>数十秒</td>
+</tr>
+<tr>
+<td>HMR性能</td>
+<td>极快</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>构建工具</td>
+<td>Rollup</td>
+<td>Webpack</td>
+</tr>
+<tr>
+<td>配置灵活性</td>
+<td>简单且灵活</td>
+<td>封装严格，需要eject</td>
+</tr>
+<tr>
+<td>框架支持</td>
+<td>多框架</td>
+<td>仅React</td>
+</tr>
+<tr>
+<td>定制化</td>
+<td>易于配置</td>
+<td>需要eject或使用craco</td>
+</tr>
+</tbody></table>
+<p>CRA的主要优势是官方支持和严格的标准化，而Vite则提供了更快的开发体验和更灵活的配置选项。</p>
+<h1 id="五、在实际项目中使用Vite"><a href="#五、在实际项目中使用Vite" class="headerlink" title="五、在实际项目中使用Vite"></a>五、在实际项目中使用Vite</h1><h2 id="（一）与React集成"><a href="#（一）与React集成" class="headerlink" title="（一）与React集成"></a>（一）与React集成</h2><p>Vite提供了官方的React插件<code>@vitejs/plugin-react</code>，支持React的JSX、Fast Refresh等特性：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> { defineConfig } <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">'@vitejs/plugin-react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">react</span>()]</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>一个典型的React项目入口：</p>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">'react-dom/client'</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">createRoot</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'root'</span>)).<span class="title function_">render</span>(</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="（二）与Vue集成"><a href="#（二）与Vue集成" class="headerlink" title="（二）与Vue集成"></a>（二）与Vue集成</h2><p>Vite对Vue提供了一流的支持，包括Vue SFC（单文件组件）的编译：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> { defineConfig } <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">'@vitejs/plugin-vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>()]</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Vue项目入口示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> { createApp } <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>).<span class="title function_">mount</span>(<span class="string">'#app'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="（三）静态资源处理"><a href="#（三）静态资源处理" class="headerlink" title="（三）静态资源处理"></a>（三）静态资源处理</h2><p>Vite对各种静态资源提供了开箱即用的支持：</p>
+<ol>
+<li><p><strong>图片导入</strong>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> imgUrl <span class="keyword">from</span> <span class="string">'./img.png'</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'hero'</span>).<span class="property">style</span>.<span class="property">backgroundImage</span> = <span class="string">`url(<span class="subst">${imgUrl}</span>)`</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>CSS导入</strong>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'./style.css'</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>JSON导入</strong>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> data <span class="keyword">from</span> <span class="string">'./data.json'</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>Web Workers</strong>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Worker</span> <span class="keyword">from</span> <span class="string">'./worker?worker'</span></span><br><span class="line"><span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>()</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<h2 id="（四）环境变量与模式"><a href="#（四）环境变量与模式" class="headerlink" title="（四）环境变量与模式"></a>（四）环境变量与模式</h2><p>Vite支持使用<code>.env</code>文件定义环境变量：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># .env.development</span><br><span class="line">VITE_API_URL=http://dev-api.example.com</span><br><span class="line"></span><br><span class="line"># .env.production</span><br><span class="line">VITE_API_URL=https://api.example.com</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在代码中可以通过<code>import.meta.env</code>访问这些变量：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span>.<span class="property">VITE_API_URL</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以通过<code>--mode</code>选项指定使用的模式：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev -- --mode staging</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="（五）服务端渲染-SSR-支持"><a href="#（五）服务端渲染-SSR-支持" class="headerlink" title="（五）服务端渲染(SSR)支持"></a>（五）服务端渲染(SSR)支持</h2><p>Vite提供了内置的SSR支持，可以轻松构建同构应用：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">ssr</span>: {</span><br><span class="line">    <span class="comment">// SSR特定配置</span></span><br><span class="line">    <span class="attr">noExternal</span>: [<span class="string">'some-package'</span>]</span><br><span class="line">  }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<p>SSR开发服务器示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> { createServer } <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"></span><br><span class="line">;(<span class="title function_">async</span> () =&gt; {</span><br><span class="line">  <span class="keyword">const</span> vite = <span class="keyword">await</span> <span class="title function_">createServer</span>({</span><br><span class="line">    <span class="attr">server</span>: { <span class="attr">middlewareMode</span>: <span class="literal">true</span> },</span><br><span class="line">    <span class="attr">appType</span>: <span class="string">'custom'</span></span><br><span class="line">  })</span><br><span class="line">  </span><br><span class="line">  app.<span class="title function_">use</span>(vite.<span class="property">middlewares</span>)</span><br><span class="line">  </span><br><span class="line">  app.<span class="title function_">use</span>(<span class="string">'*'</span>, <span class="title function_">async</span> (req, res) =&gt; {</span><br><span class="line">    <span class="comment">// 服务端渲染逻辑</span></span><br><span class="line">  })</span><br><span class="line">  </span><br><span class="line">  app.<span class="title function_">listen</span>(<span class="number">3000</span>)</span><br><span class="line">})()</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="六、Vite最佳实践"><a href="#六、Vite最佳实践" class="headerlink" title="六、Vite最佳实践"></a>六、Vite最佳实践</h1><h2 id="（一）依赖优化"><a href="#（一）依赖优化" class="headerlink" title="（一）依赖优化"></a>（一）依赖优化</h2><p>Vite通过预构建优化依赖，但有时可能需要手动调整：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">optimizeDeps</span>: {</span><br><span class="line">    <span class="attr">include</span>: [<span class="string">'lodash-es'</span>, <span class="string">'@headlessui/react'</span>],</span><br><span class="line">    <span class="attr">exclude</span>: [<span class="string">'large-unused-library'</span>]</span><br><span class="line">  }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="（二）性能优化"><a href="#（二）性能优化" class="headerlink" title="（二）性能优化"></a>（二）性能优化</h2><p>提升Vite项目性能的几个关键实践：</p>
+<ol>
+<li><p><strong>使用现代语法</strong>：Vite默认只转译语法，不包含polyfill，应充分利用现代JavaScript特性</p>
+</li>
+<li><p><strong>合理的代码分割</strong>：使用动态导入实现按需加载</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 动态导入示例</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">AdminPanel</span> = (<span class="params"></span>) =&gt; <span class="keyword">import</span>(<span class="string">'./components/AdminPanel'</span>)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>使用资源预加载</strong>：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"modulepreload"</span> <span class="attr">href</span>=<span class="string">"/src/components/HeavyComponent.js"</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<h2 id="（三）部署考虑"><a href="#（三）部署考虑" class="headerlink" title="（三）部署考虑"></a>（三）部署考虑</h2><p>Vite构建的应用可以部署到任何静态网站托管服务：</p>
+<ol>
+<li><p><strong>基本URL配置</strong>：如果应用不在域名根路径，需要设置base选项</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">base</span>: <span class="string">'/my-app/'</span></span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>多页应用</strong>：配置多入口点</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">build</span>: {</span><br><span class="line">    <span class="attr">rollupOptions</span>: {</span><br><span class="line">      <span class="attr">input</span>: {</span><br><span class="line">        <span class="attr">main</span>: <span class="title function_">resolve</span>(__dirname, <span class="string">'index.html'</span>),</span><br><span class="line">        <span class="attr">admin</span>: <span class="title function_">resolve</span>(__dirname, <span class="string">'admin.html'</span>)</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>处理路由</strong>：使用history模式时配置服务器重定向到index.html</p>
+</li>
+</ol>
+<h2 id="（四）使用插件扩展功能"><a href="#（四）使用插件扩展功能" class="headerlink" title="（四）使用插件扩展功能"></a>（四）使用插件扩展功能</h2><p>Vite的功能可以通过插件系统扩展：</p>
+<ol>
+<li><p><strong>常用官方插件</strong>：</p>
+<ul>
+<li><code>@vitejs/plugin-legacy</code>：为旧浏览器提供支持</li>
+<li><code>@vitejs/plugin-vue</code>：Vue支持</li>
+<li><code>@vitejs/plugin-react</code>：React支持</li>
+</ul>
+</li>
+<li><p><strong>社区插件示例</strong>：</p>
+<ul>
+<li><code>vite-plugin-pwa</code>：PWA支持</li>
+<li><code>vite-plugin-windicss</code>：WindiCSS集成</li>
+<li><code>vite-plugin-checker</code>：TypeScript/ESLint检查</li>
+</ul>
+</li>
+</ol>
+<p>插件使用示例：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> { defineConfig } <span class="keyword">from</span> <span class="string">'vite'</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">'@vitejs/plugin-vue'</span></span><br><span class="line"><span class="keyword">import</span> legacy <span class="keyword">from</span> <span class="string">'@vitejs/plugin-legacy'</span></span><br><span class="line"><span class="keyword">import</span> checker <span class="keyword">from</span> <span class="string">'vite-plugin-checker'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>({</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">vue</span>(),</span><br><span class="line">    <span class="title function_">legacy</span>({</span><br><span class="line">      <span class="attr">targets</span>: [<span class="string">'defaults'</span>, <span class="string">'not IE 11'</span>]</span><br><span class="line">    }),</span><br><span class="line">    <span class="title function_">checker</span>({</span><br><span class="line">      <span class="attr">typescript</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">eslint</span>: {</span><br><span class="line">        <span class="attr">lintCommand</span>: <span class="string">'eslint "./src/**/*.{ts,tsx}"'</span></span><br><span class="line">      }</span><br><span class="line">    })</span><br><span class="line">  ]</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="七、Vite的未来发展"><a href="#七、Vite的未来发展" class="headerlink" title="七、Vite的未来发展"></a>七、Vite的未来发展</h1><h2 id="（一）当前挑战"><a href="#（一）当前挑战" class="headerlink" title="（一）当前挑战"></a>（一）当前挑战</h2><p>尽管Vite已经展现出巨大潜力，但仍面临一些挑战：</p>
+<ol>
+<li><strong>生态系统成熟度</strong>：相比Webpack等成熟工具，Vite的生态系统仍在发展中</li>
+<li><strong>浏览器兼容性</strong>：开发模式依赖现代浏览器特性，可能在某些环境中受限</li>
+<li><strong>企业采用</strong>：大型项目和企业级应用迁移到Vite需要考虑更多因素</li>
+</ol>
+<h2 id="（二）发展趋势"><a href="#（二）发展趋势" class="headerlink" title="（二）发展趋势"></a>（二）发展趋势</h2><p>Vite代表了前端构建工具的未来发展方向：</p>
+<ol>
+<li><strong>更快的开发体验</strong>：极速的反馈循环成为标准期望</li>
+<li><strong>更少的配置</strong>：约定优于配置，简化开发流程</li>
+<li><strong>更好的性能</strong>：利用原生功能，减少工具层的开销</li>
+<li><strong>更现代的默认值</strong>：面向现代浏览器优化，减少兼容性包袱</li>
+</ol>
+<p>随着Web平台的不断发展，Vite这类利用平台新特性的工具将继续引领构建工具的创新。</p>
+<h1 id="八、总结与建议"><a href="#八、总结与建议" class="headerlink" title="八、总结与建议"></a>八、总结与建议</h1><p>Vite代表了现代前端构建工具的一次革命性突破，通过巧妙利用浏览器原生ES模块能力，彻底改变了前端开发体验。它的主要优势包括：</p>
+<ol>
+<li><strong>极速的开发服务器</strong>：毫秒级启动，无需等待漫长的打包过程</li>
+<li><strong>闪电般的HMR</strong>：即时反馈，大幅提升开发效率</li>
+<li><strong>优化的生产构建</strong>：结合Rollup提供高质量的生产输出</li>
+<li><strong>简单而强大的配置</strong>：约定优于配置，但保留灵活性</li>
+<li><strong>跨框架支持</strong>：同时支持多种主流前端框架</li>
+</ol>
+<p>对于新项目，尤其是现代Web应用，Vite是一个值得优先考虑的构建工具。对于现有项目，也可以考虑逐步迁移到Vite以获得更好的开发体验。</p>
+<p>随着前端生态系统的不断发展，以及Vite自身的持续改进，相信Vite将在未来几年内成为前端构建工具的主流选择。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://vitejs.dev/guide/">Vite官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vitejs/vite">Vite GitHub仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=UJypSr8IhKY">尤雨溪关于Vite的介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://css-tricks.com/comparing-the-new-generation-of-build-tools/">现代前端构建工具对比</a></li>
+<li><a target="_blank" rel="noopener" href="https://vitejs.dev/guide/why.html">Why Vite</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/">https://hexo.blog.uwakeme.tech/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vite%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E9%9D%A9%E5%91%BD%E6%80%A7%E7%AA%81%E7%A0%B4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">构建工具</a><a class="post-meta__tags" href="/tags/Vite/">Vite</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91Vue%E4%B8%AD%E5%AF%BC%E5%87%BA%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E5%88%B0Excel/" title="【前端】Vue中导出表格数据到Excel"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【前端】Vue中导出表格数据到Excel</div></div><div class="info-2"><div class="info-item-1">前言在前端开发中，将表格数据导出为Excel文件是一个常见的需求，方便用户离线查看和分析数据。本文将介绍如何在Vue项目中使用 exceljs 库来实现前端导出表格数据的功能，并参考您项目中已有的实现方式。 一、准备工作（一）安装依赖首先，确保您的Vue项目中已经安装了 exceljs 和 file-saver (用于在浏览器端保存文件)。 1npm install exceljs file-saver --save  exceljs 是一个功能强大的库，可以创建、读取和修改Excel文件。file-saver 则可以帮助我们将生成的文件流保存到用户的本地设备。 （二）创建工具方法（或在组件中直接实现）您可以将导出逻辑封装成一个可复用的工具方法，或者直接在需要导出功能的组件中实现。参考您项目 source/_drafts/前台功能.md 中的 tableOutputMethod 方法，这是一个很好的实践。 二、实现导出功能下面我们将详细步骤分解，并结合您项目中的代码示例进行说明。 （一）引入库在您的工具文件或Vue组件中，首先需要引入 exceljs 和 file-saver。 ...</div></div></div></a><a class="pagination-related" href="/2026/01/15/%E5%89%8D%E7%AB%AF/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91TypeScript%E8%AF%A6%E8%A7%A3%EF%BC%9A%E7%8E%B0%E4%BB%A3Web%E5%BC%80%E5%8F%91%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="【前端】TypeScript详解：现代Web开发的类型安全解决方案"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【前端】TypeScript详解：现代Web开发的类型安全解决方案</div></div><div class="info-2"><div class="info-item-1">一、TypeScript概述（一）什么是TypeScriptTypeScript是微软开发的开源编程语言，它是JavaScript的超集，添加了静态类型系统和其他面向对象编程特性。TypeScript于2012年由微软发布，由C#和JavaScript之父Anders Hejlsberg主导设计。 TypeScript代码需要通过TypeScript编译器（tsc）转译为JavaScript代码后才能在浏览器或Node.js等环境中运行。这一设计使得TypeScript能够结合静态类型检查的优势与JavaScript的生态系统。 （二）核心特性 静态类型系统：允许在编译时检查类型错误，而不是等到运行时。  类型注解：使用简洁的语法为变量、参数和返回值添加类型信息。  类型推断：即使不显式声明类型，编译器也能在多数情况下自动推断变量类型。  接口：定义对象的结构，提供强大的契约设计能力。  泛型：创建可重用的组件，处理多种类型，同时保持类型安全。  枚举：定义一组命名常量，使代码更具可读性。  命名空间和模块：更好地组织和管理代码。  装饰器：使用元编程技术修改类和类成员的行为。 ...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Vite%E7%AE%80%E4%BB%8B"><span class="toc-text">一、Vite简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AFVite"><span class="toc-text">（一）什么是Vite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Vite"><span class="toc-text">（二）为什么需要Vite</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Vite%E7%9A%84%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-text">二、Vite的核心特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%9E%81%E9%80%9F%E7%9A%84%E5%BC%80%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8"><span class="toc-text">（一）极速的开发服务器启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%97%AA%E7%94%B5%E8%88%AC%E7%9A%84%E7%83%AD%E6%A8%A1%E5%9D%97%E6%9B%BF%E6%8D%A2%EF%BC%88HMR%EF%BC%89"><span class="toc-text">（二）闪电般的热模块替换（HMR）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E4%BC%98%E5%8C%96%E7%9A%84%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-text">（三）优化的构建流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E9%80%9A%E7%94%A8%E7%9A%84%E6%8F%92%E4%BB%B6%E6%8E%A5%E5%8F%A3"><span class="toc-text">（四）通用的插件接口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81Vite%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-text">三、Vite的安装与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9B%E5%BB%BAVite%E9%A1%B9%E7%9B%AE"><span class="toc-text">（一）创建Vite项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-text">（二）项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-text">（三）基本命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">（四）配置文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Vite%E4%B8%8E%E5%85%B6%E4%BB%96%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">四、Vite与其他构建工具的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89Vite-vs-Webpack"><span class="toc-text">（一）Vite vs Webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Vite-vs-Snowpack"><span class="toc-text">（二）Vite vs Snowpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Vite-vs-Create-React-App-CRA"><span class="toc-text">（三）Vite vs Create React App (CRA)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%9C%A8%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8Vite"><span class="toc-text">五、在实际项目中使用Vite</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8EReact%E9%9B%86%E6%88%90"><span class="toc-text">（一）与React集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%B8%8EVue%E9%9B%86%E6%88%90"><span class="toc-text">（二）与Vue集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%A4%84%E7%90%86"><span class="toc-text">（三）静态资源处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8E%E6%A8%A1%E5%BC%8F"><span class="toc-text">（四）环境变量与模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93-SSR-%E6%94%AF%E6%8C%81"><span class="toc-text">（五）服务端渲染(SSR)支持</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81Vite%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">六、Vite最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%BE%9D%E8%B5%96%E4%BC%98%E5%8C%96"><span class="toc-text">（一）依赖优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">（二）性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%83%A8%E7%BD%B2%E8%80%83%E8%99%91"><span class="toc-text">（三）部署考虑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD"><span class="toc-text">（四）使用插件扩展功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81Vite%E7%9A%84%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95"><span class="toc-text">七、Vite的未来发展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%BD%93%E5%89%8D%E6%8C%91%E6%88%98"><span class="toc-text">（一）当前挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF"><span class="toc-text">（二）发展趋势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-text">八、总结与建议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '64e23897591edb5f3aec3787bf9337e8'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

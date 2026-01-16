@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【接口】MQTT接口详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布/订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】MQTT接口详解">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布/订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2026-01-15T08:48:25.241Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.241Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="物联网">
+<meta property="article:tag" content="MQTT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【接口】MQTT接口详解",
+  "url": "https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2026-01-15T08:48:25.241Z",
+  "dateModified": "2026-01-15T08:48:25.241Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【接口】MQTT接口详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【接口】MQTT接口详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【接口】MQTT接口详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T08:48:25.241Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.241Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8E%A5%E5%8F%A3/">接口</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="【接口】MQTT接口详解"><a href="#【接口】MQTT接口详解" class="headerlink" title="【接口】MQTT接口详解"></a>【接口】MQTT接口详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布/订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、优势以及适用场景，并提供相关的代码示例。</p>
+<h2 id="一、MQTT核心概念"><a href="#一、MQTT核心概念" class="headerlink" title="一、MQTT核心概念"></a>一、MQTT核心概念</h2><p>理解MQTT的核心概念对于掌握其工作方式至关重要。</p>
+<h3 id="（一）发布-订阅（Publish-Subscribe）模式"><a href="#（一）发布-订阅（Publish-Subscribe）模式" class="headerlink" title="（一）发布/订阅（Publish/Subscribe）模式"></a>（一）发布/订阅（Publish/Subscribe）模式</h3><p>MQTT协议采用发布/订阅模式，与传统的客户端/服务器模式不同。在这种模式下，消息的发送者（发布者）和接收者（订阅者）之间没有直接联系，它们通过一个中间组件——代理（Broker）进行通信。</p>
+<ol>
+<li><strong>发布者（Publisher）</strong>：负责产生消息并将其发布到特定的主题（Topic）上。</li>
+<li><strong>订阅者（Subscriber）</strong>：对感兴趣的主题进行订阅，当有消息发布到这些主题时，代理会将消息推送给订阅者。</li>
+<li><strong>代理（Broker）</strong>：负责接收来自发布者的消息，并根据订阅关系将消息路由到相应的订阅者。代理还负责管理主题、处理连接、安全认证等。</li>
+</ol>
+<p>这种模式的优点在于解耦了发布者和订阅者，它们不需要知道对方的存在，只需要与代理交互即可。</p>
+<h3 id="（二）主题（Topic）"><a href="#（二）主题（Topic）" class="headerlink" title="（二）主题（Topic）"></a>（二）主题（Topic）</h3><p>主题是MQTT中消息路由的核心。它是一个UTF-8字符串，通常采用层级结构，类似于文件路径，使用斜杠（/）作为分隔符。例如：<code>sensor/temperature/room1</code>。</p>
+<ul>
+<li>发布者将消息发布到特定的主题。</li>
+<li>订阅者可以订阅一个或多个主题，支持使用通配符进行模糊匹配：<ul>
+<li><code>+</code> (加号)：单层通配符，匹配一个层级。例如 <code>sensor/+/room1</code> 可以匹配 <code>sensor/temperature/room1</code> 和 <code>sensor/humidity/room1</code>，但不能匹配 <code>sensor/temperature/room2/room1</code>。</li>
+<li><code>#</code> (井号)：多层通配符，匹配主题中任意层级的剩余部分，必须放在主题的末尾。例如 <code>sensor/temperature/#</code> 可以匹配 <code>sensor/temperature/room1</code> 和 <code>sensor/temperature/room1/detail</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（三）服务质量等级（Quality-of-Service-QoS）"><a href="#（三）服务质量等级（Quality-of-Service-QoS）" class="headerlink" title="（三）服务质量等级（Quality of Service, QoS）"></a>（三）服务质量等级（Quality of Service, QoS）</h3><p>MQTT提供了三种不同的服务质量等级，以满足不同场景下对消息传递可靠性的需求：</p>
+<ol>
+<li>**QoS 0 (At most once，至多一次)**：消息传递依赖于底层TCP/IP网络。消息可能丢失或重复。发送者发送消息后不关心是否送达。适用于对消息丢失不敏感的场景，例如传感器数据的周期性上报。</li>
+<li>**QoS 1 (At least once，至少一次)**：保证消息至少送达一次。发送者会存储消息，直到收到接收者的确认（PUBACK报文）。如果未收到确认，发送者会重发消息（设置DUP标志）。消息可能会重复，但不会丢失。适用于要求消息必须送达，但可以容忍少量重复的场景。</li>
+<li>**QoS 2 (Exactly once，恰好一次)**：保证消息仅送达一次。这是最高的服务质量等级，通过四次握手（PUBREC, PUBREL, PUBCOMP）实现。消息既不会丢失也不会重复。适用于对消息传递要求非常严格的场景，例如计费系统。</li>
+</ol>
+<p>选择合适的QoS等级需要在可靠性和系统开销之间进行权衡。</p>
+<h3 id="（四）保留消息（Retained-Message）"><a href="#（四）保留消息（Retained-Message）" class="headerlink" title="（四）保留消息（Retained Message）"></a>（四）保留消息（Retained Message）</h3><p>当发布者向某个主题发布一条保留消息时，代理会存储这条消息。之后，任何新的订阅者订阅该主题时，都会立即收到这条最新的保留消息。每个主题只能有一条保留消息，新的保留消息会覆盖旧的。</p>
+<p>这对于那些需要立即获取最新状态信息的订阅者非常有用，例如一个新连接的设备需要知道某个灯的当前开关状态。</p>
+<h3 id="（五）遗嘱消息（Last-Will-and-Testament-LWT）"><a href="#（五）遗嘱消息（Last-Will-and-Testament-LWT）" class="headerlink" title="（五）遗嘱消息（Last Will and Testament, LWT）"></a>（五）遗嘱消息（Last Will and Testament, LWT）</h3><p>客户端在连接到代理时，可以指定一条遗嘱消息。如果客户端异常断开连接（例如网络故障、设备崩溃，而不是正常的DISCONNECT报文），代理会自动将这条遗嘱消息发布到指定的主题。其他订阅了该主题的客户端就能收到通知，从而知道该客户端已下线。</p>
+<p>这对于监控设备状态非常有用。</p>
+<h2 id="二、MQTT架构与工作流程"><a href="#二、MQTT架构与工作流程" class="headerlink" title="二、MQTT架构与工作流程"></a>二、MQTT架构与工作流程</h2><h3 id="（一）MQTT系统架构"><a href="#（一）MQTT系统架构" class="headerlink" title="（一）MQTT系统架构"></a>（一）MQTT系统架构</h3><p>一个典型的MQTT系统包含以下组件：</p>
+<ol>
+<li><strong>MQTT客户端（Client）</strong>：任何运行MQTT库并连接到MQTT代理的设备或应用程序。客户端可以是发布者，也可以是订阅者，或者两者兼备。</li>
+<li><strong>MQTT代理（Broker）</strong>：也称为MQTT服务器，是MQTT系统的核心。它负责接收所有消息，过滤消息，确定哪些客户端订阅了每个消息，并将消息发送给这些订阅的客户端。</li>
+<li><strong>网络（Network）</strong>：MQTT通常运行在TCP/IP协议栈之上，保证了消息传输的有序性和可靠性（在TCP层面）。</li>
+</ol>
+<h3 id="（二）MQTT工作流程"><a href="#（二）MQTT工作流程" class="headerlink" title="（二）MQTT工作流程"></a>（二）MQTT工作流程</h3><ol>
+<li><strong>连接（CONNECT）</strong>：客户端向代理发起连接请求，可以指定客户端ID、用户名/密码、心跳间隔、清除会话标志（Clean Session）、遗嘱消息等参数。</li>
+<li><strong>发布（PUBLISH）</strong>：发布者客户端将消息（包含主题、QoS等级、消息体、保留标志等）发送给代理。</li>
+<li><strong>订阅（SUBSCRIBE）</strong>：订阅者客户端向代理发送订阅请求，指定感兴趣的主题和期望的QoS等级。</li>
+<li><strong>消息路由</strong>：代理收到发布的消息后，根据主题匹配规则，将消息转发给所有订阅了该主题的客户端。</li>
+<li><strong>取消订阅（UNSUBSCRIBE）</strong>：客户端可以取消对某些主题的订阅。</li>
+<li><strong>心跳（PINGREQ/PINGRESP）</strong>：客户端和代理之间通过心跳机制维持连接，检测对方是否在线。</li>
+<li><strong>断开连接（DISCONNECT）</strong>：客户端主动向代理发送断开连接请求。</li>
+</ol>
+<h2 id="三、MQTT与HTTP等协议对比"><a href="#三、MQTT与HTTP等协议对比" class="headerlink" title="三、MQTT与HTTP等协议对比"></a>三、MQTT与HTTP等协议对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>MQTT</th>
+<th>HTTP/1.1</th>
+<th>HTTP/2</th>
+<th>WebSocket</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通信模式</strong></td>
+<td>发布/订阅</td>
+<td>请求/响应</td>
+<td>请求/响应 (支持服务器推送)</td>
+<td>全双工</td>
+</tr>
+<tr>
+<td><strong>连接性</strong></td>
+<td>长连接</td>
+<td>短连接 (Keep-Alive可复用)</td>
+<td>长连接 (多路复用)</td>
+<td>长连接</td>
+</tr>
+<tr>
+<td><strong>头部开销</strong></td>
+<td>非常小 (最小2字节)</td>
+<td>较大</td>
+<td>头部压缩 (HPACK)</td>
+<td>较小 (握手后)</td>
+</tr>
+<tr>
+<td><strong>消息推送</strong></td>
+<td>Broker主动推送</td>
+<td>客户端轮询或长轮询</td>
+<td>服务器推送</td>
+<td>双向实时推送</td>
+</tr>
+<tr>
+<td><strong>状态保持</strong></td>
+<td>Broker维护客户端会话状态 (Clean Session)</td>
+<td>无状态 (依赖Cookie/Session)</td>
+<td>无状态 (依赖Cookie/Session)</td>
+<td>有状态</td>
+</tr>
+<tr>
+<td><strong>可靠性</strong></td>
+<td>三级QoS保证</td>
+<td>依赖TCP</td>
+<td>依赖TCP</td>
+<td>依赖TCP</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>物联网、消息推送、低带宽网络</td>
+<td>Web服务、API接口</td>
+<td>高性能Web服务、API</td>
+<td>实时Web应用、在线游戏</td>
+</tr>
+</tbody></table>
+<h2 id="四、MQTT的优势"><a href="#四、MQTT的优势" class="headerlink" title="四、MQTT的优势"></a>四、MQTT的优势</h2><ol>
+<li><strong>轻量高效</strong>：协议头部开销小，对网络带宽和设备资源要求低。</li>
+<li><strong>可靠的消息传递</strong>：提供三种QoS等级，满足不同可靠性需求。</li>
+<li><strong>发布/订阅模式</strong>：解耦消息生产者和消费者，易于扩展。</li>
+<li><strong>支持海量连接</strong>：单个代理可以支持大量并发客户端连接。</li>
+<li><strong>状态感知</strong>：通过心跳和遗嘱消息机制，可以感知客户端的在线状态。</li>
+<li><strong>保留消息</strong>：方便新客户端获取最新状态。</li>
+<li><strong>广泛的语言和平台支持</strong>：拥有众多开源实现和商业产品。</li>
+</ol>
+<h2 id="五、MQTT适用场景"><a href="#五、MQTT适用场景" class="headerlink" title="五、MQTT适用场景"></a>五、MQTT适用场景</h2><p>MQTT因其特性广泛应用于以下场景：</p>
+<ol>
+<li><strong>物联网（IoT）</strong>：智能家居、智慧城市、工业自动化、环境监测、可穿戴设备等，传感器数据采集和设备控制。</li>
+<li><strong>移动应用消息推送</strong>：即时通讯、App消息提醒，尤其在网络不稳定或对电量敏感的移动设备上。</li>
+<li><strong>车联网（IoV）</strong>：车辆状态监控、远程控制、车载信息娱乐系统通信。</li>
+<li><strong>远程医疗</strong>：医疗设备数据采集与监控。</li>
+<li><strong>智能农业</strong>：环境数据监测、自动化灌溉与控制。</li>
+<li><strong>金融服务</strong>：实时交易信息推送（对QoS要求高）。</li>
+</ol>
+<h2 id="六、MQTT代码示例（以Python-Paho-MQTT库为例）"><a href="#六、MQTT代码示例（以Python-Paho-MQTT库为例）" class="headerlink" title="六、MQTT代码示例（以Python Paho MQTT库为例）"></a>六、MQTT代码示例（以Python Paho MQTT库为例）</h2><p>以下是一个简单的Python代码示例，演示如何使用Paho MQTT库实现一个发布者和一个订阅者。</p>
+<p>首先，需要安装Paho MQTT库：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install paho-mqtt</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="（一）发布者-publisher-py"><a href="#（一）发布者-publisher-py" class="headerlink" title="（一）发布者 (publisher.py)"></a>（一）发布者 (publisher.py)</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paho.mqtt.client <span class="keyword">as</span> mqtt</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># MQTT代理的地址和端口</span></span><br><span class="line">broker_address = <span class="string">"mqtt.eclipseprojects.io"</span> <span class="comment"># 使用公共测试代理</span></span><br><span class="line">port = <span class="number">1883</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当连接到代理后的回调函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_connect</span>(<span class="params">client, userdata, flags, rc</span>):</span><br><span class="line">    <span class="keyword">if</span> rc == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"成功连接到MQTT代理"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"连接失败，错误码: <span class="subst">{rc}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建MQTT客户端实例</span></span><br><span class="line">client = mqtt.Client(<span class="string">"PythonPublisher"</span>)</span><br><span class="line">client.on_connect = on_connect</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接到代理</span></span><br><span class="line">client.connect(broker_address, port=port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动网络循环处理消息（非阻塞）</span></span><br><span class="line">client.loop_start()</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        message = <span class="string">f"Hello MQTT from Python Publisher! Count: <span class="subst">{count}</span>"</span></span><br><span class="line">        <span class="comment"># 发布消息到主题 "test/topic"</span></span><br><span class="line">        <span class="comment"># QoS等级为1</span></span><br><span class="line">        result = client.publish(<span class="string">"test/topic"</span>, message, qos=<span class="number">1</span>)</span><br><span class="line">        result.wait_for_publish() <span class="comment"># 等待发布完成 (对于QoS 1和2)</span></span><br><span class="line">        <span class="keyword">if</span> result.rc == mqtt.MQTT_ERR_SUCCESS:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"消息已发布: '<span class="subst">{message}</span>' 到主题 'test/topic'"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"消息发布失败，错误码: <span class="subst">{result.rc}</span>"</span>)</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        time.sleep(<span class="number">5</span>)  <span class="comment"># 每5秒发布一次消息</span></span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"发布者停止"</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    client.loop_stop() <span class="comment"># 停止网络循环</span></span><br><span class="line">    client.disconnect() <span class="comment"># 断开连接</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"与代理断开连接"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="（二）订阅者-subscriber-py"><a href="#（二）订阅者-subscriber-py" class="headerlink" title="（二）订阅者 (subscriber.py)"></a>（二）订阅者 (subscriber.py)</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paho.mqtt.client <span class="keyword">as</span> mqtt</span><br><span class="line"></span><br><span class="line"><span class="comment"># MQTT代理的地址和端口</span></span><br><span class="line">broker_address = <span class="string">"mqtt.eclipseprojects.io"</span></span><br><span class="line">port = <span class="number">1883</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当连接到代理后的回调函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_connect</span>(<span class="params">client, userdata, flags, rc</span>):</span><br><span class="line">    <span class="keyword">if</span> rc == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"成功连接到MQTT代理"</span>)</span><br><span class="line">        <span class="comment"># 连接成功后订阅主题 "test/topic"</span></span><br><span class="line">        <span class="comment"># QoS等级为1</span></span><br><span class="line">        client.subscribe(<span class="string">"test/topic"</span>, qos=<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"已订阅主题: 'test/topic'"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"连接失败，错误码: <span class="subst">{rc}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当收到订阅主题的消息时的回调函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_message</span>(<span class="params">client, userdata, msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"收到消息: 主题='<span class="subst">{msg.topic}</span>', QoS=<span class="subst">{msg.qos}</span>, 保留标志=<span class="subst">{msg.retain}</span>, 消息='<span class="subst">{msg.payload.decode()}</span>'"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建MQTT客户端实例</span></span><br><span class="line">client = mqtt.Client(<span class="string">"PythonSubscriber"</span>)</span><br><span class="line">client.on_connect = on_connect</span><br><span class="line">client.on_message = on_message</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接到代理</span></span><br><span class="line">client.connect(broker_address, port=port)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动网络循环处理消息（阻塞式，直到客户端断开连接）</span></span><br><span class="line"><span class="comment"># client.loop_forever() 会阻塞程序，直到调用 disconnect()</span></span><br><span class="line"><span class="comment"># 如果需要在后台运行，可以使用 client.loop_start() 和 client.loop_stop()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    client.loop_forever()</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"订阅者停止"</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    client.disconnect()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"与代理断开连接"</span>)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>运行说明：</strong></p>
+<ol>
+<li>将以上两段代码分别保存为 <code>publisher.py</code> 和 <code>subscriber.py</code>。</li>
+<li>先运行 <code>subscriber.py</code>，它会连接到MQTT代理并订阅 <code>test/topic</code> 主题。</li>
+<li>再运行 <code>publisher.py</code>，它会每5秒向 <code>test/topic</code> 主题发布一条消息。</li>
+<li>您将在 <code>subscriber.py</code> 的控制台中看到接收到的消息。</li>
+</ol>
+<h2 id="七、MQTT安全性"><a href="#七、MQTT安全性" class="headerlink" title="七、MQTT安全性"></a>七、MQTT安全性</h2><p>虽然MQTT本身是一个轻量级协议，但在实际应用中，安全性是不可忽视的。以下是一些常见的MQTT安全措施：</p>
+<h3 id="（一）认证（Authentication）"><a href="#（一）认证（Authentication）" class="headerlink" title="（一）认证（Authentication）"></a>（一）认证（Authentication）</h3><ol>
+<li><strong>用户名/密码</strong>：MQTT协议本身支持在CONNECT报文中携带用户名和密码，代理可以据此进行认证。</li>
+<li><strong>客户端证书</strong>：使用TLS/SSL时，可以通过客户端证书进行认证，这提供了更强的安全性。</li>
+</ol>
+<h3 id="（二）授权（Authorization）"><a href="#（二）授权（Authorization）" class="headerlink" title="（二）授权（Authorization）"></a>（二）授权（Authorization）</h3><p>代理需要实现授权机制，控制客户端对特定主题的发布和订阅权限。这通常基于ACL（Access Control List）实现。</p>
+<h3 id="（三）传输层加密（Encryption）"><a href="#（三）传输层加密（Encryption）" class="headerlink" title="（三）传输层加密（Encryption）"></a>（三）传输层加密（Encryption）</h3><p>使用MQTTS（MQTT over TLS/SSL）可以对MQTT通信进行加密，防止数据在传输过程中被窃听或篡改。通常MQTT默认端口是1883，MQTTS默认端口是8883。</p>
+<h3 id="（四）消息内容加密"><a href="#（四）消息内容加密" class="headerlink" title="（四）消息内容加密"></a>（四）消息内容加密</h3><p>除了传输层加密，还可以对消息体本身进行加密，提供端到端的安全保护。</p>
+<h3 id="（五）安全最佳实践"><a href="#（五）安全最佳实践" class="headerlink" title="（五）安全最佳实践"></a>（五）安全最佳实践</h3><ol>
+<li><strong>使用强密码和证书管理</strong>。</li>
+<li><strong>最小权限原则</strong>：仅授予客户端必要的发布/订阅权限。</li>
+<li><strong>定期更新安全补丁</strong>：保持代理和客户端库的更新。</li>
+<li><strong>监控和日志</strong>：记录连接、发布、订阅等行为，及时发现异常。</li>
+<li><strong>避免使用默认配置</strong>。</li>
+</ol>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>MQTT以其轻量、高效、可靠的特性，在物联网和消息推送等领域扮演着越来越重要的角色。理解其核心概念如发布/订阅模式、主题、QoS等级，以及其工作流程和安全机制，对于设计和实现稳健的MQTT应用至关重要。随着物联网设备的普及和连接需求的增长，MQTT协议将继续发展和完善，为万物互联提供坚实的通信基础。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/">https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><a class="post-meta__tags" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a><a class="post-meta__tags" href="/tags/MQTT/">MQTT</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91SOAP%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】SOAP接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【接口】SOAP接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】SOAP接口详解一、SOAP概述（一）SOAP的定义SOAP（Simple Object Access Protocol，简单对象访问协议）是一种基于XML的通信协议，用于在分布式环境中交换结构化信息。它最初由微软在1998年设计，后来成为W3C标准。SOAP提供了一种标准的方式来封装消息，使不同平台、不同语言开发的应用程序能够通过网络进行通信。 SOAP是Web服务技术栈的核心组件之一，与WSDL（Web服务描述语言）和UDDI（通用描述、发现与集成）一起构成了传统Web服务的基础。 （二）SOAP的主要特点 平台独立性：SOAP可以在任何支持XML和HTTP的平台上运行，实现跨平台通信 语言独立性：支持各种编程语言，如Java、C#、Python等 基于标准：建立在XML、HTTP等广泛接受的标准之上 可扩展性：通过WS-*规范族支持各种高级功能 严格的类型系统：支持复杂数据类型的传输和验证 内置错误处理：提供标准化的错误处理机制 传输协议灵活性：虽然通常使用HTTP，但也可以使用SMTP、TCP等协议  （三）SOAP与Web服务SOAP是实现Web服务的主要协议之...</div></div></div></a><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】REST接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【接口】REST接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端服务抽象为资源（Resources），通过统一接口对这些资源进行操作。每个资源都有一个唯一的标识符（URI），客户端通过HTTP协议与这些资源进行交互，实现数据的传输和状态的转移。 （二）REST的六大约束REST架构风格由六个关键约束定义：  客户端-服务器（Client-Server）：关注点分离原则，客户端和服务器各自独立演化。 无状态（Stateless）：服务器不保存客户端状态，每个请求必须包含理解请求所需的全部信息。 缓存（Cache）：响应必须明确标记是否可缓存，以提高网络效率。 统一接口（Uniform Interface）：简化整体系统架构，提高交互的可见性。 分层系统...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3"><span class="toc-text">【接口】MQTT接口详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81MQTT%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">一、MQTT核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%EF%BC%88Publish-Subscribe%EF%BC%89%E6%A8%A1%E5%BC%8F"><span class="toc-text">（一）发布/订阅（Publish/Subscribe）模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%B8%BB%E9%A2%98%EF%BC%88Topic%EF%BC%89"><span class="toc-text">（二）主题（Topic）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F%E7%AD%89%E7%BA%A7%EF%BC%88Quality-of-Service-QoS%EF%BC%89"><span class="toc-text">（三）服务质量等级（Quality of Service, QoS）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E4%BF%9D%E7%95%99%E6%B6%88%E6%81%AF%EF%BC%88Retained-Message%EF%BC%89"><span class="toc-text">（四）保留消息（Retained Message）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E9%81%97%E5%98%B1%E6%B6%88%E6%81%AF%EF%BC%88Last-Will-and-Testament-LWT%EF%BC%89"><span class="toc-text">（五）遗嘱消息（Last Will and Testament, LWT）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81MQTT%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">二、MQTT架构与工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89MQTT%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-text">（一）MQTT系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89MQTT%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">（二）MQTT工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81MQTT%E4%B8%8EHTTP%E7%AD%89%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%AF%94"><span class="toc-text">三、MQTT与HTTP等协议对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81MQTT%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">四、MQTT的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81MQTT%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">五、MQTT适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81MQTT%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B%EF%BC%88%E4%BB%A5Python-Paho-MQTT%E5%BA%93%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-text">六、MQTT代码示例（以Python Paho MQTT库为例）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%8F%91%E5%B8%83%E8%80%85-publisher-py"><span class="toc-text">（一）发布者 (publisher.py)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%A2%E9%98%85%E8%80%85-subscriber-py"><span class="toc-text">（二）订阅者 (subscriber.py)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81MQTT%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-text">七、MQTT安全性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%AE%A4%E8%AF%81%EF%BC%88Authentication%EF%BC%89"><span class="toc-text">（一）认证（Authentication）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%8E%88%E6%9D%83%EF%BC%88Authorization%EF%BC%89"><span class="toc-text">（二）授权（Authorization）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E4%BC%A0%E8%BE%93%E5%B1%82%E5%8A%A0%E5%AF%86%EF%BC%88Encryption%EF%BC%89"><span class="toc-text">（三）传输层加密（Encryption）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9%E5%8A%A0%E5%AF%86"><span class="toc-text">（四）消息内容加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E5%AE%89%E5%85%A8%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">（五）安全最佳实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">八、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'ae8100f186320d5b8fb413d884496859'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

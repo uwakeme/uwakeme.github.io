@@ -1,0 +1,553 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【数据库】向量数据库详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言随着人工智能（AI）和机器学习（ML）技术的飞速发展，我们处理的数据类型也日益多样化，其中非结构化数据（如文本、图像、音频、视频）的占比越来越大。传统的关系型数据库在处理这类数据时显得力不从心。为了有效地存储、管理和检索这些由AI模型产生的”向量嵌入”（Vector Embeddings），向量数据库应运而生，并迅速成为现代AI应用架构中的关键组成部分。本笔记旨在详细介绍向量数据库的核心概念、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库】向量数据库详解">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="前言随着人工智能（AI）和机器学习（ML）技术的飞速发展，我们处理的数据类型也日益多样化，其中非结构化数据（如文本、图像、音频、视频）的占比越来越大。传统的关系型数据库在处理这类数据时显得力不从心。为了有效地存储、管理和检索这些由AI模型产生的”向量嵌入”（Vector Embeddings），向量数据库应运而生，并迅速成为现代AI应用架构中的关键组成部分。本笔记旨在详细介绍向量数据库的核心概念、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2026-01-15T08:48:25.250Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.250Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="向量数据库">
+<meta property="article:tag" content="相似性搜索">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【数据库】向量数据库详解",
+  "url": "https://hexo.blog.uwakeme.tech/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2026-01-15T08:48:25.250Z",
+  "dateModified": "2026-01-15T08:48:25.250Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【数据库】向量数据库详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【数据库】向量数据库详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【数据库】向量数据库详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T08:48:25.250Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.250Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着人工智能（AI）和机器学习（ML）技术的飞速发展，我们处理的数据类型也日益多样化，其中非结构化数据（如文本、图像、音频、视频）的占比越来越大。传统的关系型数据库在处理这类数据时显得力不从心。为了有效地存储、管理和检索这些由AI模型产生的”向量嵌入”（Vector Embeddings），向量数据库应运而生，并迅速成为现代AI应用架构中的关键组成部分。本笔记旨在详细介绍向量数据库的核心概念、工作原理、关键特性、应用场景、主流产品以及未来的发展趋势。</p>
+<h1 id="一、核心概念"><a href="#一、核心概念" class="headerlink" title="一、核心概念"></a>一、核心概念</h1><p>理解向量数据库，首先要掌握几个核心概念。</p>
+<h2 id="（一）向量嵌入-Vector-Embeddings"><a href="#（一）向量嵌入-Vector-Embeddings" class="headerlink" title="（一）向量嵌入 (Vector Embeddings)"></a>（一）向量嵌入 (Vector Embeddings)</h2><p>向量嵌入是将现实世界中的对象（如单词、句子、图片、音频片段等）转化为数值型向量的过程。这些向量在高维空间中表示对象，并且其设计目标是让语义上相似的对象在向量空间中的距离更近。</p>
+<p>例如，通过特定的嵌入模型处理后，”猫”和”狗”这两个词的向量表示在空间上会比”猫”和”汽车”的向量表示更接近，因为前两者都是动物，语义上更相似。</p>
+<p>这个转换过程由<strong>嵌入模型 (Embedding Models)</strong> 完成。</p>
+<h2 id="（二）嵌入模型-Embedding-Models"><a href="#（二）嵌入模型-Embedding-Models" class="headerlink" title="（二）嵌入模型 (Embedding Models)"></a>（二）嵌入模型 (Embedding Models)</h2><p>嵌入模型是AI模型的一种，其主要功能是将输入数据（文本、图像等）转换为向量嵌入。这些模型通过在大量数据上进行训练，学习到数据点之间的复杂关系和语义信息。</p>
+<p>常见的嵌入模型有：</p>
+<ul>
+<li><strong>文本嵌入模型</strong>：如Word2Vec, GloVe, BERT, Sentence-BERT, OpenAI’s Ada-002等。它们能将单词、句子甚至整个文档转换为向量。</li>
+<li><strong>图像嵌入模型</strong>：如ResNet, VGG, Vision Transformer (ViT)等。它们能将图片转换为捕捉其视觉特征的向量。</li>
+<li><strong>多模态嵌入模型</strong>：如CLIP，能够将不同类型的数据（例如文本和图像）嵌入到同一个共享的向量空间中，从而可以进行跨模态的相似性比较。</li>
+</ul>
+<p>选择合适的嵌入模型对于向量数据库的性能至关重要，因为它直接影响向量嵌入的质量和后续相似性搜索的准确性。</p>
+<h2 id="（三）相似性搜索-Similarity-Search"><a href="#（三）相似性搜索-Similarity-Search" class="headerlink" title="（三）相似性搜索 (Similarity Search)"></a>（三）相似性搜索 (Similarity Search)</h2><p>相似性搜索，也称为向量搜索或语义搜索，是向量数据库的核心功能。它的目标是根据给定的查询向量，在数据库中找到与之最相似的N个向量（即Top-N近邻搜索）。</p>
+<p>这种搜索不是基于关键词的精确匹配，而是基于向量在多维空间中的”距离”或”角度”。距离越近（或角度越小），表示语义越相似。</p>
+<h3 id="1-常见的距离-相似度度量"><a href="#1-常见的距离-相似度度量" class="headerlink" title="1. 常见的距离/相似度度量"></a>1. 常见的距离/相似度度量</h3><ul>
+<li>**欧几里得距离 (Euclidean Distance / L2 Distance)**：衡量两点之间的直线距离。值越小，越相似。计算公式为：<br>[ d(p, q) = \sqrt{\sum_{i=1}^{n}(p_i - q_i)^2} ]</li>
+<li>**余弦相似度 (Cosine Similarity)<strong>：衡量两个向量方向的相似程度，与向量的长度无关。值域为[-1, 1]，值越接近1，表示方向越一致，越相似。实际应用中常使用</strong>余弦距离 (Cosine Distance)**，其值为 <code>1 - Cosine Similarity</code>，范围是[0, 2]，值越小越相似。<br>[ \text{Cosine Similarity} = \frac{p \cdot q}{|p| |q|} = \frac{\sum_{i=1}^{n} p_i q_i}{\sqrt{\sum_{i=1}^{n} p_i^2} \sqrt{\sum_{i=1}^{n} q_i^2}} ]</li>
+<li>**曼哈顿距离 (Manhattan Distance / L1 Distance)**：计算两点在标准坐标系上绝对轴距总和。值越小，越相似。<br>[ d(p, q) = \sum_{i=1}^{n}|p_i - q_i| ]</li>
+<li>**点积 (Dot Product)**：衡量两个向量的相似性，同时考虑了方向和大小。值越大，通常表示越相似（取决于向量是否被归一化）。<br>[ p \cdot q = \sum_{i=1}^{n} p_i q_i ]</li>
+<li>**汉明距离 (Hamming Distance)**：衡量两个等长字符串（或二进制向量）之间不同位置的字符的数量。主要用于二值化或离散化向量。</li>
+</ul>
+<p>选择哪种距离度量通常取决于嵌入模型的训练方式和特定应用的需求。例如，很多文本嵌入模型推荐使用余弦相似度。</p>
+<h1 id="二、工作原理"><a href="#二、工作原理" class="headerlink" title="二、工作原理"></a>二、工作原理</h1><p>向量数据库的工作流程主要包括数据的存储、索引和查询。</p>
+<h2 id="（一）数据存储与元数据管理"><a href="#（一）数据存储与元数据管理" class="headerlink" title="（一）数据存储与元数据管理"></a>（一）数据存储与元数据管理</h2><p>向量数据库不仅存储高维向量，通常还会存储与这些向量相关的原始数据或元数据。例如，对于一个文本向量，其元数据可能包括文档ID、文本内容、创建时间、标签等。</p>
+<p>这种设计允许用户在进行相似性搜索后，能够方便地获取到原始数据，并可以结合元数据进行过滤查询（例如，在相似的图片中，只筛选出特定日期拍摄的图片）。</p>
+<h2 id="（二）向量索引-Vector-Indexing"><a href="#（二）向量索引-Vector-Indexing" class="headerlink" title="（二）向量索引 (Vector Indexing)"></a>（二）向量索引 (Vector Indexing)</h2><p>在高维空间中对海量向量进行精确的近邻搜索（如使用k-NN算法）计算成本非常高，尤其是在低延迟要求的场景下。为了加速查询，向量数据库广泛采用<strong>近似最近邻 (Approximate Nearest Neighbor, ANN)</strong> 搜索算法。</p>
+<p>ANN算法通过构建特定的索引结构，在牺牲一定召回率（即可能找不到绝对最相似的几个结果）的前提下，大幅提升搜索速度。</p>
+<p>常见的ANN索引算法包括：</p>
+<ol>
+<li><p>**基于树的索引 (Tree-based)**：</p>
+<ul>
+<li><strong>KD-Tree, Ball-Tree</strong>: 将空间划分为层次结构，适用于低维数据。在高维数据中性能下降明显（维度灾难）。</li>
+<li><strong>ANNOY (Approximate Nearest Neighbors Oh Yeah)</strong>: Spotify开发，使用随机投影树构建索引。</li>
+</ul>
+</li>
+<li><p>**基于哈希的索引 (Hashing-based / LSH - Locality Sensitive Hashing)**：</p>
+<ul>
+<li>通过哈希函数将相似的向量映射到相同的”桶”中，查询时只需在查询向量所在的桶内搜索。</li>
+</ul>
+</li>
+<li><p>**基于图的索引 (Proximity Graph-based)**：</p>
+<ul>
+<li><strong>HNSW (Hierarchical Navigable Small World)</strong>: 构建一个层次化的图结构，其中节点是向量，边表示向量间的近邻关系。查询时从顶层图的入口点开始，逐层导航到最近邻。是目前性能较好且应用广泛的算法之一。</li>
+<li><strong>NSG (Navigable Small World Graph)</strong></li>
+</ul>
+</li>
+<li><p>**基于聚类的索引 (Clustering-based)**：</p>
+<ul>
+<li><strong>FAISS (Facebook AI Similarity Search) K-means</strong>: Facebook开发的一个高效相似性搜索库，支持多种索引类型。其中基于K-means的索引将向量聚类，查询时先定位到最近的簇，再在簇内搜索。</li>
+</ul>
+</li>
+<li><p>**基于量化的索引 (Quantization-based)**：</p>
+<ul>
+<li><strong>PQ (Product Quantization)</strong>: 将高维向量分解为多个低维子向量，并对每个子向量独立进行量化（编码），从而压缩向量，减少存储和计算量。</li>
+<li><strong>SQ (Scalar Quantization)</strong></li>
+<li><strong>SCANN (Scalable Nearest Neighbors)</strong>: Google开发，结合了量化和各向异性向量距离。</li>
+</ul>
+</li>
+</ol>
+<p>选择合适的索引类型和参数（如HNSW中的<code>M</code>和<code>efConstruction</code>）对查询性能、召回率和构建时间有显著影响，需要根据具体数据集和应用场景进行调优。</p>
+<h2 id="（三）查询处理流程"><a href="#（三）查询处理流程" class="headerlink" title="（三）查询处理流程"></a>（三）查询处理流程</h2><p>典型的查询流程如下：</p>
+<ol>
+<li><strong>查询向量化</strong>：将用户的原始查询（如文本、图片）通过与数据入库时相同的嵌入模型转换为查询向量。</li>
+<li><strong>ANN搜索</strong>：使用查询向量在预构建的向量索引中执行ANN搜索，快速找到K个近似最近邻的向量。</li>
+<li>**元数据过滤 (可选)**：如果查询中包含元数据过滤条件（如<code>tag='animal'</code> AND <code>date &gt; '2023-01-01'</code>），则在ANN搜索结果的基础上进行过滤。一些向量数据库支持在ANN搜索过程中或之后进行过滤（预过滤或后过滤）。</li>
+<li>**精确重排 (可选)**：为了提高召回率，有时会对ANN搜索返回的候选集（可能比最终K值大，如2K或5K个结果）进行一次精确的距离计算，并重新排序，选出最终的Top-K结果。</li>
+<li><strong>返回结果</strong>：返回Top-K结果对应的原始数据或元数据。</li>
+</ol>
+<h1 id="三、关键特性"><a href="#三、关键特性" class="headerlink" title="三、关键特性"></a>三、关键特性</h1><p>向量数据库除了基本的向量存储和搜索外，还具备一些关键特性：</p>
+<ol>
+<li><p><strong>高性能与可扩展性</strong>：</p>
+<ul>
+<li>能够处理数十亿甚至更大规模的向量数据。</li>
+<li>支持高并发查询，并能在毫秒级返回结果。</li>
+<li>通常采用分布式架构，支持水平扩展。</li>
+</ul>
+</li>
+<li><p><strong>与AI/ML的集成</strong>：</p>
+<ul>
+<li>与主流的嵌入模型和ML框架（如TensorFlow, PyTorch, Hugging Face）紧密集成。</li>
+<li>方便地将AI模型产生的嵌入向量导入数据库。</li>
+</ul>
+</li>
+<li><p><strong>数据管理</strong>：</p>
+<ul>
+<li>支持向量的增、删、改、查 (CRUD) 操作。</li>
+<li>支持元数据存储和基于元数据的过滤查询。</li>
+<li>一些数据库提供数据持久化、备份恢复、数据导入导出等功能。</li>
+</ul>
+</li>
+<li><p><strong>易用性</strong>：</p>
+<ul>
+<li>提供友好的API（通常是Python, Java, Go, RESTful API等）。</li>
+<li>简化索引构建和管理过程。</li>
+<li>部分产品提供可视化管理工具。</li>
+</ul>
+</li>
+<li><p>**混合搜索 (Hybrid Search)**：</p>
+<ul>
+<li>结合向量语义搜索和传统关键词搜索（如BM25算法）的优势，以提高搜索结果的相关性和覆盖面。</li>
+</ul>
+</li>
+<li><p><strong>调优能力</strong>：</p>
+<ul>
+<li>允许用户根据不同的应用场景（如追求高召回率、低延迟或高吞吐量）调整索引参数和查询参数。</li>
+</ul>
+</li>
+</ol>
+<h1 id="四、应用场景"><a href="#四、应用场景" class="headerlink" title="四、应用场景"></a>四、应用场景</h1><p>向量数据库的应用场景非常广泛，主要集中在需要理解数据语义和进行相似性匹配的领域：</p>
+<ol>
+<li><p>**语义搜索 (Semantic Search)**：</p>
+<ul>
+<li>搜索引擎：理解用户查询意图，返回语义相关的结果，而不仅仅是关键词匹配。</li>
+<li>文档检索：在大量文档中找到与查询内容最相关的文档。</li>
+<li>知识库问答：根据用户问题，在知识库中找到最相关的答案片段。</li>
+</ul>
+</li>
+<li><p>**推荐系统 (Recommendation Systems)**：</p>
+<ul>
+<li>商品推荐：根据用户浏览、购买过的商品，推荐相似的商品。</li>
+<li>内容推荐：推荐相似的新闻、文章、视频、音乐等。</li>
+<li>用户画像：通过用户行为向量找到相似用户群体，进行个性化推荐。</li>
+</ul>
+</li>
+<li><p>**图像/视频检索 (Image/Video Retrieval)**：</p>
+<ul>
+<li>以图搜图/以视频搜视频：找到与给定样本在视觉上相似的图片或视频。</li>
+<li>内容审核：识别和过滤不当图片或视频。</li>
+</ul>
+</li>
+<li><p><strong>自然语言处理 (NLP) 应用</strong>：</p>
+<ul>
+<li>问答系统 (Q&amp;A Systems) 和聊天机器人：为大型语言模型 (LLM) 提供外部知识库（检索增强生成 - RAG），减少幻觉，提高回答的准确性和时效性。</li>
+<li>文本聚类与分类：将语义相似的文本分组。</li>
+<li>情感分析：基于文本向量判断情感倾向。</li>
+</ul>
+</li>
+<li><p>**异常检测 (Anomaly Detection)**：</p>
+<ul>
+<li>在时间序列数据、网络流量数据或用户行为数据中，识别出与正常模式显著不同的异常点。</li>
+</ul>
+</li>
+<li><p><strong>药物发现与生物信息学</strong>：</p>
+<ul>
+<li>基于分子结构的相似性搜索，寻找潜在的候选药物。</li>
+<li>基因序列比对与分析。</li>
+</ul>
+</li>
+<li><p><strong>个性化</strong>：</p>
+<ul>
+<li>根据用户的历史行为和偏好，提供个性化的体验，如个性化广告、个性化学习路径等。</li>
+</ul>
+</li>
+</ol>
+<h1 id="五、主流向量数据库介绍"><a href="#五、主流向量数据库介绍" class="headerlink" title="五、主流向量数据库介绍"></a>五、主流向量数据库介绍</h1><p>市面上有多种向量数据库产品，既有开源的，也有商业化的云服务。</p>
+<h2 id="（一）开源向量数据库"><a href="#（一）开源向量数据库" class="headerlink" title="（一）开源向量数据库"></a>（一）开源向量数据库</h2><ol>
+<li><p><strong>Milvus</strong>:</p>
+<ul>
+<li>一款高度可扩展、性能卓越的开源向量数据库，由LF AI &amp; Data基金会孵化。</li>
+<li>支持多种ANN索引（如FAISS, HNSW, ANNOY等）和距离度量。</li>
+<li>提供丰富的API和SDK，社区活跃。</li>
+<li>架构上分为接入层、协调服务、执行节点和存储层，支持分布式部署。</li>
+</ul>
+</li>
+<li><p><strong>Weaviate</strong>:</p>
+<ul>
+<li>一款开源的、云原生的向量搜索引擎，支持GraphQL API。</li>
+<li>内置模块化设计，可以集成不同的嵌入模型（如Hugging Face Transformers, OpenAI）。</li>
+<li>支持对象存储和向量存储的分离。</li>
+<li>提供混合搜索能力。</li>
+</ul>
+</li>
+<li><p><strong>Chroma</strong>:</p>
+<ul>
+<li>一款轻量级、对开发者友好的开源嵌入数据库。</li>
+<li>设计目标是简化AI应用的构建，特别是与LLM集成的场景。</li>
+<li>易于上手，支持Python API。</li>
+</ul>
+</li>
+<li><p><strong>Qdrant</strong>:</p>
+<ul>
+<li>一款用Rust编写的开源向量相似性搜索引擎和向量数据库。</li>
+<li>注重性能、可扩展性和可靠性。</li>
+<li>支持丰富的元数据过滤和payload。</li>
+</ul>
+</li>
+</ol>
+<h2 id="（二）商业化与云服务"><a href="#（二）商业化与云服务" class="headerlink" title="（二）商业化与云服务"></a>（二）商业化与云服务</h2><ol>
+<li><p><strong>Pinecone</strong>:</p>
+<ul>
+<li>一款完全托管的商业化向量数据库服务。</li>
+<li>易于使用，无需管理底层基础设施。</li>
+<li>提供高可用性和可扩展性，专注于性能和开发者体验。</li>
+</ul>
+</li>
+<li><p><strong>Elasticsearch / OpenSearch (with k-NN plugin)</strong>:</p>
+<ul>
+<li>虽然是传统的搜索引擎，但通过k-NN插件也具备了向量搜索能力。</li>
+<li>适合已经在使用Elasticsearch/OpenSearch技术栈，并希望扩展向量搜索功能的场景。</li>
+<li>可以同时利用其强大的文本搜索和向量搜索能力。</li>
+</ul>
+</li>
+<li><p><strong>Redis (with RediSearch module)</strong>:</p>
+<ul>
+<li>Redis通过RediSearch模块也提供了向量相似性搜索功能。</li>
+<li>利用Redis内存数据库的低延迟特性。</li>
+</ul>
+</li>
+<li><p><strong>PostgreSQL (with pgvector extension)</strong>:</p>
+<ul>
+<li>pgvector是一个针对PostgreSQL的开源扩展，使其能够存储和搜索向量嵌入。</li>
+<li>允许在现有的关系型数据库基础上增加向量搜索能力。</li>
+</ul>
+</li>
+<li><p><strong>Google Vertex AI Vector Search (formerly Matching Engine)</strong>:</p>
+<ul>
+<li>Google Cloud提供的全托管向量相似性匹配服务，具有高可扩展性和低延迟。</li>
+</ul>
+</li>
+<li><p><strong>Amazon OpenSearch Service (with k-NN similarity search)</strong>:</p>
+<ul>
+<li>AWS提供的托管OpenSearch服务，支持k-NN插件进行向量搜索。</li>
+</ul>
+</li>
+</ol>
+<p>选择哪款向量数据库取决于具体需求，如数据规模、性能要求、预算、开发语言偏好、是否需要自托管以及对特定功能（如混合搜索、元数据过滤复杂度）的需求。</p>
+<h1 id="六、挑战与未来趋势"><a href="#六、挑战与未来趋势" class="headerlink" title="六、挑战与未来趋势"></a>六、挑战与未来趋势</h1><h2 id="（一）面临的挑战"><a href="#（一）面临的挑战" class="headerlink" title="（一）面临的挑战"></a>（一）面临的挑战</h2><ol>
+<li><strong>索引构建成本与时间</strong>：对于大规模数据集，构建高质量的ANN索引可能需要大量的计算资源和时间。</li>
+<li>**维度灾难 (Curse of Dimensionality)**：随着向量维度的增加，传统空间索引的效率会急剧下降，ANN算法也面临挑战。</li>
+<li><strong>调优复杂度</strong>：选择合适的ANN算法、索引参数和距离度量对性能影响巨大，需要专业知识和实验。</li>
+<li><strong>数据更新与索引维护</strong>：频繁的数据插入、删除、更新可能导致索引性能下降，需要有效的索引维护策略。</li>
+<li><strong>冷启动问题</strong>：对于新加入的向量，可能需要一段时间才能被有效索引和检索。</li>
+<li><strong>成本效益</strong>：存储大量高维向量和运行高性能计算集群的成本可能较高。</li>
+<li><strong>标准化与生态</strong>：向量数据库领域仍在快速发展，相关标准和生态系统尚在成熟过程中。</li>
+</ol>
+<h2 id="（二）发展趋势"><a href="#（二）发展趋势" class="headerlink" title="（二）发展趋势"></a>（二）发展趋势</h2><ol>
+<li>**与传统数据库的融合 (HTAP for AI)**：向量搜索能力可能会更广泛地集成到现有的关系型数据库、NoSQL数据库和数据仓库中，形成”AI数据库”或支持混合事务/分析处理（HTAP）的AI数据平台。</li>
+<li><strong>多模态数据支持的增强</strong>：更好地支持图像、文本、音频、视频等多种模态数据的统一存储、索引和跨模态检索。</li>
+<li><strong>智能化与自动化</strong>：自动选择和优化索引策略、自动调整参数、智能化的查询优化等，降低使用门槛。</li>
+<li><strong>硬件加速</strong>：利用GPU、FPGA等专用硬件加速向量计算和索引过程。</li>
+<li><strong>实时性增强</strong>：进一步提升数据摄入和查询的实时性，满足更多实时应用的需求。</li>
+<li><strong>更强大的分析能力</strong>：不仅仅是相似性搜索，还可能集成更复杂的图分析、聚类分析等功能。</li>
+<li><strong>云原生与Serverless化</strong>：提供更灵活、更具弹性的云原生和无服务器向量数据库服务。</li>
+<li><strong>可解释性与可信赖AI</strong>：提供对搜索结果和模型决策过程的更好解释，增强系统的透明度和可信度。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>向量数据库是AI时代处理和理解海量非结构化数据的关键基础设施。通过将数据转化为向量嵌入，并利用高效的相似性搜索技术，向量数据库为语义搜索、推荐系统、生成式AI等众多应用提供了强大的动力。尽管面临一些挑战，但随着技术的不断进步和生态的日益成熟，向量数据库将在未来的AI和数据领域扮演越来越重要的角色。对于开发者和数据科学家而言，理解和掌握向量数据库的原理与应用，将是构建下一代智能应用的重要技能。</p>
+<h1 id="七、参考链接"><a href="#七、参考链接" class="headerlink" title="七、参考链接"></a>七、参考链接</h1><ul>
+<li><strong>NVIDIA Developer - What is a Vector Database?</strong>: <a target="_blank" rel="noopener" href="https://www.nvidia.cn/glossary/vector-database/">https://www.nvidia.cn/glossary/vector-database/</a></li>
+<li><strong>AWS - What is a Vector Database?</strong>: <a target="_blank" rel="noopener" href="https://aws.amazon.com/cn/campaigns/what-is-a-vector-database/">https://aws.amazon.com/cn/campaigns/what-is-a-vector-database/</a></li>
+<li><strong>Weaviate - A Gentle Introduction to Vector Databases</strong>: <a target="_blank" rel="noopener" href="https://weaviate.io/blog/what-is-a-vector-database">https://weaviate.io/blog/what-is-a-vector-database</a></li>
+<li><strong>Medium - The In-Depth Guide to Understanding and Leveraging Vector Databases</strong>: <a target="_blank" rel="noopener" href="https://manuabhijit.medium.com/the-in-depth-guide-to-understanding-and-leveraging-vector-databases-9022677cd6a6">https://manuabhijit.medium.com/the-in-depth-guide-to-understanding-and-leveraging-vector-databases-9022677cd6a6</a></li>
+<li><strong>Milvus Documentation</strong>: <a target="_blank" rel="noopener" href="https://milvus.io/docs">https://milvus.io/docs</a></li>
+<li><strong>Pinecone Documentation</strong>: <a target="_blank" rel="noopener" href="https://docs.pinecone.io/">https://docs.pinecone.io/</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/">https://hexo.blog.uwakeme.tech/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%91%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">向量数据库</a><a class="post-meta__tags" href="/tags/%E7%9B%B8%E4%BC%BC%E6%80%A7%E6%90%9C%E7%B4%A2/">相似性搜索</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/15/%E6%B1%82%E8%81%8C/%E3%80%90%E6%B1%82%E8%81%8C%E3%80%91Java%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/" title="【求职】Java面试问题"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【求职】Java面试问题</div></div><div class="info-2"><div class="info-item-1">前言Java作为企业级开发的主流语言，在求职市场中占据重要地位。无论是初级开发者还是资深工程师，掌握Java面试的核心问题和回答技巧都至关重要。本文整理了Java面试中最常见的问题类型，并提供了详细的回答思路和技巧，帮助求职者在面试中脱颖而出。 一、Java基础知识面试问题（一）面向对象编程1. 请解释Java中的面向对象三大特性标准回答： Java面向对象编程有三大核心特性： 封装（Encapsulation）：  将数据和操作数据的方法封装在类中 通过访问修饰符（private、protected、public）控制访问权限 提供getter/setter方法来访问私有属性  12345678910111213public class Student {    private String name;  // 私有属性，实现封装    private int age;        // 提供公共方法访问私有属性    public String getName() {        return name;    }        p...</div></div></div></a><a class="pagination-related" href="/2026/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/%E3%80%90MySQL%E3%80%91%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" title="【MySQL】常用函数总结"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【MySQL】常用函数总结</div></div><div class="info-2"><div class="info-item-1">【MySQL】常用函数总结一、字符串处理函数1. 字符串连接函数CONCAT()将多个字符串连接成一个字符串： 123456789-- 基本用法SELECT CONCAT('Hello', ' ', 'World') AS greeting;-- 结果: Hello World-- 连接列值SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;-- 与其他表达式混用SELECT CONCAT('ID: ', id, ', Name: ', name) FROM products;  CONCAT_WS()使用指定的分隔符连接多个字符串，比CONCAT更方便： 123456789101112-- 基本语法: CONCAT_WS(separator, string1, string2, ...)-- 使用逗号连接SELECT CONCAT_WS(',', &amp;#x...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">一、核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%90%91%E9%87%8F%E5%B5%8C%E5%85%A5-Vector-Embeddings"><span class="toc-text">（一）向量嵌入 (Vector Embeddings)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B5%8C%E5%85%A5%E6%A8%A1%E5%9E%8B-Embedding-Models"><span class="toc-text">（二）嵌入模型 (Embedding Models)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%9B%B8%E4%BC%BC%E6%80%A7%E6%90%9C%E7%B4%A2-Similarity-Search"><span class="toc-text">（三）相似性搜索 (Similarity Search)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B7%9D%E7%A6%BB-%E7%9B%B8%E4%BC%BC%E5%BA%A6%E5%BA%A6%E9%87%8F"><span class="toc-text">1. 常见的距离/相似度度量</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">二、工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%8E%E5%85%83%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="toc-text">（一）数据存储与元数据管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95-Vector-Indexing"><span class="toc-text">（二）向量索引 (Vector Indexing)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-text">（三）查询处理流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7"><span class="toc-text">三、关键特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">四、应用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%B8%BB%E6%B5%81%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D"><span class="toc-text">五、主流向量数据库介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%BC%80%E6%BA%90%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">（一）开源向量数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%95%86%E4%B8%9A%E5%8C%96%E4%B8%8E%E4%BA%91%E6%9C%8D%E5%8A%A1"><span class="toc-text">（二）商业化与云服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%8C%91%E6%88%98%E4%B8%8E%E6%9C%AA%E6%9D%A5%E8%B6%8B%E5%8A%BF"><span class="toc-text">六、挑战与未来趋势</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E9%9D%A2%E4%B8%B4%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-text">（一）面临的挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF"><span class="toc-text">（二）发展趋势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">七、参考链接</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '9487d35282649da6cce65090ff60b58c'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

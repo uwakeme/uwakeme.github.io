@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【接口】WebSocket接口详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【接口】WebSocket接口详解前言在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】WebSocket接口详解">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】WebSocket接口详解前言在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2026-01-15T08:48:25.243Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.243Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="WebSocket">
+<meta property="article:tag" content="实时通信">
+<meta property="article:tag" content="网络协议">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【接口】WebSocket接口详解",
+  "url": "https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2026-01-15T08:48:25.243Z",
+  "dateModified": "2026-01-15T08:48:25.243Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【接口】WebSocket接口详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【接口】WebSocket接口详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【接口】WebSocket接口详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T08:48:25.243Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.243Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8E%A5%E5%8F%A3/">接口</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="【接口】WebSocket接口详解"><a href="#【接口】WebSocket接口详解" class="headerlink" title="【接口】WebSocket接口详解"></a>【接口】WebSocket接口详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现代Web应用中，实时双向通信的需求日益增长，例如在线聊天、实时数据更新、多人协作编辑等。传统的HTTP协议是基于请求-响应模式的，难以高效满足这类需求。WebSocket协议的出现，为浏览器与服务器之间建立持久化、全双工的通信连接提供了一种标准化的解决方案。本文将详细介绍WebSocket接口的定义、核心概念、工作原理、优势、适用场景，并提供相关的代码示例。</p>
+<h2 id="一、WebSocket是什么？"><a href="#一、WebSocket是什么？" class="headerlink" title="一、WebSocket是什么？"></a>一、WebSocket是什么？</h2><h3 id="（一）定义与背景"><a href="#（一）定义与背景" class="headerlink" title="（一）定义与背景"></a>（一）定义与背景</h3><p>WebSocket是一种在单个TCP连接上进行全双工通信的协议。它允许服务器主动向客户端推送信息，也允许客户端随时向服务器发送信息，实现了真正意义上的双向平等对话。WebSocket协议由IETF标准化为RFC 6455，其API在Web IDL中由W3C进行了标准化。</p>
+<p>传统的HTTP协议在处理实时通信时存在一些固有的缺陷：</p>
+<ol>
+<li><strong>无状态性</strong>：每次请求都是独立的，服务器无法主动联系客户端。</li>
+<li><strong>请求-响应模式</strong>：客户端必须先发起请求，服务器才能响应，对于服务器主动推送消息的场景效率低下。</li>
+<li><strong>头部开销大</strong>：每次HTTP请求都包含冗余的头部信息，浪费带宽。</li>
+</ol>
+<p>为了克服这些问题，开发者们曾采用过一些变通方案，如轮询（Polling）、长轮询（Long Polling）和服务器发送事件（SSE）。但这些方案或多或少都存在一些不足，而WebSocket则提供了一个更优雅、更高效的解决方案。</p>
+<h3 id="（二）与HTTP的关系"><a href="#（二）与HTTP的关系" class="headerlink" title="（二）与HTTP的关系"></a>（二）与HTTP的关系</h3><p>WebSocket协议的握手过程是基于HTTP的。客户端通过发送一个特殊的HTTP请求（包含<code>Upgrade: websocket</code>头部）给服务器，请求将连接从HTTP升级到WebSocket。如果服务器支持WebSocket，它会响应一个特定的HTTP状态码（101 Switching Protocols），之后这条TCP连接就转为WebSocket协议进行通信，不再使用HTTP协议。</p>
+<p>这种设计使得WebSocket可以利用现有的HTTP基础设施（如代理服务器、防火墙等），并且可以运行在标准的HTTP端口（80和443）上，从而更容易穿透防火墙。</p>
+<h2 id="二、WebSocket的核心概念"><a href="#二、WebSocket的核心概念" class="headerlink" title="二、WebSocket的核心概念"></a>二、WebSocket的核心概念</h2><h3 id="（一）握手过程-Handshake"><a href="#（一）握手过程-Handshake" class="headerlink" title="（一）握手过程 (Handshake)"></a>（一）握手过程 (Handshake)</h3><p>WebSocket连接的建立始于一个HTTP兼容的握手过程。这个过程确保了客户端和服务器都同意切换到WebSocket协议。</p>
+<ol>
+<li><p><strong>客户端请求</strong>：<br>客户端向服务器发送一个HTTP GET请求，其中包含一些特殊的头部字段：</p>
+<ul>
+<li><code>Upgrade: websocket</code>：表明客户端希望将连接升级到WebSocket。</li>
+<li><code>Connection: Upgrade</code>：表明这是一个升级请求。</li>
+<li><code>Sec-WebSocket-Key</code>：一个Base64编码的随机生成的16字节值，用于服务器验证客户端的请求。</li>
+<li><code>Sec-WebSocket-Version</code>：指定了客户端期望使用的WebSocket协议版本（通常是13）。</li>
+<li><code>Origin</code> (可选)：用于防止跨站WebSocket劫持。</li>
+</ul>
+<figure class="highlight http"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>server.example.com</span><br><span class="line"><span class="attribute">Upgrade</span><span class="punctuation">: </span>websocket</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span><span class="punctuation">: </span>dGhlIHNhbXBsZSBub25jZQ==</span><br><span class="line"><span class="attribute">Origin</span><span class="punctuation">: </span>http://example.com</span><br><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span><span class="punctuation">: </span>chat, superchat</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span><span class="punctuation">: </span>13</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>服务器响应</strong>：<br>如果服务器接受升级请求，它会返回一个HTTP 101 Switching Protocols响应：</p>
+<ul>
+<li><code>Upgrade: websocket</code></li>
+<li><code>Connection: Upgrade</code></li>
+<li><code>Sec-WebSocket-Accept</code>：服务器根据客户端发送的<code>Sec-WebSocket-Key</code>和一个固定的UUID（<code>258EAFA5-E914-47DA-95CA-C5AB0DC85B11</code>）计算得出的值，用于客户端验证服务器的响应。</li>
+</ul>
+<figure class="highlight http"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">101</span> Switching Protocols</span><br><span class="line"><span class="attribute">Upgrade</span><span class="punctuation">: </span>websocket</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>Upgrade</span><br><span class="line"><span class="attribute">Sec-WebSocket-Accept</span><span class="punctuation">: </span>s3pPLMBiTxaQ9kYGzzhZRbK+xOo=</span><br><span class="line"><span class="attribute">Sec-WebSocket-Protocol</span><span class="punctuation">: </span>chat</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>握手成功后，底层的TCP连接就转为WebSocket协议进行数据传输。</p>
+<h3 id="（二）帧-Frame"><a href="#（二）帧-Frame" class="headerlink" title="（二）帧 (Frame)"></a>（二）帧 (Frame)</h3><p>WebSocket通信是基于帧（Frame）的。一旦连接建立，客户端和服务器之间交换的数据单元就是帧。WebSocket定义了多种类型的帧，用于传输不同类型的数据或控制信息。</p>
+<p>一个WebSocket帧的基本结构包括：</p>
+<ul>
+<li>**FIN位 (1 bit)**：表示这是否是消息的最后一个分片。如果为1，表示是最后一个分片或独立消息；如果为0，表示消息还有后续分片。</li>
+<li>**RSV1, RSV2, RSV3 (各1 bit)**：保留位，必须为0，除非协商了扩展。</li>
+<li>**Opcode (4 bits)**：操作码，定义了帧的类型，例如：<ul>
+<li><code>0x0</code>：Continuation Frame (连续帧)</li>
+<li><code>0x1</code>：Text Frame (文本帧，UTF-8编码)</li>
+<li><code>0x2</code>：Binary Frame (二进制帧)</li>
+<li><code>0x8</code>：Connection Close Frame (连接关闭帧)</li>
+<li><code>0x9</code>：Ping Frame (Ping帧)</li>
+<li><code>0xA</code>：Pong Frame (Pong帧)</li>
+</ul>
+</li>
+<li>**Mask位 (1 bit)**：表示Payload data是否被掩码（异或加密）。所有从客户端发送到服务器的帧，此位必须为1，并且Payload data必须使用一个32位的掩码密钥进行掩码。从服务器发送到客户端的帧，此位必须为0，且Payload data不能被掩码。</li>
+<li>**Payload length (7 bits, 7+16 bits, or 7+64 bits)**：Payload data的长度。</li>
+<li>**Masking-key (0 or 4 bytes)**：如果Mask位为1，则包含32位的掩码密钥。</li>
+<li>**Payload data (x bytes)**：实际传输的数据。如果是文本数据，必须是UTF-8编码。</li>
+</ul>
+<p>这种基于帧的传输机制允许发送大消息时进行分片，也支持混合传输文本和二进制数据。</p>
+<h3 id="（三）双向通信-Full-duplex"><a href="#（三）双向通信-Full-duplex" class="headerlink" title="（三）双向通信 (Full-duplex)"></a>（三）双向通信 (Full-duplex)</h3><p>WebSocket提供了全双工通信能力，这意味着客户端和服务器可以在建立连接后，同时、独立地向对方发送数据，而不需要等待对方的响应。这与HTTP的半双工（请求-响应）模式形成鲜明对比，极大地提高了实时通信的效率和响应速度。</p>
+<h2 id="三、WebSocket的工作原理"><a href="#三、WebSocket的工作原理" class="headerlink" title="三、WebSocket的工作原理"></a>三、WebSocket的工作原理</h2><h3 id="（一）连接建立"><a href="#（一）连接建立" class="headerlink" title="（一）连接建立"></a>（一）连接建立</h3><p>如前所述，WebSocket连接的建立通过一个HTTP升级握手过程完成。这个过程确保了双方都理解并同意使用WebSocket协议进行后续通信。</p>
+<h3 id="（二）数据传输"><a href="#（二）数据传输" class="headerlink" title="（二）数据传输"></a>（二）数据传输</h3><p>握手成功后，数据以WebSocket帧的形式在客户端和服务器之间双向传输。客户端发送的帧必须进行掩码处理，以防止缓存代理服务器（如反向代理）对WebSocket流量的误解或攻击。服务器发送的帧则不需要掩码。</p>
+<p>WebSocket支持文本和二进制两种数据类型的传输：</p>
+<ul>
+<li><strong>文本数据</strong>：使用Opcode <code>0x1</code>，内容必须是UTF-8编码的字符串。</li>
+<li><strong>二进制数据</strong>：使用Opcode <code>0x2</code>，内容可以是任意的二进制数据，如图片、音频、视频流等。</li>
+</ul>
+<h3 id="（三）连接关闭"><a href="#（三）连接关闭" class="headerlink" title="（三）连接关闭"></a>（三）连接关闭</h3><p>WebSocket连接可以通过任何一方发起关闭。关闭过程也有一个握手步骤：</p>
+<ol>
+<li><strong>发起方发送Close帧</strong>：一方（客户端或服务器）决定关闭连接时，会发送一个Opcode为<code>0x8</code>的Close帧。这个帧可以包含一个可选的状态码和关闭原因的描述。</li>
+<li><strong>接收方响应Close帧</strong>：另一方收到Close帧后，通常会立即发送一个Close帧作为响应（如果它还没有发送过Close帧的话）。</li>
+<li><strong>TCP连接关闭</strong>：在双方都发送并确认了Close帧后，底层的TCP连接会被关闭。</li>
+</ol>
+<p>WebSocket定义了一系列状态码（类似于HTTP状态码）来表示关闭的原因，例如：</p>
+<ul>
+<li><code>1000</code>：Normal Closure (正常关闭)</li>
+<li><code>1001</code>：Going Away (例如服务器关闭或浏览器导航到其他页面)</li>
+<li><code>1002</code>：Protocol Error (协议错误)</li>
+<li><code>1003</code>：Unsupported Data (接收到无法处理的数据类型)</li>
+</ul>
+<h2 id="四、WebSocket与HTTP长轮询-SSE的对比"><a href="#四、WebSocket与HTTP长轮询-SSE的对比" class="headerlink" title="四、WebSocket与HTTP长轮询/SSE的对比"></a>四、WebSocket与HTTP长轮询/SSE的对比</h2><p>在WebSocket出现之前，为了实现类似实时的效果，开发者们采用了一些基于HTTP的变通方案。</p>
+<h3 id="（一）HTTP长轮询-Long-Polling"><a href="#（一）HTTP长轮询-Long-Polling" class="headerlink" title="（一）HTTP长轮询 (Long Polling)"></a>（一）HTTP长轮询 (Long Polling)</h3><p>客户端向服务器发送一个HTTP请求，服务器保持该连接打开，直到有新数据需要发送给客户端，或者连接超时。一旦服务器发送了数据或连接超时，客户端会立即再次发起一个新的长轮询请求。</p>
+<ul>
+<li><strong>优点</strong>：兼容性好，几乎所有浏览器都支持。</li>
+<li><strong>缺点</strong>：<ul>
+<li>服务器需要维护大量打开的连接，消耗资源。</li>
+<li>每次数据推送后都需要重新建立连接，有延迟和开销。</li>
+<li>仍然是客户端拉取模式的变种，不是真正的服务器推送。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（二）服务器发送事件-SSE-Server-Sent-Events"><a href="#（二）服务器发送事件-SSE-Server-Sent-Events" class="headerlink" title="（二）服务器发送事件 (SSE - Server-Sent Events)"></a>（二）服务器发送事件 (SSE - Server-Sent Events)</h3><p>SSE是一种允许服务器单向向客户端推送事件流的技术。客户端通过JavaScript的<code>EventSource</code> API与服务器建立一个持久的HTTP连接，服务器可以通过这个连接持续不断地发送数据给客户端。</p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>基于HTTP，实现简单，API友好。</li>
+<li>支持自动重连。</li>
+<li>文本协议，易于调试。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li><strong>单向通信</strong>：只能服务器向客户端发送数据，客户端不能通过此连接向服务器发送数据（需要另外的HTTP请求）。</li>
+<li>数据格式限制为UTF-8文本。</li>
+<li>部分老旧浏览器（如IE）不支持。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（三）对比总结"><a href="#（三）对比总结" class="headerlink" title="（三）对比总结"></a>（三）对比总结</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>WebSocket</th>
+<th>HTTP长轮询</th>
+<th>服务器发送事件 (SSE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通信方式</td>
+<td>全双工 (双向)</td>
+<td>模拟双向 (本质是客户端拉取)</td>
+<td>单向 (服务器到客户端)</td>
+</tr>
+<tr>
+<td>连接持久性</td>
+<td>持久连接</td>
+<td>短暂连接 (数据发送后关闭再重连)</td>
+<td>持久连接</td>
+</tr>
+<tr>
+<td>头部开销</td>
+<td>握手时有HTTP头部，后续数据帧头部小</td>
+<td>每次请求都有完整的HTTP头部</td>
+<td>握手时有HTTP头部，后续数据流头部小</td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>低</td>
+<td>相对较高</td>
+<td>较低 (但不如WebSocket)</td>
+</tr>
+<tr>
+<td>服务器资源</td>
+<td>相对较少 (每个连接一个TCP)</td>
+<td>较高 (频繁建立和维护连接)</td>
+<td>适中</td>
+</tr>
+<tr>
+<td>客户端API</td>
+<td><code>WebSocket</code> API</td>
+<td><code>XMLHttpRequest</code> / <code>fetch</code></td>
+<td><code>EventSource</code> API</td>
+</tr>
+<tr>
+<td>数据类型</td>
+<td>文本、二进制</td>
+<td>文本、二进制 (通过HTTP)</td>
+<td>文本 (UTF-8)</td>
+</tr>
+<tr>
+<td>浏览器支持</td>
+<td>现代浏览器广泛支持</td>
+<td>所有浏览器支持</td>
+<td>现代浏览器支持 (IE不支持)</td>
+</tr>
+</tbody></table>
+<p>总的来说，对于需要真正实时、低延迟、双向通信的场景，WebSocket是目前最优的选择。</p>
+<h2 id="五、WebSocket的优势"><a href="#五、WebSocket的优势" class="headerlink" title="五、WebSocket的优势"></a>五、WebSocket的优势</h2><ol>
+<li><strong>真正的双向通信</strong>：服务器和客户端可以随时互相发送消息，无需等待对方响应。</li>
+<li><strong>低延迟</strong>：一旦连接建立，数据传输几乎没有额外的协议开销，延迟非常低。</li>
+<li><strong>减少头部开销</strong>：与HTTP相比，WebSocket数据帧的头部非常小，节省了带宽。</li>
+<li><strong>保持连接状态</strong>：单个TCP连接保持打开状态，避免了HTTP频繁建立和关闭连接的开销。</li>
+<li><strong>更好的资源利用</strong>：相比长轮询，WebSocket对服务器资源的消耗更少。</li>
+<li><strong>标准化协议</strong>：有明确的RFC规范和W3C API标准，跨浏览器和平台兼容性好。</li>
+<li><strong>支持二进制数据</strong>：可以直接传输二进制数据，适合多媒体等应用。</li>
+</ol>
+<h2 id="六、WebSocket的适用场景"><a href="#六、WebSocket的适用场景" class="headerlink" title="六、WebSocket的适用场景"></a>六、WebSocket的适用场景</h2><p>WebSocket因其低延迟和双向通信的特性，非常适合以下类型的应用：</p>
+<ol>
+<li><strong>实时聊天应用</strong>：如微信网页版、Slack等，消息可以即时送达。</li>
+<li><strong>在线多人游戏</strong>：玩家动作和游戏状态需要快速同步。</li>
+<li><strong>实时数据推送</strong>：股票行情、体育比分、新闻更新等。</li>
+<li><strong>协同编辑工具</strong>：如Google Docs，多人同时编辑文档，内容实时同步。</li>
+<li><strong>在线教育和直播</strong>：实时互动、弹幕、问答等。</li>
+<li>**物联网 (IoT)**：设备与服务器之间的实时数据交换和控制。</li>
+<li><strong>位置共享应用</strong>：实时更新地理位置信息。</li>
+</ol>
+<h2 id="七、WebSocket代码示例"><a href="#七、WebSocket代码示例" class="headerlink" title="七、WebSocket代码示例"></a>七、WebSocket代码示例</h2><h3 id="（一）JavaScript客户端示例"><a href="#（一）JavaScript客户端示例" class="headerlink" title="（一）JavaScript客户端示例"></a>（一）JavaScript客户端示例</h3><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建WebSocket连接，'ws://'表示普通WebSocket，'wss://'表示安全的WebSocket</span></span><br><span class="line"><span class="keyword">const</span> socket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">'ws://localhost:8080/my-websocket-endpoint'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接成功建立时触发</span></span><br><span class="line">socket.<span class="property">onopen</span> = <span class="keyword">function</span>(<span class="params">event</span>) {</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'WebSocket连接已打开:'</span>, event);</span><br><span class="line">  <span class="comment">// 发送一条消息到服务器</span></span><br><span class="line">  socket.<span class="title function_">send</span>(<span class="string">'你好，服务器！我是客户端。'</span>);</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收到服务器消息时触发</span></span><br><span class="line">socket.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">event</span>) {</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'从服务器接收到消息:'</span>, event.<span class="property">data</span>);</span><br><span class="line">  <span class="comment">// 如果收到特定消息，可以关闭连接</span></span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">data</span> === <span class="string">'再见'</span>) {</span><br><span class="line">    socket.<span class="title function_">close</span>(<span class="number">1000</span>, <span class="string">'客户端主动关闭'</span>);</span><br><span class="line">  }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接发生错误时触发</span></span><br><span class="line">socket.<span class="property">onerror</span> = <span class="keyword">function</span>(<span class="params">event</span>) {</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">'WebSocket错误:'</span>, event);</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接关闭时触发</span></span><br><span class="line">socket.<span class="property">onclose</span> = <span class="keyword">function</span>(<span class="params">event</span>) {</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'WebSocket连接已关闭:'</span>, event);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'关闭代码:'</span>, event.<span class="property">code</span>, <span class="string">'关闭原因:'</span>, event.<span class="property">reason</span>);</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主动关闭连接</span></span><br><span class="line"><span class="comment">// socket.close(1000, '客户端完成通信');</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查WebSocket连接状态</span></span><br><span class="line"><span class="comment">// socket.readyState 可以是：</span></span><br><span class="line"><span class="comment">// WebSocket.CONNECTING (0): 连接尚未建立</span></span><br><span class="line"><span class="comment">// WebSocket.OPEN (1): 连接已建立，可以进行通信</span></span><br><span class="line"><span class="comment">// WebSocket.CLOSING (2): 连接正在关闭</span></span><br><span class="line"><span class="comment">// WebSocket.CLOSED (3): 连接已关闭或无法打开</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">checkSocketState</span>(<span class="params"></span>) {</span><br><span class="line">  <span class="keyword">if</span> (socket.<span class="property">readyState</span> === <span class="title class_">WebSocket</span>.<span class="property">OPEN</span>) {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'WebSocket连接处于打开状态。'</span>);</span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'WebSocket连接状态:'</span>, socket.<span class="property">readyState</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="（二）Node-js-ws库-服务端示例"><a href="#（二）Node-js-ws库-服务端示例" class="headerlink" title="（二）Node.js (ws库) 服务端示例"></a>（二）Node.js (ws库) 服务端示例</h3><p>首先，需要安装<code>ws</code>库：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install ws</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line">yarn add ws</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后创建服务端代码：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.js</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">WebSocket</span> = <span class="built_in">require</span>(<span class="string">'ws'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建WebSocket服务器，监听指定端口</span></span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> <span class="title class_">WebSocket</span>.<span class="title class_">Server</span>({ <span class="attr">port</span>: <span class="number">8080</span> });</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">'WebSocket服务器已启动，监听端口 8080'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当有新的客户端连接时触发</span></span><br><span class="line">wss.<span class="title function_">on</span>(<span class="string">'connection'</span>, <span class="keyword">function</span> <span class="title function_">connection</span>(<span class="params">ws, req</span>) {</span><br><span class="line">  <span class="keyword">const</span> clientIp = req.<span class="property">socket</span>.<span class="property">remoteAddress</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`客户端 <span class="subst">${clientIp}</span> 已连接`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 向新连接的客户端发送欢迎消息</span></span><br><span class="line">  ws.<span class="title function_">send</span>(<span class="string">'欢迎连接到WebSocket服务器！'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当接收到客户端消息时触发</span></span><br><span class="line">  ws.<span class="title function_">on</span>(<span class="string">'message'</span>, <span class="keyword">function</span> <span class="title function_">incoming</span>(<span class="params">message</span>) {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`从客户端 <span class="subst">${clientIp}</span> 接收到消息: <span class="subst">${message}</span>`</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将收到的消息广播给所有连接的客户端 (除了发送者自身，如果需要)</span></span><br><span class="line">    wss.<span class="property">clients</span>.<span class="title function_">forEach</span>(<span class="keyword">function</span> <span class="title function_">each</span>(<span class="params">client</span>) {</span><br><span class="line">      <span class="comment">// client !== ws: 不发送给消息来源客户端</span></span><br><span class="line">      <span class="comment">// client.readyState === WebSocket.OPEN: 只发送给处于打开状态的客户端</span></span><br><span class="line">      <span class="keyword">if</span> (client !== ws &amp;&amp; client.<span class="property">readyState</span> === <span class="title class_">WebSocket</span>.<span class="property">OPEN</span>) {</span><br><span class="line">        client.<span class="title function_">send</span>(<span class="string">`来自 <span class="subst">${clientIp}</span> 的消息: <span class="subst">${message}</span>`</span>);</span><br><span class="line">      }</span><br><span class="line">    });</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 或者简单地回显消息给发送者</span></span><br><span class="line">    <span class="comment">// ws.send(`服务器已收到您的消息: ${message}`);</span></span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当客户端连接关闭时触发</span></span><br><span class="line">  ws.<span class="title function_">on</span>(<span class="string">'close'</span>, <span class="keyword">function</span>(<span class="params">code, reason</span>) {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`客户端 <span class="subst">${clientIp}</span> 已断开连接。关闭代码: <span class="subst">${code}</span>, 原因: <span class="subst">${reason}</span>`</span>);</span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当连接发生错误时触发</span></span><br><span class="line">  ws.<span class="title function_">on</span>(<span class="string">'error'</span>, <span class="keyword">function</span>(<span class="params">error</span>) {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">`客户端 <span class="subst">${clientIp}</span> 连接发生错误:`</span>, error);</span><br><span class="line">  });</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听服务器错误事件</span></span><br><span class="line">wss.<span class="title function_">on</span>(<span class="string">'error'</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> {</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">'WebSocket服务器错误:'</span>, error);</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="（三）Java-Spring-Boot-服务端示例"><a href="#（三）Java-Spring-Boot-服务端示例" class="headerlink" title="（三）Java (Spring Boot) 服务端示例"></a>（三）Java (Spring Boot) 服务端示例</h3><p>Spring Boot 提供了对 WebSocket 的良好支持，通常通过 <code>spring-boot-starter-websocket</code> 实现。</p>
+<ol>
+<li><strong>添加依赖 (pom.xml for Maven)</strong>:</li>
+</ol>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-websocket<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="2">
+<li><strong>创建WebSocket处理器 (Handler)</strong>:</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.websocketdemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.CloseStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.TextMessage;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.WebSocketSession;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.handler.TextWebSocketHandler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CopyOnWriteArrayList;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyWebSocketHandler</span> <span class="keyword">extends</span> <span class="title class_">TextWebSocketHandler</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> CopyOnWriteArrayList&lt;WebSocketSession&gt; sessions = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterConnectionEstablished</span><span class="params">(WebSocketSession session)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        sessions.add(session);</span><br><span class="line">        System.out.println(<span class="string">"新连接建立: "</span> + session.getId());</span><br><span class="line">        session.sendMessage(<span class="keyword">new</span> <span class="title class_">TextMessage</span>(<span class="string">"欢迎连接到Spring Boot WebSocket服务器!"</span>));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">handleTextMessage</span><span class="params">(WebSocketSession session, TextMessage message)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        <span class="type">String</span> <span class="variable">payload</span> <span class="operator">=</span> message.getPayload();</span><br><span class="line">        System.out.println(<span class="string">"收到来自 "</span> + session.getId() + <span class="string">" 的消息: "</span> + payload);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 广播消息给所有会话</span></span><br><span class="line">        <span class="keyword">for</span> (WebSocketSession webSocketSession : sessions) {</span><br><span class="line">            <span class="keyword">if</span> (webSocketSession.isOpen() &amp;&amp; !session.getId().equals(webSocketSession.getId())) {</span><br><span class="line">                webSocketSession.sendMessage(<span class="keyword">new</span> <span class="title class_">TextMessage</span>(<span class="string">"用户 "</span> + session.getId() + <span class="string">" 说: "</span> + payload));</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 回显给发送者</span></span><br><span class="line">        session.sendMessage(<span class="keyword">new</span> <span class="title class_">TextMessage</span>(<span class="string">"服务器已收到您的消息: "</span> + payload));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterConnectionClosed</span><span class="params">(WebSocketSession session, CloseStatus status)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        sessions.remove(session);</span><br><span class="line">        System.out.println(<span class="string">"连接关闭: "</span> + session.getId() + <span class="string">", 状态: "</span> + status);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleTransportError</span><span class="params">(WebSocketSession session, Throwable exception)</span> <span class="keyword">throws</span> Exception {</span><br><span class="line">        System.err.println(<span class="string">"WebSocket传输错误: "</span> + session.getId() + <span class="string">", 异常: "</span> + exception.getMessage());</span><br><span class="line">        <span class="keyword">if</span> (session.isOpen()) {</span><br><span class="line">            session.close(CloseStatus.SERVER_ERROR);</span><br><span class="line">        }</span><br><span class="line">        sessions.remove(session);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="3">
+<li><strong>配置WebSocket端点 (Endpoint)</strong>:</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.websocketdemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.EnableWebSocket;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.WebSocketConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSocket</span> <span class="comment">// 开启WebSocket支持</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSocketConfig</span> <span class="keyword">implements</span> <span class="title class_">WebSocketConfigurer</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MyWebSocketHandler myWebSocketHandler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">WebSocketConfig</span><span class="params">(MyWebSocketHandler myWebSocketHandler)</span> {</span><br><span class="line">        <span class="built_in">this</span>.myWebSocketHandler = myWebSocketHandler;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerWebSocketHandlers</span><span class="params">(WebSocketHandlerRegistry registry)</span> {</span><br><span class="line">        <span class="comment">// 注册处理器，并指定端点路径，允许所有来源连接</span></span><br><span class="line">        registry.addHandler(myWebSocketHandler, <span class="string">"/my-websocket-endpoint"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>客户端JavaScript代码中的WebSocket URL应指向 <code>ws://&lt;your-spring-boot-server-address&gt;:&lt;port&gt;/my-websocket-endpoint</code>。</p>
+<h2 id="八、常见问题-FAQ"><a href="#八、常见问题-FAQ" class="headerlink" title="八、常见问题 (FAQ)"></a>八、常见问题 (FAQ)</h2><ol>
+<li><p><strong>WebSocket安全吗？</strong><br>WebSocket本身不包含加密机制，但可以通过<code>wss://</code>（WebSocket Secure）协议运行在TLS/SSL之上，从而实现加密通信，与HTTPS类似。建议始终使用<code>wss://</code>来保护数据安全。</p>
+</li>
+<li><p><strong>WebSocket连接会一直保持吗？</strong><br>理论上，WebSocket连接一旦建立就会保持，直到显式关闭或网络中断。为了维持连接的活性，WebSocket协议定义了Ping/Pong帧，客户端和服务器可以周期性地发送Ping帧，对方响应Pong帧，以检测连接是否仍然存活，并防止中间网络设备（如NAT、防火墙）因空闲超时而关闭连接。</p>
+</li>
+<li><p><strong>WebSocket的浏览器兼容性如何？</strong><br>所有现代主流浏览器（Chrome, Firefox, Safari, Edge, Opera）都已良好支持WebSocket。IE浏览器从版本10开始支持。</p>
+</li>
+<li><p><strong>如何处理WebSocket的错误和重连？</strong><br>客户端代码应该监听<code>onerror</code>和<code>onclose</code>事件。当连接意外断开时，可以实现自动重连逻辑，例如使用指数退避算法（exponential backoff）来避免频繁重试。</p>
+</li>
+<li><p><strong>WebSocket与HTTP/2有什么关系？</strong><br>HTTP/2通过多路复用技术，允许在单个TCP连接上并行处理多个请求和响应，显著提升了HTTP性能。虽然HTTP/2也支持服务器推送（Server Push），但其设计目标与WebSocket不同。HTTP/2的服务器推送是单向的，主要用于优化资源加载。而WebSocket提供的是全双工、低延迟的通信通道。在某些场景下，它们可以互补，但WebSocket仍然是实时双向通信的首选。</p>
+</li>
+</ol>
+<h2 id="九、总结"><a href="#九、总结" class="headerlink" title="九、总结"></a>九、总结</h2><p>WebSocket协议为Web应用带来了革命性的实时双向通信能力。它通过一个持久化的TCP连接，以低延迟、低开销的方式在客户端和服务器之间传输数据帧。相比传统的HTTP轮询等技术，WebSocket在性能、效率和实时性方面都有显著优势。</p>
+<p>理解WebSocket的握手过程、帧结构、工作原理以及其与HTTP的关系，对于开发需要实时交互功能的应用至关重要。无论是构建在线聊天室、多人游戏，还是实时数据监控系统，WebSocket都是一个强大而可靠的技术选择。随着Web技术的不断发展，WebSocket的应用场景也将越来越广泛。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/">https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WebSocket/">WebSocket</a><a class="post-meta__tags" href="/tags/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/">实时通信</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91gRPC%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】gRPC接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【接口】gRPC接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】gRPC接口详解前言在现代分布式系统中，服务间的通信效率和可靠性至关重要。gRPC (Google Remote Procedure Call) 是一种高性能、开源的通用RPC框架，由Google主导开发。它使用HTTP/2作为传输协议，Protocol Buffers作为接口定义语言 (IDL) 和消息序列化格式，旨在提供高效、强类型、跨语言的服务通信能力。本文将详细介绍gRPC的核心概念、工作原理、优势、适用场景以及与RESTful API的对比。 一、gRPC概述gRPC是一个现代化的RPC框架，旨在连接各种环境中的服务。它允许开发者像调用本地方法一样调用远程服务，简化了分布式应用的开发。 （一）核心特性 高性能：基于HTTP/2，支持多路复用、头部压缩、服务器推送等特性，显著降低延迟，提高吞吐量。 **Protocol Buffers (ProtoBuf)**：使用ProtoBuf作为接口定义语言和消息序列化格式。ProtoBuf是一种语言无关、平台无关、可扩展的序列化结构化数据的方法，比JSON或XML更小、更快、更简单。 强类型：通过Pro...</div></div></div></a><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebService%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】WebService接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【接口】WebService接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】WebService接口详解一、WebService概述（一）WebService的定义WebService是一种跨平台、跨语言的分布式应用集成技术，它通过标准的Web协议（如HTTP）提供服务，使得运行在不同操作系统、不同编程语言开发的应用程序可以相互交换数据或集成。简单来说，WebService就是一种通过网络调用的远程服务，它将应用程序的不同功能单元（称为服务）通过可描述的接口公开，使得这些服务可以被其他应用程序发现并调用。 （二）WebService的特点 平台无关性：不受操作系统、编程语言的限制 松耦合性：服务提供者与服务消费者之间松散耦合 自我描述性：通过WSDL（Web服务描述语言）描述服务接口 基于标准协议：使用HTTP、XML、SOAP等标准协议 可发现性：可通过UDDI（统一描述、发现和集成）注册中心被发现  （三）WebService的应用场景 企业应用集成：连接不同企业内部的异构系统 B2B集成：实现企业间业务流程的自动化集成 遗留系统集成：将旧系统功能以服务形式开放 SOA架构实现：作为面向服务架构的技术实现手段 跨平台移动应用后端：为不同平台的...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91WebSocket%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3"><span class="toc-text">【接口】WebSocket接口详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81WebSocket%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">一、WebSocket是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%AE%9A%E4%B9%89%E4%B8%8E%E8%83%8C%E6%99%AF"><span class="toc-text">（一）定义与背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%B8%8EHTTP%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">（二）与HTTP的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81WebSocket%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">二、WebSocket的核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B-Handshake"><span class="toc-text">（一）握手过程 (Handshake)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%A7-Frame"><span class="toc-text">（二）帧 (Frame)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%8F%8C%E5%90%91%E9%80%9A%E4%BF%A1-Full-duplex"><span class="toc-text">（三）双向通信 (Full-duplex)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81WebSocket%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">三、WebSocket的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B"><span class="toc-text">（一）连接建立</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93"><span class="toc-text">（二）数据传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9E%E6%8E%A5%E5%85%B3%E9%97%AD"><span class="toc-text">（三）连接关闭</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81WebSocket%E4%B8%8EHTTP%E9%95%BF%E8%BD%AE%E8%AF%A2-SSE%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">四、WebSocket与HTTP长轮询/SSE的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89HTTP%E9%95%BF%E8%BD%AE%E8%AF%A2-Long-Polling"><span class="toc-text">（一）HTTP长轮询 (Long Polling)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E4%BA%8B%E4%BB%B6-SSE-Server-Sent-Events"><span class="toc-text">（二）服务器发送事件 (SSE - Server-Sent Events)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-text">（三）对比总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81WebSocket%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">五、WebSocket的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81WebSocket%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">六、WebSocket的适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81WebSocket%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">七、WebSocket代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89JavaScript%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A4%BA%E4%BE%8B"><span class="toc-text">（一）JavaScript客户端示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Node-js-ws%E5%BA%93-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%A4%BA%E4%BE%8B"><span class="toc-text">（二）Node.js (ws库) 服务端示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89Java-Spring-Boot-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%A4%BA%E4%BE%8B"><span class="toc-text">（三）Java (Spring Boot) 服务端示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-FAQ"><span class="toc-text">八、常见问题 (FAQ)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">九、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '0299eb5b8903d464ed76a88950215ec3'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

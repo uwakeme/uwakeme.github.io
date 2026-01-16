@@ -1,0 +1,924 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【接口】REST接口详解 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【接口】REST接口详解">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="【接口】REST接口详解一、REST概述（一）REST的定义REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。 REST的核心思想是将后端">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2026-01-15T08:48:25.241Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.241Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="接口">
+<meta property="article:tag" content="REST">
+<meta property="article:tag" content="API设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【接口】REST接口详解",
+  "url": "https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2026-01-15T08:48:25.241Z",
+  "dateModified": "2026-01-15T08:48:25.241Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【接口】REST接口详解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【接口】REST接口详解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【接口】REST接口详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T08:48:25.241Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.241Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8E%A5%E5%8F%A3/">接口</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="【接口】REST接口详解"><a href="#【接口】REST接口详解" class="headerlink" title="【接口】REST接口详解"></a>【接口】REST接口详解</h1><h2 id="一、REST概述"><a href="#一、REST概述" class="headerlink" title="一、REST概述"></a>一、REST概述</h2><h3 id="（一）REST的定义"><a href="#（一）REST的定义" class="headerlink" title="（一）REST的定义"></a>（一）REST的定义</h3><p>REST（Representational State Transfer，表述性状态转移）是一种软件架构风格，由Roy Fielding在2000年的博士论文中首次提出。它不是协议，而是一组架构约束条件和原则，用于指导Web应用程序的设计和开发。遵循REST原则设计的Web API被称为RESTful API。</p>
+<p>REST的核心思想是将后端服务抽象为资源（Resources），通过统一接口对这些资源进行操作。每个资源都有一个唯一的标识符（URI），客户端通过HTTP协议与这些资源进行交互，实现数据的传输和状态的转移。</p>
+<h3 id="（二）REST的六大约束"><a href="#（二）REST的六大约束" class="headerlink" title="（二）REST的六大约束"></a>（二）REST的六大约束</h3><p>REST架构风格由六个关键约束定义：</p>
+<ol>
+<li><strong>客户端-服务器（Client-Server）</strong>：关注点分离原则，客户端和服务器各自独立演化。</li>
+<li><strong>无状态（Stateless）</strong>：服务器不保存客户端状态，每个请求必须包含理解请求所需的全部信息。</li>
+<li><strong>缓存（Cache）</strong>：响应必须明确标记是否可缓存，以提高网络效率。</li>
+<li><strong>统一接口（Uniform Interface）</strong>：简化整体系统架构，提高交互的可见性。</li>
+<li><strong>分层系统（Layered System）</strong>：允许通过分层架构来构建系统，每层只能看到与之交互的相邻层。</li>
+<li><strong>按需代码（Code-On-Demand，可选）</strong>：允许客户端通过下载和执行服务器传输的代码来扩展功能。</li>
+</ol>
+<p>其中，统一接口是REST最核心的特征，它包含四个子约束：</p>
+<ul>
+<li>资源标识</li>
+<li>通过表述对资源进行操作</li>
+<li>自描述消息</li>
+<li>超媒体作为应用状态引擎（HATEOAS）</li>
+</ul>
+<h3 id="（三）REST的主要特点"><a href="#（三）REST的主要特点" class="headerlink" title="（三）REST的主要特点"></a>（三）REST的主要特点</h3><ol>
+<li><strong>以资源为中心</strong>：将系统功能抽象为资源的集合</li>
+<li><strong>统一接口</strong>：使用标准HTTP方法操作资源</li>
+<li><strong>无状态通信</strong>：每个请求包含所有必要信息</li>
+<li><strong>可缓存性</strong>：响应可以被缓存以提高性能</li>
+<li><strong>分层系统</strong>：客户端无需了解是否直接连接到终端服务器</li>
+<li><strong>表述性</strong>：资源可以有多种表述形式（如JSON、XML等）</li>
+</ol>
+<h2 id="二、RESTful-API设计原则"><a href="#二、RESTful-API设计原则" class="headerlink" title="二、RESTful API设计原则"></a>二、RESTful API设计原则</h2><h3 id="（一）资源设计"><a href="#（一）资源设计" class="headerlink" title="（一）资源设计"></a>（一）资源设计</h3><p>RESTful API的核心是资源，资源设计应遵循以下原则：</p>
+<ol>
+<li><p><strong>资源命名</strong>：</p>
+<ul>
+<li>使用名词而非动词</li>
+<li>使用复数形式表示集合</li>
+<li>使用小写字母，单词间用连字符（-）分隔</li>
+</ul>
+</li>
+<li><p><strong>资源层次</strong>：</p>
+<ul>
+<li>使用嵌套结构表示资源间的从属关系</li>
+<li>例如：<code>/users/{userId}/orders/{orderId}</code></li>
+</ul>
+</li>
+<li><p><strong>资源粒度</strong>：</p>
+<ul>
+<li>避免过细或过粗的资源粒度</li>
+<li>根据业务需求和性能考虑确定合适的粒度</li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）HTTP方法使用"><a href="#（二）HTTP方法使用" class="headerlink" title="（二）HTTP方法使用"></a>（二）HTTP方法使用</h3><p>RESTful API使用标准HTTP方法对资源进行操作：</p>
+<ol>
+<li><p><strong>GET</strong>：获取资源，安全且幂等</p>
+<ul>
+<li>示例：<code>GET /users</code> - 获取所有用户</li>
+<li>示例：<code>GET /users/123</code> - 获取ID为123的用户</li>
+</ul>
+</li>
+<li><p><strong>POST</strong>：创建资源，非幂等</p>
+<ul>
+<li>示例：<code>POST /users</code> - 创建新用户</li>
+</ul>
+</li>
+<li><p><strong>PUT</strong>：完全更新资源，幂等</p>
+<ul>
+<li>示例：<code>PUT /users/123</code> - 更新ID为123的用户的全部信息</li>
+</ul>
+</li>
+<li><p><strong>PATCH</strong>：部分更新资源，幂等</p>
+<ul>
+<li>示例：<code>PATCH /users/123</code> - 更新ID为123的用户的部分信息</li>
+</ul>
+</li>
+<li><p><strong>DELETE</strong>：删除资源，幂等</p>
+<ul>
+<li>示例：<code>DELETE /users/123</code> - 删除ID为123的用户</li>
+</ul>
+</li>
+<li><p><strong>HEAD</strong>：获取资源的元数据，安全且幂等</p>
+<ul>
+<li>示例：<code>HEAD /users/123</code> - 获取ID为123的用户的头信息</li>
+</ul>
+</li>
+<li><p><strong>OPTIONS</strong>：获取资源支持的HTTP方法，安全且幂等</p>
+<ul>
+<li>示例：<code>OPTIONS /users</code> - 获取用户资源支持的HTTP方法</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）HTTP状态码使用"><a href="#（三）HTTP状态码使用" class="headerlink" title="（三）HTTP状态码使用"></a>（三）HTTP状态码使用</h3><p>正确使用HTTP状态码可以提高API的可理解性：</p>
+<ol>
+<li><p><strong>2xx - 成功</strong></p>
+<ul>
+<li>200 OK：请求成功</li>
+<li>201 Created：资源创建成功</li>
+<li>204 No Content：请求成功但无返回内容</li>
+</ul>
+</li>
+<li><p><strong>3xx - 重定向</strong></p>
+<ul>
+<li>301 Moved Permanently：资源永久移动到新位置</li>
+<li>304 Not Modified：资源未修改，可使用缓存</li>
+</ul>
+</li>
+<li><p><strong>4xx - 客户端错误</strong></p>
+<ul>
+<li>400 Bad Request：请求格式错误</li>
+<li>401 Unauthorized：未提供身份验证或身份验证失败</li>
+<li>403 Forbidden：服务器理解请求但拒绝执行</li>
+<li>404 Not Found：请求的资源不存在</li>
+<li>405 Method Not Allowed：不支持请求的HTTP方法</li>
+<li>409 Conflict：请求与服务器当前状态冲突</li>
+<li>422 Unprocessable Entity：请求格式正确但语义错误</li>
+</ul>
+</li>
+<li><p><strong>5xx - 服务器错误</strong></p>
+<ul>
+<li>500 Internal Server Error：服务器内部错误</li>
+<li>502 Bad Gateway：作为网关的服务器收到无效响应</li>
+<li>503 Service Unavailable：服务器暂时不可用</li>
+</ul>
+</li>
+</ol>
+<h3 id="（四）查询参数设计"><a href="#（四）查询参数设计" class="headerlink" title="（四）查询参数设计"></a>（四）查询参数设计</h3><p>查询参数用于过滤、排序、分页和字段选择：</p>
+<ol>
+<li><p><strong>过滤</strong>：</p>
+<ul>
+<li>使用键值对表示过滤条件</li>
+<li>示例：<code>/users?status=active</code></li>
+</ul>
+</li>
+<li><p><strong>排序</strong>：</p>
+<ul>
+<li>使用sort参数指定排序字段和方向</li>
+<li>示例：<code>/users?sort=name:asc,age:desc</code></li>
+</ul>
+</li>
+<li><p><strong>分页</strong>：</p>
+<ul>
+<li>使用limit/offset或page/size参数</li>
+<li>示例：<code>/users?limit=20&amp;offset=40</code>或<code>/users?page=3&amp;size=20</code></li>
+</ul>
+</li>
+<li><p><strong>字段选择</strong>：</p>
+<ul>
+<li>使用fields参数指定返回字段</li>
+<li>示例：<code>/users?fields=id,name,email</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="（五）版本控制"><a href="#（五）版本控制" class="headerlink" title="（五）版本控制"></a>（五）版本控制</h3><p>API版本控制的常见方式：</p>
+<ol>
+<li><p><strong>URI版本控制</strong>：</p>
+<ul>
+<li>在URI中包含版本号</li>
+<li>示例：<code>/v1/users</code></li>
+</ul>
+</li>
+<li><p><strong>查询参数版本控制</strong>：</p>
+<ul>
+<li>使用查询参数指定版本</li>
+<li>示例：<code>/users?version=1</code></li>
+</ul>
+</li>
+<li><p><strong>HTTP头版本控制</strong>：</p>
+<ul>
+<li>使用自定义HTTP头指定版本</li>
+<li>示例：<code>Accept-Version: v1</code></li>
+</ul>
+</li>
+<li><p><strong>媒体类型版本控制</strong>：</p>
+<ul>
+<li>在Accept或Content-Type头中包含版本信息</li>
+<li>示例：<code>Accept: application/vnd.company.v1+json</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="（六）HATEOAS原则"><a href="#（六）HATEOAS原则" class="headerlink" title="（六）HATEOAS原则"></a>（六）HATEOAS原则</h3><p>HATEOAS（Hypermedia as the Engine of Application State）是REST的一个重要约束，它要求服务器在响应中包含可能的后续操作链接，使API具有自描述性和可发现性。</p>
+<p>示例：</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"id"</span><span class="punctuation">:</span> <span class="number">123</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"John Doe"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"email"</span><span class="punctuation">:</span> <span class="string">"john@example.com"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"_links"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"self"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123"</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"orders"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123/orders"</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"update"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123"</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"method"</span><span class="punctuation">:</span> <span class="string">"PUT"</span></span><br><span class="line">    <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"delete"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">      <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123"</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">"method"</span><span class="punctuation">:</span> <span class="string">"DELETE"</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="三、RESTful-API实现技术"><a href="#三、RESTful-API实现技术" class="headerlink" title="三、RESTful API实现技术"></a>三、RESTful API实现技术</h2><h3 id="（一）常用框架和库"><a href="#（一）常用框架和库" class="headerlink" title="（一）常用框架和库"></a>（一）常用框架和库</h3><p>不同编程语言中实现RESTful API的常用框架：</p>
+<ol>
+<li><p><strong>Java</strong>：</p>
+<ul>
+<li>Spring MVC/Spring Boot</li>
+<li>JAX-RS (Jersey, RESTEasy)</li>
+<li>Micronaut</li>
+<li>Quarkus</li>
+</ul>
+</li>
+<li><p><strong>Python</strong>：</p>
+<ul>
+<li>Flask</li>
+<li>Django REST Framework</li>
+<li>FastAPI</li>
+</ul>
+</li>
+<li><p><strong>Node.js</strong>：</p>
+<ul>
+<li>Express.js</li>
+<li>Koa.js</li>
+<li>NestJS</li>
+<li>Fastify</li>
+</ul>
+</li>
+<li><p><strong>Go</strong>：</p>
+<ul>
+<li>Gin</li>
+<li>Echo</li>
+<li>Fiber</li>
+</ul>
+</li>
+<li><p><strong>.NET</strong>：</p>
+<ul>
+<li>ASP.NET Core Web API</li>
+<li>ServiceStack</li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）内容协商"><a href="#（二）内容协商" class="headerlink" title="（二）内容协商"></a>（二）内容协商</h3><p>内容协商允许客户端和服务器就响应的表述格式达成一致：</p>
+<ol>
+<li><p><strong>基于Accept头</strong>：</p>
+<ul>
+<li>客户端通过Accept头指定期望的媒体类型</li>
+<li>示例：<code>Accept: application/json</code>或<code>Accept: application/xml</code></li>
+</ul>
+</li>
+<li><p><strong>基于URL后缀</strong>：</p>
+<ul>
+<li>通过URL后缀指定格式</li>
+<li>示例：<code>/users/123.json</code>或<code>/users/123.xml</code></li>
+</ul>
+</li>
+<li><p><strong>基于查询参数</strong>：</p>
+<ul>
+<li>通过查询参数指定格式</li>
+<li>示例：<code>/users/123?format=json</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）身份验证与授权"><a href="#（三）身份验证与授权" class="headerlink" title="（三）身份验证与授权"></a>（三）身份验证与授权</h3><p>RESTful API的常见身份验证方式：</p>
+<ol>
+<li><p><strong>基本认证（Basic Authentication）</strong>：</p>
+<ul>
+<li>使用用户名和密码</li>
+<li>通过Authorization头传输（Base64编码）</li>
+</ul>
+</li>
+<li><p><strong>令牌认证（Token-based Authentication）</strong>：</p>
+<ul>
+<li>JWT（JSON Web Token）</li>
+<li>OAuth 2.0</li>
+<li>API Key</li>
+</ul>
+</li>
+<li><p><strong>OAuth 2.0授权流程</strong>：</p>
+<ul>
+<li>授权码流程</li>
+<li>隐式流程</li>
+<li>客户端凭证流程</li>
+<li>资源所有者密码凭证流程</li>
+</ul>
+</li>
+</ol>
+<h3 id="（四）跨域资源共享（CORS）"><a href="#（四）跨域资源共享（CORS）" class="headerlink" title="（四）跨域资源共享（CORS）"></a>（四）跨域资源共享（CORS）</h3><p>CORS是一种浏览器机制，允许受控制的跨域请求：</p>
+<ol>
+<li><p><strong>简单请求</strong>：</p>
+<ul>
+<li>使用HEAD、GET或POST方法</li>
+<li>只使用标准头</li>
+<li>Content-Type仅限于application/x-www-form-urlencoded、multipart/form-data或text/plain</li>
+</ul>
+</li>
+<li><p><strong>预检请求</strong>：</p>
+<ul>
+<li>使用OPTIONS方法发送预检请求</li>
+<li>包含Origin、Access-Control-Request-Method和Access-Control-Request-Headers头</li>
+</ul>
+</li>
+<li><p><strong>服务器配置</strong>：</p>
+<ul>
+<li>Access-Control-Allow-Origin</li>
+<li>Access-Control-Allow-Methods</li>
+<li>Access-Control-Allow-Headers</li>
+<li>Access-Control-Allow-Credentials</li>
+<li>Access-Control-Max-Age</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、RESTful-API最佳实践"><a href="#四、RESTful-API最佳实践" class="headerlink" title="四、RESTful API最佳实践"></a>四、RESTful API最佳实践</h2><h3 id="（一）安全性考虑"><a href="#（一）安全性考虑" class="headerlink" title="（一）安全性考虑"></a>（一）安全性考虑</h3><p>保护RESTful API的安全性措施：</p>
+<ol>
+<li><p><strong>使用HTTPS</strong>：</p>
+<ul>
+<li>加密传输数据</li>
+<li>防止中间人攻击</li>
+</ul>
+</li>
+<li><p><strong>输入验证</strong>：</p>
+<ul>
+<li>验证所有客户端输入</li>
+<li>防止注入攻击和XSS</li>
+</ul>
+</li>
+<li><p><strong>限流和节流</strong>：</p>
+<ul>
+<li>限制API调用频率</li>
+<li>防止DoS攻击</li>
+</ul>
+</li>
+<li><p><strong>敏感数据处理</strong>：</p>
+<ul>
+<li>不在URL中包含敏感信息</li>
+<li>加密存储敏感数据</li>
+</ul>
+</li>
+<li><p><strong>安全头</strong>：</p>
+<ul>
+<li>Content-Security-Policy</li>
+<li>X-Content-Type-Options</li>
+<li>X-Frame-Options</li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）性能优化"><a href="#（二）性能优化" class="headerlink" title="（二）性能优化"></a>（二）性能优化</h3><p>提高RESTful API性能的策略：</p>
+<ol>
+<li><p><strong>缓存</strong>：</p>
+<ul>
+<li>使用ETag和Last-Modified头</li>
+<li>设置Cache-Control和Expires头</li>
+<li>实现CDN</li>
+</ul>
+</li>
+<li><p><strong>压缩</strong>：</p>
+<ul>
+<li>使用gzip或deflate压缩响应</li>
+<li>减少传输数据量</li>
+</ul>
+</li>
+<li><p><strong>批量操作</strong>：</p>
+<ul>
+<li>支持批量创建、更新和删除</li>
+<li>减少网络往返</li>
+</ul>
+</li>
+<li><p><strong>异步处理</strong>：</p>
+<ul>
+<li>对耗时操作使用异步处理</li>
+<li>返回202 Accepted状态码和操作状态URL</li>
+</ul>
+</li>
+<li><p><strong>部分响应</strong>：</p>
+<ul>
+<li>允许客户端指定返回字段</li>
+<li>减少不必要的数据传输</li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）文档和测试"><a href="#（三）文档和测试" class="headerlink" title="（三）文档和测试"></a>（三）文档和测试</h3><p>完善的文档和测试对API的成功至关重要：</p>
+<ol>
+<li><p><strong>API文档工具</strong>：</p>
+<ul>
+<li>Swagger/OpenAPI</li>
+<li>RAML</li>
+<li>API Blueprint</li>
+</ul>
+</li>
+<li><p><strong>自动化测试</strong>：</p>
+<ul>
+<li>单元测试</li>
+<li>集成测试</li>
+<li>端到端测试</li>
+</ul>
+</li>
+<li><p><strong>契约测试</strong>：</p>
+<ul>
+<li>确保API符合其规范</li>
+<li>防止破坏性变更</li>
+</ul>
+</li>
+<li><p><strong>监控和日志</strong>：</p>
+<ul>
+<li>记录API调用和错误</li>
+<li>监控性能和可用性</li>
+</ul>
+</li>
+</ol>
+<h3 id="（四）错误处理"><a href="#（四）错误处理" class="headerlink" title="（四）错误处理"></a>（四）错误处理</h3><p>有效的错误处理可以提高API的可用性：</p>
+<ol>
+<li><p><strong>一致的错误格式</strong>：</p>
+<ul>
+<li>使用统一的错误响应结构</li>
+<li>包含错误代码、消息和详情</li>
+</ul>
+</li>
+<li><p><strong>详细的错误信息</strong>：</p>
+<ul>
+<li>提供有用的错误描述</li>
+<li>包含如何解决问题的提示</li>
+</ul>
+</li>
+<li><p><strong>错误示例</strong>：</p>
+</li>
+</ol>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"error"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"code"</span><span class="punctuation">:</span> <span class="string">"VALIDATION_ERROR"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"message"</span><span class="punctuation">:</span> <span class="string">"Invalid input data"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"details"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"field"</span><span class="punctuation">:</span> <span class="string">"email"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"message"</span><span class="punctuation">:</span> <span class="string">"Must be a valid email address"</span></span><br><span class="line">      <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"field"</span><span class="punctuation">:</span> <span class="string">"password"</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">"message"</span><span class="punctuation">:</span> <span class="string">"Must be at least 8 characters long"</span></span><br><span class="line">      <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"request_id"</span><span class="punctuation">:</span> <span class="string">"f7a8b9c0-d1e2-3f4a-5b6c-7d8e9f0a1b2c"</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="五、RESTful-API实例分析"><a href="#五、RESTful-API实例分析" class="headerlink" title="五、RESTful API实例分析"></a>五、RESTful API实例分析</h2><h3 id="（一）用户管理API设计"><a href="#（一）用户管理API设计" class="headerlink" title="（一）用户管理API设计"></a>（一）用户管理API设计</h3><p>以用户管理为例，设计符合RESTful原则的API：</p>
+<ol>
+<li><p><strong>资源定义</strong>：</p>
+<ul>
+<li>用户（users）</li>
+<li>角色（roles）</li>
+<li>权限（permissions）</li>
+</ul>
+</li>
+<li><p><strong>端点设计</strong>：</p>
+<ul>
+<li><code>GET /users</code> - 获取所有用户</li>
+<li><code>GET /users/{id}</code> - 获取特定用户</li>
+<li><code>POST /users</code> - 创建新用户</li>
+<li><code>PUT /users/{id}</code> - 更新用户</li>
+<li><code>DELETE /users/{id}</code> - 删除用户</li>
+<li><code>GET /users/{id}/roles</code> - 获取用户角色</li>
+<li><code>POST /users/{id}/roles</code> - 为用户分配角色</li>
+</ul>
+</li>
+<li><p><strong>查询参数</strong>：</p>
+<ul>
+<li><code>GET /users?status=active&amp;role=admin</code> - 过滤活跃的管理员用户</li>
+<li><code>GET /users?sort=name:asc</code> - 按名称升序排序</li>
+<li><code>GET /users?page=2&amp;size=10</code> - 分页获取用户</li>
+</ul>
+</li>
+<li><p><strong>响应示例</strong>：</p>
+</li>
+</ol>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">  <span class="attr">"id"</span><span class="punctuation">:</span> <span class="number">123</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"username"</span><span class="punctuation">:</span> <span class="string">"johndoe"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"email"</span><span class="punctuation">:</span> <span class="string">"john@example.com"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"status"</span><span class="punctuation">:</span> <span class="string">"active"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"created_at"</span><span class="punctuation">:</span> <span class="string">"2023-01-15T08:30:00Z"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"updated_at"</span><span class="punctuation">:</span> <span class="string">"2023-02-20T14:15:30Z"</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">"_links"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"self"</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123"</span> <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"roles"</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123/roles"</span> <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"permissions"</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span class="attr">"href"</span><span class="punctuation">:</span> <span class="string">"/users/123/permissions"</span> <span class="punctuation">}</span></span><br><span class="line">  <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="（二）常见设计错误及改进"><a href="#（二）常见设计错误及改进" class="headerlink" title="（二）常见设计错误及改进"></a>（二）常见设计错误及改进</h3><p>RESTful API设计中的常见错误及其改进方法：</p>
+<ol>
+<li><p><strong>在URL中使用动词而非名词</strong>：</p>
+<ul>
+<li>错误：<code>/getUsers</code>或<code>/createUser</code></li>
+<li>正确：<code>GET /users</code>或<code>POST /users</code></li>
+</ul>
+</li>
+<li><p><strong>不恰当的HTTP方法使用</strong>：</p>
+<ul>
+<li>错误：<code>POST /users/123/delete</code></li>
+<li>正确：<code>DELETE /users/123</code></li>
+</ul>
+</li>
+<li><p><strong>不一致的复数/单数命名</strong>：</p>
+<ul>
+<li>错误：混用<code>/user</code>和<code>/users</code></li>
+<li>正确：统一使用<code>/users</code>和<code>/users/{id}</code></li>
+</ul>
+</li>
+<li><p><strong>忽略HTTP状态码</strong>：</p>
+<ul>
+<li>错误：总是返回200状态码，在响应体中包含状态</li>
+<li>正确：使用适当的HTTP状态码表示请求结果</li>
+</ul>
+</li>
+<li><p><strong>过度嵌套资源</strong>：</p>
+<ul>
+<li>错误：<code>/users/{id}/roles/{roleId}/permissions/{permissionId}</code></li>
+<li>正确：使用适当的资源粒度，如<code>/permissions/{permissionId}</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="六、REST与其他API风格的比较"><a href="#六、REST与其他API风格的比较" class="headerlink" title="六、REST与其他API风格的比较"></a>六、REST与其他API风格的比较</h2><h3 id="（一）REST-vs-SOAP"><a href="#（一）REST-vs-SOAP" class="headerlink" title="（一）REST vs SOAP"></a>（一）REST vs SOAP</h3><p>REST与SOAP（Simple Object Access Protocol）的主要区别：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>REST</th>
+<th>SOAP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>基于HTTP</td>
+<td>可以使用多种协议（通常是HTTP）</td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>多种格式（通常是JSON）</td>
+<td>仅XML</td>
+</tr>
+<tr>
+<td>带宽使用</td>
+<td>轻量级，较少带宽</td>
+<td>较重，需要更多带宽</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>可缓存</td>
+<td>难以缓存</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>依赖HTTPS和认证机制</td>
+<td>内置安全标准（WS-Security）</td>
+</tr>
+<tr>
+<td>事务支持</td>
+<td>不支持</td>
+<td>支持（WS-AtomicTransaction）</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>无状态</td>
+<td>支持有状态和无状态操作</td>
+</tr>
+<tr>
+<td>学习曲线</td>
+<td>相对简单</td>
+<td>较为复杂</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>公共API、移动应用、Web应用</td>
+<td>企业集成、需要高安全性的场景</td>
+</tr>
+</tbody></table>
+<h3 id="（二）REST-vs-GraphQL"><a href="#（二）REST-vs-GraphQL" class="headerlink" title="（二）REST vs GraphQL"></a>（二）REST vs GraphQL</h3><p>REST与GraphQL的主要区别：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>REST</th>
+<th>GraphQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据获取</td>
+<td>多个端点，可能需要多次请求</td>
+<td>单个端点，一次请求获取所有需要的数据</td>
+</tr>
+<tr>
+<td>过度获取/获取不足</td>
+<td>常见问题</td>
+<td>客户端精确指定所需数据</td>
+</tr>
+<tr>
+<td>版本控制</td>
+<td>通常需要显式版本控制</td>
+<td>可以无需版本控制，逐步演进</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>使用HTTP缓存机制</td>
+<td>需要客户端或应用层缓存</td>
+</tr>
+<tr>
+<td>文件上传</td>
+<td>原生支持</td>
+<td>需要额外实现</td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>HTTP状态码</td>
+<td>始终返回200，错误包含在响应中</td>
+</tr>
+<tr>
+<td>学习曲线</td>
+<td>相对简单</td>
+<td>需要学习查询语言</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>简单API、遵循CRUD操作</td>
+<td>复杂前端、需要灵活数据获取</td>
+</tr>
+</tbody></table>
+<h3 id="（三）REST-vs-gRPC"><a href="#（三）REST-vs-gRPC" class="headerlink" title="（三）REST vs gRPC"></a>（三）REST vs gRPC</h3><p>REST与gRPC的主要区别：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>REST</th>
+<th>gRPC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>HTTP 1.1</td>
+<td>HTTP/2</td>
+</tr>
+<tr>
+<td>数据格式</td>
+<td>多种格式（通常是JSON）</td>
+<td>Protocol Buffers（二进制）</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>较好</td>
+<td>更高性能，低延迟</td>
+</tr>
+<tr>
+<td>代码生成</td>
+<td>通常需要第三方工具</td>
+<td>内置代码生成</td>
+</tr>
+<tr>
+<td>浏览器支持</td>
+<td>原生支持</td>
+<td>需要额外代理</td>
+</tr>
+<tr>
+<td>双向流</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>学习曲线</td>
+<td>相对简单</td>
+<td>较为陡峭</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>公共API、Web应用</td>
+<td>微服务间通信、低延迟要求</td>
+</tr>
+</tbody></table>
+<h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>RESTful API是一种基于HTTP协议和REST架构风格的API设计方法，它以资源为中心，使用统一接口，遵循无状态通信原则。通过合理设计资源、正确使用HTTP方法和状态码，以及实施版本控制、内容协商等机制，可以构建出易于理解、使用和维护的API。</p>
+<p>在实际应用中，RESTful API因其简单性、可扩展性和与Web的天然契合性而广受欢迎。然而，它并非适用于所有场景，在某些特定需求下，GraphQL、gRPC或SOAP可能是更好的选择。因此，在设计API时，应根据具体需求和约束条件选择最合适的API风格。</p>
+<p>随着微服务架构和云原生应用的普及，RESTful API的重要性将继续增长。掌握RESTful API的设计原则和最佳实践，对于构建现代化、高效的分布式系统至关重要。 </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/">https://hexo.blog.uwakeme.tech/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a><a class="post-meta__tags" href="/tags/%E6%8E%A5%E5%8F%A3/">接口</a><a class="post-meta__tags" href="/tags/REST/">REST</a><a class="post-meta__tags" href="/tags/API%E8%AE%BE%E8%AE%A1/">API设计</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91MQTT%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】MQTT接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【接口】MQTT接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】MQTT接口详解前言MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是一种轻量级的、基于发布/订阅模式的消息传输协议。它专为低带宽、高延迟或不可靠的网络环境下的物联网（IoT）应用而设计。由于其开销小、功耗低、易于实现的特点，MQTT已成为物联网领域事实上的标准通信协议之一。本文将详细介绍MQTT接口的定义、核心概念、工作原理、优势以及适用场景，并提供相关的代码示例。 一、MQTT核心概念理解MQTT的核心概念对于掌握其工作方式至关重要。 （一）发布/订阅（Publish/Subscribe）模式MQTT协议采用发布/订阅模式，与传统的客户端/服务器模式不同。在这种模式下，消息的发送者（发布者）和接收者（订阅者）之间没有直接联系，它们通过一个中间组件——代理（Broker）进行通信。  发布者（Publisher）：负责产生消息并将其发布到特定的主题（Topic）上。 订阅者（Subscriber）：对感兴趣的主题进行订阅，当有消息发布到这些主题时，代理会将消息推送给订阅...</div></div></div></a><a class="pagination-related" href="/2026/01/15/%E6%8E%A5%E5%8F%A3/%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91GraphQL%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3/" title="【接口】GraphQL接口详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【接口】GraphQL接口详解</div></div><div class="info-2"><div class="info-item-1">【接口】GraphQL接口详解前言随着API经济的兴起，如何高效、灵活地构建和使用API成为了开发者关注的焦点。传统的RESTful API在某些场景下暴露出了一些问题，例如数据冗余（over-fetching）和数据不足（under-fetching）。为了解决这些问题，Facebook于2012年内部开发并于2015年公开发布了GraphQL。GraphQL是一种用于API的查询语言，也是一个满足你数据查询的运行时。它为客户端提供了一种更强大、更灵活的方式来描述其数据需求，从而使得客户端能够精确地获取所需的数据，不多也不少。 一、GraphQL概述（一）GraphQL的定义GraphQL 是一种为你的 API 而生的查询语言，它提供了一种更高效、强大和灵活的数据获取方式。它允许客户端明确指定其需要哪些数据，服务器则根据这些规范返回相应的数据。与 REST 不同，GraphQL 通常只需要一个端点，客户端通过向该端点发送查询请求来获取或修改数据。 （二）GraphQL的特点 精确获取数据：客户端可以精确指定需要哪些字段，避免了数据冗余和不足的问题。 单一请求多资源：可以通过一次...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E3%80%90%E6%8E%A5%E5%8F%A3%E3%80%91REST%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3"><span class="toc-text">【接口】REST接口详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81REST%E6%A6%82%E8%BF%B0"><span class="toc-text">一、REST概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89REST%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">（一）REST的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89REST%E7%9A%84%E5%85%AD%E5%A4%A7%E7%BA%A6%E6%9D%9F"><span class="toc-text">（二）REST的六大约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89REST%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="toc-text">（三）REST的主要特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81RESTful-API%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-text">二、RESTful API设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E8%B5%84%E6%BA%90%E8%AE%BE%E8%AE%A1"><span class="toc-text">（一）资源设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89HTTP%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8"><span class="toc-text">（二）HTTP方法使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89HTTP%E7%8A%B6%E6%80%81%E7%A0%81%E4%BD%BF%E7%94%A8"><span class="toc-text">（三）HTTP状态码使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-text">（四）查询参数设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-text">（五）版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89HATEOAS%E5%8E%9F%E5%88%99"><span class="toc-text">（六）HATEOAS原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81RESTful-API%E5%AE%9E%E7%8E%B0%E6%8A%80%E6%9C%AF"><span class="toc-text">三、RESTful API实现技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%B8%B8%E7%94%A8%E6%A1%86%E6%9E%B6%E5%92%8C%E5%BA%93"><span class="toc-text">（一）常用框架和库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86"><span class="toc-text">（二）内容协商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83"><span class="toc-text">（三）身份验证与授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%EF%BC%88CORS%EF%BC%89"><span class="toc-text">（四）跨域资源共享（CORS）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81RESTful-API%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">四、RESTful API最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%AE%89%E5%85%A8%E6%80%A7%E8%80%83%E8%99%91"><span class="toc-text">（一）安全性考虑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">（二）性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%96%87%E6%A1%A3%E5%92%8C%E6%B5%8B%E8%AF%95"><span class="toc-text">（三）文档和测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">（四）错误处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81RESTful-API%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">五、RESTful API实例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86API%E8%AE%BE%E8%AE%A1"><span class="toc-text">（一）用户管理API设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%B8%E8%A7%81%E8%AE%BE%E8%AE%A1%E9%94%99%E8%AF%AF%E5%8F%8A%E6%94%B9%E8%BF%9B"><span class="toc-text">（二）常见设计错误及改进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81REST%E4%B8%8E%E5%85%B6%E4%BB%96API%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">六、REST与其他API风格的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89REST-vs-SOAP"><span class="toc-text">（一）REST vs SOAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89REST-vs-GraphQL"><span class="toc-text">（二）REST vs GraphQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89REST-vs-gRPC"><span class="toc-text">（三）REST vs gRPC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">七、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '5ec4efd516e7d335c094688f8c291bdb'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>

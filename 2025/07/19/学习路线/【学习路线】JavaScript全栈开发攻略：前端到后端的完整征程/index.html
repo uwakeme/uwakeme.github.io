@@ -1,0 +1,1168 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程 | Uwakeme</title><meta name="author" content="Wake"><meta name="copyright" content="Wake"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、JavaScript基础入门（1-2个月）（一）环境准备与工具 浏览器开发者工具  Chrome DevTools：调试、性能分析、网络监控 Firefox Developer Tools：CSS Grid调试、响应式设计 Safari Web Inspector：移动端调试 Edge DevTools：兼容性测试   代码编辑器  Visual Studio Code（推荐）：丰富的插件生态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程">
+<meta property="og:url" content="https://hexo.blog.uwakeme.tech/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Uwakeme">
+<meta property="og:description" content="一、JavaScript基础入门（1-2个月）（一）环境准备与工具 浏览器开发者工具  Chrome DevTools：调试、性能分析、网络监控 Firefox Developer Tools：CSS Grid调试、响应式设计 Safari Web Inspector：移动端调试 Edge DevTools：兼容性测试   代码编辑器  Visual Studio Code（推荐）：丰富的插件生态">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2025-07-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-15T08:48:25.231Z">
+<meta property="article:author" content="Wake">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Web开发">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="学习路线">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程",
+  "url": "https://hexo.blog.uwakeme.tech/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/",
+  "image": "https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png",
+  "datePublished": "2025-07-18T16:00:00.000Z",
+  "dateModified": "2026-01-15T08:48:25.231Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wake",
+      "url": "https://hexo.blog.uwakeme.tech/about/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar.jpeg"><link rel="canonical" href="https://hexo.blog.uwakeme.tech/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><link rel="preconnect" href="//busuanzi.ibruce.info"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f96f39b60e7cc4fbcbd971a88f91f326";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/local-search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');loadCss('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/css/share.min.css"></noscript></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Uwakeme</span></a><a class="nav-page-title" href="/"><span class="site-name">【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【学习路线】JavaScript全栈开发攻略：前端到后端的完整征程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-18T16:00:00.000Z" title="发表于 2025-07-19 00:00:00">2025-07-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T08:48:25.231Z" title="更新于 2026-01-15 16:48:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:1000,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2026-01-15 16:48:25&quot;}" hidden=""></div><h1 id="一、JavaScript基础入门（1-2个月）"><a href="#一、JavaScript基础入门（1-2个月）" class="headerlink" title="一、JavaScript基础入门（1-2个月）"></a>一、JavaScript基础入门（1-2个月）</h1><h2 id="（一）环境准备与工具"><a href="#（一）环境准备与工具" class="headerlink" title="（一）环境准备与工具"></a>（一）环境准备与工具</h2><ul>
+<li><p><strong>浏览器开发者工具</strong></p>
+<ul>
+<li>Chrome DevTools：调试、性能分析、网络监控</li>
+<li>Firefox Developer Tools：CSS Grid调试、响应式设计</li>
+<li>Safari Web Inspector：移动端调试</li>
+<li>Edge DevTools：兼容性测试</li>
+</ul>
+</li>
+<li><p><strong>代码编辑器</strong></p>
+<ul>
+<li>Visual Studio Code（推荐）：丰富的插件生态</li>
+<li>WebStorm：强大的JavaScript IDE</li>
+<li>Sublime Text：轻量级编辑器</li>
+<li>Atom：GitHub开源编辑器</li>
+</ul>
+</li>
+<li><p><strong>运行环境</strong></p>
+<ul>
+<li>Node.js：服务端JavaScript运行时</li>
+<li>npm/yarn：包管理工具</li>
+<li>在线编码平台：CodePen、JSFiddle、CodeSandbox</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）JavaScript语法基础"><a href="#（二）JavaScript语法基础" class="headerlink" title="（二）JavaScript语法基础"></a>（二）JavaScript语法基础</h2><ul>
+<li><p><strong>变量与数据类型</strong></p>
+<ul>
+<li>变量声明：var、let、const的区别</li>
+<li>基本数据类型：Number、String、Boolean、undefined、null、Symbol、BigInt</li>
+<li>引用数据类型：Object、Array、Function</li>
+<li>类型检测：typeof、instanceof、Object.prototype.toString</li>
+</ul>
+</li>
+<li><p><strong>运算符与表达式</strong></p>
+<ul>
+<li>算术运算符：+、-、<em>、/、%、</em>*</li>
+<li>比较运算符：==、===、!=、!==、&gt;、&lt;、&gt;=、&lt;=</li>
+<li>逻辑运算符：&amp;&amp;、||、!</li>
+<li>赋值运算符：=、+=、-=、*=、/=</li>
+<li>三元运算符：condition ? value1 : value2</li>
+</ul>
+</li>
+<li><p><strong>控制流程</strong></p>
+<ul>
+<li>条件语句：if-else、switch-case</li>
+<li>循环语句：for、while、do-while</li>
+<li>跳转语句：break、continue、return</li>
+<li>异常处理：try-catch-finally、throw</li>
+</ul>
+</li>
+<li><p><strong>函数基础</strong></p>
+<ul>
+<li>函数声明与函数表达式</li>
+<li>参数传递：默认参数、剩余参数、解构参数</li>
+<li>返回值和作用域</li>
+<li>立即执行函数（IIFE）</li>
+<li>递归函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）数组与字符串操作"><a href="#（三）数组与字符串操作" class="headerlink" title="（三）数组与字符串操作"></a>（三）数组与字符串操作</h2><ul>
+<li><p><strong>数组基础</strong></p>
+<ul>
+<li>数组创建：字面量、构造函数、Array.from、Array.of</li>
+<li>数组访问：索引、length属性</li>
+<li>数组方法：push、pop、shift、unshift、splice、slice</li>
+<li>数组遍历：for、for…in、for…of、forEach</li>
+</ul>
+</li>
+<li><p><strong>字符串操作</strong></p>
+<ul>
+<li>字符串创建：字面量、构造函数、模板字符串</li>
+<li>字符串方法：charAt、indexOf、substring、slice、split、replace</li>
+<li>正则表达式：创建、匹配、替换、分组</li>
+<li>字符串模板：插值、多行字符串、标签模板</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）对象基础"><a href="#（四）对象基础" class="headerlink" title="（四）对象基础"></a>（四）对象基础</h2><ul>
+<li><p><strong>对象创建与操作</strong></p>
+<ul>
+<li>对象字面量：属性、方法定义</li>
+<li>属性访问：点记法、方括号记法</li>
+<li>属性操作：添加、删除、修改、检测</li>
+<li>对象遍历：for…in、Object.keys、Object.values、Object.entries</li>
+</ul>
+</li>
+<li><p><strong>对象方法</strong></p>
+<ul>
+<li>Object.assign：对象合并</li>
+<li>Object.create：原型继承</li>
+<li>Object.defineProperty：属性描述符</li>
+<li>Object.freeze、Object.seal：对象冻结和密封</li>
+</ul>
+</li>
+</ul>
+<h1 id="二、JavaScript核心概念（2-3个月）"><a href="#二、JavaScript核心概念（2-3个月）" class="headerlink" title="二、JavaScript核心概念（2-3个月）"></a>二、JavaScript核心概念（2-3个月）</h1><h2 id="（一）作用域与闭包"><a href="#（一）作用域与闭包" class="headerlink" title="（一）作用域与闭包"></a>（一）作用域与闭包</h2><ul>
+<li><p><strong>作用域机制</strong></p>
+<ul>
+<li>全局作用域：window对象、全局变量</li>
+<li>函数作用域：局部变量、参数作用域</li>
+<li>块级作用域：let、const的块级作用域</li>
+<li>作用域链：变量查找机制</li>
+</ul>
+</li>
+<li><p><strong>闭包原理</strong></p>
+<ul>
+<li>闭包的定义和形成条件</li>
+<li>闭包的应用场景：数据私有化、模块化</li>
+<li>闭包的内存管理：内存泄漏防范</li>
+<li>实际应用：计数器、缓存、模块模式</li>
+</ul>
+</li>
+<li><p><strong>变量提升</strong></p>
+<ul>
+<li>var的提升机制</li>
+<li>函数声明的提升</li>
+<li>let、const的暂时性死区</li>
+<li>最佳实践：避免提升陷阱</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）this关键字与执行上下文"><a href="#（二）this关键字与执行上下文" class="headerlink" title="（二）this关键字与执行上下文"></a>（二）this关键字与执行上下文</h2><ul>
+<li><p><strong>this绑定规则</strong></p>
+<ul>
+<li>默认绑定：全局环境下的this</li>
+<li>隐式绑定：对象方法调用</li>
+<li>显式绑定：call、apply、bind方法</li>
+<li>new绑定：构造函数调用</li>
+<li>箭头函数的this：词法绑定</li>
+</ul>
+</li>
+<li><p><strong>执行上下文</strong></p>
+<ul>
+<li>执行上下文的创建过程</li>
+<li>变量对象和活动对象</li>
+<li>作用域链的建立</li>
+<li>this值的确定</li>
+</ul>
+</li>
+<li><p><strong>调用栈</strong></p>
+<ul>
+<li>函数调用栈的工作原理</li>
+<li>栈溢出和递归优化</li>
+<li>调试技巧：使用调用栈定位问题</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）原型与继承"><a href="#（三）原型与继承" class="headerlink" title="（三）原型与继承"></a>（三）原型与继承</h2><ul>
+<li><p><strong>原型机制</strong></p>
+<ul>
+<li>prototype属性：函数的原型对象</li>
+<li>__proto__属性：对象的原型链接</li>
+<li>constructor属性：构造函数引用</li>
+<li>原型链：属性查找机制</li>
+</ul>
+</li>
+<li><p><strong>继承模式</strong></p>
+<ul>
+<li>原型链继承：基本原理和问题</li>
+<li>构造函数继承：call/apply实现</li>
+<li>组合继承：原型链+构造函数</li>
+<li>寄生组合继承：最优继承方案</li>
+<li>ES6类继承：class、extends、super</li>
+</ul>
+</li>
+<li><p><strong>对象创建模式</strong></p>
+<ul>
+<li>工厂模式：函数返回对象</li>
+<li>构造函数模式：new操作符</li>
+<li>原型模式：共享属性和方法</li>
+<li>混合模式：构造函数+原型</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）异步编程基础"><a href="#（四）异步编程基础" class="headerlink" title="（四）异步编程基础"></a>（四）异步编程基础</h2><ul>
+<li><p><strong>回调函数</strong></p>
+<ul>
+<li>回调函数的概念和用法</li>
+<li>回调地狱：嵌套回调的问题</li>
+<li>错误处理：错误优先回调</li>
+<li>异步控制流：串行、并行执行</li>
+</ul>
+</li>
+<li><p><strong>Promise基础</strong></p>
+<ul>
+<li>Promise的三种状态：pending、fulfilled、rejected</li>
+<li>Promise构造函数：executor函数</li>
+<li>then方法：成功和失败回调</li>
+<li>catch方法：错误处理</li>
+<li>finally方法：清理操作</li>
+</ul>
+</li>
+<li><p><strong>定时器</strong></p>
+<ul>
+<li>setTimeout：延迟执行</li>
+<li>setInterval：重复执行</li>
+<li>clearTimeout、clearInterval：清除定时器</li>
+<li>定时器的精度问题和优化</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、DOM操作与事件处理（2-3个月）"><a href="#三、DOM操作与事件处理（2-3个月）" class="headerlink" title="三、DOM操作与事件处理（2-3个月）"></a>三、DOM操作与事件处理（2-3个月）</h1><h2 id="（一）DOM基础操作"><a href="#（一）DOM基础操作" class="headerlink" title="（一）DOM基础操作"></a>（一）DOM基础操作</h2><ul>
+<li><p><strong>DOM树结构</strong></p>
+<ul>
+<li>文档对象模型：节点类型和关系</li>
+<li>元素节点：Element、HTMLElement</li>
+<li>文本节点：Text、Comment</li>
+<li>属性节点：Attr</li>
+</ul>
+</li>
+<li><p><strong>元素选择</strong></p>
+<ul>
+<li>getElementById：通过ID选择</li>
+<li>getElementsByClassName：通过类名选择</li>
+<li>getElementsByTagName：通过标签名选择</li>
+<li>querySelector：CSS选择器（单个）</li>
+<li>querySelectorAll：CSS选择器（多个）</li>
+</ul>
+</li>
+<li><p><strong>元素操作</strong></p>
+<ul>
+<li>创建元素：createElement、createTextNode</li>
+<li>插入元素：appendChild、insertBefore、insertAdjacentHTML</li>
+<li>删除元素：removeChild、remove</li>
+<li>替换元素：replaceChild</li>
+<li>克隆元素：cloneNode</li>
+</ul>
+</li>
+<li><p><strong>属性操作</strong></p>
+<ul>
+<li>标准属性：getAttribute、setAttribute、removeAttribute</li>
+<li>自定义属性：dataset API</li>
+<li>类名操作：className、classList</li>
+<li>样式操作：style属性、getComputedStyle</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）事件处理机制"><a href="#（二）事件处理机制" class="headerlink" title="（二）事件处理机制"></a>（二）事件处理机制</h2><ul>
+<li><p><strong>事件基础</strong></p>
+<ul>
+<li>事件类型：鼠标事件、键盘事件、表单事件、窗口事件</li>
+<li>事件对象：Event对象的属性和方法</li>
+<li>事件目标：target、currentTarget的区别</li>
+<li>事件阻止：preventDefault、stopPropagation</li>
+</ul>
+</li>
+<li><p><strong>事件绑定</strong></p>
+<ul>
+<li>HTML事件处理：onclick等属性</li>
+<li>DOM0级事件：element.onclick</li>
+<li>DOM2级事件：addEventListener、removeEventListener</li>
+<li>事件处理器的this指向</li>
+</ul>
+</li>
+<li><p><strong>事件流</strong></p>
+<ul>
+<li>事件冒泡：从目标元素向上传播</li>
+<li>事件捕获：从根元素向下传播</li>
+<li>事件委托：利用冒泡机制优化性能</li>
+<li>自定义事件：CustomEvent、dispatchEvent</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）表单处理"><a href="#（三）表单处理" class="headerlink" title="（三）表单处理"></a>（三）表单处理</h2><ul>
+<li><p><strong>表单元素</strong></p>
+<ul>
+<li>表单控件：input、select、textarea、button</li>
+<li>表单属性：value、checked、selected、disabled</li>
+<li>表单方法：focus、blur、select、submit、reset</li>
+</ul>
+</li>
+<li><p><strong>表单验证</strong></p>
+<ul>
+<li>HTML5验证：required、pattern、min、max</li>
+<li>自定义验证：checkValidity、setCustomValidity</li>
+<li>实时验证：input、change事件</li>
+<li>表单提交：submit事件、FormData对象</li>
+</ul>
+</li>
+<li><p><strong>表单数据处理</strong></p>
+<ul>
+<li>数据收集：表单序列化</li>
+<li>数据验证：格式检查、业务规则</li>
+<li>数据提交：Ajax提交、文件上传</li>
+<li>用户体验：加载状态、错误提示</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）浏览器API"><a href="#（四）浏览器API" class="headerlink" title="（四）浏览器API"></a>（四）浏览器API</h2><ul>
+<li><p><strong>BOM对象</strong></p>
+<ul>
+<li>window对象：全局对象、窗口操作</li>
+<li>location对象：URL操作、页面跳转</li>
+<li>history对象：历史记录、前进后退</li>
+<li>navigator对象：浏览器信息、用户代理</li>
+<li>screen对象：屏幕信息</li>
+</ul>
+</li>
+<li><p><strong>存储API</strong></p>
+<ul>
+<li>localStorage：持久化本地存储</li>
+<li>sessionStorage：会话级存储</li>
+<li>Cookie：传统存储方式</li>
+<li>IndexedDB：客户端数据库</li>
+</ul>
+</li>
+<li><p><strong>其他API</strong></p>
+<ul>
+<li>Geolocation：地理位置</li>
+<li>File API：文件操作</li>
+<li>Canvas API：图形绘制</li>
+<li>Web Workers：后台线程</li>
+</ul>
+</li>
+</ul>
+<h1 id="四、ES6-现代JavaScript（2-3个月）"><a href="#四、ES6-现代JavaScript（2-3个月）" class="headerlink" title="四、ES6+现代JavaScript（2-3个月）"></a>四、ES6+现代JavaScript（2-3个月）</h1><h2 id="（一）ES6基础特性"><a href="#（一）ES6基础特性" class="headerlink" title="（一）ES6基础特性"></a>（一）ES6基础特性</h2><ul>
+<li><p><strong>变量声明</strong></p>
+<ul>
+<li>let和const：块级作用域、暂时性死区</li>
+<li>解构赋值：数组解构、对象解构、默认值</li>
+<li>模板字符串：插值表达式、多行字符串、标签模板</li>
+</ul>
+</li>
+<li><p><strong>函数增强</strong></p>
+<ul>
+<li>箭头函数：语法、this绑定、使用场景</li>
+<li>默认参数：参数默认值、表达式默认值</li>
+<li>剩余参数：…rest语法</li>
+<li>扩展运算符：…spread语法</li>
+</ul>
+</li>
+<li><p><strong>对象增强</strong></p>
+<ul>
+<li>属性简写：同名属性、方法简写</li>
+<li>计算属性名：动态属性名</li>
+<li>Object.assign：对象合并</li>
+<li>Object.is：严格相等比较</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）ES6高级特性"><a href="#（二）ES6高级特性" class="headerlink" title="（二）ES6高级特性"></a>（二）ES6高级特性</h2><ul>
+<li><p><strong>类与继承</strong></p>
+<ul>
+<li>class语法：构造函数、实例方法、静态方法</li>
+<li>继承：extends关键字、super调用</li>
+<li>私有属性：#私有字段（ES2022）</li>
+<li>装饰器：@decorator语法（提案）</li>
+</ul>
+</li>
+<li><p><strong>模块系统</strong></p>
+<ul>
+<li>export导出：命名导出、默认导出</li>
+<li>import导入：命名导入、默认导入、动态导入</li>
+<li>模块化最佳实践：文件组织、循环依赖</li>
+<li>CommonJS vs ES Modules：区别和选择</li>
+</ul>
+</li>
+<li><p><strong>Symbol类型</strong></p>
+<ul>
+<li>Symbol基础：唯一标识符</li>
+<li>Symbol.for：全局Symbol注册表</li>
+<li>内置Symbol：Symbol.iterator、Symbol.toStringTag</li>
+<li>Symbol应用：私有属性、元编程</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）异步编程进阶"><a href="#（三）异步编程进阶" class="headerlink" title="（三）异步编程进阶"></a>（三）异步编程进阶</h2><ul>
+<li><p><strong>Promise深入</strong></p>
+<ul>
+<li>Promise.all：并行执行、全部成功</li>
+<li>Promise.race：竞态执行、最快完成</li>
+<li>Promise.allSettled：并行执行、全部完成</li>
+<li>Promise.any：竞态执行、任一成功</li>
+<li>Promise链式调用：then链、错误传播</li>
+</ul>
+</li>
+<li><p><strong>async/await</strong></p>
+<ul>
+<li>async函数：返回Promise的函数</li>
+<li>await表达式：等待Promise完成</li>
+<li>错误处理：try-catch结合async/await</li>
+<li>并发控制：Promise.all与async/await结合</li>
+</ul>
+</li>
+<li><p><strong>生成器函数</strong></p>
+<ul>
+<li>function*语法：生成器函数定义</li>
+<li>yield表达式：暂停和恢复执行</li>
+<li>迭代器协议：next方法、done和value</li>
+<li>生成器应用：异步流控制、状态机</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）ES2017-新特性"><a href="#（四）ES2017-新特性" class="headerlink" title="（四）ES2017+新特性"></a>（四）ES2017+新特性</h2><ul>
+<li><p><strong>数组方法增强</strong></p>
+<ul>
+<li>Array.prototype.includes：包含检测</li>
+<li>Array.prototype.flat：数组扁平化</li>
+<li>Array.prototype.flatMap：映射后扁平化</li>
+<li>Array.from：类数组转换</li>
+</ul>
+</li>
+<li><p><strong>对象方法增强</strong></p>
+<ul>
+<li>Object.entries：键值对数组</li>
+<li>Object.values：值数组</li>
+<li>Object.fromEntries：键值对数组转对象</li>
+<li>Object.getOwnPropertyDescriptors：属性描述符</li>
+</ul>
+</li>
+<li><p><strong>字符串方法增强</strong></p>
+<ul>
+<li>String.prototype.padStart：开头填充</li>
+<li>String.prototype.padEnd：结尾填充</li>
+<li>String.prototype.trimStart：开头去空格</li>
+<li>String.prototype.trimEnd：结尾去空格</li>
+</ul>
+</li>
+</ul>
+<h1 id="五、前端框架与库（3-4个月）"><a href="#五、前端框架与库（3-4个月）" class="headerlink" title="五、前端框架与库（3-4个月）"></a>五、前端框架与库（3-4个月）</h1><h2 id="（一）jQuery基础（可选）"><a href="#（一）jQuery基础（可选）" class="headerlink" title="（一）jQuery基础（可选）"></a>（一）jQuery基础（可选）</h2><ul>
+<li><p><strong>jQuery核心</strong></p>
+<ul>
+<li>$选择器：CSS选择器、伪类选择器</li>
+<li>DOM操作：增删改查、属性操作</li>
+<li>事件处理：事件绑定、事件委托</li>
+<li>动画效果：show/hide、fade、slide、animate</li>
+</ul>
+</li>
+<li><p><strong>Ajax操作</strong></p>
+<ul>
+<li>$.ajax：完整的Ajax配置</li>
+<li>$.get、$.post：简化的HTTP请求</li>
+<li>$.getJSON：JSON数据获取</li>
+<li>跨域处理：JSONP、CORS</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）现代前端框架选择"><a href="#（二）现代前端框架选择" class="headerlink" title="（二）现代前端框架选择"></a>（二）现代前端框架选择</h2><ul>
+<li><p><strong>React生态</strong></p>
+<ul>
+<li>React基础：组件、JSX、props、state</li>
+<li>React Hooks：useState、useEffect、自定义Hook</li>
+<li>状态管理：Redux、Context API、Zustand</li>
+<li>路由管理：React Router</li>
+<li>构建工具：Create React App、Vite</li>
+</ul>
+</li>
+<li><p><strong>Vue生态</strong></p>
+<ul>
+<li>Vue基础：模板语法、指令、组件</li>
+<li>Vue 3特性：Composition API、Teleport、Fragments</li>
+<li>状态管理：Vuex、Pinia</li>
+<li>路由管理：Vue Router</li>
+<li>构建工具：Vue CLI、Vite</li>
+</ul>
+</li>
+<li><p><strong>Angular生态</strong></p>
+<ul>
+<li>Angular基础：组件、服务、依赖注入</li>
+<li>TypeScript集成：类型系统、装饰器</li>
+<li>状态管理：NgRx、Akita</li>
+<li>路由管理：Angular Router</li>
+<li>构建工具：Angular CLI</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）状态管理"><a href="#（三）状态管理" class="headerlink" title="（三）状态管理"></a>（三）状态管理</h2><ul>
+<li><p><strong>状态管理模式</strong></p>
+<ul>
+<li>单向数据流：Flux架构</li>
+<li>状态提升：组件间状态共享</li>
+<li>全局状态：应用级状态管理</li>
+<li>本地状态：组件级状态管理</li>
+</ul>
+</li>
+<li><p><strong>Redux模式</strong></p>
+<ul>
+<li>Store：状态容器</li>
+<li>Action：状态变更描述</li>
+<li>Reducer：状态变更逻辑</li>
+<li>Middleware：异步处理、日志记录</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）组件化开发"><a href="#（四）组件化开发" class="headerlink" title="（四）组件化开发"></a>（四）组件化开发</h2><ul>
+<li><p><strong>组件设计原则</strong></p>
+<ul>
+<li>单一职责：组件功能单一</li>
+<li>可复用性：通用组件设计</li>
+<li>可组合性：组件组合模式</li>
+<li>可测试性：组件测试策略</li>
+</ul>
+</li>
+<li><p><strong>组件通信</strong></p>
+<ul>
+<li>父子通信：props、events</li>
+<li>兄弟通信：状态提升、事件总线</li>
+<li>跨级通信：Context、Provider</li>
+<li>全局通信：状态管理库</li>
+</ul>
+</li>
+</ul>
+<h1 id="六、构建工具与工程化（2-3个月）"><a href="#六、构建工具与工程化（2-3个月）" class="headerlink" title="六、构建工具与工程化（2-3个月）"></a>六、构建工具与工程化（2-3个月）</h1><h2 id="（一）模块化系统"><a href="#（一）模块化系统" class="headerlink" title="（一）模块化系统"></a>（一）模块化系统</h2><ul>
+<li><p><strong>模块化演进</strong></p>
+<ul>
+<li>全局变量：命名空间污染</li>
+<li>IIFE：立即执行函数</li>
+<li>CommonJS：Node.js模块系统</li>
+<li>AMD：异步模块定义</li>
+<li>ES Modules：标准模块系统</li>
+</ul>
+</li>
+<li><p><strong>模块打包器</strong></p>
+<ul>
+<li>Webpack：配置复杂、功能强大</li>
+<li>Rollup：ES模块优化、库打包</li>
+<li>Parcel：零配置、快速打包</li>
+<li>Vite：开发快速、生产优化</li>
+<li>esbuild：极速构建工具</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）开发工具链"><a href="#（二）开发工具链" class="headerlink" title="（二）开发工具链"></a>（二）开发工具链</h2><ul>
+<li><p><strong>代码质量</strong></p>
+<ul>
+<li>ESLint：代码检查、规范统一</li>
+<li>Prettier：代码格式化</li>
+<li>Husky：Git钩子管理</li>
+<li>lint-staged：暂存区代码检查</li>
+</ul>
+</li>
+<li><p><strong>类型检查</strong></p>
+<ul>
+<li>TypeScript：静态类型检查</li>
+<li>Flow：Facebook类型检查器</li>
+<li>JSDoc：文档注释类型</li>
+<li>PropTypes：React属性类型</li>
+</ul>
+</li>
+<li><p><strong>测试工具</strong></p>
+<ul>
+<li>Jest：JavaScript测试框架</li>
+<li>Mocha：灵活的测试框架</li>
+<li>Cypress：端到端测试</li>
+<li>Testing Library：组件测试</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）性能优化"><a href="#（三）性能优化" class="headerlink" title="（三）性能优化"></a>（三）性能优化</h2><ul>
+<li><p><strong>代码优化</strong></p>
+<ul>
+<li>代码分割：动态导入、路由分割</li>
+<li>树摇优化：无用代码消除</li>
+<li>压缩混淆：代码体积优化</li>
+<li>缓存策略：浏览器缓存、CDN缓存</li>
+</ul>
+</li>
+<li><p><strong>运行时优化</strong></p>
+<ul>
+<li>懒加载：图片、组件、路由</li>
+<li>虚拟滚动：大列表优化</li>
+<li>防抖节流：事件优化</li>
+<li>内存管理：内存泄漏防范</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）部署与发布"><a href="#（四）部署与发布" class="headerlink" title="（四）部署与发布"></a>（四）部署与发布</h2><ul>
+<li><p><strong>构建流程</strong></p>
+<ul>
+<li>开发环境：热重载、源码映射</li>
+<li>测试环境：自动化测试、代码覆盖率</li>
+<li>生产环境：代码优化、资源压缩</li>
+<li>CI/CD：持续集成、自动部署</li>
+</ul>
+</li>
+<li><p><strong>部署策略</strong></p>
+<ul>
+<li>静态部署：GitHub Pages、Netlify、Vercel</li>
+<li>服务器部署：Nginx、Apache、Node.js</li>
+<li>容器化部署：Docker、Kubernetes</li>
+<li>CDN部署：全球加速、缓存优化</li>
+</ul>
+</li>
+</ul>
+<h1 id="七、Node-js后端开发（3-4个月）"><a href="#七、Node-js后端开发（3-4个月）" class="headerlink" title="七、Node.js后端开发（3-4个月）"></a>七、Node.js后端开发（3-4个月）</h1><h2 id="（一）Node-js基础"><a href="#（一）Node-js基础" class="headerlink" title="（一）Node.js基础"></a>（一）Node.js基础</h2><ul>
+<li><p><strong>Node.js核心</strong></p>
+<ul>
+<li>事件循环：单线程、非阻塞I/O</li>
+<li>模块系统：require、exports、module.exports</li>
+<li>全局对象：global、process、Buffer</li>
+<li>文件系统：fs模块、路径操作</li>
+</ul>
+</li>
+<li><p><strong>核心模块</strong></p>
+<ul>
+<li>http模块：创建服务器、处理请求</li>
+<li>url模块：URL解析、查询参数</li>
+<li>path模块：路径操作、跨平台兼容</li>
+<li>os模块：操作系统信息</li>
+<li>crypto模块：加密解密、哈希计算</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）Express框架"><a href="#（二）Express框架" class="headerlink" title="（二）Express框架"></a>（二）Express框架</h2><ul>
+<li><p><strong>Express基础</strong></p>
+<ul>
+<li>路由系统：GET、POST、PUT、DELETE</li>
+<li>中间件：应用级、路由级、错误处理</li>
+<li>模板引擎：EJS、Pug、Handlebars</li>
+<li>静态文件：express.static中间件</li>
+</ul>
+</li>
+<li><p><strong>Express进阶</strong></p>
+<ul>
+<li>路由模块化：Router、路由分组</li>
+<li>错误处理：错误中间件、异常捕获</li>
+<li>安全性：helmet、cors、rate-limiting</li>
+<li>日志记录：morgan、winston</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）数据库操作"><a href="#（三）数据库操作" class="headerlink" title="（三）数据库操作"></a>（三）数据库操作</h2><ul>
+<li><p><strong>关系型数据库</strong></p>
+<ul>
+<li>MySQL：mysql2、Sequelize ORM</li>
+<li>PostgreSQL：pg、TypeORM</li>
+<li>SQLite：sqlite3、better-sqlite3</li>
+<li>数据库设计：表结构、关联关系、索引优化</li>
+</ul>
+</li>
+<li><p><strong>NoSQL数据库</strong></p>
+<ul>
+<li>MongoDB：mongoose ODM、聚合查询</li>
+<li>Redis：缓存、会话存储、消息队列</li>
+<li>数据建模：文档设计、嵌入vs引用</li>
+<li>性能优化：查询优化、索引策略</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）API开发"><a href="#（四）API开发" class="headerlink" title="（四）API开发"></a>（四）API开发</h2><ul>
+<li><p><strong>RESTful API</strong></p>
+<ul>
+<li>REST原则：资源、HTTP方法、状态码</li>
+<li>API设计：URL设计、版本控制、文档</li>
+<li>数据验证：joi、express-validator</li>
+<li>错误处理：统一错误格式、错误码</li>
+</ul>
+</li>
+<li><p><strong>GraphQL API</strong></p>
+<ul>
+<li>GraphQL基础：Schema、Query、Mutation</li>
+<li>Apollo Server：GraphQL服务器</li>
+<li>数据加载：DataLoader、N+1问题</li>
+<li>订阅：实时数据推送</li>
+</ul>
+</li>
+</ul>
+<h1 id="八、测试与调试（2个月）"><a href="#八、测试与调试（2个月）" class="headerlink" title="八、测试与调试（2个月）"></a>八、测试与调试（2个月）</h1><h2 id="（一）测试基础"><a href="#（一）测试基础" class="headerlink" title="（一）测试基础"></a>（一）测试基础</h2><ul>
+<li><p><strong>测试类型</strong></p>
+<ul>
+<li>单元测试：函数、组件测试</li>
+<li>集成测试：模块间交互测试</li>
+<li>端到端测试：用户流程测试</li>
+<li>性能测试：加载时间、响应时间</li>
+</ul>
+</li>
+<li><p><strong>测试框架</strong></p>
+<ul>
+<li>Jest：快照测试、模拟函数、覆盖率</li>
+<li>Mocha + Chai：灵活的测试组合</li>
+<li>Jasmine：行为驱动开发</li>
+<li>Vitest：Vite原生测试框架</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）调试技巧"><a href="#（二）调试技巧" class="headerlink" title="（二）调试技巧"></a>（二）调试技巧</h2><ul>
+<li><p><strong>浏览器调试</strong></p>
+<ul>
+<li>断点调试：条件断点、日志断点</li>
+<li>性能分析：Performance面板、Memory面板</li>
+<li>网络调试：Network面板、请求分析</li>
+<li>控制台调试：console方法、调试技巧</li>
+</ul>
+</li>
+<li><p><strong>Node.js调试</strong></p>
+<ul>
+<li>内置调试器：node –inspect</li>
+<li>VS Code调试：launch.json配置</li>
+<li>日志调试：debug模块、winston</li>
+<li>性能分析：clinic.js、0x</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）错误处理"><a href="#（三）错误处理" class="headerlink" title="（三）错误处理"></a>（三）错误处理</h2><ul>
+<li><p><strong>错误类型</strong></p>
+<ul>
+<li>语法错误：编译时错误</li>
+<li>运行时错误：TypeError、ReferenceError</li>
+<li>逻辑错误：业务逻辑错误</li>
+<li>异步错误：Promise rejection、async/await</li>
+</ul>
+</li>
+<li><p><strong>错误监控</strong></p>
+<ul>
+<li>错误捕获：try-catch、window.onerror</li>
+<li>错误上报：Sentry、Bugsnag</li>
+<li>错误分析：错误统计、用户影响</li>
+<li>错误修复：热修复、版本回滚</li>
+</ul>
+</li>
+</ul>
+<h1 id="九、项目实战与最佳实践"><a href="#九、项目实战与最佳实践" class="headerlink" title="九、项目实战与最佳实践"></a>九、项目实战与最佳实践</h1><h2 id="（一）项目实战案例"><a href="#（一）项目实战案例" class="headerlink" title="（一）项目实战案例"></a>（一）项目实战案例</h2><ul>
+<li><p><strong>Todo应用</strong></p>
+<ul>
+<li>基础功能：增删改查、状态切换</li>
+<li>进阶功能：分类管理、搜索过滤、数据持久化</li>
+<li>技术栈：原生JS、React/Vue、Node.js</li>
+</ul>
+</li>
+<li><p><strong>博客系统</strong></p>
+<ul>
+<li>前端：文章展示、分类标签、评论系统</li>
+<li>后端：用户认证、内容管理、API设计</li>
+<li>技术栈：React/Vue + Express + MongoDB</li>
+</ul>
+</li>
+<li><p><strong>电商平台</strong></p>
+<ul>
+<li>用户系统：注册登录、个人中心、权限管理</li>
+<li>商品系统：商品展示、购物车、订单管理</li>
+<li>支付系统：支付集成、订单状态、库存管理</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）代码质量"><a href="#（二）代码质量" class="headerlink" title="（二）代码质量"></a>（二）代码质量</h2><ul>
+<li><p><strong>编码规范</strong></p>
+<ul>
+<li>命名规范：变量、函数、类的命名</li>
+<li>代码结构：模块化、组件化、分层架构</li>
+<li>注释规范：JSDoc、代码注释、文档编写</li>
+<li>版本控制：Git工作流、提交规范</li>
+</ul>
+</li>
+<li><p><strong>性能优化</strong></p>
+<ul>
+<li>代码层面：算法优化、数据结构选择</li>
+<li>网络层面：请求优化、缓存策略</li>
+<li>渲染层面：DOM操作优化、重绘重排</li>
+<li>资源层面：图片优化、代码分割</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）安全考虑"><a href="#（三）安全考虑" class="headerlink" title="（三）安全考虑"></a>（三）安全考虑</h2><ul>
+<li><p><strong>前端安全</strong></p>
+<ul>
+<li>XSS防护：输入验证、输出编码</li>
+<li>CSRF防护：Token验证、SameSite Cookie</li>
+<li>内容安全：CSP策略、HTTPS</li>
+<li>数据保护：敏感信息加密、本地存储安全</li>
+</ul>
+</li>
+<li><p><strong>后端安全</strong></p>
+<ul>
+<li>身份认证：JWT、Session、OAuth</li>
+<li>权限控制：RBAC、ACL、资源权限</li>
+<li>数据验证：输入验证、SQL注入防护</li>
+<li>接口安全：限流、防重放、签名验证</li>
+</ul>
+</li>
+</ul>
+<h1 id="十、学习资源与职业发展"><a href="#十、学习资源与职业发展" class="headerlink" title="十、学习资源与职业发展"></a>十、学习资源与职业发展</h1><h2 id="（一）学习资源推荐"><a href="#（一）学习资源推荐" class="headerlink" title="（一）学习资源推荐"></a>（一）学习资源推荐</h2><ul>
+<li><p><strong>经典书籍</strong></p>
+<ul>
+<li>《JavaScript高级程序设计》：全面的JavaScript指南</li>
+<li>《你不知道的JavaScript》：深入理解JavaScript</li>
+<li>《JavaScript设计模式》：设计模式在JS中的应用</li>
+<li>《高性能JavaScript》：性能优化实践</li>
+</ul>
+</li>
+<li><p><strong>在线资源</strong></p>
+<ul>
+<li>MDN Web Docs：权威的Web技术文档</li>
+<li>JavaScript.info：现代JavaScript教程</li>
+<li>FreeCodeCamp：免费编程课程</li>
+<li>Codecademy：交互式编程学习</li>
+</ul>
+</li>
+<li><p><strong>实践平台</strong></p>
+<ul>
+<li>LeetCode：算法练习</li>
+<li>Codewars：编程挑战</li>
+<li>HackerRank：技能评估</li>
+<li>GitHub：开源项目参与</li>
+</ul>
+</li>
+</ul>
+<h2 id="（二）技术社区"><a href="#（二）技术社区" class="headerlink" title="（二）技术社区"></a>（二）技术社区</h2><ul>
+<li><p><strong>国外社区</strong></p>
+<ul>
+<li>Stack Overflow：技术问答</li>
+<li>Reddit：r/javascript、r/webdev</li>
+<li>Dev.to：开发者博客平台</li>
+<li>Hacker News：技术新闻</li>
+</ul>
+</li>
+<li><p><strong>国内社区</strong></p>
+<ul>
+<li>掘金：前端技术社区</li>
+<li>思否：技术问答社区</li>
+<li>知乎：技术专栏</li>
+<li>CSDN：技术博客</li>
+</ul>
+</li>
+</ul>
+<h2 id="（三）职业发展路径"><a href="#（三）职业发展路径" class="headerlink" title="（三）职业发展路径"></a>（三）职业发展路径</h2><ul>
+<li><p><strong>前端开发工程师</strong></p>
+<ul>
+<li>初级（0-1年）：掌握HTML/CSS/JS基础</li>
+<li>中级（1-3年）：熟练使用框架，具备工程化思维</li>
+<li>高级（3-5年）：架构设计能力，技术选型能力</li>
+<li>专家（5年+）：技术深度，团队领导能力</li>
+</ul>
+</li>
+<li><p><strong>全栈开发工程师</strong></p>
+<ul>
+<li>前端技能：现代前端框架、工程化工具</li>
+<li>后端技能：Node.js、数据库、API设计</li>
+<li>运维技能：部署、监控、性能优化</li>
+<li>软技能：项目管理、团队协作</li>
+</ul>
+</li>
+<li><p><strong>技术管理路线</strong></p>
+<ul>
+<li>技术Lead：技术决策、架构设计</li>
+<li>项目经理：项目管理、资源协调</li>
+<li>技术总监：技术战略、团队建设</li>
+<li>CTO：技术愿景、商业理解</li>
+</ul>
+</li>
+</ul>
+<h2 id="（四）持续学习建议"><a href="#（四）持续学习建议" class="headerlink" title="（四）持续学习建议"></a>（四）持续学习建议</h2><ul>
+<li><p><strong>技术趋势关注</strong></p>
+<ul>
+<li>WebAssembly：高性能Web应用</li>
+<li>PWA：渐进式Web应用</li>
+<li>Serverless：无服务器架构</li>
+<li>微前端：大型应用架构</li>
+</ul>
+</li>
+<li><p><strong>学习方法</strong></p>
+<ul>
+<li>项目驱动：通过实际项目学习</li>
+<li>源码阅读：理解框架实现原理</li>
+<li>技术分享：输出倒逼输入</li>
+<li>社区参与：开源贡献、技术交流</li>
+</ul>
+</li>
+<li><p><strong>软技能培养</strong></p>
+<ul>
+<li>沟通能力：技术表达、需求理解</li>
+<li>学习能力：快速学习新技术</li>
+<li>解决问题：分析问题、寻找方案</li>
+<li>团队协作：代码协作、知识分享</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>总结</strong>：JavaScript学习是一个持续的过程，从基础语法到现代框架，从前端开发到全栈开发，每个阶段都有其重点和挑战。建议根据自己的兴趣和职业规划选择合适的学习路径，保持实践和思考的习惯，在项目中应用所学知识，不断提升自己的技术能力和解决问题的能力。记住，技术在不断发展，保持学习的热情和开放的心态是成为优秀JavaScript开发者的关键。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/about/">Wake</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hexo.blog.uwakeme.tech/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/">https://hexo.blog.uwakeme.tech/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91JavaScript%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%94%BB%E7%95%A5%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E5%AE%8C%E6%95%B4%E5%BE%81%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hexo.blog.uwakeme.tech" target="_blank">Uwakeme</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/Web%E5%BC%80%E5%8F%91/">Web开发</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">学习路线</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/reward/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/wechat.jpg" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/reward/alipay.jpg" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/07/23/Java/%E3%80%90Java%E3%80%91MyBatis%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E4%B8%8E%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/" title="【Java】MyBatis生态系统性能对比与优化策略详解"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【Java】MyBatis生态系统性能对比与优化策略详解</div></div><div class="info-2"><div class="info-item-1">前言在Java后端开发中，MyBatis生态系统提供了多种数据访问解决方案：原生MyBatis、MyBatis Plus、MyBatis Plus Join，以及直接编写SQL语句。每种方案在开发效率、运行性能、维护成本等方面都有不同的特点。本文将深入分析这些方案的效率差异，并提供针对性的优化策略。 一、框架概述与特点分析（一）MyBatis原生框架MyBatis是一款优秀的持久层框架，它支持自定义SQL、存储过程以及高级映射。 特点分析 灵活性高：完全控制SQL语句 学习成本低：接近原生SQL开发 性能可控：手动优化SQL性能 代码量大：需要编写大量XML配置  适用场景123456789// 复杂查询场景@Mapperpublic interface UserMapper {    @Select("SELECT u.*, p.profile_name FROM users u " +            "LEFT JOIN profiles p ON u.id = p.user_id " +            &amp;qu...</div></div></div></a><a class="pagination-related" href="/2025/07/19/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/%E3%80%90%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E3%80%91Go%E8%AF%AD%E8%A8%80%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF%EF%BC%9A%E4%BB%8E%E7%AE%80%E6%B4%81%E8%AF%AD%E6%B3%95%E5%88%B0%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/" title="【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【学习路线】Go语言云原生开发之路：从简洁语法到微服务架构</div></div><div class="info-2"><div class="info-item-1">一、Go语言基础入门（1-2个月）（一）环境搭建与工具链 Go环境安装  官方安装：从golang.org下载安装包 版本管理：g、gvm等Go版本管理工具 环境变量：GOROOT、GOPATH、GOPROXY配置 Go Modules：现代依赖管理，go.mod文件 工作区设置：项目结构、包管理   开发工具选择  VS Code：轻量级，Go插件丰富 GoLand：JetBrains专业Go IDE Vim/Neovim：vim-go插件，高效编辑 Sublime Text：Go插件支持 命令行工具：go build、go run、go test   Go工具链  go fmt：代码格式化工具 go vet：静态分析工具 go doc：文档生成工具 go test：测试框架 go mod：模块管理工具 golint：代码规范检查 goimports：导入包管理    （二）Go语言基础语法 基本语法特性  包声明：package关键字，main包 导入语句：import单个包、多个包 变量声明：var、短变量声明:= 常量定义：const、iota枚举器 ...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">Wake</div><div class="author-info-description">一起学习，一起进步</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">250</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">684</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/uwakeme"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/uwakeme" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:wakemeup2025@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！这里分享技术知识、学习心得和生活感悟。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81JavaScript%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%EF%BC%881-2%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">一、JavaScript基础入门（1-2个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E4%B8%8E%E5%B7%A5%E5%85%B7"><span class="toc-text">（一）环境准备与工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89JavaScript%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80"><span class="toc-text">（二）JavaScript语法基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="toc-text">（三）数组与字符串操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80"><span class="toc-text">（四）对象基础</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81JavaScript%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%882-3%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">二、JavaScript核心概念（2-3个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85"><span class="toc-text">（一）作用域与闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89this%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8E%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">（二）this关键字与执行上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF"><span class="toc-text">（三）原型与继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80"><span class="toc-text">（四）异步编程基础</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81DOM%E6%93%8D%E4%BD%9C%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%EF%BC%882-3%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">三、DOM操作与事件处理（2-3个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89DOM%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-text">（一）DOM基础操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-text">（二）事件处理机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86"><span class="toc-text">（三）表单处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%B5%8F%E8%A7%88%E5%99%A8API"><span class="toc-text">（四）浏览器API</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81ES6-%E7%8E%B0%E4%BB%A3JavaScript%EF%BC%882-3%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">四、ES6+现代JavaScript（2-3个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89ES6%E5%9F%BA%E7%A1%80%E7%89%B9%E6%80%A7"><span class="toc-text">（一）ES6基础特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89ES6%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-text">（二）ES6高级特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6"><span class="toc-text">（三）异步编程进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89ES2017-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">（四）ES2017+新特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%B8%8E%E5%BA%93%EF%BC%883-4%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">五、前端框架与库（3-4个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89jQuery%E5%9F%BA%E7%A1%80%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">（一）jQuery基础（可选）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%8E%B0%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9"><span class="toc-text">（二）现代前端框架选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="toc-text">（三）状态管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91"><span class="toc-text">（四）组件化开发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%EF%BC%882-3%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">六、构建工具与工程化（2-3个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A8%A1%E5%9D%97%E5%8C%96%E7%B3%BB%E7%BB%9F"><span class="toc-text">（一）模块化系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="toc-text">（二）开发工具链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">（三）性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-text">（四）部署与发布</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81Node-js%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%883-4%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">七、Node.js后端开发（3-4个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89Node-js%E5%9F%BA%E7%A1%80"><span class="toc-text">（一）Node.js基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89Express%E6%A1%86%E6%9E%B6"><span class="toc-text">（二）Express框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-text">（三）数据库操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89API%E5%BC%80%E5%8F%91"><span class="toc-text">（四）API开发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95%EF%BC%882%E4%B8%AA%E6%9C%88%EF%BC%89"><span class="toc-text">八、测试与调试（2个月）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%B5%8B%E8%AF%95%E5%9F%BA%E7%A1%80"><span class="toc-text">（一）测试基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-text">（二）调试技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">（三）错误处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">九、项目实战与最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B"><span class="toc-text">（一）项目实战案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F"><span class="toc-text">（二）代码质量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91"><span class="toc-text">（三）安全考虑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E4%B8%8E%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95"><span class="toc-text">十、学习资源与职业发展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%8E%A8%E8%8D%90"><span class="toc-text">（一）学习资源推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA"><span class="toc-text">（二）技术社区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%81%8C%E4%B8%9A%E5%8F%91%E5%B1%95%E8%B7%AF%E5%BE%84"><span class="toc-text">（三）职业发展路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text">（四）持续学习建议</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十章学习笔记：贪婪算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E8%B4%AA%E5%A9%AA%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十章学习笔记：贪婪算法">【算法】《算法图解》第十章学习笔记：贪婪算法</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第四章学习笔记：分而治之与快速排序"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" title="【算法】《算法图解》第四章学习笔记：分而治之与快速排序">【算法】《算法图解》第四章学习笔记：分而治之与快速排序</a><time datetime="2026-01-15T08:48:25.264Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十三章学习笔记：接下来如何做"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%A6%82%E4%BD%95%E5%81%9A/" title="【算法】《算法图解》第十三章学习笔记：接下来如何做">【算法】《算法图解》第十三章学习笔记：接下来如何做</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第十二章学习笔记：K近邻算法"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9AK%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/" title="【算法】《算法图解》第十二章学习笔记：K近邻算法">【算法】《算法图解》第十二章学习笔记：K近邻算法</a><time datetime="2026-01-15T08:48:25.263Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【算法】《算法图解》第八章学习笔记：平衡树"></a><div class="content"><a class="title" href="/2026/01/15/%E7%AE%97%E6%B3%95/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E3%80%8A%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3%E3%80%8B%E7%AC%AC%E5%85%AB%E7%AB%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E5%B9%B3%E8%A1%A1%E6%A0%91/" title="【算法】《算法图解》第八章学习笔记：平衡树">【算法】《算法图解》第八章学习笔记：平衡树</a><time datetime="2026-01-15T08:48:25.262Z" title="发表于 2026-01-15 16:48:25">2026-01-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">©2024 - 2026 By Wake</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liBiL0mPM9ywqcV3',
+      clientSecret: '99811bbc42de51338a2ef755501651c968f3240c',
+      repo: 'gitalk-pool',
+      owner: 'uwakeme',
+      admin: ['uwakeme'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'e8f60858acb409ba0d418cbff16d61cb'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.4/dist/canvas-nest.min.js"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="请输入搜索内容" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@5.4.2/source/js/search/local-search.min.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script src="/bundle.js"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});;
+
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        ;
+window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z\d\-\.\+]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(t.test(e.href)||r.test(e.href))&&(e.href=a.dataset.original)})});;
+(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>
