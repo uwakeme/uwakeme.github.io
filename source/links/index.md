@@ -1,7 +1,7 @@
 ---
 title: 友情链接
 date: 2024-08-28 19:30:00
-layout: links
+type: 'link'
 ---
 
 ## 交换友链
