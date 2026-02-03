@@ -1,0 +1,89 @@
+name: Deploy Hexo Blog to GitHub Pages
+
+on:
+  # 在推送到 main 或 master 分支时触发
+  push:
+    branches:
+      - main
+      - master
+  # 允许手动触发
+  workflow_dispatch:
+
+# 设置权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 并发控制，防止同时运行多个部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 检出源代码
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      # 缓存 Hexo 构建文件
+      - name: Cache Hexo build files
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            public
+            db.json
+          key: ${{ runner.os }}-hexo-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-hexo-
+      
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          if [ ! -d "node_modules" ]; then
+            npm ci
+          fi
+      
+      # 配置 Git 用户信息（Hexo 部署需要）
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+      
+      # 构建 Hexo 站点
+      - name: Build Hexo site
+        run: |
+          npm run clean
+          npm run build:prod
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
+      
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # 使用自动生成的 GITHUB_TOKEN
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 发布的分支（你的站点部署在 master 分支）
+          publish_branch: master
+          # 构建输出的目录
+          publish_dir: ./public
+          # 提交信息
+          commit_message: "Deploy Hexo blog via GitHub Actions - ${{ github.event.head_commit.message }}"
+          # 保留历史记录
+          keep_files: false
+          # 添加 CNAME 文件（如果有自定义域名）
+          cname: hexo.blog.uwakeme.tech
