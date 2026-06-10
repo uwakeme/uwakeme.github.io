@@ -190,22 +190,14 @@ feed:
   limit: 20
 
 # ==================================== 性能优化 ====================================
-# 静态资源压缩（暂时禁用以解决内存问题）
-neat_enable: false
-neat_html:
-  enable: true
-  exclude:
-neat_css:
-  enable: true
-  exclude:
-    - '*.min.css'
-neat_js:
-  enable: true
-  mangle: true
-  output:
-  compress:
-  exclude:
-    - '*.min.js'
+# hexo-all-minifier: 整合 HTML/CSS/JS 压缩（替代已删除的 hexo-neat）
+# 注意：关闭 image_minifier，因为 mozjpeg 不提供 Windows 二进制会 ENOENT 中断构建；
+# 图片优化建议作为发布前预处理（用 squoosh-cli 等单独跑），不要耦合到 hexo build
+all_minifier:
+  html: true
+  css: true
+  js: true
+  image: false
 
 # 图片懒加载配置
 lazyload:
